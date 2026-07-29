@@ -1,16 +1,53 @@
-# React + Vite
+# Tamim Hassan Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive Next.js 16 and TypeScript portfolio for Md. Tamim Hasan.
 
-Currently, two official plugins are available:
+## Included
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Responsive layouts from approximately 300px phones to 2000px+ displays
+- Stable 64px navigation that becomes sticky with a glass shadow after scrolling
+- Mobile app-style navigation and touch targets
+- Home, portfolio, CV, resume, and custom 404 pages
+- Real client-side PDF downloads for the CV and resume
+- Installable Progressive Web App manifest, icons, service worker, and install prompt
+- Route-specific metadata, Open Graph, X cards, JSON-LD, sitemap, and robots
+- Accessibility improvements and reduced-motion support
 
-## React Compiler
+## Local development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Open `http://localhost:3000`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Production validation
+
+```bash
+npm run lint
+npm run build
+npm start
+```
+
+## Site URL
+
+For correct canonical links, sitemap entries, and social metadata, create `.env.local`:
+
+```env
+NEXT_PUBLIC_SITE_URL=https://your-real-domain.com
+```
+
+The default fallback is `https://tamim-hassan-portfolio.vercel.app`.
+
+## Installable app
+
+The browser install option appears after the deployed site is served over HTTPS. On iPhone or iPad, use Share and then **Add to Home Screen**.
+
+## PDF files
+
+The downloadable documents are stored at:
+
+- `public/Tamim-Hassan-CV.pdf`
+- `public/Tamim-Hassan-Resume.pdf`
+
