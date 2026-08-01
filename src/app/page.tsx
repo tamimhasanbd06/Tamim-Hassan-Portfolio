@@ -4,9 +4,9 @@ import Lockedcontact from "@/components/Lockedcontact";
 import { createPageMetadata } from "./site-config";
 
 export const metadata = createPageMetadata({
-  title: "Tamim Hassan Portfolio | Frontend Web Developer",
+  title: "Tamim Hasan Portfolio | Frontend Web Developer",
   description:
-    "Discover Tamim Hassan's frontend web developer portfolio, core skills, contact information, CV, resume, and modern web development work.",
+    "Discover Tamim Hasan's frontend web developer portfolio, core skills, contact information, CV, resume, and modern web development work.",
   path: "/",
 });
 

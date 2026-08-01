@@ -1,13 +1,17 @@
-const CACHE_NAME = "tamim-portfolio-v1";
+const CACHE_NAME = "tamim-portfolio-v4";
 const APP_SHELL = [
   "/",
   "/home",
+  "/apps",
   "/resume",
   "/cv",
   "/manifest.webmanifest",
   "/icon-192.png",
   "/icon-512.png",
   "/tamim-hassan-logo.png",
+  "/data/skills.json",
+  "/data/projects.json",
+  "/myapps.json",
 ];
 
 self.addEventListener("install", (event) => {

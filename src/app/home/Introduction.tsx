@@ -94,7 +94,7 @@ const Introduction = () => {
           {/* Name */}
           <h1 className="text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
-              Tamim Hassan
+              Tamim Hasan
             </span>
           </h1>
 
@@ -176,7 +176,7 @@ const Introduction = () => {
           <div className="flex flex-col justify-center gap-4 pt-2 sm:flex-row md:justify-start">
             <button
               type="button"
-              onClick={() => scrollToSection("project")}
+              onClick={() => scrollToSection("projects")}
               className="rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-7 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:scale-105"
             >
               View My Projects
@@ -203,7 +203,7 @@ const Introduction = () => {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-[#061225]">
                 <Image
                   src="/me.jpg"
-                  alt="Tamim Hassan, frontend web developer"
+                  alt="Tamim Hasan, frontend web developer"
                   fill
                   priority
                   sizes="(max-width: 768px) 90vw, 430px"

@@ -87,7 +87,7 @@ export default function Banner() {
               <div className="relative aspect-square w-full overflow-hidden rounded-full border border-white/20 bg-[#020617] shadow-2xl shadow-blue-500/20">
                 <Image
                   src="/tamim-hassan-logo.png"
-                  alt="Tamim Hassan web developer logo"
+                  alt="Tamim Hasan web developer logo"
                   fill
                   priority
                   sizes="(max-width: 640px) 96px, 128px"
@@ -120,7 +120,7 @@ export default function Banner() {
             </span>
 
             <p className="text-[10px] font-semibold uppercase tracking-[2px] text-cyan-300 min-[360px]:text-xs min-[360px]:tracking-[3px] sm:text-sm">
-              Tamim Hassan • Web Developer
+              Tamim Hasan • Web Developer
             </p>
           </motion.div>
 
@@ -275,7 +275,7 @@ export default function Banner() {
       >
         <Image
           src="/tamim-hassan-lock-banner.png"
-          alt="Tamim Hassan professional web development workspace"
+          alt="Tamim Hasan professional web development workspace"
           width={1024}
           height={1536}
           priority

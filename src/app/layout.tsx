@@ -7,8 +7,8 @@ import { siteConfig } from "./site-config";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Tamim Hassan Portfolio | Frontend Web Developer",
-    template: "%s | Tamim Hassan Portfolio",
+    default: "Tamim Hasan Portfolio | Frontend Web Developer",
+    template: "%s | Tamim Hasan Portfolio",
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
@@ -38,20 +38,20 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     siteName: siteConfig.name,
-    title: "Tamim Hassan Portfolio | Frontend Web Developer",
+    title: "Tamim Hasan Portfolio | Frontend Web Developer",
     description: siteConfig.description,
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Tamim Hassan Frontend Web Developer Portfolio",
+        alt: "Tamim Hasan Frontend Web Developer Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tamim Hassan Portfolio | Frontend Web Developer",
+    title: "Tamim Hasan Portfolio | Frontend Web Developer",
     description: siteConfig.description,
     images: ["/og.png"],
   },

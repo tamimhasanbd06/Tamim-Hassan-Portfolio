@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 type SectionId =
@@ -219,7 +220,7 @@ export default function Navbar() {
             <span className="block text-sm font-black text-white lg:text-base">
               Tamim{" "}
               <span className="text-cyan-300">
-                Hassan
+                Hasan
               </span>
             </span>
 
@@ -279,6 +280,16 @@ export default function Navbar() {
               </li>
             );
           })}
+
+          <li className="flex h-full items-center">
+            <Link
+              href="/apps"
+              className="group relative flex h-10 items-center rounded-full border border-cyan-400/15 bg-cyan-400/[0.06] px-3 text-xs font-semibold text-cyan-300 transition-all duration-300 hover:border-cyan-400/35 hover:bg-cyan-400/10 hover:text-cyan-100 lg:px-4 lg:text-sm"
+            >
+              My Apps
+              <span className="ml-1.5 text-[9px] text-cyan-500">↗</span>
+            </Link>
+          </li>
         </ul>
 
         {/* Mobile button */}
@@ -358,7 +369,7 @@ export default function Navbar() {
               activeSection === item.sectionId;
 
             const finalOddItem =
-              navigationItems.length % 2 !== 0 &&
+              (navigationItems.length + 1) % 2 !== 0 &&
               index === navigationItems.length - 1;
 
             return (
@@ -411,6 +422,18 @@ export default function Navbar() {
               </li>
             );
           })}
+
+          <li>
+            <Link
+              href="/apps"
+              onClick={() => setIsOpen(false)}
+              className="relative flex h-12 items-center justify-between overflow-hidden rounded-xl border border-cyan-400/20 bg-cyan-400/[0.07] px-4 text-sm font-semibold text-cyan-200 transition-all duration-300 hover:border-cyan-400/35 hover:bg-cyan-400/10"
+            >
+              <span>My Apps</span>
+              <span className="text-[10px] font-black text-cyan-400">08 ↗</span>
+              <span className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-blue-500 via-cyan-300 to-transparent opacity-50" />
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

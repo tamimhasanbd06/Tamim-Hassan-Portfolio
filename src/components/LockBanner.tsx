@@ -92,7 +92,7 @@ const LockBanner = () => {
 
               <Image
                 src="/LockBannerImage.png"
-                alt="Tamim Hassan frontend developer"
+                alt="Tamim Hasan frontend developer"
                 width={520}
                 height={650}
                 priority

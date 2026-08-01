@@ -12,7 +12,7 @@ import { createPageMetadata } from "../site-config";
 export const metadata = createPageMetadata({
   title: "Web Developer Portfolio",
   description:
-    "Explore Tamim Hassan's frontend web developer portfolio, projects, Next.js and TypeScript skills, education, experience, and contact details.",
+    "Explore Tamim Hasan's frontend web developer portfolio, projects, upcoming apps, Next.js and TypeScript skills, education, experience, and contact details.",
   path: "/home",
 });
 

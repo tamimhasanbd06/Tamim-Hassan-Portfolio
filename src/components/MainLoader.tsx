@@ -21,7 +21,7 @@ export default function MainLoader() {
           <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15 bg-[#020817] shadow-[0_0_35px_rgba(34,211,238,0.2)] sm:h-24 sm:w-24">
             <Image
               src="/tamim-hassan-logo.png"
-              alt="Tamim Hassan portfolio logo"
+              alt="Tamim Hasan portfolio logo"
               fill
               priority
               sizes="96px"
@@ -32,7 +32,7 @@ export default function MainLoader() {
 
         <div className="relative text-center">
           <p className="text-sm font-bold tracking-[0.16em] text-white">
-            Tamim Hassan
+            Tamim Hasan
           </p>
 
           <p className="mt-2 animate-pulse text-[11px] font-medium uppercase tracking-[0.24em] text-cyan-300">
@@ -45,4 +45,3 @@ export default function MainLoader() {
     </div>
   );
 }
-

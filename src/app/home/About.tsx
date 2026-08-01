@@ -9,7 +9,7 @@ const aboutItems: AboutItem[] = [
     number: "01",
     title: "Background",
     description:
-      "I’m Mohammad Tamim Hassan, a frontend developer focused on building modern and practical web applications.",
+      "I’m Tamim Hasan, a frontend developer focused on building modern and practical web applications.",
   },
   {
     number: "02",
@@ -107,7 +107,7 @@ const About = () => {
                 </h2>
 
                 <p className="mt-6 text-sm leading-7 text-gray-400 sm:text-base">
-                  My name is Mohammad Tamim Hassan. I build clean, responsive,
+                  My name is Tamim Hasan. I build clean, responsive,
                   and user-focused websites using modern frontend technologies.
                 </p>
 

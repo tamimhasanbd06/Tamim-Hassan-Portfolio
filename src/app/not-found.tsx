@@ -31,7 +31,7 @@ export default function NotFoundPage() {
         {/* Logo */}
         <Link
           href="/home"
-          aria-label="Go to Tamim Hassan portfolio"
+          aria-label="Go to Tamim Hasan portfolio"
           className="group mx-auto mb-8 block w-fit"
         >
           <div className="relative h-20 w-20 sm:h-24 sm:w-24">
@@ -40,7 +40,7 @@ export default function NotFoundPage() {
             <div className="relative h-full w-full overflow-hidden rounded-full border border-cyan-400/25 bg-[#020817] shadow-[0_0_50px_rgba(34,211,238,0.15)]">
               <Image
                 src="/tamim-hassan-logo.png"
-                alt="Tamim Hassan web developer logo"
+                alt="Tamim Hasan web developer logo"
                 fill
                 priority
                 sizes="96px"
@@ -164,7 +164,7 @@ export default function NotFoundPage() {
           <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-400/30" />
 
           <p className="text-[9px] font-bold uppercase tracking-[0.35em] text-white/20 sm:text-[10px]">
-            Tamim Hassan Portfolio
+            Tamim Hasan Portfolio
           </p>
 
           <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-400/30" />

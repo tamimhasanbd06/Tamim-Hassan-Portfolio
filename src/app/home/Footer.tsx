@@ -60,7 +60,7 @@ const footerData: FooterSection[] = [
         label: "WhatsApp",
         value: "Send a message",
         href: `https://wa.me/8801883650010?text=${encodeURIComponent(
-          "Hello Tamim Hassan, I would like to discuss a web development project with you.",
+          "Hello Tamim Hasan, I would like to discuss a web development project with you.",
         )}`,
         copyText: PHONE_NUMBER,
         icon: <FaWhatsapp />,
@@ -253,7 +253,7 @@ export default function Footer() {
             <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
               Tamim{" "}
               <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
-                Hassan
+                Hasan
               </span>
             </h2>
 
@@ -370,7 +370,7 @@ export default function Footer() {
         <div className="mt-14 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-7 text-center sm:flex-row sm:text-left">
           <div>
             <p className="text-xs text-gray-500 sm:text-sm">
-              © {currentYear} Tamim Hassan. All rights reserved.
+              © {currentYear} Tamim Hasan. All rights reserved.
             </p>
 
             <p className="mt-1 text-[11px] text-gray-700">

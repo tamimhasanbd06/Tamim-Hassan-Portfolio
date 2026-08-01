@@ -1,0 +1,163 @@
+[
+  {
+    "id": 1,
+    "name": "Master Calculator",
+    "slug": "master-calculator",
+    "category": "Utility",
+    "icon": "calculator",
+    "accent": "cyan",
+    "status": "Beta",
+    "featured": true,
+    "tagline": "One intelligent calculator for everyday decisions.",
+    "description": "A focused calculation workspace that brings useful everyday, financial, percentage, and conversion tools into one fast and distraction-free experience.",
+    "platform": "Responsive Web App",
+    "version": "v1.0 Beta",
+    "highlights": [
+      "Multiple calculation modes",
+      "Clear step-by-step results",
+      "Responsive mobile keypad",
+      "Fast and private calculations"
+    ],
+    "tags": ["Next.js", "TypeScript", "Utility", "Responsive UI"],
+    "liveUrl": "https://bank-loan-calculator.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Bank-Loan-Calculator"
+  },
+  {
+    "id": 2,
+    "name": "Master Notes",
+    "slug": "master-notes",
+    "category": "Productivity",
+    "icon": "notes",
+    "accent": "violet",
+    "status": "Building",
+    "featured": false,
+    "tagline": "Capture thoughts before they disappear.",
+    "description": "A calm notes workspace for writing ideas, organizing useful information, and finding important content without unnecessary complexity.",
+    "platform": "Web & Mobile",
+    "version": "v0.8 Preview",
+    "highlights": [
+      "Fast note creation",
+      "Organized collections",
+      "Powerful instant search",
+      "Distraction-free writing"
+    ],
+    "tags": ["Productivity", "Search", "Collections", "Mobile First"],
+    "liveUrl": "https://keen-keeper-tawny.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Keen-Keeper"
+  },
+  {
+    "id": 3,
+    "name": "Master Compass",
+    "slug": "master-compass",
+    "category": "Utility",
+    "icon": "compass",
+    "accent": "emerald",
+    "status": "Building",
+    "featured": false,
+    "tagline": "Simple direction, beautifully presented.",
+    "description": "A mobile-first direction utility designed around a clean compass interface, readable degree indicators, and an effortless outdoor experience.",
+    "platform": "Mobile Web App",
+    "version": "v0.6 Preview",
+    "highlights": [
+      "Live direction display",
+      "Clear degree indicators",
+      "Mobile-first interface",
+      "Minimal outdoor mode"
+    ],
+    "tags": ["Sensors", "Geolocation", "Utility", "PWA"],
+    "liveUrl": null,
+    "repositoryUrl": "https://github.com/tamimhasanbd06?tab=repositories&q=compass"
+  },
+  {
+    "id": 4,
+    "name": "Master Internet Speed",
+    "slug": "master-internet-speed",
+    "category": "Network",
+    "icon": "speed",
+    "accent": "blue",
+    "status": "Beta",
+    "featured": true,
+    "tagline": "Understand your connection at a glance.",
+    "description": "A visual network dashboard that presents download speed, upload speed, latency, and connection quality in a clear and understandable format.",
+    "platform": "Responsive Web App",
+    "version": "v0.9 Beta",
+    "highlights": [
+      "Download and upload results",
+      "Latency and ping overview",
+      "Readable quality summary",
+      "Connection history concept"
+    ],
+    "tags": ["Network", "Performance", "Dashboard", "Analytics"],
+    "liveUrl": "https://digi-tools-xi.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/DigiTools"
+  },
+  {
+    "id": 5,
+    "name": "Master Video Player",
+    "slug": "master-video-player",
+    "category": "Media",
+    "icon": "video",
+    "accent": "pink",
+    "status": "Concept",
+    "featured": false,
+    "tagline": "A focused home for modern video playback.",
+    "description": "A responsive video experience with accessible playback controls, a clean viewing surface, and thoughtful keyboard and touch interactions.",
+    "platform": "Web & Mobile",
+    "version": "Concept 01",
+    "highlights": [
+      "Responsive video playback",
+      "Accessible media controls",
+      "Keyboard and touch support",
+      "Focused cinema mode"
+    ],
+    "tags": ["Media", "Accessibility", "Playback", "Responsive"],
+    "liveUrl": null,
+    "repositoryUrl": "https://github.com/tamimhasanbd06?tab=repositories&q=video"
+  },
+  {
+    "id": 6,
+    "name": "Master Audio Player",
+    "slug": "master-audio-player",
+    "category": "Media",
+    "icon": "audio",
+    "accent": "orange",
+    "status": "Concept",
+    "featured": false,
+    "tagline": "Music and spoken audio without the clutter.",
+    "description": "A polished audio player for music and spoken media with a playlist-ready layout, smooth playback controls, and a mobile-friendly interface.",
+    "platform": "Web & Mobile",
+    "version": "Concept 01",
+    "highlights": [
+      "Playlist-ready experience",
+      "Modern playback controls",
+      "Mobile-friendly navigation",
+      "Clean now-playing view"
+    ],
+    "tags": ["Audio", "Playlist", "Media", "Mobile UI"],
+    "liveUrl": null,
+    "repositoryUrl": "https://github.com/tamimhasanbd06?tab=repositories&q=audio"
+  },
+  {
+    "id": 7,
+    "name": "Master Gallery",
+    "slug": "master-gallery",
+    "category": "Media",
+    "icon": "gallery",
+    "accent": "indigo",
+    "status": "Live",
+    "featured": false,
+    "tagline": "Visual collections with room to breathe.",
+    "description": "A responsive image gallery for presenting, browsing, liking, and organizing visual collections across phones, tablets, laptops, and large screens.",
+    "platform": "Full-Stack Web App",
+    "version": "v1.0 Live",
+    "highlights": [
+      "Responsive visual grid",
+      "Immersive image preview",
+      "Collection-based browsing",
+      "Profile and favorite tools"
+    ],
+    "tags": ["React", "MongoDB", "Gallery", "Full Stack"],
+    "liveUrl": "https://tile-gallery-azure.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06"
+  }
+]

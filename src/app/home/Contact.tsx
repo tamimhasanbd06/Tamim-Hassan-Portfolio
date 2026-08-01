@@ -87,7 +87,7 @@ const contactData: ContactItem[] = [
     id: 5,
     category: "Social",
     label: "Facebook",
-    value: "Tamim Hassan",
+    value: "Tamim Hasan",
     copyText: "https://www.facebook.com/tamimhasanbd06",
     href: "https://www.facebook.com/tamimhasanbd06",
     icon: <FaFacebook />,
@@ -118,7 +118,7 @@ const contactData: ContactItem[] = [
 ];
 
 const initialMessage =
-  "Hello Tamim Hassan, I would like to discuss a web development project with you.";
+  "Hello Tamim Hasan, I would like to discuss a web development project with you.";
 
 export default function Contact() {
   const [copiedId, setCopiedId] = useState<number | null>(null);

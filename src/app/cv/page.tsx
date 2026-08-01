@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import PdfDownloadButton from "@/components/PdfDownloadButton";
@@ -18,7 +19,7 @@ import {
 export const metadata: Metadata = createPageMetadata({
   title: "CV - Frontend Web Developer",
   description:
-    "View and download the professional CV of Md. Tamim Hasan, a frontend web developer skilled in Next.js, React, TypeScript, and JavaScript.",
+    "View and download the professional CV of Tamim Hasan, a frontend web developer skilled in Next.js, React, TypeScript, and JavaScript.",
   path: "/cv",
 });
 
@@ -94,7 +95,7 @@ const projects: Project[] = [
 const personalInformation = [
   {
     label: "Full Name",
-    value: "Md. Tamim Hasan",
+    value: "Tamim Hasan",
   },
   {
     label: "Father’s Name",
@@ -149,8 +150,8 @@ export default function CVPage() {
           </Link>
 
           <PdfDownloadButton
-            source="/Tamim-Hassan-CV.pdf"
-            filename="Tamim-Hassan-CV.pdf"
+            source="/Tamim-Hasan-CV.pdf"
+            filename="Tamim-Hasan-CV.pdf"
             label="Download My CV"
             className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/30"
           />
@@ -177,7 +178,7 @@ export default function CVPage() {
                 </div>
 
                 <h1 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-                  Md. Tamim{" "}
+                  Tamim{" "}
                   <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
                     Hasan
                   </span>
@@ -196,6 +197,17 @@ export default function CVPage() {
 
               {/* Contact details */}
               <div className="space-y-3 text-sm text-gray-400">
+                <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#020817] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
+                  <Image
+                    src="/me.jpg"
+                    alt="Tamim Hasan, frontend web developer"
+                    fill
+                    priority
+                    sizes="96px"
+                    className="object-cover object-top"
+                  />
+                </div>
+
                 <p className="flex items-start gap-3">
                   <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
 

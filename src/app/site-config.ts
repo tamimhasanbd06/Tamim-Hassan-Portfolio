@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 
 export const siteConfig = {
-  name: "Tamim Hassan Portfolio",
+  name: "Tamim Hasan Portfolio",
   shortName: "Tamim Portfolio",
   description:
-    "Frontend web developer portfolio of Tamim Hassan, featuring modern Next.js, TypeScript, React, JavaScript, and full-stack projects.",
+    "Frontend web developer portfolio of Tamim Hasan, featuring modern Next.js, TypeScript, React, JavaScript, and full-stack projects.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
     "https://tamim-hassan-portfolio.vercel.app",
   email: "tamimhasanbd06@gmail.com",
   phone: "+8801883650010",
-  author: "Md. Tamim Hasan",
+  author: "Tamim Hasan",
   keywords: [
-    "Tamim Hassan portfolio",
+    "Tamim Hasan portfolio",
     "Web Developer portfolio",
     "Frontend Web Developer portfolio",
     "portfolio",
@@ -55,7 +55,7 @@ export function createPageMetadata({
           url: "/og.png",
           width: 1200,
           height: 630,
-          alt: "Tamim Hassan Frontend Web Developer Portfolio",
+          alt: "Tamim Hasan Frontend Web Developer Portfolio",
         },
       ],
     },

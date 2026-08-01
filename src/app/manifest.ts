@@ -43,6 +43,12 @@ export default function manifest(): MetadataRoute.Manifest {
         icons: [{ src: "/icon-192.png", sizes: "192x192" }],
       },
       {
+        name: "My Apps",
+        short_name: "Apps",
+        url: "/apps",
+        icons: [{ src: "/icon-192.png", sizes: "192x192" }],
+      },
+      {
         name: "Resume",
         short_name: "Resume",
         url: "/resume",
@@ -51,4 +57,3 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
   };
 }
-

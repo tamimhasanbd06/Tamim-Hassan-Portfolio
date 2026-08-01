@@ -1,4 +1,4 @@
-# Tamim Hassan Portfolio
+# Tamim Hasan Portfolio
 
 A responsive Next.js 16 and TypeScript portfolio for Md. Tamim Hasan.
 
@@ -8,6 +8,11 @@ A responsive Next.js 16 and TypeScript portfolio for Md. Tamim Hasan.
 - Stable 64px navigation that becomes sticky with a glass shadow after scrolling
 - Mobile app-style navigation and touch targets
 - Home, portfolio, CV, resume, and custom 404 pages
+- Dedicated `/apps` product page with seven responsive app showcase cards
+- My Apps component located at `src/components/MyApps.tsx`
+- My Apps data loaded from `public/myapps.json`
+- Skills and projects loaded from separate JSON data files
+- Searchable project gallery with image-click detail modal
 - Real client-side PDF downloads for the CV and resume
 - Installable Progressive Web App manifest, icons, service worker, and install prompt
 - Route-specific metadata, Open Graph, X cards, JSON-LD, sitemap, and robots
@@ -48,6 +53,13 @@ The browser install option appears after the deployed site is served over HTTPS.
 
 The downloadable documents are stored at:
 
-- `public/Tamim-Hassan-CV.pdf`
-- `public/Tamim-Hassan-Resume.pdf`
+- `public/Tamim-Hasan-CV.pdf`
+- `public/Tamim-Hasan-Resume.pdf`
 
+## Portfolio data
+
+Update Skills and Projects without editing the card components:
+
+- `public/data/skills.json`
+- `public/data/projects.json`
+- `public/myapps.json`

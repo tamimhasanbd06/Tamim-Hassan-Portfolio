@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import PdfDownloadButton from "@/components/PdfDownloadButton";
@@ -15,7 +16,7 @@ import {
 export const metadata: Metadata = createPageMetadata({
   title: "Resume - Frontend Web Developer",
   description:
-    "View and download the professional resume of Md. Tamim Hasan, highlighting frontend development skills, projects, education, and courses.",
+    "View and download the professional resume of Tamim Hasan, highlighting frontend development skills, projects, education, and courses.",
   path: "/resume",
 });
 
@@ -75,7 +76,7 @@ const projects = [
 ];
 
 const personalInformation = [
-  ["Full Name", "Md. Tamim Hasan"],
+  ["Full Name", "Tamim Hasan"],
   ["Father’s Name", "Md. Abdul Wahab"],
   ["Date of Birth", "6 June 2010"],
   ["Religion", "Islam (Sunni)"],
@@ -102,8 +103,8 @@ export default function ResumePage() {
         </Link>
 
         <PdfDownloadButton
-          source="/Tamim-Hassan-Resume.pdf"
-          filename="Tamim-Hassan-Resume.pdf"
+          source="/Tamim-Hasan-Resume.pdf"
+          filename="Tamim-Hasan-Resume.pdf"
           label="Download Resume"
           className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-1 hover:shadow-cyan-500/30"
         />
@@ -124,7 +125,7 @@ export default function ResumePage() {
               </p>
 
               <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
-                Md. Tamim Hasan
+                Tamim Hasan
               </h1>
 
               <p className="mt-3 text-lg font-bold uppercase tracking-[0.18em] text-blue-300">
@@ -139,6 +140,17 @@ export default function ResumePage() {
             </div>
 
             <div className="space-y-3 text-sm text-gray-300">
+              <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#020817] shadow-[0_16px_40px_rgba(6,182,212,0.18)] md:ml-auto">
+                <Image
+                  src="/me.jpg"
+                  alt="Tamim Hasan, frontend web developer"
+                  fill
+                  priority
+                  sizes="96px"
+                  className="object-cover object-top"
+                />
+              </div>
+
               <ContactLink
                 href="https://maps.google.com/?q=Bandar,Narayanganj,Dhaka,Bangladesh"
                 icon={<FaMapMarkerAlt />}
