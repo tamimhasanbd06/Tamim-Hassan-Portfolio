@@ -139,6 +139,7 @@ function AppCard({
   index: number;
   onExplore: (app: AppItem) => void;
 }) {
+  const [isDescExpanded, setIsDescExpanded] = useState(false);
   const accent = accentStyles[app.accent] ?? accentStyles.cyan;
   const Icon = iconMap[app.icon] ?? FaLayerGroup;
 
@@ -148,11 +149,8 @@ function AppCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.25) }}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#050b14]/95 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:bg-[#081222] hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)] sm:p-7 ${accent.border} ${
-        app.featured ? "lg:col-span-2" : ""
-      }`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#050b14]/95 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:bg-[#081222] hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)] sm:p-7 ${accent.border}`}
     >
-      {/* Decorative Blur and Accent Line */}
       <div className={`pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full blur-3xl transition-all duration-700 group-hover:scale-125 ${accent.glow}`} />
       <div className={`pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r ${accent.gradient}`} />
 
@@ -187,14 +185,25 @@ function AppCard({
             )}
           </div>
 
-          <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-white sm:text-[26px]">
+          <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white sm:text-[26px]">
             {app.name}
-          </h2>
+          </h3>
           <p className="mt-1.5 text-xs font-medium text-slate-400">{app.tagline}</p>
-          <p className="mt-3.5 text-sm leading-relaxed text-slate-400 line-clamp-3">{app.description}</p>
+          
+          <p className={`mt-3.5 text-sm leading-relaxed text-slate-400 transition-all duration-300 ${isDescExpanded ? "" : "line-clamp-3"}`}>
+            {app.description}
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setIsDescExpanded(!isDescExpanded)}
+            className={`mt-2 text-xs font-bold transition-colors ${accent.text} hover:underline`}
+          >
+            {isDescExpanded ? "Show less" : "Show more"}
+          </button>
 
           <div className="mt-4 flex flex-wrap gap-1.5">
-            {app.tags.slice(0, app.featured ? 4 : 3).map((tag) => (
+            {app.tags.map((tag) => (
               <span
                 key={tag}
                 className="rounded-md border border-white/[0.06] bg-white/[0.02] px-2.5 py-1 text-[11px] font-medium text-slate-400"
@@ -277,9 +286,9 @@ function AppDetails({ app, onClose }: { app: AppItem; onClose: () => void }) {
             <p className={`text-xs font-bold uppercase tracking-[2px] ${accent.text}`}>
               {app.category} · {app.status}
             </p>
-            <h2 id="app-details-title" className="mt-1 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+            <h3 id="app-details-title" className="mt-1 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
               {app.name}
-            </h2>
+            </h3>
             <p className="mt-1 text-xs font-medium text-slate-400">{app.tagline}</p>
           </div>
         </div>
@@ -358,6 +367,7 @@ export default function MyApps() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
+  const [showAllCards, setShowAllCards] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -416,10 +426,17 @@ export default function MyApps() {
     });
   }, [apps, filter, search]);
 
+  const displayedApps = useMemo(() => {
+    if (search.trim() !== "" || filter !== "All" || showAllCards) {
+      return filteredApps;
+    }
+    return filteredApps.slice(0, 3);
+  }, [filteredApps, showAllCards, search, filter]);
+
   const categoryCount = new Set(apps.map((app) => app.category)).size;
 
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden px-4 pb-24 pt-12 sm:px-6 lg:px-12">
+    <section id="apps" className="relative scroll-mt-20 overflow-hidden px-4 py-20 sm:px-6 lg:px-12 text-white">
       {/* Background Gradients & Grid Pattern */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(37,99,235,0.12),transparent_35%),radial-gradient(circle_at_85%_30%,rgba(6,182,212,0.1),transparent_35%),linear-gradient(180deg,#02060c_0%,#000000_100%)]" />
       <div className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:60px_60px]" />
@@ -433,12 +450,12 @@ export default function MyApps() {
               Tamim&apos;s Digital Product Studio
             </div>
 
-            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
               Small tools.{" "}
               <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">
                 Big usefulness.
               </span>
-            </h1>
+            </h2>
 
             <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-400">
               A growing collection of focused apps designed by Tamim Hasan to make everyday digital tasks faster, clearer, and more enjoyable.
@@ -462,7 +479,7 @@ export default function MyApps() {
         </div>
 
         {/* Filter & Search Bar */}
-        <div className="sticky top-6 z-40 mt-10 rounded-2xl border border-white/[0.08] bg-[#040812]/90 p-3 shadow-2xl backdrop-blur-xl">
+        <div className="sticky top-20 z-40 mt-10 rounded-2xl border border-white/[0.08] bg-[#040812]/90 p-3 shadow-2xl backdrop-blur-xl">
           <div className="flex flex-col gap-3 xl:flex-row xl:items-center">
             <div className="relative flex-1">
               <label htmlFor="app-search" className="sr-only">Search apps</label>
@@ -500,14 +517,15 @@ export default function MyApps() {
         {!isLoading && !loadError && (
           <div className="mb-4 mt-6 flex items-center justify-between gap-4">
             <p className="text-xs font-bold uppercase tracking-[1.5px] text-slate-500">
-              Showing {filteredApps.length} {filteredApps.length === 1 ? "app" : "apps"}
+              Showing {displayedApps.length} of {filteredApps.length} {filteredApps.length === 1 ? "app" : "apps"}
             </p>
-            {(search || filter !== "All") && (
+            {(search || filter !== "All" || showAllCards) && (
               <button
                 type="button"
                 onClick={() => {
                   setSearch("");
                   setFilter("All");
+                  setShowAllCards(false);
                 }}
                 className="text-xs font-bold text-cyan-300 transition hover:text-cyan-200"
               >
@@ -520,13 +538,13 @@ export default function MyApps() {
         {/* Dynamic Display Layout */}
         {isLoading ? (
           <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3" aria-label="Loading apps">
-            {Array.from({ length: 7 }, (_, index) => (
+            {Array.from({ length: 3 }, (_, index) => (
               <div key={index} className="h-[400px] animate-pulse rounded-[28px] border border-white/[0.06] bg-white/[0.02]" />
             ))}
           </div>
         ) : loadError ? (
           <div className="mt-6 rounded-3xl border border-red-500/20 bg-red-500/[0.03] p-12 text-center">
-            <h2 className="text-xl font-bold text-white">The app collection could not load</h2>
+            <h3 className="text-xl font-bold text-white">The app collection could not load</h3>
             <p className="mt-2 text-xs sm:text-sm text-slate-400">{loadError}</p>
             <button
               type="button"
@@ -536,23 +554,40 @@ export default function MyApps() {
               Try Again
             </button>
           </div>
-        ) : filteredApps.length > 0 ? (
-          <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            <AnimatePresence mode="popLayout">
-              {filteredApps.map((app, index) => (
-                <AppCard key={app.id} app={app} index={index} onExplore={setSelectedApp} />
-              ))}
-            </AnimatePresence>
-          </motion.div>
+        ) : displayedApps.length > 0 ? (
+          <>
+            <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              <AnimatePresence mode="popLayout">
+                {displayedApps.map((app, index) => (
+                  <AppCard key={app.id} app={app} index={index} onExplore={setSelectedApp} />
+                ))}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Show More / Show Less Button */}
+            {!search && filter === "All" && filteredApps.length > 3 && (
+              <div className="mt-12 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setShowAllCards(!showAllCards)}
+                  className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl border border-cyan-400/30 bg-cyan-400/10 px-8 py-4 text-xs font-extrabold uppercase tracking-[2px] text-cyan-300 shadow-lg shadow-cyan-500/10 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/60 hover:bg-cyan-400/20 hover:text-white hover:shadow-cyan-500/25 hover:-translate-y-0.5"
+                >
+                  <span>{showAllCards ? "Show Less" : "Show More Apps"}</span>
+                  <FaArrowRight aria-hidden="true" className={`transition-transform duration-300 ${showAllCards ? "-rotate-90" : "group-hover:translate-x-1"}`} />
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-12 text-center">
-            <h2 className="text-xl font-bold text-white">No matching apps</h2>
+            <h3 className="text-xl font-bold text-white">No matching apps</h3>
             <p className="mt-2 text-xs sm:text-sm text-slate-400">Try a different keyword or category.</p>
             <button
               type="button"
               onClick={() => {
                 setSearch("");
                 setFilter("All");
+                setShowAllCards(false);
               }}
               className="mt-5 rounded-xl bg-cyan-400/10 px-5 py-2.5 text-xs font-bold text-cyan-300 border border-cyan-400/20"
             >
