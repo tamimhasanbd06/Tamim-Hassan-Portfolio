@@ -22,8 +22,8 @@
       "Tailwind",
       "Math"
     ],
-    "liveUrl": "",
-    "repositoryUrl": ""
+    "liveUrl": "https://master-calculator-seven.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Master-Compass"
   },
   {
     "id": 2,
@@ -48,8 +48,8 @@
       "TypeScript",
       "Notes"
     ],
-    "liveUrl": "",
-    "repositoryUrl": ""
+    "liveUrl": "https://master-notes-puce.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Master-Notes"
   },
   {
     "id": 3,
@@ -74,8 +74,8 @@
       "Search",
       "Directory"
     ],
-    "liveUrl": "",
-    "repositoryUrl": ""
+    "liveUrl": "https://master-compass.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Master-Compass"
   },
   {
     "id": 4,
@@ -100,8 +100,8 @@
       "React",
       "Dashboard"
     ],
-    "liveUrl": "",
-    "repositoryUrl": ""
+    "liveUrl": "https://master-internet-speed.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Master-Internet-speed"
   },
   {
     "id": 5,
@@ -126,8 +126,8 @@
       "React",
       "Media"
     ],
-    "liveUrl": "",
-    "repositoryUrl": ""
+    "liveUrl": "https://master-video-player.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Master-Video-player"
   },
   {
     "id": 6,
@@ -152,8 +152,8 @@
       "JavaScript",
       "Sound"
     ],
-    "liveUrl": "",
-    "repositoryUrl": ""
+    "liveUrl": "https://master-audio-player.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Master-Alarm"
   },
   {
     "id": 7,
@@ -178,7 +178,7 @@
       "Tailwind",
       "Gallery"
     ],
-    "liveUrl": "",
-    "repositoryUrl": ""
+    "liveUrl": "https://master-galorie.vercel.app/",
+    "repositoryUrl": "https://github.com/tamimhasanbd06/Master-Galorie"
   }
 ]
