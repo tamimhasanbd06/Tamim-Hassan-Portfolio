@@ -8,7 +8,6 @@ import Education from "./Education";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import { createPageMetadata } from "../site-config";
-import MyApps from "./myApp";
 
 export const metadata = createPageMetadata({
   title: "Web Developer Portfolio",
@@ -34,13 +33,12 @@ export default function HomePage() {
         <Skill />
       </section>
 
+
       <section id="projects" className="scroll-mt-16">
         <Projects />
       </section>
 
-      <section id="projects" className="scroll-mt-16">
-        <MyApps/>
-      </section>
+  
 
       <section id="experience" className="scroll-mt-16">
         <Experience />
@@ -50,9 +48,7 @@ export default function HomePage() {
         <Education />
       </section>
 
-      <section id="contact" className="scroll-mt-16">
-        <Contact />
-      </section>
+      <Contact />
 
       <Footer />
     </main>

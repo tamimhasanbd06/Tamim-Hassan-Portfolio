@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Harmus AI",
+    "icon": "FiCpu"
+  },
+  {
+    "name": "Harness AI",
+    "icon": "FiZap"
+  },
+  {
+    "name": "Plot Code",
+    "icon": "FiCode"
+  },
+  {
+    "name": "DeepSeek",
+    "icon": "FiTerminal"
+  },
+  {
+    "name": "ChatGPT",
+    "icon": "FiStar"
+  },
+  {
+    "name": "Codex",
+    "icon": "FiCpu"
+  }
+]

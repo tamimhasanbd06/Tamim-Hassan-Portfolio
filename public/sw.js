@@ -1,4 +1,4 @@
-const CACHE_NAME = "tamim-portfolio-v4";
+const CACHE_NAME = "tamim-portfolio-v5";
 const APP_SHELL = [
   "/",
   "/home",
@@ -12,6 +12,8 @@ const APP_SHELL = [
   "/data/skills.json",
   "/data/projects.json",
   "/myapps.json",
+  "/library/library-data.json",
+  "/library/courses-data.json",
 ];
 
 self.addEventListener("install", (event) => {
@@ -57,10 +59,16 @@ self.addEventListener("fetch", (event) => {
         }
         return response;
       })
-      .catch(() =>
-        caches
-          .match(event.request)
-          .then((cached) => cached || caches.match("/")),
-      ),
+      .catch(async () => {
+        const cached = await caches.match(event.request);
+
+        if (cached) return cached;
+
+        if (event.request.mode === "navigate") {
+          return caches.match("/");
+        }
+
+        return Response.error();
+      }),
   );
 });
