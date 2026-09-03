@@ -37,18 +37,6 @@
   },
   {
     "id": 4,
-    "name": "Keen Keeper",
-    "type": "React",
-    "image": "https://s2.imgbb.ws/file/storage-sv2/KzGFS.png",
-    "description": "A modern communication platform supporting private text, audio, and video conversations.",
-    "longDescription": "Keen Keeper is a communication-focused interface created to make private conversations feel simple and organized. It combines text, audio, and video communication concepts in a responsive experience.",
-    "live": "https://keen-keeper-tawny.vercel.app/",
-    "technologies": ["React", "Communication UI", "Responsive Design"],
-    "features": ["Private conversation interface", "Audio and video communication concepts", "Responsive layouts", "Focused interaction design"],
-    "featured": true
-  },
-  {
-    "id": 5,
     "name": "Tile Gallery",
     "type": "Next.js",
     "image": "https://s1.imgbb.ws/file/storage-sv1/Y07yV.png",
