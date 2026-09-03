@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   FaCheck,
   FaExternalLinkAlt,
   FaEye,
-  FaGithub,
   FaSearch,
   FaTimes,
 } from "react-icons/fa";
@@ -21,7 +21,6 @@ type Project = {
   description: string;
   longDescription: string;
   live: string;
-  code: string;
   technologies: string[];
   features: string[];
   featured?: boolean;
@@ -41,8 +40,17 @@ function ProjectCard({
   index,
   onOpen,
 }: ProjectCardProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-[0_20px_60px_rgba(0,0,0,0.3)] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/30 hover:shadow-[0_30px_80px_rgba(0,100,255,0.15)]">
+    <motion.article
+      initial={{ opacity: 0, y: reduceMotion ? 0 : 34 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={reduceMotion ? undefined : { y: -9 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: reduceMotion ? 0 : 0.5, delay: index * 0.06 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-[0_20px_60px_rgba(0,0,0,0.3)] transition-colors duration-500 hover:border-cyan-400/30 hover:shadow-[0_30px_80px_rgba(0,100,255,0.15)]"
+    >
       <button
         type="button"
         onClick={() => onOpen(project)}
@@ -107,7 +115,7 @@ function ProjectCard({
           ))}
         </div>
 
-        <div className="mt-auto flex gap-3 pt-6">
+        <div className="mt-auto flex pt-6">
           <a
             href={project.live}
             target="_blank"
@@ -118,21 +126,11 @@ function ProjectCard({
             <span>Live Website</span>
           </a>
 
-          <a
-            href={project.code}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`View ${project.name} source code`}
-            className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-xs font-bold text-gray-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200"
-          >
-            <FaGithub className="text-base" aria-hidden="true" />
-            <span className="hidden sm:inline">Code</span>
-          </a>
         </div>
       </div>
 
       <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-blue-500 via-cyan-400 to-transparent transition-all duration-700 group-hover:w-full" />
-    </article>
+    </motion.article>
   );
 }
 
@@ -227,7 +225,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 min-[380px]:flex-row">
+            <div className="mt-8 flex">
               <a
                 href={project.live}
                 target="_blank"
@@ -236,15 +234,6 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
               >
                 <FaExternalLinkAlt aria-hidden="true" />
                 Open Live Site
-              </a>
-              <a
-                href={project.code}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-bold text-gray-200 transition hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/10"
-              >
-                <FaGithub aria-hidden="true" />
-                View Code
               </a>
             </div>
           </div>

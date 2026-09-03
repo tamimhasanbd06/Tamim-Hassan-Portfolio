@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 import {
   FaBookOpen,
@@ -20,7 +21,7 @@ type EducationItem = {
   address: string;
   contact?: string;
   description: string;
-  current: boolean;
+  status: "Running" | "End";
   accent: string;
 };
 
@@ -34,26 +35,27 @@ const educationData: EducationItem[] = [
     address: "Farmgate, Dhaka, near Holy Cross",
     description:
       "I am currently studying in Class 9 while developing my academic knowledge, communication skills, creativity, and interest in modern technology.",
-    current: true,
+    status: "Running",
     accent: "from-cyan-400 via-blue-500 to-indigo-500",
   },
   {
     id: 2,
     institution: "Johorpur Al-Fatah Darul Uloom Qawmi Madrasa",
-    degree: "Class 12 — Kafia, Arabic",
+    degree: "Kafia Jamaat",
     department: "Kitab Department",
-    duration: "Class 1 to Present",
+    duration: "Completed through Kafia Jamaat",
     address: "Johorpur, Barpara, Bandar, Narayanganj, Dhaka",
     contact: "+880 1789-105420",
     description:
-      "This institution has played an important role in building my academic foundation, discipline, Islamic knowledge, and understanding of Arabic studies.",
-    current: true,
+      "I studied here through Kafia Jamaat, building a strong foundation in discipline, Islamic knowledge, and Arabic studies.",
+    status: "End",
     accent: "from-blue-500 via-indigo-500 to-purple-500",
   },
 ];
 
 export default function Education() {
   const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
 
   const [showAll, setShowAll] = useState(false);
 
@@ -112,9 +114,14 @@ export default function Education() {
           <div className="absolute bottom-0 left-[20px] top-0 hidden w-px bg-gradient-to-b from-cyan-400/70 via-blue-500/30 to-transparent sm:block" />
 
           <div className="space-y-7 sm:pl-14">
-            {visibleEducation.map((education) => (
-              <article
+            {visibleEducation.map((education, index) => (
+              <motion.article
                 key={education.id}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={reduceMotion ? undefined : { y: -7 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: reduceMotion ? 0 : 0.5, delay: index * 0.08 }}
                 className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-white/[0.065] hover:shadow-[0_25px_70px_rgba(6,182,212,0.08)] sm:p-8"
               >
                 {/* Timeline marker */}
@@ -141,15 +148,19 @@ export default function Education() {
                         {education.duration}
                       </div>
 
-                      {education.current && (
-                        <div className="flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/[0.07] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-300 sm:text-xs">
+                      <div className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] sm:text-xs ${
+                        education.status === "Running"
+                          ? "border-emerald-400/20 bg-emerald-400/[0.07] text-emerald-300"
+                          : "border-blue-400/20 bg-blue-400/[0.07] text-blue-300"
+                      }`}>
+                        {education.status === "Running" && (
                           <span className="relative flex h-2 w-2">
                             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
                             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                           </span>
-                          Current
-                        </div>
-                      )}
+                        )}
+                        {education.status}
+                      </div>
                     </div>
 
                     <h3 className="text-2xl font-black tracking-tight text-white transition group-hover:text-cyan-200 sm:text-3xl">
@@ -166,7 +177,7 @@ export default function Education() {
                           <FaBookOpen />
                         </span>
                         <p>
-                          Studying in the{" "}
+                          {education.status === "Running" ? "Studying" : "Studied"} in the{" "}
                           <span className="font-semibold text-blue-300">
                             {education.department}
                           </span>
@@ -205,7 +216,7 @@ export default function Education() {
                     </div>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
         </div>

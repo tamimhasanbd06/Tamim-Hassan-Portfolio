@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   FaBriefcase,
   FaBuilding,
@@ -40,6 +40,8 @@ const experienceData: ExperienceItem[] = [
 ];
 
 const Experience = () => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="relative w-full overflow-hidden bg-black px-4 py-14 text-white sm:px-6 lg:px-10">
       {/* Background */}
@@ -85,6 +87,7 @@ const Experience = () => {
                 opacity: 1,
                 y: 0,
               }}
+              whileHover={reduceMotion ? undefined : { y: -8 }}
               transition={{
                 duration: 0.55,
                 delay: index * 0.15,
@@ -206,6 +209,17 @@ const Experience = () => {
                   <p className="text-sm leading-7 text-gray-400 sm:text-base">
                     {experience.description}
                   </p>
+
+                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                    {["Responsive Interfaces", "Accessible UX", "Clean Architecture"].map((focus) => (
+                      <div
+                        key={focus}
+                        className="rounded-2xl border border-white/[0.08] bg-white/[0.035] px-4 py-3 text-center text-xs font-semibold text-slate-300 transition group-hover:border-cyan-400/20 group-hover:text-cyan-200"
+                      >
+                        {focus}
+                      </div>
+                    ))}
+                  </div>
 
                   {/* Technologies */}
                   <div className="mt-5 flex flex-wrap gap-2">

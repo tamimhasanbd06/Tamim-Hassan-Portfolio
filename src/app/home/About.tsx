@@ -1,3 +1,5 @@
+import MotionReveal from "@/components/MotionReveal";
+
 type AboutItem = {
   number: string;
   title: string;
@@ -15,7 +17,7 @@ const aboutItems: AboutItem[] = [
     number: "02",
     title: "Education",
     description:
-      "I’m currently a Class 12 student at Johorpur Al-Fatah Darul Uloom Qawmi Madrasa.",
+      "I’m currently a Class 9 student while continuing to grow through technology and independent learning.",
   },
   {
     number: "03",
@@ -63,7 +65,7 @@ const About = () => {
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         {/* Section Heading */}
-        <div className="mx-auto mb-14 max-w-3xl text-center">
+        <MotionReveal className="mx-auto mb-14 max-w-3xl text-center">
           <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2">
             <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
 
@@ -84,10 +86,10 @@ const About = () => {
             engineer who enjoys transforming ideas into useful digital
             experiences.
           </p>
-        </div>
+        </MotionReveal>
 
         {/* Main About Card */}
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-8 lg:p-10">
+        <MotionReveal delay={0.08} className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-8 lg:p-10">
           {/* Inner Glow */}
           <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-blue-500/10 blur-[100px]" />
 
@@ -135,7 +137,7 @@ const About = () => {
                   </span>
 
                   <strong className="mt-2 block text-sm text-cyan-300">
-                    Class 12
+                    Class 9
                   </strong>
                 </div>
               </div>
@@ -183,15 +185,15 @@ const About = () => {
               ))}
             </div>
           </div>
-        </div>
+        </MotionReveal>
 
         {/* Bottom Quote */}
-        <div className="mx-auto mt-10 max-w-3xl text-center">
+        <MotionReveal delay={0.12} className="mx-auto mt-10 max-w-3xl text-center">
           <p className="text-sm italic leading-7 text-gray-500 sm:text-base">
             “My ambition is to combine creativity, technology, and intelligent
             systems to build products that improve everyday life.”
           </p>
-        </div>
+        </MotionReveal>
       </div>
     </section>
   );

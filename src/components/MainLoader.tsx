@@ -1,16 +1,25 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 
 export default function MainLoader() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       role="status"
       aria-live="polite"
       aria-label="Loading the next page"
       className="fixed inset-0 z-[9999] flex min-h-[100svh] items-center justify-center bg-black/80 px-4 backdrop-blur-md"
     >
-      <div className="relative flex flex-col items-center gap-5">
+      <motion.div
+        initial={{ y: reduceMotion ? 0 : 14, scale: reduceMotion ? 1 : 0.96 }}
+        animate={{ y: 0, scale: 1 }}
+        className="relative flex flex-col items-center gap-5"
+      >
         <div className="absolute -inset-16 rounded-full bg-cyan-400/10 blur-[55px]" />
 
         <div className="relative flex h-28 w-28 items-center justify-center sm:h-32 sm:w-32">
@@ -23,7 +32,7 @@ export default function MainLoader() {
               src="/tamim-hassan-logo.png"
               alt="Tamim Hasan portfolio logo"
               fill
-              priority
+              preload
               sizes="96px"
               className="object-cover"
             />
@@ -40,8 +49,19 @@ export default function MainLoader() {
           </p>
         </div>
 
+        <div className="relative flex items-center gap-2" aria-hidden="true">
+          {[0, 1, 2].map((dot) => (
+            <motion.span
+              key={dot}
+              animate={reduceMotion ? undefined : { opacity: [0.25, 1, 0.25], y: [0, -4, 0] }}
+              transition={{ duration: 1.1, repeat: Infinity, delay: dot * 0.16 }}
+              className="h-1.5 w-1.5 rounded-full bg-cyan-300"
+            />
+          ))}
+        </div>
+
         <span className="sr-only">Loading the next page</span>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

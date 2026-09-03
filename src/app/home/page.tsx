@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import Banner from "./Banner";
+import Introduction from "./Introduction";
 import About from "./About";
 import Skill from "./Skill";
 import Projects from "./Projects";
@@ -23,6 +24,10 @@ export default function HomePage() {
 
       <section id="home" className="scroll-mt-16">
         <Banner />
+      </section>
+
+      <section id="introduction" className="scroll-mt-16">
+        <Introduction />
       </section>
 
       <section id="about" className="scroll-mt-16">

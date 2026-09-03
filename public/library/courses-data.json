@@ -6,9 +6,9 @@
 "title": "Next Level Web Development",
 "provider": "Programming Hero",
 "batch": "Batch 7",
-"status": "In Progress",
-"startDate": "30-10-2026",
-"endDate": "01-09-2027",
+"status": "Not Started",
+"startDate": "2026-10-30",
+"endDate": "2027-09-01",
 "certificateImage": "",
 "certificatePdf": ""
 },
@@ -29,8 +29,8 @@
 "provider": "Programming Hero",
 "batch": "",
 "status": "Completed",
-"startDate": "31-05-2025",
-"endDate": "13-05-2025",
+"startDate": "2025-05-31",
+"endDate": "2025-06-13",
 "certificateImage": "/library/certificates/14 day.png",
 "certificatePdf": "/library/certificates/14 day.pdf"
 }

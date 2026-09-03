@@ -2,12 +2,16 @@
 
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { IoLogoHtml5 } from "react-icons/io";
 import {
   FaCode,
   FaCss3Alt,
   FaGithub,
   FaJsSquare,
+  FaImage,
+  FaPalette,
+  FaPenNib,
   FaPython,
   FaReact,
   FaRobot,
@@ -17,6 +21,8 @@ import { LiaNode } from "react-icons/lia";
 import { RiNextjsFill } from "react-icons/ri";
 import {
   SiExpress,
+  SiFigma,
+  SiFramer,
   SiGoogle,
   SiMongodb,
   SiNetlify,
@@ -56,6 +62,11 @@ const iconMap: Record<string, ReactNode> = {
   vercel: <SiVercel />,
   netlify: <SiNetlify />,
   windsurf: <TbWind />,
+  figma: <SiFigma />,
+  framer: <SiFramer />,
+  palette: <FaPalette />,
+  image: <FaImage />,
+  pen: <FaPenNib />,
   robot: <FaRobot />,
   google: <SiGoogle />,
 };
@@ -71,6 +82,7 @@ const filterOptions: Array<{
 ];
 
 export default function Skill() {
+  const reduceMotion = useReducedMotion();
   const [skills, setSkills] = useState<SkillItem[]>([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<FilterValue>("all");
@@ -282,9 +294,14 @@ export default function Skill() {
           </div>
         ) : visibleSkills.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {visibleSkills.map((skill) => (
-              <article
+            {visibleSkills.map((skill, index) => (
+              <motion.article
                 key={skill.id}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={reduceMotion ? undefined : { y: -8, scale: 1.025 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: reduceMotion ? 0 : 0.4, delay: (index % 10) * 0.035 }}
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center transition-all duration-300 hover:-translate-y-2 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04] hover:shadow-[0_20px_50px_rgba(0,100,255,0.12)] min-[380px]:p-5"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-400/0 transition-all duration-500 group-hover:from-blue-500/5 group-hover:to-cyan-400/5" />
@@ -307,7 +324,7 @@ export default function Skill() {
                   </span>
                 </div>
                 <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 group-hover:w-full" />
-              </article>
+              </motion.article>
             ))}
           </div>
         ) : (

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "./site-config";
 
+export const dynamic = "force-static";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: siteConfig.name,
@@ -40,12 +42,6 @@ export default function manifest(): MetadataRoute.Manifest {
         name: "Portfolio",
         short_name: "Portfolio",
         url: "/home",
-        icons: [{ src: "/icon-192.png", sizes: "192x192" }],
-      },
-      {
-        name: "My Apps",
-        short_name: "Apps",
-        url: "/apps",
         icons: [{ src: "/icon-192.png", sizes: "192x192" }],
       },
       {

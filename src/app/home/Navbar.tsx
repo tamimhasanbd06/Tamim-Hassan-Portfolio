@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type SectionId =
   | "home"
@@ -29,7 +30,12 @@ const navigationItems: NavigationItem[] = [
 ];
 
 export default function Navbar() {
+  const router = useRouter();
+
   const navbarRef = useRef<HTMLElement>(null);
+
+  const logoClickTimerRef =
+    useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -92,8 +98,15 @@ export default function Navbar() {
     window.addEventListener("resize", handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener(
+        "scroll",
+        handleScroll,
+      );
+
+      window.removeEventListener(
+        "resize",
+        handleScroll,
+      );
 
       if (animationFrame !== null) {
         window.cancelAnimationFrame(animationFrame);
@@ -102,16 +115,22 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
+    const handleOutsideClick = (
+      event: MouseEvent,
+    ) => {
       if (
         navbarRef.current &&
-        !navbarRef.current.contains(event.target as Node)
+        !navbarRef.current.contains(
+          event.target as Node,
+        )
       ) {
         setIsOpen(false);
       }
     };
 
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleEscape = (
+      event: KeyboardEvent,
+    ) => {
       if (event.key === "Escape") {
         setIsOpen(false);
       }
@@ -140,7 +159,21 @@ export default function Navbar() {
     };
   }, []);
 
-  const scrollToSection = (sectionId: SectionId) => {
+  useEffect(() => {
+    return () => {
+      if (logoClickTimerRef.current) {
+        clearTimeout(
+          logoClickTimerRef.current,
+        );
+
+        logoClickTimerRef.current = null;
+      }
+    };
+  }, []);
+
+  const scrollToSection = (
+    sectionId: SectionId,
+  ) => {
     const section =
       document.getElementById(sectionId);
 
@@ -167,6 +200,35 @@ export default function Navbar() {
 
     setActiveSection(sectionId);
     setIsOpen(false);
+  };
+
+  const handleLogoClick = () => {
+    if (logoClickTimerRef.current) {
+      clearTimeout(
+        logoClickTimerRef.current,
+      );
+    }
+
+    logoClickTimerRef.current =
+      setTimeout(() => {
+        router.push("/");
+
+        logoClickTimerRef.current =
+          null;
+      }, 250);
+  };
+
+  const handleLogoDoubleClick = () => {
+    if (logoClickTimerRef.current) {
+      clearTimeout(
+        logoClickTimerRef.current,
+      );
+
+      logoClickTimerRef.current =
+        null;
+    }
+
+    scrollToSection("home");
   };
 
   return (
@@ -205,8 +267,12 @@ export default function Navbar() {
         {/* Logo */}
         <button
           type="button"
-          onClick={() => scrollToSection("home")}
-          aria-label="Go to the home section"
+          onClick={handleLogoClick}
+          onDoubleClick={
+            handleLogoDoubleClick
+          }
+          aria-label="Go to landing page. Double click to go to home section."
+          title="Click: Landing Page | Double Click: Home"
           className="group flex shrink-0 items-center gap-3"
         >
           <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-cyan-400/20 bg-gradient-to-br from-blue-600/20 to-cyan-400/10">
@@ -235,7 +301,8 @@ export default function Navbar() {
         <ul className="hidden h-full items-center gap-0.5 lg:flex lg:gap-1">
           {navigationItems.map((item) => {
             const isActive =
-              activeSection === item.sectionId;
+              activeSection ===
+              item.sectionId;
 
             return (
               <li
@@ -246,10 +313,15 @@ export default function Navbar() {
                   href={`#${item.sectionId}`}
                   onClick={(event) => {
                     event.preventDefault();
-                    scrollToSection(item.sectionId);
+
+                    scrollToSection(
+                      item.sectionId,
+                    );
                   }}
                   aria-current={
-                    isActive ? "page" : undefined
+                    isActive
+                      ? "page"
+                      : undefined
                   }
                   className={`
                     group relative flex h-10 items-center
@@ -287,7 +359,9 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() =>
-            setIsOpen((current) => !current)
+            setIsOpen(
+              (current) => !current,
+            )
           }
           aria-label={
             isOpen
@@ -355,64 +429,83 @@ export default function Navbar() {
         `}
       >
         <ul className="mobile-stack grid grid-cols-2 gap-2 p-3 min-[360px]:p-4 sm:px-6">
-          {navigationItems.map((item, index) => {
-            const isActive =
-              activeSection === item.sectionId;
+          {navigationItems.map(
+            (item, index) => {
+              const isActive =
+                activeSection ===
+                item.sectionId;
 
-            const finalOddItem =
-              (navigationItems.length + 1) % 2 !== 0 &&
-              index === navigationItems.length - 1;
+              const finalOddItem =
+                (navigationItems.length +
+                  1) %
+                  2 !==
+                  0 &&
+                index ===
+                  navigationItems.length -
+                    1;
 
-            return (
-              <li
-                key={item.sectionId}
-                className={
-                  finalOddItem ? "col-span-2" : ""
-                }
-              >
-                <a
-                  href={`#${item.sectionId}`}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    scrollToSection(item.sectionId);
-                  }}
-                  aria-current={
-                    isActive ? "page" : undefined
+              return (
+                <li
+                  key={item.sectionId}
+                  className={
+                    finalOddItem
+                      ? "col-span-2"
+                      : ""
                   }
-                  className={`
-                    relative flex h-12 items-center
-                    justify-between overflow-hidden rounded-xl
-                    border px-4 text-sm font-semibold
-                    transition-all duration-300
-                    ${
-                      isActive
-                        ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-200"
-                        : "border-white/[0.07] bg-white/[0.035] text-gray-400 hover:text-white"
-                    }
-                  `}
                 >
-                  <span>{item.name}</span>
+                  <a
+                    href={`#${item.sectionId}`}
+                    onClick={(event) => {
+                      event.preventDefault();
 
-                  <span
-                    className={
+                      scrollToSection(
+                        item.sectionId,
+                      );
+                    }}
+                    aria-current={
                       isActive
-                        ? "text-[10px] font-black text-cyan-300"
-                        : "text-[10px] font-black text-gray-700"
+                        ? "page"
+                        : undefined
                     }
+                    className={`
+                      relative flex h-12 items-center
+                      justify-between overflow-hidden rounded-xl
+                      border px-4 text-sm font-semibold
+                      transition-all duration-300
+                      ${
+                        isActive
+                          ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-200"
+                          : "border-white/[0.07] bg-white/[0.035] text-gray-400 hover:text-white"
+                      }
+                    `}
                   >
-                    {String(index + 1).padStart(
-                      2,
-                      "0",
-                    )}
-                  </span>
+                    <span>
+                      {item.name}
+                    </span>
 
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-blue-500 via-cyan-300 to-transparent" />
-                  )}
-                </a>
-              </li>
-            );
-          })}
+                    <span
+                      className={
+                        isActive
+                          ? "text-[10px] font-black text-cyan-300"
+                          : "text-[10px] font-black text-gray-700"
+                      }
+                    >
+                      {String(
+                        index + 1,
+                      ).padStart(
+                        2,
+                        "0",
+                      )}
+                    </span>
+
+                    {isActive && (
+                      <span className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-blue-500 via-cyan-300 to-transparent" />
+                    )}
+                  </a>
+                </li>
+              );
+            },
+          )}
         </ul>
       </div>
     </nav>

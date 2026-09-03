@@ -1,9 +1,13 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   FaEnvelope,
   FaFacebook,
   FaGithub,
   FaLinkedin,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 type ContactItem = {
@@ -15,6 +19,13 @@ type ContactItem = {
 };
 
 const contacts: ContactItem[] = [
+  {
+    name: "WhatsApp",
+    icon: <FaWhatsapp />,
+    link: "https://wa.me/8801883650010?text=Hello%20Tamim%20Hasan%2C%20I%20would%20like%20to%20discuss%20a%20web%20development%20project%20with%20you.",
+    color: "hover:text-emerald-300",
+    glow: "hover:shadow-emerald-500/40",
+  },
   {
     name: "Facebook",
     icon: <FaFacebook />,
@@ -46,6 +57,8 @@ const contacts: ContactItem[] = [
 ];
 
 const Lockedcontact = () => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-[#000814] overflow-hidden px-4 sm:px-6 lg:px-12 py-16">
       {/* Background Effects */}
@@ -58,19 +71,30 @@ const Lockedcontact = () => {
       {/* Content */}
       <div className="relative z-10 w-full max-w-6xl">
         {/* Title */}
-        <h1 className="text-center text-white font-extrabold mb-10 sm:mb-14 text-3xl sm:text-5xl md:text-6xl">
+        <motion.h1
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center text-white font-extrabold mb-10 sm:mb-14 text-3xl sm:text-5xl md:text-6xl"
+        >
           Get In <span className="text-cyan-300">Touch</span>
-        </h1>
+        </motion.h1>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8">
-          {contacts.map((item) => (
-            <a
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-7 lg:gap-5">
+          {contacts.map((item, index) => (
+            <motion.a
               key={item.name}
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visit ${item.name}`}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={reduceMotion ? undefined : { y: -10, scale: 1.035 }}
+              whileTap={{ scale: 0.97 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: reduceMotion ? 0 : 0.48, delay: index * 0.06 }}
               className={`
                 group relative flex flex-col items-center justify-center
                 h-32 sm:h-40 md:h-44
@@ -98,7 +122,7 @@ const Lockedcontact = () => {
               <p className="text-white/80 font-semibold text-sm sm:text-base tracking-wide">
                 {item.name}
               </p>
-            </a>
+            </motion.a>
           ))}
         </div>
 

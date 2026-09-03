@@ -1,6 +1,7 @@
 "use client";
 
 import type { IconType } from "react-icons";
+import { motion, useReducedMotion } from "framer-motion";
 
 import {
   SiMui,
@@ -45,9 +46,13 @@ const libraries = libraryData as LibraryItem[];
 
 function LibraryCard({ item }: { item: LibraryItem }) {
   const Icon = iconMap[item.icon] ?? FiBox;
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div
+    <motion.div
+      whileHover={reduceMotion ? undefined : { y: -10, scale: 1.055, rotate: -0.6 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 260, damping: 18 }}
       className={`
         group
         flex
@@ -110,11 +115,13 @@ function LibraryCard({ item }: { item: LibraryItem }) {
       >
         {item.name}
       </p>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Library() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       id="libraries"
@@ -147,7 +154,12 @@ export default function Library() {
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Heading */}
-        <div className="mb-10 px-4 text-center sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.7 }}
+          className="mb-10 px-4 text-center sm:px-6 lg:px-8"
+        >
           <div
             className={`
               mb-3
@@ -210,7 +222,7 @@ export default function Library() {
             Some of the libraries, frameworks and tools I regularly use to
             build modern, scalable and interactive web applications.
           </p>
-        </div>
+        </motion.div>
 
         {/* Slider */}
         <div className="relative w-full overflow-hidden">

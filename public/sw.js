@@ -2,7 +2,6 @@ const CACHE_NAME = "tamim-portfolio-v5";
 const APP_SHELL = [
   "/",
   "/home",
-  "/apps",
   "/resume",
   "/cv",
   "/manifest.webmanifest",

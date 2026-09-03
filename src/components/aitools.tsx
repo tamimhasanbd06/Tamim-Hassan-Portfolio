@@ -1,6 +1,7 @@
 "use client";
 
 import type { IconType } from "react-icons";
+import { motion, useReducedMotion } from "framer-motion";
 
 import {
   SiGoogle,
@@ -40,9 +41,13 @@ const aiTools = aiData as AiItem[];
 
 function AiCard({ item }: { item: AiItem }) {
   const Icon = iconMap[item.icon] ?? FiCpu;
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div
+    <motion.div
+      whileHover={reduceMotion ? undefined : { y: -10, scale: 1.055, rotate: 0.6 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 260, damping: 18 }}
       className={`
         group
         flex
@@ -105,11 +110,13 @@ function AiCard({ item }: { item: AiItem }) {
       >
         {item.name}
       </p>
-    </div>
+    </motion.div>
   );
 }
 
 export default function AiTools() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       id="ai-tools"
@@ -142,7 +149,12 @@ export default function AiTools() {
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Heading */}
-        <div className="mb-10 px-4 text-center sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.7 }}
+          className="mb-10 px-4 text-center sm:px-6 lg:px-8"
+        >
           <div
             className={`
               mb-3
@@ -204,7 +216,7 @@ export default function AiTools() {
           >
             The artificial intelligence tools, models, and coding assistants I leverage to accelerate development and boost productivity.
           </p>
-        </div>
+        </motion.div>
 
         {/* Slider */}
         <div className="relative w-full overflow-hidden">

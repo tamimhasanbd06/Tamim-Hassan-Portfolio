@@ -6,12 +6,14 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 import {
   FaCheck,
   FaCopy,
   FaEnvelope,
   FaFacebook,
+  FaGithub,
   FaLinkedin,
   FaPaperPlane,
   FaPhone,
@@ -19,7 +21,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
-import { BsDiscord, BsTelegram } from "react-icons/bs";
+import { BsTelegram } from "react-icons/bs";
 
 const PHONE_NUMBER = "+8801883650010";
 const WHATSAPP_NUMBER = "8801883650010";
@@ -97,12 +99,13 @@ const contactData: ContactItem[] = [
   {
     id: 6,
     category: "Social",
-    label: "Discord",
-    value: "Tamim#1234",
-    copyText: "Tamim#1234",
-    icon: <BsDiscord />,
-    action: "copy",
-    accent: "from-indigo-500 to-violet-400",
+    label: "GitHub",
+    value: "tamimhasanbd06",
+    copyText: "https://github.com/tamimhasanbd06",
+    href: "https://github.com/tamimhasanbd06",
+    icon: <FaGithub />,
+    action: "link",
+    accent: "from-slate-500 to-cyan-400",
   },
   {
     id: 7,
@@ -121,6 +124,7 @@ const initialMessage =
   "Hello Tamim Hasan, I would like to discuss a web development project with you.";
 
 export default function Contact() {
+  const reduceMotion = useReducedMotion();
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [toast, setToast] = useState("");
   const [modal, setModal] = useState<ContactItem | null>(null);
@@ -290,8 +294,8 @@ export default function Contact() {
         </div>
 
         <div className="flex flex-col gap-3">
-          {categoryItems.map((item) => (
-            <article
+          {categoryItems.map((item, index) => (
+            <motion.article
               key={item.id}
               onClick={() => handleItemClick(item)}
               onKeyDown={(event) => {
@@ -301,6 +305,11 @@ export default function Contact() {
               }}
               role="button"
               tabIndex={0}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={reduceMotion ? undefined : { y: -6, scale: 1.012 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: reduceMotion ? 0 : 0.42, delay: index * 0.05 }}
               className="group relative flex cursor-pointer items-center justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] p-3.5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/35 hover:bg-white/[0.075] hover:shadow-[0_16px_50px_rgba(6,182,212,0.08)] focus:outline-none focus:ring-2 focus:ring-cyan-400/40 active:scale-[0.985] sm:p-4"
             >
               <div
@@ -363,7 +372,7 @@ export default function Contact() {
                   )}
                 </button>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

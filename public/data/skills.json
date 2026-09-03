@@ -25,5 +25,10 @@
   { "id": 24, "name": "DeepSeek", "description": "AI reasoning assistant", "category": "ai", "icon": "robot" },
   { "id": 25, "name": "Codex", "description": "AI software engineering assistant", "category": "ai", "icon": "robot" },
   { "id": 26, "name": "Hermes AI", "description": "Open language model assistant", "category": "ai", "icon": "robot" },
-  { "id": 27, "name": "Hugging Face", "description": "AI models and developer tools", "category": "ai", "icon": "robot" }
+  { "id": 27, "name": "Hugging Face", "description": "AI models and developer tools", "category": "ai", "icon": "robot" },
+  { "id": 28, "name": "Figma", "description": "Interface design and prototyping", "category": "tools", "icon": "figma" },
+  { "id": 29, "name": "Framer", "description": "Interactive web design and prototypes", "category": "tools", "icon": "framer" },
+  { "id": 30, "name": "Canva", "description": "Fast visual design and graphics", "category": "tools", "icon": "palette" },
+  { "id": 31, "name": "Adobe Photoshop", "description": "Image editing and web assets", "category": "tools", "icon": "image" },
+  { "id": 32, "name": "Adobe Illustrator", "description": "Vector graphics and icon design", "category": "tools", "icon": "pen" }
 ]

@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { FaJsSquare, FaPython } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript } from "react-icons/si";
 
@@ -32,6 +35,8 @@ const skills: Skill[] = [
 ];
 
 const LookSkills = () => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="relative min-h-screen w-full overflow-hidden text-white">
       {/* Background */}
@@ -45,15 +50,25 @@ const LookSkills = () => {
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24">
         {/* Title */}
-        <h1 className="text-center font-extrabold mb-12 sm:mb-16 text-3xl sm:text-5xl md:text-7xl">
+        <motion.h1
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.7 }}
+          className="text-center font-extrabold mb-12 sm:mb-16 text-3xl sm:text-5xl md:text-7xl"
+        >
           My <span className="text-cyan-300">Skills</span>
-        </h1>
+        </motion.h1>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 place-items-center">
           {skills.map((skill, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 32, scale: reduceMotion ? 1 : 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={reduceMotion ? undefined : { y: -12, rotateX: 3, scale: 1.035 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: reduceMotion ? 0 : 0.5, delay: index * 0.07, ease: "easeOut" }}
               className="
                 relative w-full max-w-[260px]
                 h-72 sm:h-80 md:h-[340px]
@@ -85,7 +100,7 @@ const LookSkills = () => {
               <p className="text-xs sm:text-sm text-white/60 px-4 mt-2 z-10">
                 {skill.full}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

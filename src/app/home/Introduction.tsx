@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 const skills = [
   "Next.js",
@@ -12,6 +13,7 @@ const skills = [
 ];
 
 const Introduction = () => {
+  const reduceMotion = useReducedMotion();
   const [age, setAge] = useState<number>(0);
 
   useEffect(() => {
@@ -72,7 +74,13 @@ const Introduction = () => {
       {/* Content */}
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-10rem)] w-full max-w-6xl grid-cols-1 items-center gap-14 md:grid-cols-2 lg:gap-20">
         {/* LEFT CONTENT */}
-        <div className="order-2 space-y-6 text-center md:order-1 md:text-left">
+        <motion.div
+          initial={{ opacity: 0, x: reduceMotion ? 0 : -46 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.18 }}
+          transition={{ duration: reduceMotion ? 0 : 0.7, ease: "easeOut" }}
+          className="order-2 space-y-6 text-center md:order-1 md:text-left"
+        >
           {/* Availability Badge */}
           <div className="inline-flex items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2">
             <span className="relative flex h-2 w-2">
@@ -128,7 +136,7 @@ const Introduction = () => {
               </span>
 
               <strong className="mt-2 block text-base text-cyan-300">
-                Class 12 Student
+                Class 9 Student
               </strong>
             </div>
 
@@ -190,11 +198,21 @@ const Introduction = () => {
               Contact Me
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* RIGHT PROFILE IMAGE */}
-        <div className="order-1 flex justify-center md:order-2 md:justify-end">
-          <div className="group relative w-full max-w-[430px]">
+        <motion.div
+          initial={{ opacity: 0, x: reduceMotion ? 0 : 46, scale: reduceMotion ? 1 : 0.96 }}
+          whileInView={{ opacity: 1, x: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.18 }}
+          transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.08, ease: "easeOut" }}
+          className="order-1 flex justify-center md:order-2 md:justify-end"
+        >
+          <motion.div
+            whileHover={reduceMotion ? undefined : { y: -8, rotate: 0.4 }}
+            transition={{ type: "spring", stiffness: 220, damping: 18 }}
+            className="group relative w-full max-w-[430px]"
+          >
             {/* Image Glow */}
             <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-blue-500/20 via-cyan-400/10 to-transparent blur-3xl transition duration-500 group-hover:from-blue-500/30 group-hover:via-cyan-400/20" />
 
@@ -225,8 +243,8 @@ const Introduction = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
