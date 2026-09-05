@@ -8,7 +8,6 @@ type SectionId =
   | "about"
   | "skills"
   | "projects"
-  | "apps"
   | "experience"
   | "education"
   | "contact";
@@ -23,7 +22,6 @@ const navigationItems: NavigationItem[] = [
   { name: "About", sectionId: "about" },
   { name: "Skills", sectionId: "skills" },
   { name: "Projects", sectionId: "projects" },
-  { name: "My Apps", sectionId: "apps" },
   { name: "Experience", sectionId: "experience" },
   { name: "Education", sectionId: "education" },
   { name: "Contact", sectionId: "contact" },
