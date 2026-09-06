@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import PdfDownloadButton from "@/components/PdfDownloadButton";
+import PdfDownloadButton from "@/components/common/PdfDownloadButton";
 import { createPageMetadata } from "../site-config";
 
 import {
@@ -150,7 +150,7 @@ export default function CVPage() {
           </Link>
 
           <PdfDownloadButton
-            source="/Tamim-Hasan-CV.pdf"
+            source="/assets/documents/Tamim-Hasan-CV.pdf"
             filename="Tamim-Hasan-CV.pdf"
             label="Download My CV"
             className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/30"
@@ -199,7 +199,7 @@ export default function CVPage() {
               <div className="space-y-3 text-sm text-gray-400">
                 <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#020817] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
                   <Image
-                    src="/me.jpg"
+                    src="/assets/images/me.jpg"
                     alt="Tamim Hasan, frontend web developer"
                     fill
                     priority

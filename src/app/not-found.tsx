@@ -39,7 +39,7 @@ export default function NotFoundPage() {
 
             <div className="relative h-full w-full overflow-hidden rounded-full border border-cyan-400/25 bg-[#020817] shadow-[0_0_50px_rgba(34,211,238,0.15)]">
               <Image
-                src="/tamim-hassan-logo.png"
+                src="/assets/brand/tamim-hassan-logo.png"
                 alt="Tamim Hasan web developer logo"
                 fill
                 priority

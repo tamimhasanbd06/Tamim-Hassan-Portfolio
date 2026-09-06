@@ -10,7 +10,7 @@ import {
   FaInfoCircle,
   FaTimes,
 } from "react-icons/fa";
-import coursesData from "../../public/library/courses-data.json";
+import coursesData from "../../../public/library/courses-data.json";
 
 type CourseStatus = "Completed" | "Not Started" | "In Progress";
 
@@ -321,3 +321,4 @@ export default function Courses() {
     </section>
   );
 }
+

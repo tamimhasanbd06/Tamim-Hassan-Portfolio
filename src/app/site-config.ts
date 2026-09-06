@@ -52,7 +52,7 @@ export function createPageMetadata({
       description,
       images: [
         {
-          url: "/og.png",
+          url: "/assets/brand/og.png",
           width: 1200,
           height: 630,
           alt: "Tamim Hasan Frontend Web Developer Portfolio",
@@ -63,7 +63,7 @@ export function createPageMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: ["/og.png"],
+      images: ["/assets/brand/og.png"],
     },
   };
 }

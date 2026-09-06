@@ -18,7 +18,7 @@ import {
   FiCpu as FiOpenai,
 } from "react-icons/fi";
 
-import aiData from "../../public/library/ai-tools-data.json";
+import aiData from "../../../public/library/ai-tools-data.json";
 
 type AiItem = {
   name: string;
@@ -45,9 +45,21 @@ function AiCard({ item }: { item: AiItem }) {
 
   return (
     <motion.div
-      whileHover={reduceMotion ? undefined : { y: -10, scale: 1.055, rotate: 0.6 }}
+      whileHover={
+        reduceMotion
+          ? undefined
+          : {
+              y: -10,
+              scale: 1.055,
+              rotate: 0.6,
+            }
+      }
       whileTap={{ scale: 0.97 }}
-      transition={{ type: "spring", stiffness: 260, damping: 18 }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 18,
+      }}
       className={`
         group
         flex
@@ -124,7 +136,10 @@ export default function AiTools() {
         relative
         w-full
         overflow-hidden
-        bg-[#020814]
+        bg-gradient-to-b
+        from-black
+        via-[#020817]
+        to-black
         py-16
         sm:py-20
       `}
@@ -150,9 +165,18 @@ export default function AiTools() {
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.7 }}
+          initial={{
+            opacity: 0,
+            y: reduceMotion ? 0 : 24,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.7,
+          }}
           className="mb-10 px-4 text-center sm:px-6 lg:px-8"
         >
           <div
@@ -214,7 +238,8 @@ export default function AiTools() {
               sm:text-base
             `}
           >
-            The artificial intelligence tools, models, and coding assistants I leverage to accelerate development and boost productivity.
+            The artificial intelligence tools, models, and coding assistants I
+            leverage to accelerate development and boost productivity.
           </p>
         </motion.div>
 
@@ -232,7 +257,8 @@ export default function AiTools() {
               h-full
               w-16
               bg-gradient-to-r
-              from-[#020814]
+              from-[#01040a]
+              via-[#01040a]/90
               to-transparent
               sm:w-28
             `}
@@ -250,7 +276,8 @@ export default function AiTools() {
               h-full
               w-16
               bg-gradient-to-l
-              from-[#020814]
+              from-[#01040a]
+              via-[#01040a]/90
               to-transparent
               sm:w-28
             `}

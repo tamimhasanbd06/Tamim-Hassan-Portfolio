@@ -60,7 +60,7 @@ const Lockedcontact = () => {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center bg-[#000814] overflow-hidden px-4 sm:px-6 lg:px-12 py-16">
+    <section id="lock-social" className="relative w-full min-h-screen flex items-center justify-center bg-[#000814] overflow-hidden px-4 sm:px-6 lg:px-12 py-16">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
 
@@ -136,3 +136,5 @@ const Lockedcontact = () => {
 };
 
 export default Lockedcontact;
+
+

@@ -10,6 +10,7 @@ type SectionId =
   | "projects"
   | "experience"
   | "education"
+  | "faq"
   | "contact";
 
 type NavigationItem = {
@@ -24,6 +25,7 @@ const navigationItems: NavigationItem[] = [
   { name: "Projects", sectionId: "projects" },
   { name: "Experience", sectionId: "experience" },
   { name: "Education", sectionId: "education" },
+  { name: "FAQ", sectionId: "faq" },
   { name: "Contact", sectionId: "contact" },
 ];
 
@@ -81,19 +83,27 @@ export default function Navbar() {
     const handleScroll = () => {
       if (animationFrame !== null) return;
 
-      animationFrame = window.requestAnimationFrame(() => {
-        updateNavbar();
-        animationFrame = null;
-      });
+      animationFrame =
+        window.requestAnimationFrame(() => {
+          updateNavbar();
+          animationFrame = null;
+        });
     };
 
     updateNavbar();
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive: true,
+      },
+    );
 
-    window.addEventListener("resize", handleScroll);
+    window.addEventListener(
+      "resize",
+      handleScroll,
+    );
 
     return () => {
       window.removeEventListener(
@@ -107,7 +117,9 @@ export default function Navbar() {
       );
 
       if (animationFrame !== null) {
-        window.cancelAnimationFrame(animationFrame);
+        window.cancelAnimationFrame(
+          animationFrame,
+        );
       }
     };
   }, []);
@@ -211,8 +223,7 @@ export default function Navbar() {
       setTimeout(() => {
         router.push("/");
 
-        logoClickTimerRef.current =
-          null;
+        logoClickTimerRef.current = null;
       }, 250);
   };
 
@@ -222,8 +233,7 @@ export default function Navbar() {
         logoClickTimerRef.current,
       );
 
-      logoClickTimerRef.current =
-        null;
+      logoClickTimerRef.current = null;
     }
 
     scrollToSection("home");
@@ -248,7 +258,8 @@ export default function Navbar() {
       {/* Scroll glow line */}
       <div
         className={`
-          pointer-events-none absolute bottom-0 left-1/2
+          pointer-events-none
+          absolute bottom-0 left-1/2
           h-px -translate-x-1/2
           bg-gradient-to-r
           from-transparent via-cyan-400 to-transparent
@@ -266,14 +277,12 @@ export default function Navbar() {
         <button
           type="button"
           onClick={handleLogoClick}
-          onDoubleClick={
-            handleLogoDoubleClick
-          }
+          onDoubleClick={handleLogoDoubleClick}
           aria-label="Go to landing page. Double click to go to home section."
           title="Click: Landing Page | Double Click: Home"
           className="group flex shrink-0 items-center gap-3"
         >
-          <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-cyan-400/20 bg-gradient-to-br from-blue-600/20 to-cyan-400/10">
+          <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-cyan-400/20 bg-gradient-to-br from-blue-600/20 to-cyan-400/10 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-cyan-400/40 group-hover:bg-cyan-400/10">
             <span className="text-sm font-black text-cyan-200">
               TH
             </span>
@@ -322,9 +331,11 @@ export default function Navbar() {
                       : undefined
                   }
                   className={`
-                    group relative flex h-10 items-center
-                    rounded-full px-3 text-xs font-semibold
-                    transition-all duration-300 lg:px-4 lg:text-sm
+                    group relative flex h-10
+                    items-center rounded-full
+                    px-3 text-xs font-semibold
+                    transition-all duration-300
+                    lg:px-4 lg:text-sm
                     ${
                       isActive
                         ? "bg-cyan-400/10 text-cyan-200"
@@ -336,9 +347,11 @@ export default function Navbar() {
 
                   <span
                     className={`
-                      absolute bottom-0 left-1/2 h-[2px]
-                      -translate-x-1/2 rounded-full
-                      bg-gradient-to-r from-blue-500 to-cyan-300
+                      absolute bottom-0 left-1/2
+                      h-[2px] -translate-x-1/2
+                      rounded-full
+                      bg-gradient-to-r
+                      from-blue-500 to-cyan-300
                       transition-all duration-300
                       ${
                         isActive
@@ -353,7 +366,7 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* Mobile button */}
+        {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={() =>
@@ -368,13 +381,15 @@ export default function Navbar() {
           }
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
-          className="relative flex h-11 w-11 touch-manipulation items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] transition hover:border-cyan-400/30 hover:bg-cyan-400/10 lg:hidden"
+          className="relative flex h-11 w-11 touch-manipulation items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/10 lg:hidden"
         >
           <span className="relative h-5 w-5">
+            {/* Top line */}
             <span
               className={`
-                absolute left-0 h-[2px] w-5 rounded-full
-                bg-white transition-all duration-300
+                absolute left-0 h-[2px]
+                w-5 rounded-full bg-white
+                transition-all duration-300
                 ${
                   isOpen
                     ? "top-[9px] rotate-45"
@@ -383,10 +398,11 @@ export default function Navbar() {
               `}
             />
 
+            {/* Middle line */}
             <span
               className={`
-                absolute left-0 top-[9px] h-[2px]
-                rounded-full bg-white
+                absolute left-0 top-[9px]
+                h-[2px] rounded-full bg-white
                 transition-all duration-300
                 ${
                   isOpen
@@ -396,10 +412,12 @@ export default function Navbar() {
               `}
             />
 
+            {/* Bottom line */}
             <span
               className={`
-                absolute left-0 h-[2px] w-5 rounded-full
-                bg-white transition-all duration-300
+                absolute left-0 h-[2px]
+                w-5 rounded-full bg-white
+                transition-all duration-300
                 ${
                   isOpen
                     ? "top-[9px] -rotate-45"
@@ -411,31 +429,34 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile navigation */}
+      {/* Mobile Navigation */}
       <div
         id="mobile-navigation"
         className={`
-          absolute left-0 top-full w-full overflow-hidden
+          absolute left-0 top-full
+          w-full overflow-hidden
           border-b border-white/10
-          bg-[#02060e]/95 shadow-2xl backdrop-blur-2xl
-          transition-all duration-300 lg:hidden
+          bg-[#02060e]/95
+          shadow-2xl
+          backdrop-blur-2xl
+          transition-all duration-300
+          lg:hidden
           ${
             isOpen
-              ? "visible max-h-[520px] translate-y-0 opacity-100"
+              ? "visible max-h-[600px] translate-y-0 opacity-100"
               : "invisible max-h-0 -translate-y-2 opacity-0"
           }
         `}
       >
-        <ul className="mobile-stack grid grid-cols-2 gap-2 p-3 min-[360px]:p-4 sm:px-6">
+        <ul className="grid grid-cols-2 gap-2 p-3 min-[360px]:p-4 sm:px-6">
           {navigationItems.map(
             (item, index) => {
               const isActive =
                 activeSection ===
                 item.sectionId;
 
-              const finalOddItem =
-                (navigationItems.length +
-                  1) %
+              const isLastOddItem =
+                navigationItems.length %
                   2 !==
                   0 &&
                 index ===
@@ -446,7 +467,7 @@ export default function Navbar() {
                 <li
                   key={item.sectionId}
                   className={
-                    finalOddItem
+                    isLastOddItem
                       ? "col-span-2"
                       : ""
                   }
@@ -466,14 +487,16 @@ export default function Navbar() {
                         : undefined
                     }
                     className={`
-                      relative flex h-12 items-center
-                      justify-between overflow-hidden rounded-xl
-                      border px-4 text-sm font-semibold
+                      relative flex h-12
+                      items-center justify-between
+                      overflow-hidden rounded-xl
+                      border px-4
+                      text-sm font-semibold
                       transition-all duration-300
                       ${
                         isActive
                           ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-200"
-                          : "border-white/[0.07] bg-white/[0.035] text-gray-400 hover:text-white"
+                          : "border-white/[0.07] bg-white/[0.035] text-gray-400 hover:border-white/10 hover:bg-white/[0.06] hover:text-white"
                       }
                     `}
                   >
@@ -509,3 +532,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

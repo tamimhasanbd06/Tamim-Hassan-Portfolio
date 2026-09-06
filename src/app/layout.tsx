@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import PwaInstaller from "@/components/PwaInstaller";
-import RouteChangeLoader from "@/components/RouteChangeLoader";
+import PwaInstaller from "@/components/common/PwaInstaller";
+import RouteChangeLoader from "@/components/common/RouteChangeLoader";
 import "./globals.css";
 import { siteConfig } from "./site-config";
 
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: "/og.png",
+        url: "/assets/brand/og.png",
         width: 1200,
         height: 630,
         alt: "Tamim Hasan Frontend Web Developer Portfolio",
@@ -53,25 +53,25 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tamim Hasan Portfolio | Frontend Web Developer",
     description: siteConfig.description,
-    images: ["/og.png"],
+    images: ["/assets/brand/og.png"],
   },
   icons: {
     icon: [
       { url: "/favicon.ico" },
       {
-        url: "/icon-192.png",
+        url: "/assets/icons/icon-192.png",
         sizes: "192x192",
         type: "image/png",
       },
       {
-        url: "/icon-512.png",
+        url: "/assets/icons/icon-512.png",
         sizes: "512x512",
         type: "image/png",
       },
     ],
     apple: [
       {
-        url: "/apple-touch-icon.png",
+        url: "/assets/icons/apple-touch-icon.png",
         sizes: "180x180",
         type: "image/png",
       },

@@ -220,7 +220,7 @@ const Introduction = () => {
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-2 shadow-2xl backdrop-blur-md">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-[#061225]">
                 <Image
-                  src="/me.jpg"
+                  src="/assets/images/me.jpg"
                   alt="Tamim Hasan, frontend web developer"
                   fill
                   priority
@@ -251,3 +251,4 @@ const Introduction = () => {
 };
 
 export default Introduction;
+

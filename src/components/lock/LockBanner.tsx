@@ -8,7 +8,7 @@ const LockBanner = () => {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden bg-black">
+    <section id="lock-hero" className="relative min-h-[100svh] w-full overflow-hidden bg-black">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
 
@@ -118,7 +118,7 @@ const LockBanner = () => {
               <div className="absolute -inset-6 rounded-3xl bg-blue-500/20 blur-3xl" />
 
               <Image
-                src="/LockBannerImage.png"
+                src="/assets/images/LockBannerImage.png"
                 alt="Tamim Hasan frontend developer"
                 width={520}
                 height={650}
@@ -135,3 +135,4 @@ const LockBanner = () => {
 };
 
 export default LockBanner;
+

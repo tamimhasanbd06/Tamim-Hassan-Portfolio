@@ -86,7 +86,7 @@ export default function Banner() {
 
               <div className="relative aspect-square w-full overflow-hidden rounded-full border border-white/20 bg-[#020617] shadow-2xl shadow-blue-500/20">
                 <Image
-                  src="/tamim-hassan-logo.png"
+                  src="/assets/brand/tamim-hassan-logo.png"
                   alt="Tamim Hasan web developer logo"
                   fill
                   priority
@@ -274,7 +274,7 @@ export default function Banner() {
         className="relative z-10 w-full xl:w-[55%]"
       >
         <Image
-          src="/tamim-hassan-lock-banner.png"
+          src="/assets/images/tamim-hassan-lock-banner.png"
           alt="Tamim Hasan professional web development workspace"
           width={1024}
           height={1536}
@@ -294,3 +294,4 @@ export default function Banner() {
     </section>
   );
 }
+

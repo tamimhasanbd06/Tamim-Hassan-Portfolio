@@ -364,3 +364,5 @@ export default function Skill() {
     </section>
   );
 }
+
+

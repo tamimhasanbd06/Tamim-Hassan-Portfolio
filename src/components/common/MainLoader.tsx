@@ -29,7 +29,7 @@ export default function MainLoader() {
 
           <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15 bg-[#020817] shadow-[0_0_35px_rgba(34,211,238,0.2)] sm:h-24 sm:w-24">
             <Image
-              src="/tamim-hassan-logo.png"
+              src="/assets/brand/tamim-hassan-logo.png"
               alt="Tamim Hasan portfolio logo"
               fill
               preload
@@ -65,3 +65,4 @@ export default function MainLoader() {
     </motion.div>
   );
 }
+

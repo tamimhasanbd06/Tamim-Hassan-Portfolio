@@ -2,6 +2,27 @@
 
 A responsive Next.js 16 and TypeScript portfolio for Md. Tamim Hasan.
 
+## Project structure
+
+```text
+src/
+├── app/                    # Routes, metadata, and app configuration
+└── components/
+    ├── common/             # Shared loaders, PWA, motion, and download controls
+    ├── home/               # Home page sections
+    ├── lock/               # First-page sections
+    └── navigation/         # Shared floating page navigation
+
+public/
+├── assets/
+│   ├── brand/              # Logo and social preview
+│   ├── documents/          # CV and resume PDFs
+│   ├── icons/              # PWA and device icons
+│   └── images/             # Portfolio images
+├── data/                   # Skills, projects, and app data
+└── library/                # Library, course, AI-tool, and certificate data
+```
+
 ## Included
 
 - Responsive layouts from approximately 300px phones to 2000px+ displays
@@ -50,8 +71,8 @@ The browser install option appears after the deployed site is served over HTTPS.
 
 The downloadable documents are stored at:
 
-- `public/Tamim-Hasan-CV.pdf`
-- `public/Tamim-Hasan-Resume.pdf`
+- `public/assets/documents/Tamim-Hasan-CV.pdf`
+- `public/assets/documents/Tamim-Hasan-Resume.pdf`
 
 ## Portfolio data
 
@@ -59,4 +80,4 @@ Update Skills and Projects without editing the card components:
 
 - `public/data/skills.json`
 - `public/data/projects.json`
-- `public/myapps.json`
+- `public/data/myapps.json`

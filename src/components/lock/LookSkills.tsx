@@ -38,7 +38,7 @@ const LookSkills = () => {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden text-white">
+    <section id="lock-skills" className="relative min-h-screen w-full overflow-hidden text-white">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
 
@@ -109,3 +109,5 @@ const LookSkills = () => {
 };
 
 export default LookSkills;
+
+

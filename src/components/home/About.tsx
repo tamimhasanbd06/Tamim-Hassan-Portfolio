@@ -1,4 +1,4 @@
-import MotionReveal from "@/components/MotionReveal";
+import MotionReveal from "@/components/common/MotionReveal";
 
 type AboutItem = {
   number: string;
@@ -200,3 +200,4 @@ const About = () => {
 };
 
 export default About;
+
