@@ -1,0 +1,130 @@
+{
+  "section": {
+    "badge": "How I Build Websites",
+    "title": "From Idea to",
+    "highlightedTitle": "Production",
+    "description": "I follow a structured development process to turn ideas into fast, responsive, maintainable, and user-friendly web applications."
+  },
+  "steps": [
+    {
+      "id": "understand",
+      "number": "01",
+      "title": "Understand",
+      "subtitle": "Understanding the idea and requirements",
+      "description": "I start by understanding the project idea, its goals, target users, required features, and the overall problem the website needs to solve.",
+      "icon": "search",
+      "technologies": [
+        "Requirements",
+        "Research",
+        "Planning"
+      ],
+      "highlights": [
+        "Understand the project requirements",
+        "Identify the main goals",
+        "Think about the target users",
+        "Break the idea into clear features"
+      ]
+    },
+    {
+      "id": "plan",
+      "number": "02",
+      "title": "Plan",
+      "subtitle": "Creating a clear development direction",
+      "description": "Before writing code, I plan the structure of the application, reusable components, page sections, data flow, and technologies that fit the project.",
+      "icon": "compass",
+      "technologies": [
+        "Architecture",
+        "Components",
+        "Data Flow"
+      ],
+      "highlights": [
+        "Plan page and component structure",
+        "Choose suitable technologies",
+        "Organize reusable components",
+        "Think about scalability"
+      ]
+    },
+    {
+      "id": "design",
+      "number": "03",
+      "title": "Design",
+      "subtitle": "Creating a clean and responsive interface",
+      "description": "I focus on creating interfaces that are visually clean, easy to understand, responsive across devices, and consistent throughout the application.",
+      "icon": "layout",
+      "technologies": [
+        "UI/UX",
+        "Responsive",
+        "Tailwind CSS"
+      ],
+      "highlights": [
+        "Create a consistent visual system",
+        "Design responsive layouts",
+        "Focus on usability",
+        "Build reusable UI patterns"
+      ]
+    },
+    {
+      "id": "develop",
+      "number": "04",
+      "title": "Develop",
+      "subtitle": "Turning ideas into working applications",
+      "description": "I build the interface using modern web technologies and reusable components, keeping the code structured, maintainable, and type-safe.",
+      "icon": "code",
+      "technologies": [
+        "React",
+        "Next.js",
+        "TypeScript"
+      ],
+      "highlights": [
+        "Build reusable React components",
+        "Use TypeScript for safer code",
+        "Create responsive interfaces",
+        "Connect frontend functionality"
+      ]
+    },
+    {
+      "id": "test",
+      "number": "05",
+      "title": "Test & Improve",
+      "subtitle": "Checking, optimizing, and refining",
+      "description": "Once the main features are working, I test the application, find issues, improve the user experience, and optimize the implementation where needed.",
+      "icon": "refresh",
+      "technologies": [
+        "Testing",
+        "Performance",
+        "Debugging"
+      ],
+      "highlights": [
+        "Check responsive behavior",
+        "Find and fix bugs",
+        "Improve performance",
+        "Refine the user experience"
+      ]
+    },
+    {
+      "id": "deploy",
+      "number": "06",
+      "title": "Deploy",
+      "subtitle": "Taking the project to production",
+      "description": "After the application is ready, I prepare it for production and deploy it so the website can be accessed reliably by real users.",
+      "icon": "globe",
+      "technologies": [
+        "Git",
+        "GitHub",
+        "Deployment"
+      ],
+      "highlights": [
+        "Prepare production build",
+        "Use version control",
+        "Deploy the application",
+        "Monitor and improve after launch"
+      ]
+    }
+  ],
+  "philosophy": {
+    "icon": "zap",
+    "title": "Build.",
+    "highlightedTitle": "Learn. Improve.",
+    "description": "Every project gives me an opportunity to learn something new, solve problems, improve my development process, and build better experiences."
+  }
+}

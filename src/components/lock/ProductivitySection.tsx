@@ -31,6 +31,8 @@ import {
 } from "react-icons/si";
 
 import {
+  FiArrowDown,
+  FiArrowUp,
   FiArrowUpRight,
   FiCode,
   FiDatabase,
@@ -51,14 +53,6 @@ import {
 /*                                Types                                      */
 /* ========================================================================= */
 
-type ToolCategory =
-  | "Development"
-  | "Backend"
-  | "DevOps"
-  | "Database"
-  | "Deployment"
-  | "Tools";
-
 type ToolData = {
   id: string;
   name: string;
@@ -76,17 +70,6 @@ type ToolItem = ToolData & {
 /* ========================================================================= */
 /*                              Icon Mapping                                 */
 /* ========================================================================= */
-
-/*
- * JSON file contains only strings:
- *
- * {
- *   "icon": "github"
- * }
- *
- * This object converts those strings into
- * actual React icon components.
- */
 
 const iconMap: Record<string, IconType> = {
   github: FaGithub,
@@ -120,11 +103,6 @@ const iconMap: Record<string, IconType> = {
   globe: FiGlobe,
   layers: FiLayers,
 
-  /*
-   * IMPORTANT:
-   * If an unknown icon comes from JSON,
-   * FiCode will be used instead.
-   */
   default: FiCode,
 };
 
@@ -203,6 +181,15 @@ export default function ProductivitySection() {
     "All" | string
   >("All");
 
+  /*
+   * IMPORTANT
+   *
+   * false = only first 4 cards
+   * true  = show all cards
+   */
+  const [showAll, setShowAll] =
+    useState(false);
+
   /* ----------------------------------------------------------------------- */
   /*                         Load JSON Data                                  */
   /* ----------------------------------------------------------------------- */
@@ -232,10 +219,6 @@ export default function ProductivitySection() {
         const data: unknown =
           await response.json();
 
-        /*
-         * Validate that the response
-         * is an array before processing.
-         */
         if (!Array.isArray(data)) {
           throw new Error(
             "ProductivitySection.json must contain an array.",
@@ -392,6 +375,36 @@ export default function ProductivitySection() {
     ]);
 
   /* ----------------------------------------------------------------------- */
+  /*                       Visible Tools                                     */
+  /* ----------------------------------------------------------------------- */
+
+  /*
+   * First 4 cards are shown initially.
+   * After See More, all cards appear.
+   *
+   * If there are 4 or fewer cards,
+   * See More will not appear.
+   */
+
+  const visibleTools =
+    useMemo(() => {
+      if (showAll) {
+        return filteredTools;
+      }
+
+      return filteredTools.slice(
+        0,
+        4,
+      );
+    }, [
+      filteredTools,
+      showAll,
+    ]);
+
+  const hasMoreTools =
+    filteredTools.length > 4;
+
+  /* ----------------------------------------------------------------------- */
   /*                           Statistics                                    */
   /* ----------------------------------------------------------------------- */
 
@@ -426,6 +439,41 @@ export default function ProductivitySection() {
           ? null
           : toolId,
     );
+  };
+
+  /* ----------------------------------------------------------------------- */
+  /*                         Category Change                                 */
+  /* ----------------------------------------------------------------------- */
+
+  const handleCategoryChange = (
+    category: string,
+  ) => {
+    setSelectedCategory(
+      category,
+    );
+
+    /*
+     * Reset See More whenever
+     * category changes.
+     */
+    setShowAll(false);
+
+    /*
+     * Close active card.
+     */
+    setActiveTool(null);
+  };
+
+  /* ----------------------------------------------------------------------- */
+  /*                         See More Toggle                                 */
+  /* ----------------------------------------------------------------------- */
+
+  const handleSeeMore = () => {
+    setShowAll(
+      (current) => !current,
+    );
+
+    setActiveTool(null);
   };
 
   /* ========================================================================= */
@@ -732,19 +780,6 @@ export default function ProductivitySection() {
               >
                 {error}
               </p>
-
-              <p
-                className="
-                  mt-4
-                  text-[10px]
-                  font-bold
-                  uppercase
-                  tracking-[0.12em]
-                  text-red-300/70
-                "
-              >
-                Check public/data/ProductivitySection.json
-              </p>
             </div>
           )}
 
@@ -900,7 +935,7 @@ export default function ProductivitySection() {
                         }
                         type="button"
                         onClick={() =>
-                          setSelectedCategory(
+                          handleCategoryChange(
                             category,
                           )
                         }
@@ -920,20 +955,8 @@ export default function ProductivitySection() {
                           duration-300
                           ${
                             isSelected
-                              ? `
-                                border-cyan-300/40
-                                bg-cyan-400/10
-                                text-cyan-200
-                                shadow-[0_0_25px_rgba(34,211,238,0.08)]
-                              `
-                              : `
-                                border-white/10
-                                bg-white/[0.025]
-                                text-slate-500
-                                hover:border-cyan-400/25
-                                hover:bg-cyan-400/[0.05]
-                                hover:text-cyan-300
-                              `
+                              ? "border-cyan-300/40 bg-cyan-400/10 text-cyan-200 shadow-[0_0_25px_rgba(34,211,238,0.08)]"
+                              : "border-white/10 bg-white/[0.025] text-slate-500 hover:border-cyan-400/25 hover:bg-cyan-400/[0.05] hover:text-cyan-300"
                           }
                         `}
                       >
@@ -963,17 +986,11 @@ export default function ProductivitySection() {
                   xl:grid-cols-4
                 "
               >
-                {filteredTools.map(
+                {visibleTools.map(
                   (
                     tool,
                     index,
                   ) => {
-                    /*
-                     * IMPORTANT:
-                     * iconComponent is already
-                     * resolved safely.
-                     */
-
                     const Icon =
                       tool.iconComponent;
 
@@ -998,13 +1015,9 @@ export default function ProductivitySection() {
                             ? 0
                             : 24,
                         }}
-                        whileInView={{
+                        animate={{
                           opacity: 1,
                           y: 0,
-                        }}
-                        viewport={{
-                          once: true,
-                          amount: 0.15,
                         }}
                         transition={{
                           duration: 0.5,
@@ -1036,24 +1049,12 @@ export default function ProductivitySection() {
                           duration-300
                           ${
                             isActive
-                              ? `
-                                border-cyan-300/45
-                                bg-cyan-400/[0.075]
-                                shadow-[0_25px_70px_rgba(34,211,238,0.13)]
-                              `
-                              : `
-                                border-white/10
-                                bg-white/[0.035]
-                                hover:border-cyan-400/25
-                                hover:bg-white/[0.05]
-                                hover:shadow-[0_25px_60px_rgba(0,0,0,0.35)]
-                              `
+                              ? "border-cyan-300/45 bg-cyan-400/[0.075] shadow-[0_25px_70px_rgba(34,211,238,0.13)]"
+                              : "border-white/10 bg-white/[0.035] hover:border-cyan-400/25 hover:bg-white/[0.05] hover:shadow-[0_25px_60px_rgba(0,0,0,0.35)]"
                           }
                         `}
                       >
-                        {/* ================================================= */}
-                        {/* Glow                                                 */}
-                        {/* ================================================= */}
+                        {/* Card Glow */}
 
                         <div
                           aria-hidden="true"
@@ -1095,9 +1096,7 @@ export default function ProductivitySection() {
 
                         <div className="relative z-10">
 
-                          {/* ============================================= */}
-                          {/* Top Row                                           */}
-                          {/* ============================================= */}
+                          {/* Top Row */}
 
                           <div
                             className="
@@ -1142,20 +1141,8 @@ export default function ProductivitySection() {
                                 duration-300
                                 ${
                                   isActive
-                                    ? `
-                                      border-cyan-300/50
-                                      bg-cyan-400/15
-                                      text-cyan-200
-                                      shadow-[0_0_35px_rgba(34,211,238,0.2)]
-                                    `
-                                    : `
-                                      border-cyan-400/15
-                                      bg-cyan-400/[0.06]
-                                      text-cyan-300
-                                      group-hover:border-cyan-300/35
-                                      group-hover:bg-cyan-400/10
-                                      group-hover:text-cyan-100
-                                    `
+                                    ? "border-cyan-300/50 bg-cyan-400/15 text-cyan-200 shadow-[0_0_35px_rgba(34,211,238,0.2)]"
+                                    : "border-cyan-400/15 bg-cyan-400/[0.06] text-cyan-300 group-hover:border-cyan-300/35 group-hover:bg-cyan-400/10 group-hover:text-cyan-100"
                                 }
                               `}
                             >
@@ -1206,9 +1193,7 @@ export default function ProductivitySection() {
                             </span>
                           </div>
 
-                          {/* ============================================= */}
-                          {/* Title                                             */}
-                          {/* ============================================= */}
+                          {/* Title */}
 
                           <div
                             className="
@@ -1245,9 +1230,7 @@ export default function ProductivitySection() {
                             />
                           </div>
 
-                          {/* ============================================= */}
-                          {/* Description                                      */}
-                          {/* ============================================= */}
+                          {/* Description */}
 
                           <p
                             className="
@@ -1263,9 +1246,7 @@ export default function ProductivitySection() {
                             }
                           </p>
 
-                          {/* ============================================= */}
-                          {/* Divider                                          */}
-                          {/* ============================================= */}
+                          {/* Divider */}
 
                           <div
                             className="
@@ -1278,9 +1259,7 @@ export default function ProductivitySection() {
                             "
                           />
 
-                          {/* ============================================= */}
-                          {/* Tags                                             */}
-                          {/* ============================================= */}
+                          {/* Tags */}
 
                           <div
                             className="
@@ -1301,13 +1280,13 @@ export default function ProductivitySection() {
                                     rounded-full
                                     border
                                     border-cyan-400/10
-                                    bg-cyan-400/4.5
+                                    bg-cyan-400/[0.045]
                                     px-2.5
                                     py-1
                                     text-[8px]
                                     font-bold
                                     uppercase
-                                  tracking-widest
+                                    tracking-widest
                                     text-cyan-300/80
                                     transition-colors
                                     duration-300
@@ -1323,9 +1302,7 @@ export default function ProductivitySection() {
                             )}
                           </div>
 
-                          {/* ============================================= */}
-                          {/* Bottom Status                                    */}
-                          {/* ============================================= */}
+                          {/* Bottom */}
 
                           <div
                             className="
@@ -1384,9 +1361,7 @@ export default function ProductivitySection() {
                             </button>
                           </div>
 
-                          {/* ============================================= */}
-                          {/* Active Line                                      */}
-                          {/* ============================================= */}
+                          {/* Active Line */}
 
                           <motion.div
                             initial={false}
@@ -1410,7 +1385,7 @@ export default function ProductivitySection() {
                               right-5
                               h-px
                               origin-left
-                             bg-linear-to-r
+                              bg-gradient-to-r
                               from-transparent
                               via-cyan-400
                               to-transparent
@@ -1424,6 +1399,88 @@ export default function ProductivitySection() {
               </motion.div>
 
               {/* =========================================================== */}
+              {/* SEE MORE / SHOW LESS                                        */}
+              {/* =========================================================== */}
+
+              {hasMoreTools && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: reduceMotion
+                      ? 0
+                      : 15,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 0.45,
+                  }}
+                  className="
+                    mt-10
+                    flex
+                    justify-center
+                  "
+                >
+                  <button
+                    type="button"
+                    onClick={
+                      handleSeeMore
+                    }
+                    className="
+                      group
+                      inline-flex
+                      items-center
+                      gap-2.5
+                      rounded-full
+                      border
+                      border-cyan-400/20
+                      bg-cyan-400/[0.05]
+                      px-6
+                      py-3
+                      text-[10px]
+                      font-black
+                      uppercase
+                      tracking-[0.16em]
+                      text-cyan-300
+                      shadow-[0_0_30px_rgba(34,211,238,0.05)]
+                      transition-all
+                      duration-300
+                      hover:border-cyan-400/40
+                      hover:bg-cyan-400/[0.1]
+                      hover:text-white
+                      hover:shadow-[0_0_35px_rgba(34,211,238,0.1)]
+                    "
+                  >
+                    {showAll
+                      ? "Show Less"
+                      : "See More"}
+
+                    {showAll ? (
+                      <FiArrowUp
+                        size={15}
+                        className="
+                          transition-transform
+                          duration-300
+                          group-hover:-translate-y-0.5
+                        "
+                      />
+                    ) : (
+                      <FiArrowDown
+                        size={15}
+                        className="
+                          transition-transform
+                          duration-300
+                          group-hover:translate-y-0.5
+                        "
+                      />
+                    )}
+                  </button>
+                </motion.div>
+              )}
+
+              {/* =========================================================== */}
               {/* Empty State                                                  */}
               {/* =========================================================== */}
 
@@ -1435,7 +1492,7 @@ export default function ProductivitySection() {
                     rounded-3xl
                     border
                     border-white/10
-                  bg-white/2.5
+                    bg-white/[0.025]
                     p-12
                     text-center
                   "
@@ -1461,111 +1518,6 @@ export default function ProductivitySection() {
                 </div>
               )}
             </>
-          )}
-
-        {/* ================================================================= */}
-        {/* Bottom Message                                                    */}
-        {/* ================================================================= */}
-
-        {!loading &&
-          !error && (
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: reduceMotion
-                  ? 0
-                  : 20,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.25,
-              }}
-              transition={{
-                duration: 0.65,
-              }}
-              className="
-                mx-auto
-                mt-12
-                max-w-4xl
-                overflow-hidden
-                rounded-3xl
-                border
-                border-white/10
-                bg-white/2.5
-                p-6
-                text-center
-                backdrop-blur-xl
-                sm:p-8
-              "
-            >
-              <div
-                className="
-                  mx-auto
-                  flex
-                  h-12
-                  w-12
-                  items-center
-                  justify-center
-                  rounded-2xl
-                  border
-                  border-cyan-400/20
-                 bg-cyan-400/6
-                  text-xl
-                  text-cyan-300
-                "
-              >
-                <FiCode />
-              </div>
-
-              <p
-                className="
-                  mx-auto
-                  mt-5
-                  max-w-2xl
-                  text-sm
-                  leading-7
-                  text-slate-400
-                  sm:text-base
-                "
-              >
-                I use modern development
-                technologies to build
-                scalable, maintainable,
-                and dependable web
-                applications from
-                development to production.
-              </p>
-
-              <div
-                className="
-                  mx-auto
-                  mt-5
-                  h-px
-                  max-w-xs
-                 bg-linear-to-r
-                  from-transparent
-                  via-cyan-400/30
-                  to-transparent
-                "
-              />
-
-              <p
-                className="
-                  mt-5
-                  text-[10px]
-                  font-black
-                  uppercase
-                  tracking-[0.2em]
-                  text-cyan-300
-                "
-              >
-                Build. Ship. Improve.
-              </p>
-            </motion.div>
           )}
       </div>
     </section>

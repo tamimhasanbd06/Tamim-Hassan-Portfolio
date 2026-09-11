@@ -7,6 +7,9 @@ import Courses from "@/components/lock/Courses";
 import AiTools from "@/components/lock/AiTools";
 import ProductivitySection from "@/components/lock/ProductivitySection";
 import FloatingNavigator from "@/components/navigation/FloatingNavigator";
+import KnowledgeSection from "@/components/lock/KnowledgeSection";
+import DevelopmentJourney from "@/components/lock/DevelopmentJourney";
+import HowIBuildWebsites from "@/components/lock/HowIBuildWebsites";
 
 const lockSections = [
   { label: "Banner", id: "lock-hero" },
@@ -41,6 +44,10 @@ export default function LockPage() {
 <AiTools/>
 
 <ProductivitySection/>
+
+<DevelopmentJourney/>
+
+<HowIBuildWebsites/>
 
       <FloatingNavigator sections={lockSections} homeHref="/home" />
 
