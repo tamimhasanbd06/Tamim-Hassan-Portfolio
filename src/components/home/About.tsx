@@ -6,6 +6,8 @@ type AboutItem = {
   description: string;
 };
 
+
+
 const aboutItems: AboutItem[] = [
   {
     number: "01",
