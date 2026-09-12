@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -105,6 +106,37 @@ export default function DevelopmentJourney() {
 
   const [showAll, setShowAll] = useState(false);
 
+  const [visibleCount, setVisibleCount] = useState(4);
+
+  /* =======================================================
+     RESPONSIVE VISIBLE CARD COUNT
+  ======================================================= */
+
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      const width = window.innerWidth;
+
+      if (width < 640) {
+        // Mobile: 1 card per row, show 2 cards
+        setVisibleCount(2);
+      } else if (width < 1024) {
+        // Tablet: 2 cards per row, show 2 cards
+        setVisibleCount(2);
+      } else {
+        // Desktop/Laptop: 4 cards in one row, show 4 cards
+        setVisibleCount(4);
+      }
+    };
+
+    updateVisibleCount();
+
+    window.addEventListener("resize", updateVisibleCount);
+
+    return () => {
+      window.removeEventListener("resize", updateVisibleCount);
+    };
+  }, []);
+
   /* =======================================================
      JOURNEY DATA
   ======================================================= */
@@ -122,10 +154,10 @@ export default function DevelopmentJourney() {
       return journey;
     }
 
-    return journey.slice(0, 3);
-  }, [journey, showAll]);
+    return journey.slice(0, visibleCount);
+  }, [journey, showAll, visibleCount]);
 
-  const hasMoreJourney = journey.length > 3;
+  const hasMoreJourney = journey.length > visibleCount;
 
   /* =======================================================
      ESC KEY
@@ -356,7 +388,7 @@ export default function DevelopmentJourney() {
             max-w-6xl
             gap-5
             sm:grid-cols-2
-            lg:grid-cols-3
+            lg:grid-cols-4
           "
         >
           {visibleJourney.map((item, index) => {
@@ -974,10 +1006,8 @@ export default function DevelopmentJourney() {
           </motion.div>
         )}
 
-
-
-
       </div>
     </section>
   );
 }
+

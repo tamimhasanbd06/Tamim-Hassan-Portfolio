@@ -92,6 +92,37 @@ export default function HowIBuildWebsites() {
   const [showAll, setShowAll] = useState(false);
 
   /* =======================================================
+     RESPONSIVE VISIBLE COUNT
+  ======================================================= */
+
+  const [visibleCount, setVisibleCount] = useState(4);
+
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      const width = window.innerWidth;
+
+      if (width < 640) {
+        // Mobile: 2 cards, one below another
+        setVisibleCount(2);
+      } else if (width < 1024) {
+        // Tablet: 2 cards in one row
+        setVisibleCount(2);
+      } else {
+        // Desktop/Laptop: 4 cards in one row
+        setVisibleCount(4);
+      }
+    };
+
+    updateVisibleCount();
+
+    window.addEventListener("resize", updateVisibleCount);
+
+    return () => {
+      window.removeEventListener("resize", updateVisibleCount);
+    };
+  }, []);
+
+  /* =======================================================
      STEPS DATA
   ======================================================= */
 
@@ -106,10 +137,10 @@ export default function HowIBuildWebsites() {
       return steps;
     }
 
-    return steps.slice(0, 3);
-  }, [steps, showAll]);
+    return steps.slice(0, visibleCount);
+  }, [steps, showAll, visibleCount]);
 
-  const hasMoreSteps = steps.length > 3;
+  const hasMoreSteps = steps.length > visibleCount;
 
   /* =======================================================
      ESC KEY
@@ -340,7 +371,7 @@ export default function HowIBuildWebsites() {
             max-w-6xl
             gap-5
             sm:grid-cols-2
-            lg:grid-cols-3
+            lg:grid-cols-4
           "
         >
           {visibleSteps.map((step, index) => {

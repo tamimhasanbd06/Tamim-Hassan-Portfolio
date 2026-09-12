@@ -11,17 +11,47 @@ import DevelopmentJourney from "@/components/lock/DevelopmentJourney";
 import HowIBuildWebsites from "@/components/lock/HowIBuildWebsites";
 
 const lockSections = [
-  { label: "Banner", id: "lock-hero" },
-  { label: "Skills", id: "lock-skills" },
-  { label: "Social", id: "lock-social" },
-  { label: "Libraries", id: "libraries" },
-  { label: "Certificates", id: "courses" },
-  { label: "AI Tools", id: "ai-tools" },
-  { label: " Productivity", id: "developer-tools" },
+  {
+    label: "Banner",
+    id: "lock-hero",
+  },
+  {
+    label: "Skills",
+    id: "lock-skills",
+  },
+  {
+    label: "Social",
+    id: "lock-social",
+  },
+  {
+    label: "Libraries",
+    id: "libraries",
+  },
+  {
+    label: "Certificates",
+    id: "courses",
+  },
+  {
+    label: "AI Tools",
+    id: "ai-tools",
+  },
+  {
+    label: "Productivity",
+    id: "developer-tools",
+  },
+  {
+    label: "Development Journey",
+    id: "development-journey",
+  },
+  {
+    label: "How I Build Websites",
+    id: "how-i-build-websites",
+  },
 ];
 
 export const metadata = createPageMetadata({
-  title: "Tamim Hasan Portfolio | Frontend Web Developer",
+  title:
+    "Tamim Hasan Portfolio | Frontend Web Developer",
   description:
     "Discover Tamim Hasan's frontend web developer portfolio, core skills, contact information, CV, resume, and modern web development work.",
   path: "/",
@@ -36,20 +66,22 @@ export default function LockPage() {
 
       <LockedContact />
 
-      <Library/>
+      <Library />
 
-      <Courses/>
+      <Courses />
 
-<AiTools/>
+      <AiTools />
 
-<ProductivitySection/>
+      <ProductivitySection />
 
-<DevelopmentJourney/>
+      <DevelopmentJourney />
 
-<HowIBuildWebsites/>
+      <HowIBuildWebsites />
 
-      <FloatingNavigator sections={lockSections} homeHref="/home" />
-
+      <FloatingNavigator
+        sections={lockSections}
+        homeHref="/home"
+      />
     </main>
   );
 }
