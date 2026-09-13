@@ -9,10 +9,14 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 
+
+
 export default function Banner() {
   const scrollToContact = () => {
     const contactSection =
       document.getElementById("contact");
+
+
 
     if (!contactSection) return;
 
