@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { FaJsSquare, FaPython } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript } from "react-icons/si";
 
-import skillsData from "../../../public/look/skills.json";
+import skillsData from "../../../public/look/MySkills.json";
 
 type SkillIcon =
   | "javascript"

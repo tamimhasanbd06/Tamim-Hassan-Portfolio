@@ -100,7 +100,7 @@ export default function Skill() {
       setLoadError(null);
 
       try {
-        const response = await fetch("/data/skills.json", {
+        const response = await fetch("/data/My-Tech-Stack.json", {
           signal: controller.signal,
         });
 

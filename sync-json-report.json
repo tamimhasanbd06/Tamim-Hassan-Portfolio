@@ -1,0 +1,178 @@
+{
+  "timestamp": "2026-09-13T17:52:00.383Z",
+  "dryRun": false,
+  "renamedFiles": [
+    {
+      "oldPath": "public/data/contact.json",
+      "newPath": "public/data/Contact-Me.json",
+      "component": "src/components/home/Contact-Me.tsx"
+    },
+    {
+      "oldPath": "public/data/education.json",
+      "newPath": "public/data/My-Education.json",
+      "component": "src/components/home/My-Education.tsx"
+    },
+    {
+      "oldPath": "public/data/experience.json",
+      "newPath": "public/data/Experience.json",
+      "component": "src/components/home/Experience.tsx"
+    },
+    {
+      "oldPath": "public/data/footer.json",
+      "newPath": "public/data/Footer.json",
+      "component": "src/components/home/Footer.tsx"
+    },
+    {
+      "oldPath": "public/data/ProductivitySection.json",
+      "newPath": "public/data/Developer-Toolkit.json",
+      "component": "src/components/lock/Developer-Toolkit.tsx"
+    },
+    {
+      "oldPath": "public/data/projects.json",
+      "newPath": "public/data/Project-Gallery.json",
+      "component": "src/components/home/Project-Gallery.tsx"
+    },
+    {
+      "oldPath": "public/data/skills.json",
+      "newPath": "public/data/My-Tech-Stack.json",
+      "component": "src/components/home/My-Tech-Stack.tsx"
+    },
+    {
+      "oldPath": "public/look/ai-tools-data.json",
+      "newPath": "public/look/AI-Stack.json",
+      "component": "src/components/lock/AI-Stack.tsx"
+    },
+    {
+      "oldPath": "public/look/courses-data.json",
+      "newPath": "public/look/Courses-&-Certifications.json",
+      "component": "src/components/lock/Courses-&-Certifications.tsx"
+    },
+    {
+      "oldPath": "public/look/developer-journey.json",
+      "newPath": "public/look/DevelopmentJourney.json",
+      "component": "src/components/lock/DevelopmentJourney.tsx"
+    },
+    {
+      "oldPath": "public/look/how-i-build-websites.json",
+      "newPath": "public/look/HowIBuildWebsites.json",
+      "component": "src/components/lock/HowIBuildWebsites.tsx"
+    },
+    {
+      "oldPath": "public/look/library-data.json",
+      "newPath": "public/look/My-Toolkit.json",
+      "component": "src/components/lock/My-Toolkit.tsx"
+    },
+    {
+      "oldPath": "public/look/lockedcontact.json",
+      "newPath": "public/look/Get-In-Touch.json",
+      "component": "src/components/lock/Get-In-Touch.tsx"
+    },
+    {
+      "oldPath": "public/look/skills.json",
+      "newPath": "public/look/MySkills.json",
+      "component": "src/components/lock/MySkills.tsx"
+    }
+  ],
+  "updatedComponents": [
+    {
+      "component": "src/components/home/Contact-Me.tsx",
+      "modifications": [
+        "import"
+      ]
+    },
+    {
+      "component": "src/components/home/My-Education.tsx",
+      "modifications": [
+        "fetch"
+      ]
+    },
+    {
+      "component": "src/components/home/Experience.tsx",
+      "modifications": [
+        "fetch"
+      ]
+    },
+    {
+      "component": "src/components/home/Footer.tsx",
+      "modifications": [
+        "import"
+      ]
+    },
+    {
+      "component": "src/components/lock/Developer-Toolkit.tsx",
+      "modifications": [
+        "fetch"
+      ]
+    },
+    {
+      "component": "src/components/home/Project-Gallery.tsx",
+      "modifications": [
+        "fetch"
+      ]
+    },
+    {
+      "component": "src/components/home/My-Tech-Stack.tsx",
+      "modifications": [
+        "fetch"
+      ]
+    },
+    {
+      "component": "src/components/lock/AI-Stack.tsx",
+      "modifications": [
+        "import"
+      ]
+    },
+    {
+      "component": "src/components/lock/Courses-&-Certifications.tsx",
+      "modifications": [
+        "import"
+      ]
+    },
+    {
+      "component": "src/components/lock/DevelopmentJourney.tsx",
+      "modifications": [
+        "import"
+      ]
+    },
+    {
+      "component": "src/components/lock/HowIBuildWebsites.tsx",
+      "modifications": [
+        "import"
+      ]
+    },
+    {
+      "component": "src/components/lock/My-Toolkit.tsx",
+      "modifications": [
+        "import"
+      ]
+    },
+    {
+      "component": "src/components/lock/Get-In-Touch.tsx",
+      "modifications": [
+        "import"
+      ]
+    },
+    {
+      "component": "src/components/lock/MySkills.tsx",
+      "modifications": [
+        "import"
+      ]
+    }
+  ],
+  "skippedFiles": [],
+  "conflicts": [],
+  "unusedJsonFiles": [],
+  "unresolvedReferences": [],
+  "validation": {
+    "typecheck": {
+      "command": "npx tsc --noEmit",
+      "success": true,
+      "errors": []
+    },
+    "build": {
+      "command": "npm run build",
+      "success": true,
+      "errors": []
+    }
+  }
+}

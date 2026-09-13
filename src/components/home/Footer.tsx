@@ -26,7 +26,7 @@ import {
 
 import { BsTelegram } from "react-icons/bs";
 
-import footerData from "../../../public/data/footer.json";
+import footerData from "../../../public/data/Footer.json";
 
 type FooterIcon =
   | "phone"

@@ -204,7 +204,7 @@ export default function ProductivitySection() {
 
         const response =
           await fetch(
-            "/data/ProductivitySection.json",
+            "/data/Developer-Toolkit.json",
             {
               cache: "no-store",
             },

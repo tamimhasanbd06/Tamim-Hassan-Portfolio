@@ -23,7 +23,7 @@ import {
   FiTool,
 } from "react-icons/fi";
 
-import journeyData from "../../../public/look/developer-journey.json";
+import journeyData from "../../../public/look/DevelopmentJourney.json";
 
 /* =========================================================
    TYPES

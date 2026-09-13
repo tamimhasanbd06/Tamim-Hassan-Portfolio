@@ -261,7 +261,7 @@ export default function Projects() {
       setLoadError(null);
 
       try {
-        const response = await fetch("/data/projects.json", {
+        const response = await fetch("/data/Project-Gallery.json", {
           signal: controller.signal,
         });
 

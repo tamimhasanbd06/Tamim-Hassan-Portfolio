@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --experimental-strip-types scripts/sync-json.test.ts",
+    "sync-json": "ts-node scripts/sync-json.ts"
   },
   "dependencies": {
     "framer-motion": "^12.43.0",
@@ -16,6 +18,8 @@
     "react-icons": "^5.7.0"
   },
   "devDependencies": {
+    "@babel/parser": "^8.0.5",
+    "@babel/traverse": "^8.0.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -23,7 +27,9 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "glob": "^13.0.6",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
