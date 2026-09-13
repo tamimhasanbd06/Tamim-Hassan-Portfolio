@@ -19,6 +19,9 @@ export const metadata = createPageMetadata({
   path: "/home",
 });
 
+
+
+
 export default function HomePage() {
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-black">
