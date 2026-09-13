@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { FaChevronDown, FaQuestionCircle } from "react-icons/fa";
 
-import faqItems from "../../../public/data/faq.json";
+import faqItems from "../../../public/data/Have-Questions.json";
 
 type FAQItem = {
   question: string;

@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -14,14 +16,14 @@ import {
   FaMapMarkerAlt,
   FaPhoneAlt,
   FaUser,
+  FaQrcode,
+  FaFilePdf,
+  FaTimes,
+  FaSearchPlus,
 } from "react-icons/fa";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "CV - Frontend Web Developer",
-  description:
-    "View and download the professional CV of Tamim Hasan, a frontend web developer skilled in Next.js, React, TypeScript, and JavaScript.",
-  path: "/cv",
-});
+// Note: If you handle metadata in a separate layout/server config, adjust accordingly.
+// Here we keep "use client" for interactive states like QR code modal zooming.
 
 type Skill = {
   category: string;
@@ -129,6 +131,9 @@ const personalInformation = [
 ];
 
 export default function CVPage() {
+  // State for managing QR code modal view
+  const [modalImage, setModalImage] = useState<{ src: string; title: string } | null>(null);
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
       {/* Background */}
@@ -452,6 +457,75 @@ export default function CVPage() {
             </aside>
           </div>
 
+          {/* =========================================================
+              QR CODES SECTION (Portfolio URL & CV PDF QR Codes)
+          ========================================================== */}
+          <div className="mx-6 mb-10 sm:mx-10 lg:mx-14 grid gap-6 md:grid-cols-2">
+            {/* 1. Portfolio URL QR Code */}
+            <div className="rounded-2xl border border-cyan-400/20 bg-cyan-950/20 p-6 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="space-y-1.5 text-center sm:text-left">
+                <div className="flex items-center justify-center sm:justify-start gap-2 text-cyan-300 font-bold text-sm">
+                  <FaQrcode />
+                  <h3>Portfolio URL QR Code</h3>
+                </div>
+                <p className="text-xs text-gray-400 max-w-[200px]">
+                  Scan to visit my live interactive portfolio and projects.
+                </p>
+              </div>
+              <div 
+                onClick={() => setModalImage({ src: "/assets/QR-Code/Tamim Hasa URL QR Code.png", title: "Portfolio URL QR Code" })}
+                className="relative group p-2.5 bg-[#030712] rounded-xl border border-cyan-400/30 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 hover:border-cyan-400 cursor-pointer shrink-0"
+                title="Click to enlarge"
+              >
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
+                <div className="relative h-24 w-24 bg-white rounded-lg overflow-hidden p-1 flex items-center justify-center">
+                  <Image
+                    src="/assets/QR-Code/Tamim Hasa URL QR Code.png"
+                    alt="Tamim Hasan Portfolio URL QR Code"
+                    fill
+                    sizes="96px"
+                    className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
+                    <FaSearchPlus /> Zoom
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. CV PDF QR Code */}
+            <div className="rounded-2xl border border-blue-400/20 bg-blue-950/20 p-6 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="space-y-1.5 text-center sm:text-left">
+                <div className="flex items-center justify-center sm:justify-start gap-2 text-blue-300 font-bold text-sm">
+                  <FaFilePdf />
+                  <h3>CV PDF QR Code</h3>
+                </div>
+                <p className="text-xs text-gray-400 max-w-[200px]">
+                  Scan to instantly access and download my professional CV PDF.
+                </p>
+              </div>
+              <div 
+                onClick={() => setModalImage({ src: "/assets/QR-Code/Tamim Hasa CV PDF QR Code.png", title: "CV PDF QR Code" })}
+                className="relative group p-2.5 bg-[#030712] rounded-xl border border-blue-400/30 shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all duration-300 hover:scale-105 hover:border-blue-400 cursor-pointer shrink-0"
+                title="Click to enlarge"
+              >
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
+                <div className="relative h-24 w-24 bg-white rounded-lg overflow-hidden p-1 flex items-center justify-center">
+                  <Image
+                    src="/assets/QR-Code/Tamim Hasa CV PDF QR Code.png"
+                    alt="Tamim Hasan CV PDF QR Code"
+                    fill
+                    sizes="96px"
+                    className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
+                    <FaSearchPlus /> Zoom
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Bottom message */}
           <footer className="border-t border-white/10 px-6 py-6 text-center sm:px-10">
             <p className="text-xs leading-6 text-gray-600">
@@ -461,6 +535,45 @@ export default function CVPage() {
           </footer>
         </article>
       </div>
+
+      {/* =========================================================
+          QR CODE LIGHTBOX MODAL (Popup Viewer)
+      ========================================================== */}
+      {modalImage && (
+        <div 
+          onClick={() => setModalImage(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-fadeIn"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="relative bg-[#07101d] border border-cyan-400/30 rounded-3xl p-6 max-w-sm w-full shadow-[0_0_50px_rgba(6,182,212,0.3)] text-center space-y-4"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setModalImage(null)}
+              className="absolute top-4 right-4 h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:bg-cyan-500 hover:text-white transition"
+            >
+              <FaTimes />
+            </button>
+
+            <h3 className="text-lg font-bold text-cyan-300">{modalImage.title}</h3>
+            
+            <div className="relative h-72 w-full bg-white rounded-2xl overflow-hidden p-2 flex items-center justify-center shadow-inner">
+              <Image
+                src={modalImage.src}
+                alt={modalImage.title}
+                fill
+                sizes="300px"
+                className="object-contain p-2"
+              />
+            </div>
+
+            <p className="text-xs text-gray-400">
+              Scan with your phone camera to open or download.
+            </p>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
@@ -528,6 +641,7 @@ function EducationRow({
   location,
   current = false,
 }: EducationRowProps) {
+  const isRunning = current;
   return (
     <article className="rounded-2xl border border-white/10 bg-white/[0.035] p-5">
       <div className="flex flex-wrap items-center gap-3">
@@ -535,7 +649,7 @@ function EducationRow({
           {title}
         </h3>
 
-        {current && (
+        {isRunning && (
           <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
             Current
           </span>

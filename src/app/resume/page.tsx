@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import PdfDownloadButton from "@/components/common/PdfDownloadButton";
 import { createPageMetadata } from "../site-config";
-
 import {
   FaArrowLeft,
   FaBriefcase,
@@ -15,14 +16,14 @@ import {
   FaMapMarkerAlt,
   FaPhoneAlt,
   FaUser,
+  FaQrcode,
+  FaFilePdf,
+  FaTimes,
+  FaSearchPlus,
 } from "react-icons/fa";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Resume - Frontend Web Developer",
-  description:
-    "View and download the professional resume of Tamim Hasan, a frontend web developer skilled in Next.js, React, TypeScript, JavaScript, Node.js, Express.js, and MongoDB.",
-  path: "/resume",
-});
+// Note: If you are handling metadata in a separate server file, keep it clean. 
+// Since we added state ("use client"), metadata might need to be extracted or handled based on your Next.js setup.
 
 type Skill = {
   category: string;
@@ -124,15 +125,16 @@ const courses = [
 ];
 
 export default function ResumePage() {
+  // State for managing the modal popup view of QR codes
+  const [modalImage, setModalImage] = useState<{ src: string; title: string } | null>(null);
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
       {/* =========================
           BACKGROUND
       ========================== */}
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]" />
-
       <div className="fixed -left-40 top-0 h-[480px] w-[480px] rounded-full bg-blue-600/10 blur-[160px]" />
-
       <div className="fixed -bottom-52 right-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
 
       {/* =========================
@@ -150,7 +152,6 @@ export default function ResumePage() {
             <FaArrowLeft />
             Back to Portfolio
           </Link>
-
           <PdfDownloadButton
             source="/assets/documents/Tamim-Hasan-Resume.pdf"
             filename="Tamim-Hasan-Resume.pdf"
@@ -168,33 +169,26 @@ export default function ResumePage() {
           ========================== */}
           <header className="relative overflow-hidden border-b border-white/10 px-6 py-10 sm:px-10 lg:px-14">
             <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-500/15 blur-[100px]" />
-
             <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-cyan-400/10 blur-[100px]" />
-
             <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               {/* LEFT */}
               <div>
                 <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                   </span>
-
                   Open to opportunities
                 </div>
-
                 <h1 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
                   Tamim{" "}
                   <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
                     Hasan
                   </span>
                 </h1>
-
                 <p className="mt-3 text-lg font-semibold text-cyan-300 sm:text-xl">
                   Frontend Web Developer
                 </p>
-
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-gray-400">
                   Frontend developer focused on building responsive,
                   accessible, scalable, and high-performance web
@@ -214,30 +208,22 @@ export default function ResumePage() {
                     className="object-cover object-top"
                   />
                 </div>
-
                 <p className="flex items-start gap-3">
                   <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
-
-                  <span>
-                    Bandar, Narayanganj, Dhaka, Bangladesh
-                  </span>
+                  <span>Bandar, Narayanganj, Dhaka, Bangladesh</span>
                 </p>
-
                 <a
                   href="tel:+8801883650010"
                   className="flex items-center gap-3 transition hover:text-cyan-300"
                 >
                   <FaPhoneAlt className="text-emerald-400" />
-
                   +880 1883-650010
                 </a>
-
                 <a
                   href="mailto:tamimhasanbd06@gmail.com"
                   className="flex items-center gap-3 transition hover:text-cyan-300"
                 >
                   <FaEnvelope className="text-blue-400" />
-
                   tamimhasanbd06@gmail.com
                 </a>
               </div>
@@ -253,10 +239,7 @@ export default function ResumePage() {
             ========================== */}
             <div className="space-y-10">
               {/* PROFILE */}
-              <ResumeSection
-                icon={<FaUser />}
-                title="Professional Profile"
-              >
+              <ResumeSection icon={<FaUser />} title="Professional Profile">
                 <p className="leading-7 text-gray-400">
                   Motivated frontend web developer with practical
                   experience building modern web interfaces and
@@ -265,7 +248,6 @@ export default function ResumePage() {
                   Tailwind CSS while also having backend knowledge
                   in Node.js, Express.js, and MongoDB.
                 </p>
-
                 <p className="mt-4 leading-7 text-gray-400">
                   I enjoy transforming project requirements and
                   designs into clean, reusable, responsive, and
@@ -291,21 +273,17 @@ export default function ResumePage() {
                           <h3 className="text-lg font-bold text-white transition group-hover:text-cyan-200">
                             {experience.role}
                           </h3>
-
                           <p className="mt-1 font-semibold text-cyan-300">
                             {experience.company}
                           </p>
-
                           <p className="mt-1 text-sm text-gray-500">
                             {experience.location}
                           </p>
                         </div>
-
                         <span className="w-fit rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-300">
                           {experience.period}
                         </span>
                       </div>
-
                       <ul className="mt-5 space-y-3">
                         {experience.description.map((item) => (
                           <li
@@ -313,7 +291,6 @@ export default function ResumePage() {
                             className="flex gap-3 text-sm leading-6 text-gray-400"
                           >
                             <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
-
                             <span>{item}</span>
                           </li>
                         ))}
@@ -324,10 +301,7 @@ export default function ResumePage() {
               </ResumeSection>
 
               {/* PROJECTS */}
-              <ResumeSection
-                icon={<FaCode />}
-                title="Featured Projects"
-              >
+              <ResumeSection icon={<FaCode />} title="Featured Projects">
                 <div className="space-y-5">
                   {projects.map((project) => (
                     <article
@@ -339,12 +313,10 @@ export default function ResumePage() {
                           <h3 className="text-lg font-bold text-white transition group-hover:text-cyan-200">
                             {project.name}
                           </h3>
-
                           <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-cyan-300">
                             {project.type}
                           </p>
                         </div>
-
                         {project.demo && (
                           <a
                             href={project.demo}
@@ -353,16 +325,13 @@ export default function ResumePage() {
                             className="flex w-fit items-center gap-2 text-sm font-semibold text-blue-400 transition hover:text-cyan-300"
                           >
                             Live Demo
-
                             <FaExternalLinkAlt className="text-xs" />
                           </a>
                         )}
                       </div>
-
                       <p className="mt-4 text-sm leading-7 text-gray-400">
                         {project.description}
                       </p>
-
                       <p className="mt-5 text-xs leading-6 text-gray-500">
                         <span className="font-bold text-gray-300">
                           Technologies:
@@ -386,7 +355,6 @@ export default function ResumePage() {
                     location="Jaharpur, Barpara, Bandar, Narayanganj"
                     status="Ended"
                   />
-
                   <EducationRow
                     title="Secondary Education — Class 9"
                     institution="Cauliflower English High School"
@@ -409,7 +377,6 @@ export default function ResumePage() {
                       <h3 className="text-sm font-bold text-cyan-300">
                         {skill.category}
                       </h3>
-
                       <p className="mt-2 text-sm leading-6 text-gray-400">
                         {skill.items}
                       </p>
@@ -426,7 +393,6 @@ export default function ResumePage() {
                       <p className="text-sm font-bold leading-6 text-gray-200">
                         {course.title}
                       </p>
-
                       <p className="mt-1 text-sm text-gray-500">
                         {course.meta}
                       </p>
@@ -450,15 +416,12 @@ export default function ResumePage() {
                 <div className="flex items-center gap-3">
                   <span className="relative flex h-2.5 w-2.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-
                     <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
                   </span>
-
                   <span className="text-sm font-semibold text-emerald-300">
                     Open to Opportunities
                   </span>
                 </div>
-
                 <p className="mt-3 text-sm leading-6 text-gray-500">
                   Available for frontend development opportunities,
                   practical projects, collaboration, and learning
@@ -474,29 +437,91 @@ export default function ResumePage() {
                     className="flex items-start gap-3 text-sm text-gray-400 transition hover:text-cyan-300"
                   >
                     <FaPhoneAlt className="mt-1 shrink-0 text-emerald-400" />
-
                     <span>+880 1883-650010</span>
                   </a>
-
                   <a
                     href="mailto:tamimhasanbd06@gmail.com"
                     className="flex items-start gap-3 break-all text-sm text-gray-400 transition hover:text-cyan-300"
                   >
                     <FaEnvelope className="mt-1 shrink-0 text-blue-400" />
-
                     <span>tamimhasanbd06@gmail.com</span>
                   </a>
-
                   <p className="flex items-start gap-3 text-sm leading-6 text-gray-400">
                     <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
-
-                    <span>
-                      Bandar, Narayanganj, Dhaka, Bangladesh
-                    </span>
+                    <span>Bandar, Narayanganj, Dhaka, Bangladesh</span>
                   </p>
                 </div>
               </SideSection>
             </aside>
+          </div>
+
+          {/* =========================================================
+              QR CODES SECTION (Clickable to Enlarge / Modal)
+          ========================================================== */}
+          <div className="mx-6 mb-10 sm:mx-10 lg:mx-14 grid gap-6 md:grid-cols-2">
+            {/* 1. Portfolio URL QR Code */}
+            <div className="rounded-2xl border border-cyan-400/20 bg-cyan-950/20 p-6 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="space-y-1.5 text-center sm:text-left">
+                <div className="flex items-center justify-center sm:justify-start gap-2 text-cyan-300 font-bold text-sm">
+                  <FaQrcode />
+                  <h3>Portfolio URL QR Code</h3>
+                </div>
+                <p className="text-xs text-gray-400 max-w-[200px]">
+                  Scan to visit my live interactive portfolio and projects.
+                </p>
+              </div>
+              <div 
+                onClick={() => setModalImage({ src: "/assets/QR-Code/Tamim Hasa URL QR Code.png", title: "Portfolio URL QR Code" })}
+                className="relative group p-2.5 bg-[#030712] rounded-xl border border-cyan-400/30 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 hover:border-cyan-400 cursor-pointer shrink-0"
+                title="Click to enlarge"
+              >
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
+                <div className="relative h-24 w-24 bg-white rounded-lg overflow-hidden p-1 flex items-center justify-center">
+                  <Image
+                    src="/assets/QR-Code/Tamim Hasa URL QR Code.png"
+                    alt="Tamim Hasan Portfolio URL QR Code"
+                    fill
+                    sizes="96px"
+                    className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
+                    <FaSearchPlus /> Zoom
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Resume PDF QR Code */}
+            <div className="rounded-2xl border border-blue-400/20 bg-blue-950/20 p-6 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="space-y-1.5 text-center sm:text-left">
+                <div className="flex items-center justify-center sm:justify-start gap-2 text-blue-300 font-bold text-sm">
+                  <FaFilePdf />
+                  <h3>Resume PDF QR Code</h3>
+                </div>
+                <p className="text-xs text-gray-400 max-w-[200px]">
+                  Scan to instantly access and download my professional resume PDF.
+                </p>
+              </div>
+              <div 
+                onClick={() => setModalImage({ src: "/assets/QR-Code/Tamim Hasa resume PDF QR Code.png", title: "Resume PDF QR Code" })}
+                className="relative group p-2.5 bg-[#030712] rounded-xl border border-blue-400/30 shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all duration-300 hover:scale-105 hover:border-blue-400 cursor-pointer shrink-0"
+                title="Click to enlarge"
+              >
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
+                <div className="relative h-24 w-24 bg-white rounded-lg overflow-hidden p-1 flex items-center justify-center">
+                  <Image
+                    src="/assets/QR-Code/Tamim Hasa resume PDF QR Code.png"
+                    alt="Tamim Hasan Resume PDF QR Code"
+                    fill
+                    sizes="96px"
+                    className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
+                    <FaSearchPlus /> Zoom
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* =========================
@@ -509,6 +534,45 @@ export default function ResumePage() {
           </footer>
         </article>
       </div>
+
+      {/* =========================================================
+          QR CODE LIGHTBOX MODAL (Popup Viewer)
+      ========================================================== */}
+      {modalImage && (
+        <div 
+          onClick={() => setModalImage(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-fadeIn"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="relative bg-[#07101d] border border-cyan-400/30 rounded-3xl p-6 max-w-sm w-full shadow-[0_0_50px_rgba(6,182,212,0.3)] text-center space-y-4"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setModalImage(null)}
+              className="absolute top-4 right-4 h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:bg-cyan-500 hover:text-white transition"
+            >
+              <FaTimes />
+            </button>
+
+            <h3 className="text-lg font-bold text-cyan-300">{modalImage.title}</h3>
+            
+            <div className="relative h-72 w-full bg-white rounded-2xl overflow-hidden p-2 flex items-center justify-center shadow-inner">
+              <Image
+                src={modalImage.src}
+                alt={modalImage.title}
+                fill
+                sizes="300px"
+                className="object-contain p-2"
+              />
+            </div>
+
+            <p className="text-xs text-gray-400">
+              Scan with your phone camera to open the link directly.
+            </p>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
@@ -516,32 +580,22 @@ export default function ResumePage() {
 /* =========================================================
    MAIN SECTION
 ========================================================= */
-
 type ResumeSectionProps = {
   icon: ReactNode;
   title: string;
   children: ReactNode;
 };
 
-function ResumeSection({
-  icon,
-  title,
-  children,
-}: ResumeSectionProps) {
+function ResumeSection({ icon, title, children }: ResumeSectionProps) {
   return (
     <section>
       <div className="mb-5 flex items-center gap-3">
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300">
           {icon}
         </span>
-
-        <h2 className="text-xl font-black">
-          {title}
-        </h2>
-
+        <h2 className="text-xl font-black">{title}</h2>
         <div className="h-px flex-1 bg-gradient-to-r from-cyan-400/30 to-transparent" />
       </div>
-
       {children}
     </section>
   );
@@ -550,25 +604,18 @@ function ResumeSection({
 /* =========================================================
    SIDE SECTION
 ========================================================= */
-
 type SideSectionProps = {
   title: string;
   children: ReactNode;
 };
 
-function SideSection({
-  title,
-  children,
-}: SideSectionProps) {
+function SideSection({ title, children }: SideSectionProps) {
   return (
     <section className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-all duration-300 hover:border-cyan-400/20 hover:bg-white/[0.05]">
       <h2 className="border-b border-white/10 pb-3 text-sm font-black uppercase tracking-[0.18em] text-cyan-300">
         {title}
       </h2>
-
-      <div className="mt-4">
-        {children}
-      </div>
+      <div className="mt-4">{children}</div>
     </section>
   );
 }
@@ -576,7 +623,6 @@ function SideSection({
 /* =========================================================
    EDUCATION ROW
 ========================================================= */
-
 type EducationRowProps = {
   title: string;
   institution: string;
@@ -591,14 +637,12 @@ function EducationRow({
   status,
 }: EducationRowProps) {
   const isRunning = status === "Running";
-
   return (
     <article className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/25 hover:bg-white/[0.055]">
       <div className="flex flex-wrap items-center gap-3">
         <h3 className="font-bold text-white transition group-hover:text-cyan-200">
           {title}
         </h3>
-
         <span
           className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${
             isRunning
@@ -609,15 +653,8 @@ function EducationRow({
           {status}
         </span>
       </div>
-
-      <p className="mt-2 text-sm font-medium text-cyan-300">
-        {institution}
-      </p>
-
-      <p className="mt-1 text-sm text-gray-500">
-        {location}
-      </p>
-
+      <p className="mt-2 text-sm font-medium text-cyan-300">{institution}</p>
+      <p className="mt-1 text-sm text-gray-500">{location}</p>
       {!isRunning && (
         <p className="mt-3 text-sm leading-6 text-gray-400">
           I studied up to Kafiya Jamaat.
