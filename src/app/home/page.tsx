@@ -6,7 +6,7 @@ import Skill from "@/components/Home/My-Tech-Stack";
 import Projects from "@/components/Home/Project-Gallery";
 import Experience from "@/components/Home/Experience";
 import Education from "@/components/Home/My-Education";
-import FAQ from "@/components/home/Have-Questions";
+import FAQ from "@/components/Home/Have-Questions";
 import Contact from "@/components/Home/Contact-Me";
 import Footer from "@/components/Home/Footer";
 import FloatingNavigator from "@/components/navigation/FloatingNavigator";
@@ -24,66 +24,39 @@ export default function HomePage() {
     <main className="min-h-screen w-full overflow-x-clip bg-black">
       <Navbar />
 
-      <section
-        id="home"
-        className="scroll-mt-16"
-      >
+      <section id="home" className="scroll-mt-16">
         <Banner />
       </section>
 
-      <section
-        id="introduction"
-        className="scroll-mt-16"
-      >
+      <section id="introduction" className="scroll-mt-16">
         <Introduction />
       </section>
 
-      <section
-        id="about"
-        className="scroll-mt-16"
-      >
+      <section id="about" className="scroll-mt-16">
         <About />
       </section>
 
-      <section
-        id="skills"
-        className="scroll-mt-16"
-      >
+      <section id="skills" className="scroll-mt-16">
         <Skill />
       </section>
 
-      <section
-        id="projects"
-        className="scroll-mt-16"
-      >
+      <section id="projects" className="scroll-mt-16">
         <Projects />
       </section>
 
-      <section
-        id="experience"
-        className="scroll-mt-16"
-      >
+      <section id="experience" className="scroll-mt-16">
         <Experience />
       </section>
 
-      <section
-        id="education"
-        className="scroll-mt-16"
-      >
+      <section id="education" className="scroll-mt-16">
         <Education />
       </section>
 
-      <section
-        id="faq"
-        className="scroll-mt-16"
-      >
+      <section id="faq" className="scroll-mt-16">
         <FAQ />
       </section>
 
-      <section
-        id="contact"
-        className="scroll-mt-16"
-      >
+      <section id="contact" className="scroll-mt-16">
         <Contact />
       </section>
 
