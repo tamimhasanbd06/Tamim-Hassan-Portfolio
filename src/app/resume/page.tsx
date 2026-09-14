@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import PdfDownloadButton from "@/components/common/PdfDownloadButton";
-import { createPageMetadata } from "../site-config";
 import {
   FaArrowLeft,
   FaBriefcase,
@@ -20,113 +19,147 @@ import {
   FaFilePdf,
   FaTimes,
   FaSearchPlus,
+  FaExclamationTriangle,
 } from "react-icons/fa";
 
-// Note: If you are handling metadata in a separate server file, keep it clean. 
-// Since we added state ("use client"), metadata might need to be extracted or handled based on your Next.js setup.
-
-type Skill = {
-  category: string;
-  items: string;
-};
-
-type Project = {
+export interface ResumePersonalInfo {
   name: string;
-  type: string;
-  description: string;
-  technologies: string;
-  demo?: string;
-};
+  highlightedName: string;
+  title: string;
+  summary: string;
+  status: string;
+  image: string;
+  imageAlt: string;
+  location: string;
+  phone: string;
+  email: string;
+}
 
-type Experience = {
+export interface ResumeDownload {
+  source: string;
+  filename: string;
+  label: string;
+}
+
+export interface ResumeProfile {
+  title: string;
+  paragraphs: string[];
+}
+
+export interface ResumeExperience {
   role: string;
   company: string;
   location: string;
   period: string;
   description: string[];
-};
+}
 
-const skills: Skill[] = [
-  {
-    category: "Frontend Development",
-    items:
-      "Next.js, React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, DaisyUI, HeroUI",
-  },
-  {
-    category: "Backend Development",
-    items: "Node.js, Express.js, MongoDB, REST API",
-  },
-  {
-    category: "Development Tools",
-    items:
-      "GitHub, Git, Vercel, Netlify, Visual Studio Code, Vite, Antigravity",
-  },
-  {
-    category: "Design & UI Tools",
-    items:
-      "Figma, Canva, Adobe Photoshop, Responsive Design, UI/UX Implementation",
-  },
-  {
-    category: "Professional Skills",
-    items:
-      "Problem-solving, teamwork, communication, public speaking, self-learning, and continuous improvement",
-  },
-];
+export interface ResumeProject {
+  name: string;
+  type: string;
+  description: string;
+  technologies: string;
+  demo?: string;
+}
 
-const experiences: Experience[] = [
-  {
-    role: "Frontend Web Developer",
-    company: "IONIC Corporation",
-    location: "Dhaka, Bangladesh",
-    period: "Professional Experience",
-    description: [
-      "Develop responsive and modern web interfaces using React.js, Next.js, TypeScript, JavaScript, and Tailwind CSS.",
-      "Convert UI designs and project requirements into reusable and maintainable frontend components.",
-      "Work with REST APIs and integrate frontend applications with backend services.",
-      "Identify and resolve frontend bugs, responsive issues, and user interface inconsistencies.",
-      "Use Git and GitHub for source control and collaborative development workflows.",
-    ],
-  },
-];
+export interface ResumeEducation {
+  title: string;
+  institution: string;
+  location: string;
+  status: "Ended" | "Running";
+  details?: string;
+}
 
-const projects: Project[] = [
-  {
-    name: "Bank Loan Calculator",
-    type: "Frontend Web Application",
-    description:
-      "An interactive financial application where users can calculate estimated monthly loan payments using loan amount, interest rate, and payment duration.",
-    technologies:
-      "React.js, Material UI, Emotion, Styled Components, Chart.js, Tailwind CSS",
-    demo: "https://bank-loan-calculator.vercel.app",
-  },
-  {
-    name: "Tile Gallery",
-    type: "Full-Stack Web Application",
-    description:
-      "A full-stack tile discovery platform featuring tile browsing, favorites, authentication, personal profiles, and collection management.",
-    technologies:
-      "React.js, Node.js, Express.js, MongoDB, Tailwind CSS",
-  },
-];
+export interface ResumeSkill {
+  category: string;
+  items: string;
+}
 
-const courses = [
-  {
-    title: "Programming Hero Level 1",
-    meta: "Batch 13 — Running",
-  },
-  {
-    title: "Programming Hero 14 Day Bootcamp",
-    meta: "Completed",
-  },
-  {
-    title: "Presentation and Public Speaking",
-    meta: "10 Minute School — Completed",
-  },
-];
+export interface ResumeCourse {
+  title: string;
+  meta: string;
+}
+
+export interface ResumeAvailability {
+  status: string;
+  description: string;
+}
+
+export interface ResumeContact {
+  phone: string;
+  email: string;
+  address: string;
+}
+
+export interface ResumeQrCode {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  accent?: string;
+}
+
+export interface ResumeData {
+  personalInfo: ResumePersonalInfo;
+  download: ResumeDownload;
+  profile: ResumeProfile;
+  experiences: ResumeExperience[];
+  projects: ResumeProject[];
+  education: ResumeEducation[];
+  skills: ResumeSkill[];
+  courses: ResumeCourse[];
+  careerFocus: string;
+  availability: ResumeAvailability;
+  contact: ResumeContact;
+  qrCodes: ResumeQrCode[];
+  footer: string;
+}
 
 export default function ResumePage() {
-  // State for managing the modal popup view of QR codes
+  const [data, setData] = useState<ResumeData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [modalImage, setModalImage] = useState<{ src: string; title: string } | null>(null);
+
+  const [reloadTrigger, setReloadTrigger] = useState(0);
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadResumeData = async () => {
+      try {
+        const res = await fetch("/Main/Resume.json");
+        if (!res.ok) {
+          throw new Error(`Failed to load resume data (HTTP ${res.status})`);
+        }
+        const jsonData: ResumeData = await res.json();
+        if (isMounted) {
+          setData(jsonData);
+          setError(null);
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.error("Failed to load resume data:", err);
+          setError("Failed to load resume data. Please try again later.");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    void loadResumeData();
+    return () => {
+      isMounted = false;
+    };
+  }, [reloadTrigger]);
+
+  const handleRetry = () => {
+    setLoading(true);
+    setError(null);
+    setReloadTrigger((prev) => prev + 1);
+  };
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
@@ -152,412 +185,441 @@ export default function ResumePage() {
             <FaArrowLeft />
             Back to Portfolio
           </Link>
-          <PdfDownloadButton
-            source="/assets/documents/Tamim-Hasan-Resume.pdf"
-            filename="Tamim-Hasan-Resume.pdf"
-            label="Download My Resume"
-            className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/30"
-          />
+          {data?.download ? (
+            <PdfDownloadButton
+              source={data.download.source}
+              filename={data.download.filename}
+              label={data.download.label}
+              className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/30"
+            />
+          ) : (
+            <PdfDownloadButton
+              source="/assets/documents/Tamim-Hasan-Resume.pdf"
+              filename="Tamim-Hasan-Resume.pdf"
+              label="Download My Resume"
+              className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/30"
+            />
+          )}
         </div>
 
-        {/* =========================
-            RESUME CONTAINER
-        ========================== */}
-        <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[#07101d]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
-          {/* =========================
-              HEADER
-          ========================== */}
-          <header className="relative overflow-hidden border-b border-white/10 px-6 py-10 sm:px-10 lg:px-14">
-            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-500/15 blur-[100px]" />
-            <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-cyan-400/10 blur-[100px]" />
-            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-              {/* LEFT */}
-              <div>
-                <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                  </span>
-                  Open to opportunities
-                </div>
-                <h1 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-                  Tamim{" "}
-                  <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                    Hasan
-                  </span>
-                </h1>
-                <p className="mt-3 text-lg font-semibold text-cyan-300 sm:text-xl">
-                  Frontend Web Developer
-                </p>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-gray-400">
-                  Frontend developer focused on building responsive,
-                  accessible, scalable, and high-performance web
-                  applications with modern JavaScript technologies.
-                </p>
-              </div>
-
-              {/* RIGHT / CONTACT */}
-              <div className="space-y-3 text-sm text-gray-400">
-                <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#020817] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
-                  <Image
-                    src="/assets/images/me.jpg"
-                    alt="Tamim Hasan, frontend web developer"
-                    fill
-                    priority
-                    sizes="96px"
-                    className="object-cover object-top"
-                  />
-                </div>
-                <p className="flex items-start gap-3">
-                  <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
-                  <span>Bandar, Narayanganj, Dhaka, Bangladesh</span>
-                </p>
-                <a
-                  href="tel:+8801883650010"
-                  className="flex items-center gap-3 transition hover:text-cyan-300"
-                >
-                  <FaPhoneAlt className="text-emerald-400" />
-                  +880 1883-650010
-                </a>
-                <a
-                  href="mailto:tamimhasanbd06@gmail.com"
-                  className="flex items-center gap-3 transition hover:text-cyan-300"
-                >
-                  <FaEnvelope className="text-blue-400" />
-                  tamimhasanbd06@gmail.com
-                </a>
-              </div>
-            </div>
-          </header>
-
-          {/* =========================
-              MAIN CONTENT
-          ========================== */}
-          <div className="grid gap-10 px-6 py-10 sm:px-10 lg:grid-cols-[1fr_300px] lg:px-14">
+        {loading ? (
+          <div className="flex min-h-[500px] flex-col items-center justify-center rounded-[30px] border border-white/10 bg-[#07101d]/90 p-12 text-center backdrop-blur-xl">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-cyan-400/20 border-t-cyan-400" />
+            <p className="mt-4 text-sm font-medium text-gray-400">Loading resume data...</p>
+          </div>
+        ) : error ? (
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[30px] border border-red-500/20 bg-[#07101d]/90 p-8 text-center backdrop-blur-xl">
+            <FaExclamationTriangle className="text-4xl text-amber-400" />
+            <h3 className="mt-4 text-lg font-bold text-white">Unable to Load Resume</h3>
+            <p className="mt-2 text-sm text-gray-400">{error}</p>
+            <button
+              onClick={handleRetry}
+              className="mt-6 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-6 py-2.5 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-500/20"
+            >
+              Retry
+            </button>
+          </div>
+        ) : data ? (
+          /* =========================
+              RESUME CONTAINER
+          ========================== */
+          <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[#07101d]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
             {/* =========================
-                LEFT COLUMN
+                HEADER
             ========================== */}
-            <div className="space-y-10">
-              {/* PROFILE */}
-              <ResumeSection icon={<FaUser />} title="Professional Profile">
-                <p className="leading-7 text-gray-400">
-                  Motivated frontend web developer with practical
-                  experience building modern web interfaces and
-                  full-stack applications. I work primarily with
-                  Next.js, React.js, TypeScript, JavaScript, and
-                  Tailwind CSS while also having backend knowledge
-                  in Node.js, Express.js, and MongoDB.
-                </p>
-                <p className="mt-4 leading-7 text-gray-400">
-                  I enjoy transforming project requirements and
-                  designs into clean, reusable, responsive, and
-                  maintainable applications. I continuously improve
-                  my development skills by working on practical
-                  projects and exploring modern web technologies.
-                </p>
-              </ResumeSection>
-
-              {/* EXPERIENCE */}
-              <ResumeSection
-                icon={<FaBriefcase />}
-                title="Professional Experience"
-              >
-                <div className="space-y-5">
-                  {experiences.map((experience) => (
-                    <article
-                      key={`${experience.role}-${experience.company}`}
-                      className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-all duration-300 hover:border-cyan-400/25 hover:bg-white/[0.055]"
-                    >
-                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                        <div>
-                          <h3 className="text-lg font-bold text-white transition group-hover:text-cyan-200">
-                            {experience.role}
-                          </h3>
-                          <p className="mt-1 font-semibold text-cyan-300">
-                            {experience.company}
-                          </p>
-                          <p className="mt-1 text-sm text-gray-500">
-                            {experience.location}
-                          </p>
-                        </div>
-                        <span className="w-fit rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-300">
-                          {experience.period}
-                        </span>
-                      </div>
-                      <ul className="mt-5 space-y-3">
-                        {experience.description.map((item) => (
-                          <li
-                            key={item}
-                            className="flex gap-3 text-sm leading-6 text-gray-400"
-                          >
-                            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </article>
-                  ))}
-                </div>
-              </ResumeSection>
-
-              {/* PROJECTS */}
-              <ResumeSection icon={<FaCode />} title="Featured Projects">
-                <div className="space-y-5">
-                  {projects.map((project) => (
-                    <article
-                      key={project.name}
-                      className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/25 hover:bg-white/[0.055]"
-                    >
-                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                        <div>
-                          <h3 className="text-lg font-bold text-white transition group-hover:text-cyan-200">
-                            {project.name}
-                          </h3>
-                          <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-cyan-300">
-                            {project.type}
-                          </p>
-                        </div>
-                        {project.demo && (
-                          <a
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex w-fit items-center gap-2 text-sm font-semibold text-blue-400 transition hover:text-cyan-300"
-                          >
-                            Live Demo
-                            <FaExternalLinkAlt className="text-xs" />
-                          </a>
-                        )}
-                      </div>
-                      <p className="mt-4 text-sm leading-7 text-gray-400">
-                        {project.description}
-                      </p>
-                      <p className="mt-5 text-xs leading-6 text-gray-500">
-                        <span className="font-bold text-gray-300">
-                          Technologies:
-                        </span>{" "}
-                        {project.technologies}
-                      </p>
-                    </article>
-                  ))}
-                </div>
-              </ResumeSection>
-
-              {/* EDUCATION */}
-              <ResumeSection
-                icon={<FaGraduationCap />}
-                title="Education"
-              >
-                <div className="space-y-4">
-                  <EducationRow
-                    title="Alim (Qawmi) — Kafiya Jamaat"
-                    institution="Jaharpur Al-Fatah Darul Ulum Qawmi Madrasa"
-                    location="Jaharpur, Barpara, Bandar, Narayanganj"
-                    status="Ended"
-                  />
-                  <EducationRow
-                    title="Secondary Education — Class 9"
-                    institution="Cauliflower English High School"
-                    location="Farmgate, Dhaka, near Holy Cross"
-                    status="Running"
-                  />
-                </div>
-              </ResumeSection>
-            </div>
-
-            {/* =========================
-                RIGHT COLUMN
-            ========================== */}
-            <aside className="space-y-8">
-              {/* SKILLS */}
-              <SideSection title="Technical Skills">
-                <div className="space-y-5">
-                  {skills.map((skill) => (
-                    <div key={skill.category}>
-                      <h3 className="text-sm font-bold text-cyan-300">
-                        {skill.category}
-                      </h3>
-                      <p className="mt-2 text-sm leading-6 text-gray-400">
-                        {skill.items}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </SideSection>
-
-              {/* COURSES */}
-              <SideSection title="Courses & Training">
-                <ul className="space-y-5">
-                  {courses.map((course) => (
-                    <li key={course.title}>
-                      <p className="text-sm font-bold leading-6 text-gray-200">
-                        {course.title}
-                      </p>
-                      <p className="mt-1 text-sm text-gray-500">
-                        {course.meta}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </SideSection>
-
-              {/* CAREER FOCUS */}
-              <SideSection title="Career Focus">
-                <p className="text-sm leading-7 text-gray-400">
-                  Seeking opportunities where I can contribute to
-                  real-world frontend and full-stack projects while
-                  improving my technical knowledge and professional
-                  development skills.
-                </p>
-              </SideSection>
-
-              {/* AVAILABILITY */}
-              <SideSection title="Availability">
-                <div className="flex items-center gap-3">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                  </span>
-                  <span className="text-sm font-semibold text-emerald-300">
-                    Open to Opportunities
-                  </span>
-                </div>
-                <p className="mt-3 text-sm leading-6 text-gray-500">
-                  Available for frontend development opportunities,
-                  practical projects, collaboration, and learning
-                  opportunities.
-                </p>
-              </SideSection>
-
-              {/* CONTACT */}
-              <SideSection title="Contact">
-                <div className="space-y-4">
-                  <a
-                    href="tel:+8801883650010"
-                    className="flex items-start gap-3 text-sm text-gray-400 transition hover:text-cyan-300"
-                  >
-                    <FaPhoneAlt className="mt-1 shrink-0 text-emerald-400" />
-                    <span>+880 1883-650010</span>
-                  </a>
-                  <a
-                    href="mailto:tamimhasanbd06@gmail.com"
-                    className="flex items-start gap-3 break-all text-sm text-gray-400 transition hover:text-cyan-300"
-                  >
-                    <FaEnvelope className="mt-1 shrink-0 text-blue-400" />
-                    <span>tamimhasanbd06@gmail.com</span>
-                  </a>
-                  <p className="flex items-start gap-3 text-sm leading-6 text-gray-400">
-                    <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
-                    <span>Bandar, Narayanganj, Dhaka, Bangladesh</span>
+            <header className="relative overflow-hidden border-b border-white/10 px-6 py-10 sm:px-10 lg:px-14">
+              <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-500/15 blur-[100px]" />
+              <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-cyan-400/10 blur-[100px]" />
+              <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+                {/* LEFT */}
+                <div>
+                  <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                    </span>
+                    {data.personalInfo.status}
+                  </div>
+                  <h1 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+                    {data.personalInfo.name}{" "}
+                    <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                      {data.personalInfo.highlightedName}
+                    </span>
+                  </h1>
+                  <p className="mt-3 text-lg font-semibold text-cyan-300 sm:text-xl">
+                    {data.personalInfo.title}
+                  </p>
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-gray-400">
+                    {data.personalInfo.summary}
                   </p>
                 </div>
-              </SideSection>
-            </aside>
-          </div>
 
-          {/* =========================================================
-              QR CODES SECTION (Clickable to Enlarge / Modal)
-          ========================================================== */}
-          <div className="mx-6 mb-10 sm:mx-10 lg:mx-14 grid gap-6 md:grid-cols-2">
-            {/* 1. Portfolio URL QR Code */}
-            <div className="rounded-2xl border border-cyan-400/20 bg-cyan-950/20 p-6 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-1.5 text-center sm:text-left">
-                <div className="flex items-center justify-center sm:justify-start gap-2 text-cyan-300 font-bold text-sm">
-                  <FaQrcode />
-                  <h3>Portfolio URL QR Code</h3>
-                </div>
-                <p className="text-xs text-gray-400 max-w-[200px]">
-                  Scan to visit my live interactive portfolio and projects.
-                </p>
-              </div>
-              <div 
-                onClick={() => setModalImage({ src: "/assets/QR-Code/Tamim Hasa URL QR Code.png", title: "Portfolio URL QR Code" })}
-                className="relative group p-2.5 bg-[#030712] rounded-xl border border-cyan-400/30 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 hover:border-cyan-400 cursor-pointer shrink-0"
-                title="Click to enlarge"
-              >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
-                <div className="relative h-24 w-24 bg-white rounded-lg overflow-hidden p-1 flex items-center justify-center">
-                  <Image
-                    src="/assets/QR-Code/Tamim Hasa URL QR Code.png"
-                    alt="Tamim Hasan Portfolio URL QR Code"
-                    fill
-                    sizes="96px"
-                    className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
-                    <FaSearchPlus /> Zoom
+                {/* RIGHT / CONTACT */}
+                <div className="space-y-3 text-sm text-gray-400">
+                  <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#020817] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
+                    <Image
+                      src={data.personalInfo.image}
+                      alt={data.personalInfo.imageAlt}
+                      fill
+                      priority
+                      sizes="96px"
+                      className="object-cover object-top"
+                    />
                   </div>
+                  <p className="flex items-start gap-3">
+                    <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
+                    <span>{data.personalInfo.location}</span>
+                  </p>
+                  <a
+                    href={`tel:${data.personalInfo.phone.replace(/[^+\d]/g, "")}`}
+                    className="flex items-center gap-3 transition hover:text-cyan-300"
+                  >
+                    <FaPhoneAlt className="text-emerald-400" />
+                    {data.personalInfo.phone}
+                  </a>
+                  <a
+                    href={`mailto:${data.personalInfo.email}`}
+                    className="flex items-center gap-3 transition hover:text-cyan-300"
+                  >
+                    <FaEnvelope className="text-blue-400" />
+                    {data.personalInfo.email}
+                  </a>
                 </div>
               </div>
+            </header>
+
+            {/* =========================
+                MAIN CONTENT
+            ========================== */}
+            <div className="grid gap-10 px-6 py-10 sm:px-10 lg:grid-cols-[1fr_300px] lg:px-14">
+              {/* =========================
+                  LEFT COLUMN
+              ========================== */}
+              <div className="space-y-10">
+                {/* PROFILE */}
+                {data.profile && (
+                  <ResumeSection icon={<FaUser />} title={data.profile.title}>
+                    {data.profile.paragraphs.map((para, idx) => (
+                      <p key={idx} className={idx > 0 ? "mt-4 leading-7 text-gray-400" : "leading-7 text-gray-400"}>
+                        {para}
+                      </p>
+                    ))}
+                  </ResumeSection>
+                )}
+
+                {/* EXPERIENCE */}
+                {data.experiences && data.experiences.length > 0 && (
+                  <ResumeSection
+                    icon={<FaBriefcase />}
+                    title="Professional Experience"
+                  >
+                    <div className="space-y-5">
+                      {data.experiences.map((experience) => (
+                        <article
+                          key={`${experience.role}-${experience.company}`}
+                          className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-all duration-300 hover:border-cyan-400/25 hover:bg-white/[0.055]"
+                        >
+                          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                              <h3 className="text-lg font-bold text-white transition group-hover:text-cyan-200">
+                                {experience.role}
+                              </h3>
+                              <p className="mt-1 font-semibold text-cyan-300">
+                                {experience.company}
+                              </p>
+                              <p className="mt-1 text-sm text-gray-500">
+                                {experience.location}
+                              </p>
+                            </div>
+                            <span className="w-fit rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-300">
+                              {experience.period}
+                            </span>
+                          </div>
+                          <ul className="mt-5 space-y-3">
+                            {experience.description.map((item) => (
+                              <li
+                                key={item}
+                                className="flex gap-3 text-sm leading-6 text-gray-400"
+                              >
+                                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </article>
+                      ))}
+                    </div>
+                  </ResumeSection>
+                )}
+
+                {/* PROJECTS */}
+                {data.projects && data.projects.length > 0 && (
+                  <ResumeSection icon={<FaCode />} title="Featured Projects">
+                    <div className="space-y-5">
+                      {data.projects.map((project) => (
+                        <article
+                          key={project.name}
+                          className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/25 hover:bg-white/[0.055]"
+                        >
+                          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                              <h3 className="text-lg font-bold text-white transition group-hover:text-cyan-200">
+                                {project.name}
+                              </h3>
+                              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-cyan-300">
+                                {project.type}
+                              </p>
+                            </div>
+                            {project.demo && (
+                              <a
+                                href={project.demo}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex w-fit items-center gap-2 text-sm font-semibold text-blue-400 transition hover:text-cyan-300"
+                              >
+                                Live Demo
+                                <FaExternalLinkAlt className="text-xs" />
+                              </a>
+                            )}
+                          </div>
+                          <p className="mt-4 text-sm leading-7 text-gray-400">
+                            {project.description}
+                          </p>
+                          <p className="mt-5 text-xs leading-6 text-gray-500">
+                            <span className="font-bold text-gray-300">
+                              Technologies:
+                            </span>{" "}
+                            {project.technologies}
+                          </p>
+                        </article>
+                      ))}
+                    </div>
+                  </ResumeSection>
+                )}
+
+                {/* EDUCATION */}
+                {data.education && data.education.length > 0 && (
+                  <ResumeSection
+                    icon={<FaGraduationCap />}
+                    title="Education"
+                  >
+                    <div className="space-y-4">
+                      {data.education.map((edu) => (
+                        <EducationRow
+                          key={edu.title}
+                          title={edu.title}
+                          institution={edu.institution}
+                          location={edu.location}
+                          status={edu.status}
+                          details={edu.details}
+                        />
+                      ))}
+                    </div>
+                  </ResumeSection>
+                )}
+              </div>
+
+              {/* =========================
+                  RIGHT COLUMN
+              ========================== */}
+              <aside className="space-y-8">
+                {/* SKILLS */}
+                {data.skills && data.skills.length > 0 && (
+                  <SideSection title="Technical Skills">
+                    <div className="space-y-5">
+                      {data.skills.map((skill) => (
+                        <div key={skill.category}>
+                          <h3 className="text-sm font-bold text-cyan-300">
+                            {skill.category}
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-gray-400">
+                            {skill.items}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </SideSection>
+                )}
+
+                {/* COURSES */}
+                {data.courses && data.courses.length > 0 && (
+                  <SideSection title="Courses & Training">
+                    <ul className="space-y-5">
+                      {data.courses.map((course) => (
+                        <li key={course.title}>
+                          <p className="text-sm font-bold leading-6 text-gray-200">
+                            {course.title}
+                          </p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            {course.meta}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </SideSection>
+                )}
+
+                {/* CAREER FOCUS */}
+                {data.careerFocus && (
+                  <SideSection title="Career Focus">
+                    <p className="text-sm leading-7 text-gray-400">
+                      {data.careerFocus}
+                    </p>
+                  </SideSection>
+                )}
+
+                {/* AVAILABILITY */}
+                {data.availability && (
+                  <SideSection title="Availability">
+                    <div className="flex items-center gap-3">
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                      </span>
+                      <span className="text-sm font-semibold text-emerald-300">
+                        {data.availability.status}
+                      </span>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-gray-500">
+                      {data.availability.description}
+                    </p>
+                  </SideSection>
+                )}
+
+                {/* CONTACT */}
+                {data.contact && (
+                  <SideSection title="Contact">
+                    <div className="space-y-4">
+                      <a
+                        href={`tel:${data.contact.phone.replace(/[^+\d]/g, "")}`}
+                        className="flex items-start gap-3 text-sm text-gray-400 transition hover:text-cyan-300"
+                      >
+                        <FaPhoneAlt className="mt-1 shrink-0 text-emerald-400" />
+                        <span>{data.contact.phone}</span>
+                      </a>
+                      <a
+                        href={`mailto:${data.contact.email}`}
+                        className="flex items-start gap-3 break-all text-sm text-gray-400 transition hover:text-cyan-300"
+                      >
+                        <FaEnvelope className="mt-1 shrink-0 text-blue-400" />
+                        <span>{data.contact.email}</span>
+                      </a>
+                      <p className="flex items-start gap-3 text-sm leading-6 text-gray-400">
+                        <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
+                        <span>{data.contact.address}</span>
+                      </p>
+                    </div>
+                  </SideSection>
+                )}
+              </aside>
             </div>
 
-            {/* 2. Resume PDF QR Code */}
-            <div className="rounded-2xl border border-blue-400/20 bg-blue-950/20 p-6 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-1.5 text-center sm:text-left">
-                <div className="flex items-center justify-center sm:justify-start gap-2 text-blue-300 font-bold text-sm">
-                  <FaFilePdf />
-                  <h3>Resume PDF QR Code</h3>
-                </div>
-                <p className="text-xs text-gray-400 max-w-[200px]">
-                  Scan to instantly access and download my professional resume PDF.
-                </p>
+            {/* =========================================================
+                QR CODES SECTION (Clickable to Enlarge / Modal)
+            ========================================================== */}
+            {data.qrCodes && data.qrCodes.length > 0 && (
+              <div className="mx-6 mb-10 grid gap-6 sm:mx-10 md:grid-cols-2 lg:mx-14">
+                {data.qrCodes.map((qr) => {
+                  const isBlue = qr.accent === "blue";
+                  return (
+                    <div
+                      key={qr.id}
+                      className={`flex flex-col items-center justify-between gap-4 rounded-2xl border p-6 backdrop-blur-md sm:flex-row ${
+                        isBlue
+                          ? "border-blue-400/20 bg-blue-950/20"
+                          : "border-cyan-400/20 bg-cyan-950/20"
+                      }`}
+                    >
+                      <div className="space-y-1.5 text-center sm:text-left">
+                        <div
+                          className={`flex items-center justify-center gap-2 text-sm font-bold sm:justify-start ${
+                            isBlue ? "text-blue-300" : "text-cyan-300"
+                          }`}
+                        >
+                          {isBlue ? <FaFilePdf /> : <FaQrcode />}
+                          <h3>{qr.title}</h3>
+                        </div>
+                        <p className="max-w-[200px] text-xs text-gray-400">
+                          {qr.description}
+                        </p>
+                      </div>
+                      <div
+                        onClick={() =>
+                          setModalImage({
+                            src: qr.image,
+                            title: qr.title,
+                          })
+                        }
+                        className={`group relative shrink-0 cursor-pointer rounded-xl border bg-[#030712] p-2.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 ${
+                          isBlue
+                            ? "border-blue-400/30 hover:border-blue-400"
+                            : "border-cyan-400/30 hover:border-cyan-400"
+                        }`}
+                        title="Click to enlarge"
+                      >
+                        <div
+                          className={`absolute -inset-0.5 rounded-xl blur transition duration-300 ${
+                            isBlue
+                              ? "bg-gradient-to-r from-blue-600 to-cyan-500 opacity-30 group-hover:opacity-75"
+                              : "bg-gradient-to-r from-blue-500 to-cyan-400 opacity-30 group-hover:opacity-75"
+                          }`}
+                        />
+                        <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg bg-white p-1">
+                          <Image
+                            src={qr.image}
+                            alt={qr.alt}
+                            fill
+                            sizes="96px"
+                            className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center gap-1 bg-black/40 text-xs font-semibold text-white opacity-0 transition-opacity group-hover:opacity-100">
+                            <FaSearchPlus /> Zoom
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <div 
-                onClick={() => setModalImage({ src: "/assets/QR-Code/Tamim Hasa resume PDF QR Code.png", title: "Resume PDF QR Code" })}
-                className="relative group p-2.5 bg-[#030712] rounded-xl border border-blue-400/30 shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all duration-300 hover:scale-105 hover:border-blue-400 cursor-pointer shrink-0"
-                title="Click to enlarge"
-              >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
-                <div className="relative h-24 w-24 bg-white rounded-lg overflow-hidden p-1 flex items-center justify-center">
-                  <Image
-                    src="/assets/QR-Code/Tamim Hasa resume PDF QR Code.png"
-                    alt="Tamim Hasan Resume PDF QR Code"
-                    fill
-                    sizes="96px"
-                    className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
-                    <FaSearchPlus /> Zoom
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            )}
 
-          {/* =========================
-              FOOTER
-          ========================== */}
-          <footer className="border-t border-white/10 px-6 py-6 text-center sm:px-10">
-            <p className="text-xs leading-6 text-gray-600">
-              Thank you for reviewing my professional resume.
-            </p>
-          </footer>
-        </article>
+            {/* =========================
+                FOOTER
+            ========================== */}
+            {data.footer && (
+              <footer className="border-t border-white/10 px-6 py-6 text-center sm:px-10">
+                <p className="text-xs leading-6 text-gray-600">
+                  {data.footer}
+                </p>
+              </footer>
+            )}
+          </article>
+        ) : null}
       </div>
 
       {/* =========================================================
           QR CODE LIGHTBOX MODAL (Popup Viewer)
       ========================================================== */}
       {modalImage && (
-        <div 
+        <div
           onClick={() => setModalImage(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
         >
-          <div 
+          <div
             onClick={(e) => e.stopPropagation()}
-            className="relative bg-[#07101d] border border-cyan-400/30 rounded-3xl p-6 max-w-sm w-full shadow-[0_0_50px_rgba(6,182,212,0.3)] text-center space-y-4"
+            className="relative w-full max-w-sm space-y-4 rounded-3xl border border-cyan-400/30 bg-[#07101d] p-6 text-center shadow-[0_0_50px_rgba(6,182,212,0.3)]"
           >
             {/* Close Button */}
             <button
               onClick={() => setModalImage(null)}
-              className="absolute top-4 right-4 h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:bg-cyan-500 hover:text-white transition"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-gray-300 transition hover:bg-cyan-500 hover:text-white"
             >
               <FaTimes />
             </button>
 
             <h3 className="text-lg font-bold text-cyan-300">{modalImage.title}</h3>
-            
-            <div className="relative h-72 w-full bg-white rounded-2xl overflow-hidden p-2 flex items-center justify-center shadow-inner">
+
+            <div className="relative flex h-72 w-full items-center justify-center overflow-hidden rounded-2xl bg-white p-2 shadow-inner">
               <Image
                 src={modalImage.src}
                 alt={modalImage.title}
@@ -628,6 +690,7 @@ type EducationRowProps = {
   institution: string;
   location: string;
   status: "Ended" | "Running";
+  details?: string;
 };
 
 function EducationRow({
@@ -635,6 +698,7 @@ function EducationRow({
   institution,
   location,
   status,
+  details,
 }: EducationRowProps) {
   const isRunning = status === "Running";
   return (
@@ -655,9 +719,9 @@ function EducationRow({
       </div>
       <p className="mt-2 text-sm font-medium text-cyan-300">{institution}</p>
       <p className="mt-1 text-sm text-gray-500">{location}</p>
-      {!isRunning && (
+      {details && (
         <p className="mt-3 text-sm leading-6 text-gray-400">
-          I studied up to Kafiya Jamaat.
+          {details}
         </p>
       )}
     </article>

@@ -1,0 +1,136 @@
+{
+  "personalInfo": {
+    "name": "Tamim",
+    "highlightedName": "Hasan",
+    "title": "Frontend Web Developer",
+    "summary": "Frontend developer focused on building responsive, accessible, scalable, and high-performance web applications with modern JavaScript technologies.",
+    "status": "Open to opportunities",
+    "image": "/assets/images/me.jpg",
+    "imageAlt": "Tamim Hasan, frontend web developer",
+    "location": "Bandar, Narayanganj, Dhaka, Bangladesh",
+    "phone": "+880 1883-650010",
+    "email": "tamimhasanbd06@gmail.com"
+  },
+  "download": {
+    "source": "/assets/documents/Tamim-Hasan-Resume.pdf",
+    "filename": "Tamim-Hasan-Resume.pdf",
+    "label": "Download My Resume"
+  },
+  "profile": {
+    "title": "Professional Profile",
+    "paragraphs": [
+      "Motivated frontend web developer with practical experience building modern web interfaces and full-stack applications. I work primarily with Next.js, React.js, TypeScript, JavaScript, and Tailwind CSS while also having backend knowledge in Node.js, Express.js, and MongoDB.",
+      "I enjoy transforming project requirements and designs into clean, reusable, responsive, and maintainable applications. I continuously improve my development skills by working on practical projects and exploring modern web technologies."
+    ]
+  },
+  "experiences": [
+    {
+      "role": "Frontend Web Developer",
+      "company": "IONIC Corporation",
+      "location": "Dhaka, Bangladesh",
+      "period": "Professional Experience",
+      "description": [
+        "Develop responsive and modern web interfaces using React.js, Next.js, TypeScript, JavaScript, and Tailwind CSS.",
+        "Convert UI designs and project requirements into reusable and maintainable frontend components.",
+        "Work with REST APIs and integrate frontend applications with backend services.",
+        "Identify and resolve frontend bugs, responsive issues, and user interface inconsistencies.",
+        "Use Git and GitHub for source control and collaborative development workflows."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Bank Loan Calculator",
+      "type": "Frontend Web Application",
+      "description": "An interactive financial application where users can calculate estimated monthly loan payments using loan amount, interest rate, and payment duration.",
+      "technologies": "React.js, Material UI, Emotion, Styled Components, Chart.js, Tailwind CSS",
+      "demo": "https://bank-loan-calculator.vercel.app"
+    },
+    {
+      "name": "Tile Gallery",
+      "type": "Full-Stack Web Application",
+      "description": "A full-stack tile discovery platform featuring tile browsing, favorites, authentication, personal profiles, and collection management.",
+      "technologies": "React.js, Node.js, Express.js, MongoDB, Tailwind CSS"
+    }
+  ],
+  "education": [
+    {
+      "title": "Alim (Qawmi) — Kafiya Jamaat",
+      "institution": "Jaharpur Al-Fatah Darul Ulum Qawmi Madrasa",
+      "location": "Jaharpur, Barpara, Bandar, Narayanganj",
+      "status": "Ended",
+      "details": "I studied up to Kafiya Jamaat."
+    },
+    {
+      "title": "Secondary Education — Class 9",
+      "institution": "Cauliflower English High School",
+      "location": "Farmgate, Dhaka, near Holy Cross",
+      "status": "Running"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Frontend Development",
+      "items": "Next.js, React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, DaisyUI, HeroUI"
+    },
+    {
+      "category": "Backend Development",
+      "items": "Node.js, Express.js, MongoDB, REST API"
+    },
+    {
+      "category": "Development Tools",
+      "items": "GitHub, Git, Vercel, Netlify, Visual Studio Code, Vite, Antigravity"
+    },
+    {
+      "category": "Design & UI Tools",
+      "items": "Figma, Canva, Adobe Photoshop, Responsive Design, UI/UX Implementation"
+    },
+    {
+      "category": "Professional Skills",
+      "items": "Problem-solving, teamwork, communication, public speaking, self-learning, and continuous improvement"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Programming Hero Level 1",
+      "meta": "Batch 13 — Running"
+    },
+    {
+      "title": "Programming Hero 14 Day Bootcamp",
+      "meta": "Completed"
+    },
+    {
+      "title": "Presentation and Public Speaking",
+      "meta": "10 Minute School — Completed"
+    }
+  ],
+  "careerFocus": "Seeking opportunities where I can contribute to real-world frontend and full-stack projects while improving my technical knowledge and professional development skills.",
+  "availability": {
+    "status": "Open to Opportunities",
+    "description": "Available for frontend development opportunities, practical projects, collaboration, and learning opportunities."
+  },
+  "contact": {
+    "phone": "+880 1883-650010",
+    "email": "tamimhasanbd06@gmail.com",
+    "address": "Bandar, Narayanganj, Dhaka, Bangladesh"
+  },
+  "qrCodes": [
+    {
+      "id": "portfolio",
+      "title": "Portfolio URL QR Code",
+      "description": "Scan to visit my live interactive portfolio and projects.",
+      "image": "/assets/QR-Code/Tamim Hasa URL QR Code.png",
+      "alt": "Tamim Hasan Portfolio URL QR Code",
+      "accent": "cyan"
+    },
+    {
+      "id": "resume-pdf",
+      "title": "Resume PDF QR Code",
+      "description": "Scan to instantly access and download my professional resume PDF.",
+      "image": "/assets/QR-Code/Tamim Hasa resume PDF QR Code.png",
+      "alt": "Tamim Hasan Resume PDF QR Code",
+      "accent": "blue"
+    }
+  ],
+  "footer": "Thank you for reviewing my professional resume."
+}

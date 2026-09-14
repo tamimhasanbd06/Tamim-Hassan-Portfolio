@@ -1,14 +1,14 @@
-import Navbar from "@/components/home/Navbar";
-import Banner from "@/components/home/Banner";
-import Introduction from "@/components/home/Introduction";
-import About from "@/components/home/About-My";
-import Skill from "@/components/home/My-Tech-Stack";
-import Projects from "@/components/home/Project-Gallery";
-import Experience from "@/components/home/Experience";
-import Education from "@/components/home/My-Education";
-import FAQ from "@/components/home/Have-Questions";
-import Contact from "@/components/home/Contact-Me";
-import Footer from "@/components/home/Footer";
+import Navbar from "@/components/Main/Navbar";
+import Banner from "@/components/Main/Banner";
+import Introduction from "@/components/Main/Introduction";
+import About from "@/components/Main/About-My";
+import Skill from "@/components/Main/My-Tech-Stack";
+import Projects from "@/components/Main/Project-Gallery";
+import Experience from "@/components/Main/Experience";
+import Education from "@/components/Main/My-Education";
+import FAQ from "@/components/Main/Have-Questions";
+import Contact from "@/components/Main/Contact-Me";
+import Footer from "@/components/Main/Footer";
 import FloatingNavigator from "@/components/navigation/FloatingNavigator";
 import { createPageMetadata } from "../site-config";
 

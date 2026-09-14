@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import PdfDownloadButton from "@/components/common/PdfDownloadButton";
-import { createPageMetadata } from "../site-config";
-
 import {
   FaArrowLeft,
   FaBriefcase,
@@ -20,127 +18,146 @@ import {
   FaFilePdf,
   FaTimes,
   FaSearchPlus,
+  FaExclamationTriangle,
 } from "react-icons/fa";
 
-// Note: If you handle metadata in a separate layout/server config, adjust accordingly.
-// Here we keep "use client" for interactive states like QR code modal zooming.
+export interface CVPersonalInfo {
+  name: string;
+  highlightedName: string;
+  title: string;
+  summary: string;
+  status: string;
+  image: string;
+  imageAlt: string;
+  location: string;
+  phone: string;
+  email: string;
+}
 
-type Skill = {
-  category: string;
-  items: string;
-};
+export interface CVDownload {
+  source: string;
+  filename: string;
+  label: string;
+}
 
-type Project = {
+export interface CVProfile {
+  title: string;
+  paragraphs: string[];
+}
+
+export interface CVProject {
   name: string;
   type: string;
   description: string;
   features: string[];
   technologies: string;
   demo?: string;
-};
+}
 
-const skills: Skill[] = [
-  {
-    category: "Front-End",
-    items:
-      "Next.js, React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, DaisyUI, HeroUI",
-  },
-  {
-    category: "Back-End",
-    items: "Node.js, Express.js, MongoDB",
-  },
-  {
-    category: "Development Tools",
-    items:
-      "GitHub, Vercel, Visual Studio Code, Antigravity",
-  },
-  {
-    category: "Soft Skills",
-    items:
-      "Public speaking, communication, problem-solving, teamwork, and continuous learning",
-  },
-];
+export interface CVEducation {
+  title: string;
+  institution: string;
+  location: string;
+  current?: boolean;
+}
 
-const projects: Project[] = [
-  {
-    name: "Bank Loan Calculator",
-    type: "Frontend Web Application",
-    description:
-      "An interactive loan calculation platform where users can enter a loan amount, interest rate, and payment term to calculate estimated monthly payments instantly.",
-    features: [
-      "Calculate monthly loan payments instantly",
-      "Interactive controls for loan amounts and payment terms",
-      "Responsive financial data visualization",
-      "Modern and accessible user interface",
-    ],
-    technologies:
-      "React.js, Material UI, Emotion, Styled Components, Chart.js, and Tailwind CSS",
-    demo: "https://bank-loan-calculator.vercel.app",
-  },
-  {
-    name: "Tile Gallery",
-    type: "Full-Stack Web Application",
-    description:
-      "A tile discovery and collection platform where users can browse different tiles, view complete information, save favorites, and manage personal collections.",
-    features: [
-      "Detailed tile browsing functionality",
-      "Favorite and like functionality",
-      "Personal user profiles and collections",
-      "Email and password authentication",
-      "Google authentication",
-    ],
-    technologies:
-      "React.js, Node.js, Express.js, MongoDB, and Tailwind CSS",
-  },
-];
+export interface CVSkill {
+  category: string;
+  items: string;
+}
 
-const personalInformation = [
-  {
-    label: "Full Name",
-    value: "Tamim Hasan",
-  },
-  {
-    label: "Father’s Name",
-    value: "Md. Abdul Wahab",
-  },
-  {
-    label: "Date of Birth",
-    value: "6 June 2010",
-  },
-  {
-    label: "Religion",
-    value: "Islam (Sunni)",
-  },
-  {
-    label: "Marital Status",
-    value: "Unmarried",
-  },
-  {
-    label: "Gender",
-    value: "Male",
-  },
-  {
-    label: "Present and Permanent Address",
-    value:
-      "Musapur, Bandar, Narayanganj, Dhaka, Bangladesh",
-  },
-  {
-    label: "Contact Number",
-    value: "+880 1883-650010",
-  },
-];
+export interface CVCourse {
+  title: string;
+  meta: string;
+}
+
+export interface CVPersonalDetail {
+  label: string;
+  value: string;
+}
+
+export interface CVReference {
+  name: string;
+  role: string;
+  company: string;
+  location: string;
+  phone: string;
+  email: string;
+}
+
+export interface CVQrCode {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  accent?: string;
+}
+
+export interface CVData {
+  personalInfo: CVPersonalInfo;
+  download: CVDownload;
+  profile: CVProfile;
+  projects: CVProject[];
+  education: CVEducation[];
+  skills: CVSkill[];
+  courses: CVCourse[];
+  personalInformation: CVPersonalDetail[];
+  reference: CVReference;
+  qrCodes: CVQrCode[];
+  footer: string;
+}
 
 export default function CVPage() {
-  // State for managing QR code modal view
+  const [data, setData] = useState<CVData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [modalImage, setModalImage] = useState<{ src: string; title: string } | null>(null);
+
+  const [reloadTrigger, setReloadTrigger] = useState(0);
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadCVData = async () => {
+      try {
+        const res = await fetch("/Main/CV.json");
+        if (!res.ok) {
+          throw new Error(`Failed to load CV data (HTTP ${res.status})`);
+        }
+        const jsonData: CVData = await res.json();
+        if (isMounted) {
+          setData(jsonData);
+          setError(null);
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.error("Failed to load CV data:", err);
+          setError("Failed to load CV data. Please try again later.");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    void loadCVData();
+    return () => {
+      isMounted = false;
+    };
+  }, [reloadTrigger]);
+
+  const handleRetry = () => {
+    setLoading(true);
+    setError(null);
+    setReloadTrigger((prev) => prev + 1);
+  };
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
       {/* Background */}
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]" />
-
       <div className="fixed -left-40 top-0 h-[480px] w-[480px] rounded-full bg-blue-600/10 blur-[160px]" />
-
       <div className="fixed -bottom-52 right-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
 
       <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
@@ -154,411 +171,407 @@ export default function CVPage() {
             Back to Portfolio
           </Link>
 
-          <PdfDownloadButton
-            source="/assets/documents/Tamim-Hasan-CV.pdf"
-            filename="Tamim-Hasan-CV.pdf"
-            label="Download My CV"
-            className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/30"
-          />
+          {data?.download ? (
+            <PdfDownloadButton
+              source={data.download.source}
+              filename={data.download.filename}
+              label={data.download.label}
+              className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/30"
+            />
+          ) : (
+            <PdfDownloadButton
+              source="/assets/documents/Tamim-Hasan-CV.pdf"
+              filename="Tamim-Hasan-CV.pdf"
+              label="Download My CV"
+              className="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/30"
+            />
+          )}
         </div>
 
-        {/* CV container */}
-        <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[#07101d]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
-          {/* CV header */}
-          <header className="relative overflow-hidden border-b border-white/10 px-6 py-10 sm:px-10 lg:px-14">
-            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-500/15 blur-[100px]" />
+        {loading ? (
+          <div className="flex min-h-[500px] flex-col items-center justify-center rounded-[30px] border border-white/10 bg-[#07101d]/90 p-12 text-center backdrop-blur-xl">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-cyan-400/20 border-t-cyan-400" />
+            <p className="mt-4 text-sm font-medium text-gray-400">Loading CV data...</p>
+          </div>
+        ) : error ? (
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[30px] border border-red-500/20 bg-[#07101d]/90 p-8 text-center backdrop-blur-xl">
+            <FaExclamationTriangle className="text-4xl text-amber-400" />
+            <h3 className="mt-4 text-lg font-bold text-white">Unable to Load CV</h3>
+            <p className="mt-2 text-sm text-gray-400">{error}</p>
+            <button
+              onClick={handleRetry}
+              className="mt-6 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-6 py-2.5 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-500/20"
+            >
+              Retry
+            </button>
+          </div>
+        ) : data ? (
+          /* CV container */
+          <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[#07101d]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+            {/* CV header */}
+            <header className="relative overflow-hidden border-b border-white/10 px-6 py-10 sm:px-10 lg:px-14">
+              <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-500/15 blur-[100px]" />
+              <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-cyan-400/10 blur-[100px]" />
 
-            <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-cyan-400/10 blur-[100px]" />
+              <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+                <div>
+                  <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                    </span>
+                    {data.personalInfo.status}
+                  </div>
 
-            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-              <div>
-                <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                  <h1 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+                    {data.personalInfo.name}{" "}
+                    <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                      {data.personalInfo.highlightedName}
+                    </span>
+                  </h1>
 
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                  </span>
+                  <p className="mt-3 text-lg font-semibold text-cyan-300 sm:text-xl">
+                    {data.personalInfo.title}
+                  </p>
 
-                  Open to opportunities
+                  <p className="mt-4 max-w-xl text-sm leading-7 text-gray-400">
+                    {data.personalInfo.summary}
+                  </p>
                 </div>
 
-                <h1 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-                  Tamim{" "}
-                  <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                    Hasan
-                  </span>
-                </h1>
+                {/* Contact details */}
+                <div className="space-y-3 text-sm text-gray-400">
+                  <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#020817] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
+                    <Image
+                      src={data.personalInfo.image}
+                      alt={data.personalInfo.imageAlt}
+                      fill
+                      priority
+                      sizes="96px"
+                      className="object-cover object-top"
+                    />
+                  </div>
 
-                <p className="mt-3 text-lg font-semibold text-cyan-300 sm:text-xl">
-                  Frontend Developer
-                </p>
+                  <p className="flex items-start gap-3">
+                    <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
+                    <span>{data.personalInfo.location}</span>
+                  </p>
 
-                <p className="mt-4 max-w-xl text-sm leading-7 text-gray-400">
-                  Building responsive, accessible, and
-                  high-performance web applications with modern
-                  frontend technologies.
-                </p>
-              </div>
+                  <a
+                    href={`tel:${data.personalInfo.phone.replace(/[^+\d]/g, "")}`}
+                    className="flex items-center gap-3 transition hover:text-cyan-300"
+                  >
+                    <FaPhoneAlt className="text-emerald-400" />
+                    {data.personalInfo.phone}
+                  </a>
 
-              {/* Contact details */}
-              <div className="space-y-3 text-sm text-gray-400">
-                <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#020817] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
-                  <Image
-                    src="/assets/images/me.jpg"
-                    alt="Tamim Hasan, frontend web developer"
-                    fill
-                    priority
-                    sizes="96px"
-                    className="object-cover object-top"
-                  />
+                  <a
+                    href={`mailto:${data.personalInfo.email}`}
+                    className="flex items-center gap-3 transition hover:text-cyan-300"
+                  >
+                    <FaEnvelope className="text-blue-400" />
+                    {data.personalInfo.email}
+                  </a>
                 </div>
-
-                <p className="flex items-start gap-3">
-                  <FaMapMarkerAlt className="mt-1 shrink-0 text-pink-400" />
-
-                  <span>
-                    Bandar, Narayanganj, Dhaka,
-                    Bangladesh
-                  </span>
-                </p>
-
-                <a
-                  href="tel:+8801883650010"
-                  className="flex items-center gap-3 transition hover:text-cyan-300"
-                >
-                  <FaPhoneAlt className="text-emerald-400" />
-                  +880 1883-650010
-                </a>
-
-                <a
-                  href="mailto:tamimhasanbd06@gmail.com"
-                  className="flex items-center gap-3 transition hover:text-cyan-300"
-                >
-                  <FaEnvelope className="text-blue-400" />
-                  tamimhasanbd06@gmail.com
-                </a>
               </div>
-            </div>
-          </header>
+            </header>
 
-          {/* Main content */}
-          <div className="grid gap-10 px-6 py-10 sm:px-10 lg:grid-cols-[1fr_300px] lg:px-14">
-            {/* Left column */}
-            <div className="space-y-10">
-              {/* Professional summary */}
-              <CVSection
-                icon={<FaUser />}
-                title="Professional Summary"
-              >
-                <p className="leading-7 text-gray-400">
-                  Motivated frontend developer focused on
-                  creating responsive, accessible, and
-                  high-performance web applications.
-                  Experienced in building practical projects
-                  using React, Next.js, TypeScript,
-                  JavaScript, Tailwind CSS, Express.js, and
-                  MongoDB.
-                </p>
+            {/* Main content */}
+            <div className="grid gap-10 px-6 py-10 sm:px-10 lg:grid-cols-[1fr_300px] lg:px-14">
+              {/* Left column */}
+              <div className="space-y-10">
+                {/* Professional summary */}
+                {data.profile && (
+                  <CVSection icon={<FaUser />} title={data.profile.title}>
+                    {data.profile.paragraphs.map((para, idx) => (
+                      <p key={idx} className={idx > 0 ? "mt-4 leading-7 text-gray-400" : "leading-7 text-gray-400"}>
+                        {para}
+                      </p>
+                    ))}
+                  </CVSection>
+                )}
 
-                <p className="mt-4 leading-7 text-gray-400">
-                  I am passionate about modern web development
-                  and continuously improving my technical
-                  knowledge. I am eager to contribute my
-                  skills, learn from experienced development
-                  teams, and grow through real-world projects.
-                </p>
-              </CVSection>
+                {/* Projects */}
+                {data.projects && data.projects.length > 0 && (
+                  <CVSection icon={<FaBriefcase />} title="Personal Projects">
+                    <div className="space-y-5">
+                      {data.projects.map((project) => (
+                        <article
+                          key={project.name}
+                          className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-all duration-300 hover:border-cyan-400/25 hover:bg-white/[0.055]"
+                        >
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                              <h3 className="text-lg font-bold transition group-hover:text-cyan-200">
+                                {project.name}
+                              </h3>
+                              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-cyan-300">
+                                {project.type}
+                              </p>
+                            </div>
 
-              {/* Projects */}
-              <CVSection
-                icon={<FaBriefcase />}
-                title="Personal Projects"
-              >
-                <div className="space-y-5">
-                  {projects.map((project) => (
-                    <article
-                      key={project.name}
-                      className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-all duration-300 hover:border-cyan-400/25 hover:bg-white/[0.055]"
-                    >
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                          <h3 className="text-lg font-bold transition group-hover:text-cyan-200">
-                            {project.name}
+                            {project.demo && (
+                              <a
+                                href={project.demo}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex w-fit items-center gap-2 text-sm font-semibold text-blue-400 transition hover:text-cyan-300"
+                              >
+                                Live Demo
+                                <FaExternalLinkAlt className="text-xs" />
+                              </a>
+                            )}
+                          </div>
+
+                          <p className="mt-4 text-sm leading-6 text-gray-400">
+                            {project.description}
+                          </p>
+
+                          {project.features && project.features.length > 0 && (
+                            <div className="mt-5">
+                              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-300">
+                                Key Features
+                              </h4>
+                              <ul className="mt-3 space-y-2">
+                                {project.features.map((feature) => (
+                                  <li
+                                    key={feature}
+                                    className="flex gap-3 text-sm text-gray-400"
+                                  >
+                                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+                                    {feature}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          <p className="mt-5 text-xs leading-6 text-gray-500">
+                            <span className="font-bold text-gray-300">
+                              Technologies:
+                            </span>{" "}
+                            {project.technologies}
+                          </p>
+                        </article>
+                      ))}
+                    </div>
+                  </CVSection>
+                )}
+
+                {/* Education */}
+                {data.education && data.education.length > 0 && (
+                  <CVSection
+                    icon={<FaGraduationCap />}
+                    title="Educational Qualification"
+                  >
+                    <div className="space-y-4">
+                      {data.education.map((edu) => (
+                        <EducationRow
+                          key={edu.title}
+                          title={edu.title}
+                          institution={edu.institution}
+                          location={edu.location}
+                          current={edu.current}
+                        />
+                      ))}
+                    </div>
+                  </CVSection>
+                )}
+              </div>
+
+              {/* Right column */}
+              <aside className="space-y-8">
+                {/* Skills */}
+                {data.skills && data.skills.length > 0 && (
+                  <SideSection title="Technical Skills">
+                    <div className="space-y-5">
+                      {data.skills.map((skill) => (
+                        <div key={skill.category}>
+                          <h3 className="text-sm font-bold text-cyan-300">
+                            {skill.category}
                           </h3>
-
-                          <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-cyan-300">
-                            {project.type}
+                          <p className="mt-2 text-sm leading-6 text-gray-400">
+                            {skill.items}
                           </p>
                         </div>
-
-                        {project.demo && (
-                          <a
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex w-fit items-center gap-2 text-sm font-semibold text-blue-400 transition hover:text-cyan-300"
-                          >
-                            Live Demo
-                            <FaExternalLinkAlt className="text-xs" />
-                          </a>
-                        )}
-                      </div>
-
-                      <p className="mt-4 text-sm leading-6 text-gray-400">
-                        {project.description}
-                      </p>
-
-                      <div className="mt-5">
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-gray-300">
-                          Key Features
-                        </h4>
-
-                        <ul className="mt-3 space-y-2">
-                          {project.features.map((feature) => (
-                            <li
-                              key={feature}
-                              className="flex gap-3 text-sm text-gray-400"
-                            >
-                              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <p className="mt-5 text-xs leading-6 text-gray-500">
-                        <span className="font-bold text-gray-300">
-                          Technologies:
-                        </span>{" "}
-                        {project.technologies}
-                      </p>
-                    </article>
-                  ))}
-                </div>
-              </CVSection>
-
-              {/* Education */}
-              <CVSection
-                icon={<FaGraduationCap />}
-                title="Educational Qualification"
-              >
-                <div className="space-y-4">
-                  <EducationRow
-                    title="Alim (Qawmi) — Kafia Level, Class 12"
-                    institution="Jaharpur Al-Fatah Darul Ulum Qawmi Madrasa"
-                    location="Jaharpur, Barpara, Bandar, Narayanganj"
-                  />
-
-                  <EducationRow
-                    title="Secondary Education — Class 9"
-                    institution="Cauliflower English High School"
-                    location="Farmgate, Dhaka, near Holy Cross"
-                    current
-                  />
-                </div>
-              </CVSection>
-            </div>
-
-            {/* Right column */}
-            <aside className="space-y-8">
-              {/* Skills */}
-              <SideSection title="Technical Skills">
-                <div className="space-y-5">
-                  {skills.map((skill) => (
-                    <div key={skill.category}>
-                      <h3 className="text-sm font-bold text-cyan-300">
-                        {skill.category}
-                      </h3>
-
-                      <p className="mt-2 text-sm leading-6 text-gray-400">
-                        {skill.items}
-                      </p>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </SideSection>
+                  </SideSection>
+                )}
 
-              {/* Courses */}
-              <SideSection title="Courses">
-                <ul className="space-y-5 text-sm leading-6 text-gray-400">
-                  <li>
-                    <span className="font-bold text-gray-200">
-                      Programming Hero Level 1
-                    </span>
+                {/* Courses */}
+                {data.courses && data.courses.length > 0 && (
+                  <SideSection title="Courses">
+                    <ul className="space-y-5 text-sm leading-6 text-gray-400">
+                      {data.courses.map((course) => (
+                        <li key={course.title}>
+                          <span className="font-bold text-gray-200">
+                            {course.title}
+                          </span>
+                          <br />
+                          <span className="text-gray-500">
+                            {course.meta}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </SideSection>
+                )}
 
-                    <br />
+                {/* Personal information */}
+                {data.personalInformation && data.personalInformation.length > 0 && (
+                  <SideSection title="Personal Information">
+                    <dl className="space-y-4">
+                      {data.personalInformation.map((item) => (
+                        <div key={item.label}>
+                          <dt className="text-xs font-bold uppercase tracking-wider text-gray-600">
+                            {item.label}
+                          </dt>
+                          <dd className="mt-1 text-sm leading-6 text-gray-300">
+                            {item.value}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </SideSection>
+                )}
 
-                    <span className="text-gray-500">
-                      Batch 13 — Running
-                    </span>
-                  </li>
+                {/* Reference */}
+                {data.reference && (
+                  <SideSection title="Reference">
+                    <p className="font-bold text-white">
+                      {data.reference.name}
+                    </p>
+                    <p className="mt-1 text-sm leading-6 text-gray-400">
+                      {data.reference.role}
+                      <br />
+                      {data.reference.company}
+                      <br />
+                      {data.reference.location}
+                    </p>
+                    <a
+                      href={`tel:${data.reference.phone.replace(/[^+\d]/g, "")}`}
+                      className="mt-4 flex items-center gap-2 text-sm text-blue-400 transition hover:text-cyan-300"
+                    >
+                      <FaPhoneAlt className="text-xs" />
+                      {data.reference.phone}
+                    </a>
+                    <a
+                      href={`mailto:${data.reference.email}`}
+                      className="mt-2 flex items-start gap-2 break-all text-sm text-blue-400 transition hover:text-cyan-300"
+                    >
+                      <FaEnvelope className="mt-1 shrink-0 text-xs" />
+                      {data.reference.email}
+                    </a>
+                  </SideSection>
+                )}
+              </aside>
+            </div>
 
-                  <li>
-                    <span className="font-bold text-gray-200">
-                      Presentation and Public Speaking
-                    </span>
-
-                    <br />
-
-                    <span className="text-gray-500">
-                      10 Minute School, Online
-                    </span>
-                  </li>
-                </ul>
-              </SideSection>
-
-              {/* Personal information */}
-              <SideSection title="Personal Information">
-                <dl className="space-y-4">
-                  {personalInformation.map((item) => (
-                    <div key={item.label}>
-                      <dt className="text-xs font-bold uppercase tracking-wider text-gray-600">
-                        {item.label}
-                      </dt>
-
-                      <dd className="mt-1 text-sm leading-6 text-gray-300">
-                        {item.value}
-                      </dd>
+            {/* =========================================================
+                QR CODES SECTION (Portfolio URL & CV PDF QR Codes)
+            ========================================================== */}
+            {data.qrCodes && data.qrCodes.length > 0 && (
+              <div className="mx-6 mb-10 grid gap-6 sm:mx-10 md:grid-cols-2 lg:mx-14">
+                {data.qrCodes.map((qr) => {
+                  const isBlue = qr.accent === "blue";
+                  return (
+                    <div
+                      key={qr.id}
+                      className={`flex flex-col items-center justify-between gap-4 rounded-2xl border p-6 backdrop-blur-md sm:flex-row ${
+                        isBlue
+                          ? "border-blue-400/20 bg-blue-950/20"
+                          : "border-cyan-400/20 bg-cyan-950/20"
+                      }`}
+                    >
+                      <div className="space-y-1.5 text-center sm:text-left">
+                        <div
+                          className={`flex items-center justify-center gap-2 text-sm font-bold sm:justify-start ${
+                            isBlue ? "text-blue-300" : "text-cyan-300"
+                          }`}
+                        >
+                          {isBlue ? <FaFilePdf /> : <FaQrcode />}
+                          <h3>{qr.title}</h3>
+                        </div>
+                        <p className="max-w-[200px] text-xs text-gray-400">
+                          {qr.description}
+                        </p>
+                      </div>
+                      <div
+                        onClick={() =>
+                          setModalImage({
+                            src: qr.image,
+                            title: qr.title,
+                          })
+                        }
+                        className={`group relative shrink-0 cursor-pointer rounded-xl border bg-[#030712] p-2.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 ${
+                          isBlue
+                            ? "border-blue-400/30 hover:border-blue-400"
+                            : "border-cyan-400/30 hover:border-cyan-400"
+                        }`}
+                        title="Click to enlarge"
+                      >
+                        <div
+                          className={`absolute -inset-0.5 rounded-xl blur transition duration-300 ${
+                            isBlue
+                              ? "bg-gradient-to-r from-blue-600 to-cyan-500 opacity-30 group-hover:opacity-75"
+                              : "bg-gradient-to-r from-blue-500 to-cyan-400 opacity-30 group-hover:opacity-75"
+                          }`}
+                        />
+                        <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg bg-white p-1">
+                          <Image
+                            src={qr.image}
+                            alt={qr.alt}
+                            fill
+                            sizes="96px"
+                            className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center gap-1 bg-black/40 text-xs font-semibold text-white opacity-0 transition-opacity group-hover:opacity-100">
+                            <FaSearchPlus /> Zoom
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  ))}
-                </dl>
-              </SideSection>
-
-              {/* Reference */}
-              <SideSection title="Reference">
-                <p className="font-bold text-white">
-                  Md. Shofiqul Islam
-                </p>
-
-                <p className="mt-1 text-sm leading-6 text-gray-400">
-                  MERN Stack Developer
-                  <br />
-                  IONIC Corporation
-                  <br />
-                  Jurain, Dhaka, Bangladesh
-                </p>
-
-                <a
-                  href="tel:+8801917369303"
-                  className="mt-4 flex items-center gap-2 text-sm text-blue-400 transition hover:text-cyan-300"
-                >
-                  <FaPhoneAlt className="text-xs" />
-                  +880 1917-369303
-                </a>
-
-                <a
-                  href="mailto:shofiq69303@gmail.com"
-                  className="mt-2 flex items-start gap-2 break-all text-sm text-blue-400 transition hover:text-cyan-300"
-                >
-                  <FaEnvelope className="mt-1 shrink-0 text-xs" />
-                  shofiq69303@gmail.com
-                </a>
-              </SideSection>
-            </aside>
-          </div>
-
-          {/* =========================================================
-              QR CODES SECTION (Portfolio URL & CV PDF QR Codes)
-          ========================================================== */}
-          <div className="mx-6 mb-10 sm:mx-10 lg:mx-14 grid gap-6 md:grid-cols-2">
-            {/* 1. Portfolio URL QR Code */}
-            <div className="rounded-2xl border border-cyan-400/20 bg-cyan-950/20 p-6 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-1.5 text-center sm:text-left">
-                <div className="flex items-center justify-center sm:justify-start gap-2 text-cyan-300 font-bold text-sm">
-                  <FaQrcode />
-                  <h3>Portfolio URL QR Code</h3>
-                </div>
-                <p className="text-xs text-gray-400 max-w-[200px]">
-                  Scan to visit my live interactive portfolio and projects.
-                </p>
+                  );
+                })}
               </div>
-              <div 
-                onClick={() => setModalImage({ src: "/assets/QR-Code/Tamim Hasa URL QR Code.png", title: "Portfolio URL QR Code" })}
-                className="relative group p-2.5 bg-[#030712] rounded-xl border border-cyan-400/30 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 hover:border-cyan-400 cursor-pointer shrink-0"
-                title="Click to enlarge"
-              >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
-                <div className="relative h-24 w-24 bg-white rounded-lg overflow-hidden p-1 flex items-center justify-center">
-                  <Image
-                    src="/assets/QR-Code/Tamim Hasa URL QR Code.png"
-                    alt="Tamim Hasan Portfolio URL QR Code"
-                    fill
-                    sizes="96px"
-                    className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
-                    <FaSearchPlus /> Zoom
-                  </div>
-                </div>
-              </div>
-            </div>
+            )}
 
-            {/* 2. CV PDF QR Code */}
-            <div className="rounded-2xl border border-blue-400/20 bg-blue-950/20 p-6 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-1.5 text-center sm:text-left">
-                <div className="flex items-center justify-center sm:justify-start gap-2 text-blue-300 font-bold text-sm">
-                  <FaFilePdf />
-                  <h3>CV PDF QR Code</h3>
-                </div>
-                <p className="text-xs text-gray-400 max-w-[200px]">
-                  Scan to instantly access and download my professional CV PDF.
+            {/* Bottom message */}
+            {data.footer && (
+              <footer className="border-t border-white/10 px-6 py-6 text-center sm:px-10">
+                <p className="text-xs leading-6 text-gray-600">
+                  {data.footer}
                 </p>
-              </div>
-              <div 
-                onClick={() => setModalImage({ src: "/assets/QR-Code/Tamim Hasa CV PDF QR Code.png", title: "CV PDF QR Code" })}
-                className="relative group p-2.5 bg-[#030712] rounded-xl border border-blue-400/30 shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all duration-300 hover:scale-105 hover:border-blue-400 cursor-pointer shrink-0"
-                title="Click to enlarge"
-              >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
-                <div className="relative h-24 w-24 bg-white rounded-lg overflow-hidden p-1 flex items-center justify-center">
-                  <Image
-                    src="/assets/QR-Code/Tamim Hasa CV PDF QR Code.png"
-                    alt="Tamim Hasan CV PDF QR Code"
-                    fill
-                    sizes="96px"
-                    className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
-                    <FaSearchPlus /> Zoom
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom message */}
-          <footer className="border-t border-white/10 px-6 py-6 text-center sm:px-10">
-            <p className="text-xs leading-6 text-gray-600">
-              I confirm that the information provided above
-              is accurate to the best of my knowledge.
-            </p>
-          </footer>
-        </article>
+              </footer>
+            )}
+          </article>
+        ) : null}
       </div>
 
       {/* =========================================================
           QR CODE LIGHTBOX MODAL (Popup Viewer)
       ========================================================== */}
       {modalImage && (
-        <div 
+        <div
           onClick={() => setModalImage(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
         >
-          <div 
+          <div
             onClick={(e) => e.stopPropagation()}
-            className="relative bg-[#07101d] border border-cyan-400/30 rounded-3xl p-6 max-w-sm w-full shadow-[0_0_50px_rgba(6,182,212,0.3)] text-center space-y-4"
+            className="relative w-full max-w-sm space-y-4 rounded-3xl border border-cyan-400/30 bg-[#07101d] p-6 text-center shadow-[0_0_50px_rgba(6,182,212,0.3)]"
           >
             {/* Close Button */}
             <button
               onClick={() => setModalImage(null)}
-              className="absolute top-4 right-4 h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:bg-cyan-500 hover:text-white transition"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-gray-300 transition hover:bg-cyan-500 hover:text-white"
             >
               <FaTimes />
             </button>
 
             <h3 className="text-lg font-bold text-cyan-300">{modalImage.title}</h3>
-            
-            <div className="relative h-72 w-full bg-white rounded-2xl overflow-hidden p-2 flex items-center justify-center shadow-inner">
+
+            <div className="relative flex h-72 w-full items-center justify-center overflow-hidden rounded-2xl bg-white p-2 shadow-inner">
               <Image
                 src={modalImage.src}
                 alt={modalImage.title}

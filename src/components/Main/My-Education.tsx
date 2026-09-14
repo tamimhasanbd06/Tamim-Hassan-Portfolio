@@ -41,7 +41,7 @@ export default function Education() {
   useEffect(() => {
     const loadEducation = async () => {
       try {
-        const response = await fetch("/data/My-Education.json");
+        const response = await fetch("/Main/My-Education.json");
 
         if (!response.ok) {
           throw new Error(

@@ -1,14 +1,14 @@
-import LockBanner from "@/components/lock/MainBanner";
-import LookSkills from "@/components/lock/MySkills";
-import LockedContact from "@/components/lock/Get-In-Touch";
-import Library from "@/components/lock/My-Toolkit";
+import LockBanner from "@/components/Home/MainBanner";
+import LookSkills from "@/components/Home/MySkills";
+import LockedContact from "@/components/Home/Get-In-Touch";
+import Library from "@/components/Home/My-Toolkit";
 import { createPageMetadata } from "./site-config";
-import Courses from "@/components/lock/Courses-&-Certifications";
-import AiTools from "@/components/lock/AI-Stack";
-import ProductivitySection from "@/components/lock/Developer-Toolkit";
+import Courses from "@/components/Home/Courses-&-Certifications";
+import AiTools from "@/components/Home/AI-Stack";
+import ProductivitySection from "@/components/Home/Developer-Toolkit";
 import FloatingNavigator from "@/components/navigation/FloatingNavigator";
-import DevelopmentJourney from "@/components/lock/DevelopmentJourney";
-import HowIBuildWebsites from "@/components/lock/HowIBuildWebsites";
+import DevelopmentJourney from "@/components/Home/DevelopmentJourney";
+import HowIBuildWebsites from "@/components/Home/HowIBuildWebsites";
 
 const lockSections = [
   {

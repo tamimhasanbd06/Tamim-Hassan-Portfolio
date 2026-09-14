@@ -44,7 +44,7 @@ const Experience = () => {
   useEffect(() => {
     const loadExperience = async () => {
       try {
-        const response = await fetch("/data/Experience.json");
+        const response = await fetch("/Main/Experience.json");
 
         if (!response.ok) {
           throw new Error(

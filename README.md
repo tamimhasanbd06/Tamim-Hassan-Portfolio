@@ -9,8 +9,8 @@ src/
 ├── app/                    # Routes, metadata, and app configuration
 └── components/
     ├── common/             # Shared loaders, PWA, motion, and download controls
-    ├── home/               # Home page sections
-    ├── lock/               # First-page sections
+    ├── Home/               # Home page sections (root '/' page)
+    ├── Main/               # Main page sections ('/home' page)
     └── navigation/         # Shared floating page navigation
 
 public/

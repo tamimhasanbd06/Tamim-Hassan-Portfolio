@@ -177,7 +177,7 @@ test('Sync JSON Test Suite', async (t) => {
   await t.test('TEST 7: Relative JSON import correctly resolves target', () => {
     const res = resolveJsonReference(
       '../../../public/data/skills.json',
-      'src/components/home/Skills.tsx',
+      'src/components/Main/Skills.tsx',
       TEST_DIR,
       'public',
     );

@@ -16,7 +16,7 @@ import {
 
 import { BsTelegram } from "react-icons/bs";
 
-import contactData from "../../../public/data/Contact-Me.json";
+import contactData from "../../../public/Main/Contact-Me.json";
 
 type ContactCategory =
   | "Contact"
