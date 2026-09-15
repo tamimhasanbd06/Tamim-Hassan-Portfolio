@@ -17,7 +17,7 @@ import {
   FiZap,
 } from "react-icons/fi";
 
-import buildData from "../../../public/look/HowIBuildWebsites.json";
+import buildData from "../../../public/HowIBuildWebsites.json";
 
 /* =========================================================
    TYPES

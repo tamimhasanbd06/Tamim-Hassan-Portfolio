@@ -9,7 +9,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
-import contactData from "../../../public/look/Get-In-Touch.json";
+import contactData from "../../../public/Get-In-Touch.json";
 
 type ContactIcon =
   | "whatsapp"

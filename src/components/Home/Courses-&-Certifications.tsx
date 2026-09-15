@@ -10,7 +10,7 @@ import {
   FaInfoCircle,
   FaTimes,
 } from "react-icons/fa";
-import coursesData from "../../../public/look/Courses-&-Certifications.json";
+import coursesData from "../../../public/Courses-&-Certifications.json";
 
 type CourseStatus = "Completed" | "Not Started" | "In Progress";
 

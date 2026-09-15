@@ -21,7 +21,7 @@ import {
   FiZap,
 } from "react-icons/fi";
 
-import libraryData from "../../../public/look/My-Toolkit.json";
+import libraryData from "../../../public/My-Toolkit.json";
 
 type LibraryItem = {
   name: string;
