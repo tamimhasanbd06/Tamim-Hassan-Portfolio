@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert';
 import * as fs from 'fs';
 import * as path from 'path';
-// @ts-ignore
+// @ts-expect-error: import types needed for test
 import { normalizePath, resolveJsonReference, collectJsonUsages, analyzeRenameActions, executeRenameAndUpdates, runSync, computeNewReference } from './sync-json.ts';
 
 const TEST_DIR = path.resolve(process.cwd(), '.tmp_test_suite');

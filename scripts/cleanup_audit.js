@@ -59,7 +59,7 @@ log(`Generated on ${new Date().toISOString()}`);
 log('');
 
 // 1. Audit public data folders
-['public/data', 'public/lock', 'public/Main', 'public/Home'].forEach(folder => auditFolder(folder));
+['public/data', 'public/Home', 'public/Main'].forEach(folder => auditFolder(folder));
 
 // 2. Audit components directories
 ['src/components/Home', 'src/components/Main', 'src/components/common', 'src/components/navigation'].forEach(folder => auditFolder(folder));
