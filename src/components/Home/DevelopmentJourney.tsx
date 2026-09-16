@@ -205,7 +205,7 @@ export default function DevelopmentJourney() {
         overflow-hidden
         bg-gradient-to-b
         from-black
-        via-[#020817]
+        via-[var(--bg-card)]
         to-black
         px-4
         py-20
@@ -1010,4 +1010,7 @@ export default function DevelopmentJourney() {
     </section>
   );
 }
+
+
+
 

@@ -27,7 +27,7 @@ export default function MainLoader() {
 
           <div className="absolute inset-2 animate-[spin_1.8s_linear_infinite_reverse] rounded-full border border-transparent border-b-indigo-400 border-l-cyan-500/70" />
 
-          <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15 bg-[#020817] shadow-[0_0_35px_rgba(34,211,238,0.2)] sm:h-24 sm:w-24">
+          <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/15 bg-[var(--bg-gradient-via)] shadow-[0_0_35px_rgba(34,211,238,0.2)] sm:h-24 sm:w-24">
             <Image
               src="/assets/brand/tamim-hassan-logo.png"
               alt="Tamim Hasan portfolio logo"
@@ -65,4 +65,7 @@ export default function MainLoader() {
     </motion.div>
   );
 }
+
+
+
 

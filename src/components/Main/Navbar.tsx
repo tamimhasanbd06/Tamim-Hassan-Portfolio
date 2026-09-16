@@ -436,7 +436,7 @@ export default function Navbar() {
           absolute left-0 top-full
           w-full overflow-hidden
           border-b border-white/10
-          bg-[#02060e]/95
+          bg-[var(--bg-gradient-via)]/95
           shadow-2xl
           backdrop-blur-2xl
           transition-all duration-300
@@ -532,4 +532,7 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
+
 

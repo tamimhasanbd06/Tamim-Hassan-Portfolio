@@ -269,7 +269,7 @@ export default function FloatingNavigator({
               rounded-2xl
               border
               border-white/10
-              bg-[#06111f]/95
+              bg-[var(--bg-card)]/95
               shadow-[0_20px_70px_rgba(0,0,0,0.65)]
               backdrop-blur-2xl
               sm:w-[245px]
@@ -446,7 +446,7 @@ export default function FloatingNavigator({
           rounded-2xl
           border
           border-cyan-400/30
-          bg-[#071426]/95
+          bg-[var(--bg-card)]/95
           text-cyan-300
           shadow-[0_12px_40px_rgba(0,0,0,0.55)]
           backdrop-blur-xl
@@ -521,4 +521,7 @@ export default function FloatingNavigator({
     </div>
   );
 }
+
+
+
 

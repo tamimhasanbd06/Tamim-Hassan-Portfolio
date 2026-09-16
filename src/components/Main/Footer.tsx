@@ -266,7 +266,7 @@ export default function Footer() {
           BACKGROUND
       ====================================================== */}
 
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#020817] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       <div className="absolute -left-40 top-[-160px] h-[480px] w-[480px] rounded-full bg-blue-600/15 blur-[160px]" />
 
@@ -508,7 +508,7 @@ export default function Footer() {
 
       <div
         aria-live="polite"
-        className={`fixed bottom-6 left-1/2 z-[120] flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-cyan-400/20 bg-[#07111f]/95 px-5 py-3 text-xs font-semibold text-cyan-100 shadow-2xl backdrop-blur-xl transition-all duration-300 sm:text-sm ${
+        className={`fixed bottom-6 left-1/2 z-[120] flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-cyan-400/20 bg-[var(--bg-card)]/95 px-5 py-3 text-xs font-semibold text-cyan-100 shadow-2xl backdrop-blur-xl transition-all duration-300 sm:text-sm ${
           toast
             ? "translate-y-0 opacity-100"
             : "pointer-events-none translate-y-5 opacity-0"
@@ -521,4 +521,7 @@ export default function Footer() {
     </footer>
   );
 }
+
+
+
 

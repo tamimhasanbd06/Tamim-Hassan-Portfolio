@@ -71,7 +71,7 @@ function CourseCard({
       whileHover={reduceMotion ? undefined : { y: -9 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: reduceMotion ? 0 : 0.52, delay: index * 0.08, ease: "easeOut" }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#0a1527]/90 to-[#040a14]/95 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-colors duration-500 hover:border-cyan-400/40 hover:shadow-[0_30px_70px_rgba(6,182,212,0.15)]"
+      className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[var(--bg-primary)]/90 to-[var(--bg-primary)]/95 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-colors duration-500 hover:border-cyan-400/40 hover:shadow-[0_30px_70px_rgba(6,182,212,0.15)]"
     >
       <div className="pointer-events-none absolute -right-20 -top-24 h-52 w-52 rounded-full bg-cyan-400/10 blur-[80px] transition duration-500 group-hover:scale-125" />
       <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-blue-500 via-cyan-300 to-transparent" />
@@ -189,7 +189,7 @@ function CertificateModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="certificate-modal-title"
-        className="relative flex max-h-[94vh] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border border-cyan-400/30 bg-[#06101d] shadow-[0_30px_120px_rgba(0,0,0,0.8)]"
+        className="relative flex max-h-[94vh] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border border-cyan-400/30 bg-[var(--bg-card)] shadow-[0_30px_120px_rgba(0,0,0,0.8)]"
       >
         <div className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-4 sm:px-6">
           <div className="min-w-0">
@@ -321,4 +321,7 @@ export default function Courses() {
     </section>
   );
 }
+
+
+
 

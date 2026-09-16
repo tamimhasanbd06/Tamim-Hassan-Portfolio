@@ -162,7 +162,7 @@ export default function ResumePage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
+    <main className="relative min-h-screen overflow-hidden bg-[var(--bg-primary)] text-white">
       {/* =========================
           BACKGROUND
       ========================== */}
@@ -203,12 +203,12 @@ export default function ResumePage() {
         </div>
 
         {loading ? (
-          <div className="flex min-h-[500px] flex-col items-center justify-center rounded-[30px] border border-white/10 bg-[#07101d]/90 p-12 text-center backdrop-blur-xl">
+          <div className="flex min-h-[500px] flex-col items-center justify-center rounded-[30px] border border-white/10 bg-[var(--bg-card)]/90 p-12 text-center backdrop-blur-xl">
             <div className="h-12 w-12 animate-spin rounded-full border-4 border-cyan-400/20 border-t-cyan-400" />
             <p className="mt-4 text-sm font-medium text-gray-400">Loading resume data...</p>
           </div>
         ) : error ? (
-          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[30px] border border-red-500/20 bg-[#07101d]/90 p-8 text-center backdrop-blur-xl">
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[30px] border border-red-500/20 bg-[var(--bg-card)]/90 p-8 text-center backdrop-blur-xl">
             <FaExclamationTriangle className="text-4xl text-amber-400" />
             <h3 className="mt-4 text-lg font-bold text-white">Unable to Load Resume</h3>
             <p className="mt-2 text-sm text-gray-400">{error}</p>
@@ -223,7 +223,7 @@ export default function ResumePage() {
           /* =========================
               RESUME CONTAINER
           ========================== */
-          <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[#07101d]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+          <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[var(--bg-card)]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
             {/* =========================
                 HEADER
             ========================== */}
@@ -256,7 +256,7 @@ export default function ResumePage() {
 
                 {/* RIGHT / CONTACT */}
                 <div className="space-y-3 text-sm text-gray-400">
-                  <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#020817] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
+                  <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[var(--bg-gradient-via)] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
                     <Image
                       src={data.personalInfo.image}
                       alt={data.personalInfo.imageAlt}
@@ -550,7 +550,7 @@ export default function ResumePage() {
                             title: qr.title,
                           })
                         }
-                        className={`group relative shrink-0 cursor-pointer rounded-xl border bg-[#030712] p-2.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 ${
+                        className={`group relative shrink-0 cursor-pointer rounded-xl border bg-[var(--bg-primary)] p-2.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 ${
                           isBlue
                             ? "border-blue-400/30 hover:border-blue-400"
                             : "border-cyan-400/30 hover:border-cyan-400"
@@ -607,7 +607,7 @@ export default function ResumePage() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-sm space-y-4 rounded-3xl border border-cyan-400/30 bg-[#07101d] p-6 text-center shadow-[0_0_50px_rgba(6,182,212,0.3)]"
+            className="relative w-full max-w-sm space-y-4 rounded-3xl border border-cyan-400/30 bg-[var(--bg-card)] p-6 text-center shadow-[0_0_50px_rgba(6,182,212,0.3)]"
           >
             {/* Close Button */}
             <button
@@ -727,3 +727,5 @@ function EducationRow({
     </article>
   );
 }
+
+

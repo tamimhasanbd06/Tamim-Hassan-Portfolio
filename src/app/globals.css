@@ -1,29 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #f8fafc;
+  /* Design tokens */
+  --bg-primary: #000814;
+  --bg-gradient-from: #000814;
+  --bg-gradient-via: #020817;
+  --bg-card: #06101d;
+  --accent-cyan: #00dffd;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.6);
   --nav-height: 4rem;
   --page-gutter: clamp(0.875rem, 3vw, 2rem);
 
-  /* Global font: Plus Jakarta Sans */
-  --font-app-sans:
-    "Plus Jakarta Sans",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
-  --font-app-mono:
-    "Cascadia Code",
-    "SFMono-Regular",
-    Consolas,
-    "Liberation Mono",
-    monospace;
+  /* Font */
+  --font-app-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --font-app-mono: 'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 }
 
 @theme inline {
@@ -46,7 +39,7 @@ html {
   min-width: 300px;
   scroll-behavior: smooth;
   scroll-padding-top: var(--nav-height);
-  background: var(--background);
+  background: var(--bg-primary);
 }
 
 body {
@@ -54,8 +47,8 @@ body {
   min-height: 100%;
   margin: 0;
   overflow-x: clip;
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-primary);
+  color: var(--text-primary);
 
   /* Regular text by default; use utility classes for headings. */
   font-family: var(--font-app-sans);

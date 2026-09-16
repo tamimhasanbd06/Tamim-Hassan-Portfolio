@@ -54,7 +54,7 @@ const About = () => {
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
@@ -202,4 +202,7 @@ const About = () => {
 };
 
 export default About;
+
+
+
 

@@ -426,7 +426,7 @@ export default function Contact() {
       "
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#020817] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Blue Glow */}
       <div className="absolute -left-40 -top-24 h-[420px] w-[420px] rounded-full bg-blue-600/15 blur-[150px]" />
@@ -516,7 +516,7 @@ export default function Contact() {
           whitespace-nowrap
           rounded-full
           border border-cyan-400/20
-          bg-[#07111f]/95
+          bg-[var(--bg-card)]/95
           px-4
           py-2.5
           text-[11px]
@@ -541,3 +541,6 @@ export default function Contact() {
     </section>
   );
 }
+
+
+

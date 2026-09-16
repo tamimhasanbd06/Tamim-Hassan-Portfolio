@@ -138,7 +138,7 @@ const Experience = () => {
   return (
     <section className="relative w-full overflow-hidden bg-black px-4 py-14 text-white sm:px-6 lg:px-10">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#020713] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-10 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
@@ -208,10 +208,10 @@ const Experience = () => {
                   <div className="absolute -left-[42px] top-11 h-16 w-16 rounded-full bg-cyan-400/10 blur-2xl sm:-left-[62px]" />
 
                   {/* Timeline Dot */}
-                  <div className="absolute -left-[31px] top-12 z-20 h-4 w-4 rounded-full border-[3px] border-cyan-400 bg-[#020713] shadow-[0_0_24px_rgba(34,211,238,0.9)] sm:-left-[53px] sm:h-6 sm:w-6" />
+                  <div className="absolute -left-[31px] top-12 z-20 h-4 w-4 rounded-full border-[3px] border-cyan-400 bg-[var(--bg-gradient-via)] shadow-[0_0_24px_rgba(34,211,238,0.9)] sm:-left-[53px] sm:h-6 sm:w-6" />
 
                   {/* Experience Card */}
-                  <div className="group relative overflow-hidden rounded-[28px] border border-slate-800 bg-[#0a0d12]/95 px-5 py-6 shadow-[0_25px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_30px_90px_rgba(0,100,255,0.14)] sm:px-8 sm:py-8 lg:px-10">
+                  <div className="group relative overflow-hidden rounded-[28px] border border-slate-800 bg-[var(--bg-card)]/95 px-5 py-6 shadow-[0_25px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_30px_90px_rgba(0,100,255,0.14)] sm:px-8 sm:py-8 lg:px-10">
                     {/* Card Gradient */}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-500/[0.035] via-transparent to-cyan-400/[0.025]" />
 
@@ -444,3 +444,6 @@ const Experience = () => {
 };
 
 export default Experience;
+
+
+

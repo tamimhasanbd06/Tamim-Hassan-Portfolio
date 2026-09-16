@@ -12,7 +12,7 @@ export default function NotFoundPage() {
   return (
     <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-black px-4 py-16 text-white sm:px-6">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Glow effects */}
       <div className="absolute -left-40 top-[-100px] h-[480px] w-[480px] animate-pulse rounded-full bg-blue-600/20 blur-[160px]" />
@@ -37,7 +37,7 @@ export default function NotFoundPage() {
           <div className="relative h-20 w-20 sm:h-24 sm:w-24">
             <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-2xl transition group-hover:bg-cyan-400/45" />
 
-            <div className="relative h-full w-full overflow-hidden rounded-full border border-cyan-400/25 bg-[#020817] shadow-[0_0_50px_rgba(34,211,238,0.15)]">
+            <div className="relative h-full w-full overflow-hidden rounded-full border border-cyan-400/25 bg-[var(--bg-gradient-via)] shadow-[0_0_50px_rgba(34,211,238,0.15)]">
               <Image
                 src="/assets/brand/tamim-hassan-logo.png"
                 alt="Tamim Hasan web developer logo"
@@ -173,3 +173,6 @@ export default function NotFoundPage() {
     </main>
   );
 }
+
+
+

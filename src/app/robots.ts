@@ -13,3 +13,6 @@ export default function robots(): MetadataRoute.Robots {
     host: siteConfig.url,
   };
 }
+
+
+

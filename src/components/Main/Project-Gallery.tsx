@@ -55,7 +55,7 @@ function ProjectCard({
         type="button"
         onClick={() => onOpen(project)}
         aria-label={`Open details for ${project.name}`}
-        className="relative block h-52 w-full overflow-hidden bg-[#071426] text-left sm:h-56"
+        className="relative block h-52 w-full overflow-hidden bg-[var(--bg-card)] text-left sm:h-56"
       >
         <span className="absolute left-4 top-4 z-20 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/60 px-3 py-2 backdrop-blur-md">
           <span className="h-2 w-2 rounded-full bg-red-400" />
@@ -75,10 +75,10 @@ function ProjectCard({
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
 
-        <span className="absolute inset-0 bg-gradient-to-t from-[#030713] via-transparent to-transparent" />
+        <span className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent" />
 
         <span className="absolute inset-0 z-10 flex items-center justify-center bg-black/45 opacity-0 transition duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
-          <span className="flex items-center gap-2 rounded-full border border-cyan-300/25 bg-[#03101d]/90 px-4 py-2 text-xs font-bold text-cyan-200 backdrop-blur-xl">
+          <span className="flex items-center gap-2 rounded-full border border-cyan-300/25 bg-[var(--bg-card)]/90 px-4 py-2 text-xs font-bold text-cyan-200 backdrop-blur-xl">
             <FaEye aria-hidden="true" />
             View Details
           </span>
@@ -150,7 +150,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
         aria-modal="true"
         aria-labelledby="project-modal-title"
         onMouseDown={(event) => event.stopPropagation()}
-        className="relative max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-3xl border border-cyan-400/20 bg-[#06101d] shadow-[0_30px_120px_rgba(0,0,0,0.75)]"
+        className="relative max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-3xl border border-cyan-400/20 bg-[var(--bg-card)] shadow-[0_30px_120px_rgba(0,0,0,0.75)]"
       >
         <button
           type="button"
@@ -162,14 +162,14 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
         </button>
 
         <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="relative min-h-64 overflow-hidden bg-[#020814] sm:min-h-80 lg:min-h-full">
+          <div className="relative min-h-64 overflow-hidden bg-[var(--bg-primary)] sm:min-h-80 lg:min-h-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={project.image}
               alt={`${project.name} full project preview`}
               className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06101d] via-black/10 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#06101d]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-black/10 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[var(--bg-primary)]" />
           </div>
 
           <div className="p-5 sm:p-8 lg:p-10">
@@ -344,7 +344,7 @@ export default function Projects() {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
       <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[130px]" />
       <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[150px]" />
@@ -509,5 +509,8 @@ export default function Projects() {
     </section>
   );
 }
+
+
+
 
 

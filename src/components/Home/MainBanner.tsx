@@ -10,7 +10,7 @@ const LockBanner = () => {
   return (
     <section id="lock-hero" className="relative min-h-[100svh] w-full overflow-hidden bg-black">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Glow effects */}
       <motion.div
@@ -135,4 +135,7 @@ const LockBanner = () => {
 };
 
 export default LockBanner;
+
+
+
 

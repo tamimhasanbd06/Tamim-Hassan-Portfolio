@@ -61,7 +61,7 @@ const Introduction = () => {
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
@@ -218,7 +218,7 @@ const Introduction = () => {
 
             {/* Image Container */}
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-2 shadow-2xl backdrop-blur-md">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-[#061225]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-[var(--bg-primary)]">
                 <Image
                   src="/assets/images/me.jpg"
                   alt="Tamim Hasan, frontend web developer"
@@ -251,4 +251,7 @@ const Introduction = () => {
 };
 
 export default Introduction;
+
+
+
 

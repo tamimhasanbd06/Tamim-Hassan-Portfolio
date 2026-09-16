@@ -26,7 +26,7 @@ export default function FAQ() {
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         {/* Main Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-[#020817] to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-[var(--bg-card)] to-black" />
 
         {/* Blue Glow */}
         <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-blue-600/10 blur-[140px]" />
@@ -227,3 +227,5 @@ export default function FAQ() {
     </section>
   );
 }
+
+

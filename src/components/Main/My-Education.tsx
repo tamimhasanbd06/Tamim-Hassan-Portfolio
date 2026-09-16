@@ -81,7 +81,7 @@ export default function Education() {
       className="relative w-full scroll-mt-20 overflow-hidden bg-black px-4 py-20 text-white sm:px-6 sm:py-24"
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#020817] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       <div className="absolute -left-40 top-0 h-[450px] w-[450px] rounded-full bg-blue-600/15 blur-[150px]" />
 
@@ -307,3 +307,5 @@ export default function Education() {
     </section>
   );
 }
+
+

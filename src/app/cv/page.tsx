@@ -154,7 +154,7 @@ export default function CVPage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
+    <main className="relative min-h-screen overflow-hidden bg-[var(--bg-primary)] text-white">
       {/* Background */}
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]" />
       <div className="fixed -left-40 top-0 h-[480px] w-[480px] rounded-full bg-blue-600/10 blur-[160px]" />
@@ -189,12 +189,12 @@ export default function CVPage() {
         </div>
 
         {loading ? (
-          <div className="flex min-h-[500px] flex-col items-center justify-center rounded-[30px] border border-white/10 bg-[#07101d]/90 p-12 text-center backdrop-blur-xl">
+          <div className="flex min-h-[500px] flex-col items-center justify-center rounded-[30px] border border-white/10 bg-[var(--bg-card)]/90 p-12 text-center backdrop-blur-xl">
             <div className="h-12 w-12 animate-spin rounded-full border-4 border-cyan-400/20 border-t-cyan-400" />
             <p className="mt-4 text-sm font-medium text-gray-400">Loading CV data...</p>
           </div>
         ) : error ? (
-          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[30px] border border-red-500/20 bg-[#07101d]/90 p-8 text-center backdrop-blur-xl">
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[30px] border border-red-500/20 bg-[var(--bg-card)]/90 p-8 text-center backdrop-blur-xl">
             <FaExclamationTriangle className="text-4xl text-amber-400" />
             <h3 className="mt-4 text-lg font-bold text-white">Unable to Load CV</h3>
             <p className="mt-2 text-sm text-gray-400">{error}</p>
@@ -207,7 +207,7 @@ export default function CVPage() {
           </div>
         ) : data ? (
           /* CV container */
-          <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[#07101d]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+          <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[var(--bg-card)]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
             {/* CV header */}
             <header className="relative overflow-hidden border-b border-white/10 px-6 py-10 sm:px-10 lg:px-14">
               <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-500/15 blur-[100px]" />
@@ -241,7 +241,7 @@ export default function CVPage() {
 
                 {/* Contact details */}
                 <div className="space-y-3 text-sm text-gray-400">
-                  <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#020817] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
+                  <div className="relative mb-5 h-24 w-24 overflow-hidden rounded-2xl border border-cyan-400/25 bg-[var(--bg-gradient-via)] shadow-[0_16px_45px_rgba(6,182,212,0.18)] lg:ml-auto">
                     <Image
                       src={data.personalInfo.image}
                       alt={data.personalInfo.imageAlt}
@@ -504,7 +504,7 @@ export default function CVPage() {
                             title: qr.title,
                           })
                         }
-                        className={`group relative shrink-0 cursor-pointer rounded-xl border bg-[#030712] p-2.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 ${
+                        className={`group relative shrink-0 cursor-pointer rounded-xl border bg-[var(--bg-primary)] p-2.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300 hover:scale-105 ${
                           isBlue
                             ? "border-blue-400/30 hover:border-blue-400"
                             : "border-cyan-400/30 hover:border-cyan-400"
@@ -559,7 +559,7 @@ export default function CVPage() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-sm space-y-4 rounded-3xl border border-cyan-400/30 bg-[#07101d] p-6 text-center shadow-[0_0_50px_rgba(6,182,212,0.3)]"
+            className="relative w-full max-w-sm space-y-4 rounded-3xl border border-cyan-400/30 bg-[var(--bg-card)] p-6 text-center shadow-[0_0_50px_rgba(6,182,212,0.3)]"
           >
             {/* Close Button */}
             <button
@@ -679,3 +679,5 @@ function EducationRow({
     </article>
   );
 }
+
+

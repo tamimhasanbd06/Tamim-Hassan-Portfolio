@@ -13,3 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: index === 0 ? 1 : index === 1 ? 0.9 : 0.7,
   }));
 }
+
+
+

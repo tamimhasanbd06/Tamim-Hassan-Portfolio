@@ -42,7 +42,7 @@ export default function Banner() {
   return (
     <section className="relative flex min-h-[calc(100svh-4rem)] w-full flex-col overflow-hidden bg-black xl:flex-row">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#000814] to-black" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Background glows */}
       <div className="absolute left-10 top-20 h-72 w-72 animate-pulse rounded-full bg-blue-500/20 blur-3xl" />
@@ -88,7 +88,7 @@ export default function Banner() {
             >
               <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-xl" />
 
-              <div className="relative aspect-square w-full overflow-hidden rounded-full border border-white/20 bg-[#020617] shadow-2xl shadow-blue-500/20">
+              <div className="relative aspect-square w-full overflow-hidden rounded-full border border-white/20 bg-[var(--bg-primary)] shadow-2xl shadow-blue-500/20">
                 <Image
                   src="/assets/brand/tamim-hassan-logo.png"
                   alt="Tamim Hasan web developer logo"
@@ -298,4 +298,7 @@ export default function Banner() {
     </section>
   );
 }
+
+
+
 

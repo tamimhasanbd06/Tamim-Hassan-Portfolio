@@ -91,7 +91,7 @@ export default function PwaInstaller() {
   };
 
   return (
-    <aside className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-3 right-3 z-[150] mx-auto max-w-sm rounded-2xl border border-cyan-400/20 bg-[#04101d]/95 p-3 text-white shadow-[0_20px_70px_rgba(0,0,0,0.65)] backdrop-blur-xl min-[420px]:left-auto min-[420px]:right-4">
+    <aside className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-3 right-3 z-[150] mx-auto max-w-sm rounded-2xl border border-cyan-400/20 bg-[var(--bg-card)]/95 p-3 text-white shadow-[0_20px_70px_rgba(0,0,0,0.65)] backdrop-blur-xl min-[420px]:left-auto min-[420px]:right-4">
       <button
         type="button"
         onClick={() => setDismissed(true)}
@@ -130,4 +130,7 @@ export default function PwaInstaller() {
     </aside>
   );
 }
+
+
+
 

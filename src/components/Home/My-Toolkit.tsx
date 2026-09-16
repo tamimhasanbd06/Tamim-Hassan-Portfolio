@@ -144,7 +144,7 @@ export default function Library() {
         overflow-hidden
         bg-gradient-to-b
         from-black
-        via-[#020817]
+        via-[var(--bg-card)]
         to-black
         py-16
         sm:py-20
@@ -264,8 +264,8 @@ export default function Library() {
               h-full
               w-16
               bg-gradient-to-r
-              from-[#01040a]
-              via-[#01040a]/90
+              from-[var(--bg-primary)]
+              via-[var(--bg-card)]/90
               to-transparent
               sm:w-28
             `}
@@ -283,8 +283,8 @@ export default function Library() {
               h-full
               w-16
               bg-gradient-to-l
-              from-[#01040a]
-              via-[#01040a]/90
+              from-[var(--bg-primary)]
+              via-[var(--bg-card)]/90
               to-transparent
               sm:w-28
             `}
@@ -352,3 +352,6 @@ export default function Library() {
     </section>
   );
 }
+
+
+
