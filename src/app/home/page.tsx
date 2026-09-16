@@ -12,8 +12,6 @@ import Footer from "@/components/Main/Footer";
 import FloatingNavigator from "@/components/navigation/FloatingNavigator";
 import { createPageMetadata } from "../site-config";
 import Services from "@/components/Main/Services";
-import Achievements from "@/components/Main/Achievements";
-import OpenSource from "@/components/Main/OpenSource";
 
 export const metadata = createPageMetadata({
   title: "Web Developer Portfolio",
@@ -57,14 +55,6 @@ export default function HomePage() {
 
       <section id="education" className="scroll-mt-16">
         <Education />
-      </section>
-
-      <section id="achievements" className="scroll-mt-16">
-        <Achievements />
-      </section>
-
-      <section id="opensource" className="scroll-mt-16">
-        <OpenSource />
       </section>
 
       <section id="faq" className="scroll-mt-16">

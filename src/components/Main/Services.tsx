@@ -1,33 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FaLaptopCode, FaMobileAlt, FaServer, FaPaintBrush } from "react-icons/fa";
 
-const services = [
-  {
-    title: "Frontend Development",
-    description: "Building responsive and modern web applications using technologies like Next.js, React, TypeScript, and Tailwind CSS.",
-    icon: <FaLaptopCode className="text-3xl text-cyan-400" />
-  },
-  {
-    title: "Responsive Web Design",
-    description: "Creating responsive websites that work properly and adapt seamlessly across mobile, tablet, laptop, and desktop devices.",
-    icon: <FaMobileAlt className="text-3xl text-blue-400" />
-  },
-  {
-    title: "Backend Integration",
-    description: "Integrating REST APIs and connecting frontend applications with backend services using Node.js, Express.js, and MongoDB.",
-    icon: <FaServer className="text-3xl text-indigo-400" />
-  },
-  {
-    title: "UI/UX Implementation",
-    description: "Converting UI designs and project requirements into responsive, reusable, and maintainable web interfaces.",
-    icon: <FaPaintBrush className="text-3xl text-purple-400" />
-  }
-];
+type Service = { title: string; description: string; icon: "frontend" | "responsive" | "backend" | "design" };
+
+const icons = {
+  frontend: <FaLaptopCode className="text-3xl text-cyan-400" />,
+  responsive: <FaMobileAlt className="text-3xl text-blue-400" />,
+  backend: <FaServer className="text-3xl text-indigo-400" />,
+  design: <FaPaintBrush className="text-3xl text-purple-400" />,
+};
 
 export default function Services() {
   const reduceMotion = useReducedMotion();
+  const [services, setServices] = useState<Service[]>([]);
+
+  useEffect(() => {
+    fetch("/Services.json")
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Failed to load services")))
+      .then((data: Service[]) => setServices(data))
+      .catch((error: unknown) => console.error("Error loading services:", error));
+  }, []);
 
   return (
     <section className="relative w-full overflow-hidden bg-[var(--bg-primary)] px-4 py-20 sm:px-6 md:px-10 lg:px-16">
@@ -49,7 +44,7 @@ export default function Services() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {services.map((service, index) => (
             <motion.article
-              key={index}
+              key={service.title}
               initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -57,7 +52,7 @@ export default function Services() {
               className="group flex flex-col sm:flex-row items-start gap-6 rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl transition hover:border-cyan-400/30 hover:bg-white/[0.06]"
             >
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/5 transition-transform group-hover:scale-110">
-                {service.icon}
+                {icons[service.icon]}
               </div>
               <div>
                 <h3 className="mb-3 text-xl font-bold text-white group-hover:text-cyan-300">

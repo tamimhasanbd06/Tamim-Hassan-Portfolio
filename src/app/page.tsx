@@ -10,7 +10,6 @@ import FloatingNavigator from "@/components/navigation/FloatingNavigator";
 import DevelopmentJourney from "@/components/Home/DevelopmentJourney";
 import HowIBuildWebsites from "@/components/Home/HowIBuildWebsites";
 import GitHubActivity from "@/components/Home/GitHubActivity";
-import FeaturedProjects from "@/components/Home/FeaturedProjects";
 import WhatICanDo from "@/components/Home/WhatICanDo";
 
 const lockSections = [
@@ -39,7 +38,6 @@ export default function LockPage() {
       <LockBanner />
       <WhatICanDo />
       <LookSkills />
-      <FeaturedProjects />
       <LockedContact />
       <Library />
       <Courses />

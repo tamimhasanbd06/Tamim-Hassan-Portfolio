@@ -86,82 +86,6 @@ function formatDate(date: string) {
 }
 
 /* =========================================================
-   STAT ICON
-========================================================= */
-
-function StatIcon({
-  type,
-}: {
-  type:
-    | "repository"
-    | "followers"
-    | "following"
-    | "star"
-    | "fork";
-}) {
-  const commonProps = {
-    width: 19,
-    height: 19,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.8,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true,
-  };
-
-  if (type === "repository") {
-    return (
-      <svg {...commonProps}>
-        <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z" />
-        <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" />
-      </svg>
-    );
-  }
-
-  if (type === "followers") {
-    return (
-      <svg {...commonProps}>
-        <circle cx="9" cy="8" r="3" />
-        <path d="M3 21a6 6 0 0 1 12 0" />
-        <path d="M16 5.5a3 3 0 0 1 0 5.8" />
-        <path d="M18 15a5 5 0 0 1 3 4.5" />
-      </svg>
-    );
-  }
-
-  if (type === "following") {
-    return (
-      <svg {...commonProps}>
-        <circle cx="9" cy="8" r="3" />
-        <path d="M3 21a6 6 0 0 1 12 0" />
-        <path d="M17 8h4" />
-        <path d="M19 6v4" />
-      </svg>
-    );
-  }
-
-  if (type === "star") {
-    return (
-      <svg {...commonProps}>
-        <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg {...commonProps}>
-      <circle cx="6" cy="6" r="2.5" />
-      <circle cx="18" cy="6" r="2.5" />
-      <circle cx="12" cy="18" r="2.5" />
-      <path d="M8.2 7.4 10.8 16" />
-      <path d="m15.8 7.4-2.6 8.6" />
-    </svg>
-  );
-}
-
-/* =========================================================
    COMPONENT
 ========================================================= */
 
@@ -175,6 +99,8 @@ export default function GitHubActivity() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [contributionUnavailable, setContributionUnavailable] =
+    useState(false);
 
   /* =======================================================
      LOAD GITHUB DATA
@@ -194,7 +120,7 @@ export default function GitHubActivity() {
           ),
 
           fetchGitHub<GitHubRepository[]>(
-            `/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc&per_page=6`
+            `/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc&per_page=100`
           ),
         ]);
 
@@ -203,9 +129,7 @@ export default function GitHubActivity() {
         setUser(profile);
 
         setRepositories(
-          repos
-            .filter((repository) => !repository.private)
-            .slice(0, 6)
+          repos.filter((repository) => !repository.private)
         );
       } catch (err) {
         if (cancelled) return;
@@ -718,6 +642,7 @@ export default function GitHubActivity() {
                   "
                 />
 
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={user.avatar_url}
                   alt={`${user.login} GitHub avatar`}
@@ -1050,7 +975,7 @@ export default function GitHubActivity() {
             </p>
 
             <p className="mt-1 text-[11px] text-slate-500">
-              Stars · Recent Repos
+              Stars · Loaded Repos
             </p>
           </motion.div>
         </div>
@@ -1113,7 +1038,7 @@ export default function GitHubActivity() {
               </div>
 
               <p className="mt-2 text-sm text-slate-500">
-                Recently updated public projects from GitHub.
+              The six most recently updated public repositories from GitHub.
               </p>
             </div>
 
@@ -1164,7 +1089,7 @@ export default function GitHubActivity() {
             </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-2">
-              {repositories.map(
+              {repositories.slice(0, 6).map(
                 (repository, index) => (
                   <motion.a
                     key={repository.id}
@@ -1446,6 +1371,37 @@ export default function GitHubActivity() {
               />
             </a>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6 }}
+          className="mt-8 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.025] p-5 shadow-[0_25px_70px_rgba(0,0,0,0.2)] md:p-7"
+        >
+          <div className="mb-6 flex items-center gap-2">
+            <FiGithub className="text-cyan-300" size={17} />
+            <div>
+              <h3 className="text-xl font-black">GitHub Contributions</h3>
+              <p className="mt-1 text-sm text-slate-500">Live public contribution activity from GitHub.</p>
+            </div>
+          </div>
+          {contributionUnavailable ? (
+            <p className="rounded-2xl border border-dashed border-white/10 bg-black/20 p-6 text-center text-sm text-slate-500">
+              Contribution activity is unavailable right now. Visit the GitHub
+              profile to view the latest public activity.
+            </p>
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={`https://ghchart.rshah.org/00dffd/${user.login}`}
+              alt={`${user.login}'s GitHub contribution chart`}
+              className="w-full rounded-2xl border border-white/[0.06] bg-black/20 p-3 object-contain brightness-110"
+              loading="lazy"
+              onError={() => setContributionUnavailable(true)}
+            />
+          )}
         </motion.div>
       </div>
     </section>

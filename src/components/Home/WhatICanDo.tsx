@@ -23,15 +23,10 @@ export default function WhatICanDo() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch("/Main/Resume.json");
-        if (!response.ok) throw new Error("Failed to load resume");
-        const data = await response.json();
-        if (data.skills) {
-          const mainSkills = data.skills.filter((s: SkillCategory) => 
-            ["Frontend Development", "Backend Development", "Design & UI Tools", "Development Tools"].includes(s.category)
-          );
-          setCapabilities(mainSkills);
-        }
+        const response = await fetch("/WhatICanDo.json");
+        if (!response.ok) throw new Error("Failed to load capabilities");
+        const data: SkillCategory[] = await response.json();
+        setCapabilities(data);
       } catch (error) {
         console.error("Error loading capabilities:", error);
       }
