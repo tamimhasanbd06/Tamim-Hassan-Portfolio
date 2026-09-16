@@ -11,6 +11,9 @@ import Contact from "@/components/Main/Contact-Me";
 import Footer from "@/components/Main/Footer";
 import FloatingNavigator from "@/components/navigation/FloatingNavigator";
 import { createPageMetadata } from "../site-config";
+import Services from "@/components/Main/Services";
+import Achievements from "@/components/Main/Achievements";
+import OpenSource from "@/components/Main/OpenSource";
 
 export const metadata = createPageMetadata({
   title: "Web Developer Portfolio",
@@ -18,9 +21,6 @@ export const metadata = createPageMetadata({
     "Explore Tamim Hasan's frontend web developer portfolio, projects, Next.js and TypeScript skills, education, experience, FAQ, and contact details.",
   path: "/home",
 });
-
-
-
 
 export default function HomePage() {
   return (
@@ -39,6 +39,10 @@ export default function HomePage() {
         <About />
       </section>
 
+      <section id="services" className="scroll-mt-16">
+        <Services />
+      </section>
+
       <section id="skills" className="scroll-mt-16">
         <Skill />
       </section>
@@ -53,6 +57,14 @@ export default function HomePage() {
 
       <section id="education" className="scroll-mt-16">
         <Education />
+      </section>
+
+      <section id="achievements" className="scroll-mt-16">
+        <Achievements />
+      </section>
+
+      <section id="opensource" className="scroll-mt-16">
+        <OpenSource />
       </section>
 
       <section id="faq" className="scroll-mt-16">

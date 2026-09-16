@@ -10,6 +10,8 @@ import FloatingNavigator from "@/components/navigation/FloatingNavigator";
 import DevelopmentJourney from "@/components/Home/DevelopmentJourney";
 import HowIBuildWebsites from "@/components/Home/HowIBuildWebsites";
 import GitHubActivity from "@/components/Home/GitHubActivity";
+import FeaturedProjects from "@/components/Home/FeaturedProjects";
+import WhatICanDo from "@/components/Home/WhatICanDo";
 
 const lockSections = [
   { label: "Banner", id: "lock-hero" },
@@ -35,7 +37,9 @@ export default function LockPage() {
   return (
     <main className="min-h-screen w-full overflow-x-clip bg-black">
       <LockBanner />
+      <WhatICanDo />
       <LookSkills />
+      <FeaturedProjects />
       <LockedContact />
       <Library />
       <Courses />
