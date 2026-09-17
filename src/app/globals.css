@@ -4,13 +4,17 @@
 
 :root {
   /* Design tokens */
-  --bg-primary: #000814;
-  --bg-gradient-from: #000814;
+  --bg-primary: #010711;
+  --bg-gradient-from: #01030a;
   --bg-gradient-via: #020817;
-  --bg-card: #06101d;
-  --accent-cyan: #00dffd;
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255,255,255,0.6);
+  --bg-card: #06111e;
+  --accent-cyan: #67e8f9;
+  --accent-blue: #60a5fa;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --glass-surface: rgba(255, 255, 255, 0.03);
   --nav-height: 4rem;
   --page-gutter: clamp(0.875rem, 3vw, 2rem);
 
@@ -59,6 +63,79 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
+}
+
+.theme-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  background: var(--bg-primary);
+}
+
+.theme-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: linear-gradient(180deg, #01030a 0%, #020817 48%, #001018 78%, #01030a 100%);
+}
+
+.theme-background::before,
+.theme-background::after {
+  position: absolute;
+  width: min(54vw, 760px);
+  height: min(54vw, 760px);
+  border-radius: 999px;
+  content: "";
+  filter: blur(150px);
+}
+
+.theme-background::before {
+  top: -18rem;
+  right: -14rem;
+  background: rgba(34, 211, 238, 0.065);
+}
+
+.theme-background::after {
+  bottom: -20rem;
+  left: -16rem;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.theme-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: linear-gradient(rgba(186, 230, 253, 0.34) 1px, transparent 1px), linear-gradient(90deg, rgba(186, 230, 253, 0.34) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+.theme-content {
+  position: relative;
+  z-index: 1;
+}
+
+.theme-page .theme-section {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Pages can compose sections without each section repainting the viewport. */
+.theme-content main > section > section,
+.theme-content main > section > footer,
+.theme-content main > footer {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+@media (max-width: 640px) {
+  .theme-background::before,
+  .theme-background::after {
+    filter: blur(110px);
+    opacity: 0.75;
+  }
 }
 
 main,

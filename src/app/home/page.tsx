@@ -13,6 +13,7 @@ import FloatingNavigator from "@/components/navigation/FloatingNavigator";
 import { createPageMetadata } from "../site-config";
 import Services from "@/components/Main/Services";
 
+
 export const metadata = createPageMetadata({
   title: "Web Developer Portfolio",
   description:
@@ -22,7 +23,7 @@ export const metadata = createPageMetadata({
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen w-full overflow-x-clip bg-black">
+    <main className="min-h-screen w-full overflow-x-clip">
       <Navbar />
 
       <section id="home" className="scroll-mt-16">

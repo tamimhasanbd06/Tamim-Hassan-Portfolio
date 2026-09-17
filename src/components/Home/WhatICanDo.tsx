@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FaLaptopCode, FaServer, FaPaintBrush, FaTools } from "react-icons/fa";
+import TypewriterText from "@/components/common/TypewriterText";
 
 type SkillCategory = {
   category: string;
@@ -35,8 +36,7 @@ export default function WhatICanDo() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-black px-4 py-20 sm:px-6 md:px-10 lg:px-16">
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)]/30 to-black" />
+    <section className="theme-section relative w-full overflow-hidden px-4 py-20 sm:px-6 md:px-10 lg:px-16">
       
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-16 max-w-3xl text-center">
@@ -47,7 +47,7 @@ export default function WhatICanDo() {
             </span>
           </div>
           <h2 className="text-4xl font-black text-white sm:text-5xl">
-            What I Can{" "}
+            <TypewriterText text="What I Can" />{" "}
             <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               Do
             </span>

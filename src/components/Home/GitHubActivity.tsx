@@ -12,6 +12,7 @@ import {
   FiBookOpen,
   FiCode,
 } from "react-icons/fi";
+import PortfolioRunner from "@/components/common/PortfolioRunner";
 
 /* =========================================================
    TYPES
@@ -51,12 +52,13 @@ const GITHUB_API = "https://api.github.com";
    GITHUB API
 ========================================================= */
 
-async function fetchGitHub<T>(endpoint: string): Promise<T> {
+async function fetchGitHub<T>(endpoint: string, signal: AbortSignal): Promise<T> {
   const response = await fetch(`${GITHUB_API}${endpoint}`, {
     headers: {
       Accept: "application/vnd.github+json",
     },
     cache: "no-store",
+    signal,
   });
 
   if (!response.ok) {
@@ -98,7 +100,8 @@ export default function GitHubActivity() {
   >([]);
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [showFallback, setShowFallback] = useState(false);
+  const [requestKey, setRequestKey] = useState(0);
   const [contributionUnavailable, setContributionUnavailable] =
     useState(false);
 
@@ -108,19 +111,30 @@ export default function GitHubActivity() {
 
   useEffect(() => {
     let cancelled = false;
+    let completed = false;
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => {
+      if (!completed && !cancelled) {
+        controller.abort();
+        setLoading(false);
+        setShowFallback(true);
+      }
+    }, 5000);
 
     async function loadGitHubData() {
       try {
         setLoading(true);
-        setError(null);
+        setShowFallback(false);
 
         const [profile, repos] = await Promise.all([
           fetchGitHub<GitHubUser>(
-            `/users/${GITHUB_USERNAME}`
+            `/users/${GITHUB_USERNAME}`,
+            controller.signal,
           ),
 
           fetchGitHub<GitHubRepository[]>(
-            `/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc&per_page=100`
+            `/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc&per_page=100`,
+            controller.signal,
           ),
         ]);
 
@@ -131,21 +145,13 @@ export default function GitHubActivity() {
         setRepositories(
           repos.filter((repository) => !repository.private)
         );
+        completed = true;
+        window.clearTimeout(timeout);
+        setLoading(false);
       } catch (err) {
         if (cancelled) return;
-
-        console.error(
-          "Failed to load GitHub data:",
-          err
-        );
-
-        setError(
-          "Unable to load GitHub activity right now."
-        );
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
+        // Preserve the normal loader for five seconds before revealing fallback.
+        console.warn("GitHub data request did not complete:", err);
       }
     }
 
@@ -153,8 +159,18 @@ export default function GitHubActivity() {
 
     return () => {
       cancelled = true;
+      window.clearTimeout(timeout);
+      controller.abort();
     };
+  }, [requestKey]);
+
+  useEffect(() => {
+    const retryWhenOnline = () => setRequestKey((value) => value + 1);
+    window.addEventListener("online", retryWhenOnline);
+    return () => window.removeEventListener("online", retryWhenOnline);
   }, []);
+
+  const retryGitHub = () => setRequestKey((value) => value + 1);
 
   /* =======================================================
      TOTAL STARS
@@ -194,6 +210,7 @@ export default function GitHubActivity() {
         id="github"
         aria-label="GitHub Activity"
         className="
+          theme-section
           relative
           w-full
           overflow-hidden
@@ -281,12 +298,13 @@ export default function GitHubActivity() {
      ERROR STATE
   ======================================================= */
 
-  if (error || !user) {
+  if (showFallback || !user) {
     return (
       <section
         id="github"
         aria-label="GitHub Activity"
         className="
+          theme-section
           relative
           w-full
           overflow-hidden
@@ -302,94 +320,8 @@ export default function GitHubActivity() {
           lg:px-8
         "
       >
-        {/* Glow */}
-
-        <div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute
-            left-1/2
-            top-0
-            h-[500px]
-            w-[800px]
-            -translate-x-1/2
-            rounded-full
-            bg-cyan-500/[0.04]
-            blur-[150px]
-          "
-        />
-
         <div className="relative z-10 mx-auto max-w-6xl">
-          <div
-            className="
-              rounded-3xl
-              border
-              border-cyan-400/15
-              bg-white/[0.025]
-              p-8
-              text-center
-              shadow-[0_25px_70px_rgba(34,211,238,0.05)]
-            "
-          >
-            <div
-              className="
-                mx-auto
-                flex
-                h-14
-                w-14
-                items-center
-                justify-center
-                rounded-2xl
-                border
-                border-cyan-400/20
-                bg-cyan-400/[0.06]
-                text-cyan-300
-              "
-            >
-              <FiGithub size={26} />
-            </div>
-
-            <h2 className="mt-5 text-2xl font-black">
-              GitHub Activity
-            </h2>
-
-            <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-slate-500">
-              {error ??
-                "GitHub profile data is unavailable."}
-            </p>
-
-            <a
-              href={`https://github.com/${GITHUB_USERNAME}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                mt-6
-                inline-flex
-                items-center
-                gap-2.5
-                rounded-full
-                border
-                border-cyan-400/20
-                bg-cyan-400/[0.05]
-                px-6
-                py-3
-                text-[10px]
-                font-black
-                uppercase
-                tracking-[0.16em]
-                text-cyan-300
-                transition-all
-                duration-300
-                hover:border-cyan-400/40
-                hover:bg-cyan-400/[0.1]
-                hover:text-white
-              "
-            >
-              <FiGithub size={17} />
-              Visit GitHub
-            </a>
-          </div>
+          <PortfolioRunner onRetry={retryGitHub} />
         </div>
       </section>
     );
@@ -404,6 +336,7 @@ export default function GitHubActivity() {
       id="github"
       aria-labelledby="github-heading"
       className="
+        theme-section
         relative
         w-full
         overflow-hidden

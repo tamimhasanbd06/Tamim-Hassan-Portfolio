@@ -25,8 +25,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[var(--bg-primary)] px-4 py-20 sm:px-6 md:px-10 lg:px-16">
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)]/30 to-[var(--bg-primary)]" />
+    <section className="theme-section relative w-full overflow-hidden px-4 py-20 sm:px-6 md:px-10 lg:px-16">
       
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-16 max-w-3xl text-center">

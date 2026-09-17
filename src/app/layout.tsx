@@ -145,7 +145,12 @@ export default function RootLayout({
             ),
           }}
         />
-        {children}
+        <div className="theme-page">
+          <div className="theme-background" aria-hidden="true">
+            <div className="theme-grid" />
+          </div>
+          <div className="theme-content">{children}</div>
+        </div>
         <RouteChangeLoader />
         <PwaInstaller />
       </body>

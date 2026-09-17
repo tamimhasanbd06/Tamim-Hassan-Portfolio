@@ -154,11 +154,7 @@ export default function CVPage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[var(--bg-primary)] text-white">
-      {/* Background */}
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]" />
-      <div className="fixed -left-40 top-0 h-[480px] w-[480px] rounded-full bg-blue-600/10 blur-[160px]" />
-      <div className="fixed -bottom-52 right-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
+    <main className="relative min-h-screen overflow-hidden text-white">
 
       <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         {/* Page controls */}

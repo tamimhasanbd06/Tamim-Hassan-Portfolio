@@ -34,7 +34,7 @@ export const metadata = createPageMetadata({
 
 export default function LockPage() {
   return (
-    <main className="min-h-screen w-full overflow-x-clip bg-black">
+    <main className="min-h-screen w-full overflow-x-clip">
       <LockBanner />
       <WhatICanDo />
       <LookSkills />

@@ -8,9 +8,7 @@ const LockBanner = () => {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section id="lock-hero" className="relative min-h-[100svh] w-full overflow-hidden bg-black">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
+    <section id="lock-hero" className="theme-section relative min-h-[100svh] w-full overflow-hidden">
 
       {/* Glow effects */}
       <motion.div
