@@ -1,5 +1,6 @@
-"use client";
 
+
+"use client";
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FaLaptopCode, FaServer, FaPaintBrush, FaTools } from "react-icons/fa";
