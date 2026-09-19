@@ -239,3 +239,169 @@ a {
     color: #111827;
   }
 }
+
+/* Global stationary portfolio backdrop. Page content scrolls above this layer. */
+.theme-content > main,
+.theme-content main > section,
+.theme-content main > section > section,
+.theme-content main > footer {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* First-entry welcome experience. It is intentionally isolated from page styles. */
+.entry-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(34, 211, 238, 0.13), transparent 32%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.12), transparent 34%),
+    linear-gradient(180deg, #01030a 0%, #020817 52%, #00101c 100%);
+}
+
+.entry-splash__ambient {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 25% 25%, rgba(34, 211, 238, 0.08), transparent 30%),
+    radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.1), transparent 30%);
+  filter: blur(70px);
+  animation: entry-ambient 5.8s ease-in-out infinite alternate;
+}
+
+.entry-splash__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(186, 230, 253, 0.34) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(186, 230, 253, 0.34) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(circle at center, black 20%, transparent 76%);
+}
+
+.entry-splash__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: min(100%, 760px);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.entry-splash__logo-wrap {
+  position: relative;
+  display: grid;
+  width: 9rem;
+  height: 9rem;
+  place-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.entry-splash__orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(103, 232, 249, 0.2);
+  border-top-color: rgba(103, 232, 249, 0.85);
+  border-right-color: rgba(96, 165, 250, 0.55);
+  border-radius: 999px;
+  box-shadow: 0 0 60px rgba(34, 211, 238, 0.14);
+  animation: entry-spin 4s linear infinite;
+}
+
+.entry-splash__logo {
+  position: relative;
+  width: 6.5rem;
+  height: 6.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: #020817;
+  box-shadow: 0 0 45px rgba(34, 211, 238, 0.18);
+}
+
+.entry-splash__greeting {
+  margin: 0;
+  font-size: clamp(0.76rem, 1.4vw, 0.9rem);
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+
+.entry-splash__title {
+  max-width: 760px;
+  margin: 0.75rem 0 0;
+  font-size: clamp(2rem, 6vw, 4.35rem);
+  line-height: 1.04;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  color: #ffffff;
+}
+
+.entry-splash__title span {
+  color: #7dd3fc;
+  text-shadow: 0 0 34px rgba(56, 189, 248, 0.24);
+}
+
+.entry-splash__message {
+  max-width: 620px;
+  margin: 1.1rem 0 0;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  line-height: 1.7;
+  color: #cbd5e1;
+}
+
+.entry-splash__progress {
+  width: min(15rem, 62vw);
+  height: 2px;
+  margin-top: 2rem;
+  transform-origin: left center;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #ffffff, #60a5fa);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.55);
+}
+
+@keyframes entry-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes entry-ambient {
+  from { transform: scale(0.96) translate3d(-1%, -1%, 0); }
+  to { transform: scale(1.04) translate3d(1%, 1%, 0); }
+}
+
+@media (max-width: 640px) {
+  .entry-splash {
+    padding: 1.25rem;
+  }
+
+  .entry-splash__logo-wrap {
+    width: 7.75rem;
+    height: 7.75rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .entry-splash__logo {
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+
+  .entry-splash__message {
+    max-width: 34rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry-splash__ambient,
+  .entry-splash__orbit {
+    animation: none !important;
+  }
+}

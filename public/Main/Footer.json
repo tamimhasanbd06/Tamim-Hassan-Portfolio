@@ -12,6 +12,14 @@
       },
       {
         "id": 2,
+        "label": "Secondary Phone",
+        "value": "+880 1743-267595",
+        "href": "tel:+8801743267595",
+        "copyText": "+8801743267595",
+        "icon": "phone"
+      },
+      {
+        "id": 3,
         "label": "Email",
         "value": "tamimhasanbd06@gmail.com",
         "href": "mailto:tamimhasanbd06@gmail.com",
@@ -19,7 +27,15 @@
         "icon": "email"
       },
       {
-        "id": 3,
+        "id": 4,
+        "label": "Secondary Email",
+        "value": "tamimhasanbd06ai@gmail.com",
+        "href": "mailto:tamimhasanbd06ai@gmail.com",
+        "copyText": "tamimhasanbd06ai@gmail.com",
+        "icon": "email"
+      },
+      {
+        "id": 5,
         "label": "WhatsApp",
         "value": "@tamimhasanbd",
         "href": "https://wa.me/8801883650010",
@@ -28,7 +44,7 @@
         "external": true
       },
       {
-        "id": 4,
+        "id": 6,
         "label": "Messenger",
         "value": "Send me a message",
         "href": "https://m.me/tamimhasanbd06",
@@ -42,7 +58,7 @@
     "title": "Social Profiles",
     "items": [
       {
-        "id": 5,
+        "id": 7,
         "label": "LinkedIn",
         "value": "@tamim-hasan-th018836",
         "href": "https://www.linkedin.com/in/tamim-hasan-th018836/",
@@ -51,7 +67,7 @@
         "external": true
       },
       {
-        "id": 6,
+        "id": 8,
         "label": "Facebook",
         "value": "@tamimhasanbd06",
         "href": "https://www.facebook.com/tamimhasanbd06",
@@ -60,7 +76,7 @@
         "external": true
       },
       {
-        "id": 7,
+        "id": 9,
         "label": "Telegram",
         "value": "@tamimhasan662009",
         "href": "https://t.me/tamimhasan662009",
@@ -69,7 +85,7 @@
         "external": true
       },
       {
-        "id": 8,
+        "id": 10,
         "label": "TikTok",
         "value": "@tamimhasanbd662009",
         "href": "https://www.tiktok.com/@tamimhasanbd662009",
@@ -78,7 +94,7 @@
         "external": true
       },
       {
-        "id": 9,
+        "id": 11,
         "label": "X",
         "value": "@tamim_hasabd",
         "href": "https://x.com/tamim_hasabd",
@@ -87,7 +103,7 @@
         "external": true
       },
       {
-        "id": 10,
+        "id": 12,
         "label": "Instagram",
         "value": "@tamimhasanbd662009",
         "href": "https://www.instagram.com/tamimhasanbd662009/",
@@ -96,7 +112,7 @@
         "external": true
       },
       {
-        "id": 11,
+        "id": 13,
         "label": "Threads",
         "value": "@tamimhasanbd662009",
         "href": "https://www.threads.com/@tamimhasanbd662009",
@@ -110,7 +126,7 @@
     "title": "Web Development",
     "items": [
       {
-        "id": 12,
+        "id": 14,
         "label": "GitHub",
         "value": "@tamimhasanbd06",
         "href": "https://github.com/tamimhasanbd06",
@@ -119,7 +135,7 @@
         "external": true
       },
       {
-        "id": 13,
+        "id": 15,
         "label": "Vercel",
         "value": "@tamimhasanbd06s",
         "href": "https://vercel.com/tamimhasanbd06s",
@@ -128,7 +144,7 @@
         "external": true
       },
       {
-        "id": 14,
+        "id": 16,
         "label": "Netlify",
         "value": "@tamimhasanbd06",
         "href": "https://app.netlify.com/teams/tamimhasanbd06/projects",
@@ -142,49 +158,49 @@
     "title": "Quick Links",
     "items": [
       {
-        "id": 15,
+        "id": 17,
         "label": "Home",
         "href": "#home",
         "icon": "01"
       },
       {
-        "id": 16,
+        "id": 18,
         "label": "About Me",
         "href": "#about",
         "icon": "02"
       },
       {
-        "id": 17,
+        "id": 19,
         "label": "Skills",
         "href": "#skills",
         "icon": "03"
       },
       {
-        "id": 18,
+        "id": 20,
         "label": "Projects",
         "href": "#projects",
         "icon": "04"
       },
       {
-        "id": 19,
+        "id": 21,
         "label": "Experience",
         "href": "#experience",
         "icon": "05"
       },
       {
-        "id": 20,
+        "id": 22,
         "label": "Education",
         "href": "#education",
         "icon": "06"
       },
       {
-        "id": 21,
+        "id": 23,
         "label": "FAQ",
         "href": "#faq",
         "icon": "07"
       },
       {
-        "id": 22,
+        "id": 24,
         "label": "Contact",
         "href": "#contact",
         "icon": "08"

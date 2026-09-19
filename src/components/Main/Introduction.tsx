@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -43,7 +44,7 @@ const Introduction = () => {
 
     const ageUpdateInterval = window.setInterval(
       calculateAge,
-      86_400_000,
+      86_400_000
     );
 
     return () => {
@@ -60,6 +61,7 @@ const Introduction = () => {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
+
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
@@ -68,24 +70,36 @@ const Introduction = () => {
 
       {/* Background Glows */}
       <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-blue-500/20 blur-[120px]" />
-
       <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[140px]" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-10rem)] w-full max-w-6xl grid-cols-1 items-center gap-14 md:grid-cols-2 lg:gap-20">
+
         {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, x: reduceMotion ? 0 : -46 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: reduceMotion ? 0 : 0.7, ease: "easeOut" }}
+          initial={{
+            opacity: 0,
+            x: reduceMotion ? 0 : -46,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.18,
+          }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.7,
+            ease: "easeOut",
+          }}
           className="order-2 space-y-6 text-center md:order-1 md:text-left"
         >
+
           {/* Availability Badge */}
           <div className="inline-flex items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-70" />
-
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
             </span>
 
@@ -120,13 +134,16 @@ const Introduction = () => {
 
           {/* Personal Details */}
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+
             <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
               <span className="block text-xs uppercase tracking-[2px] text-gray-500">
                 Age
               </span>
 
               <strong className="mt-2 block text-base text-cyan-300">
-                {age > 0 ? `${age} years old` : "Calculating..."}
+                {age > 0
+                  ? `${age} years old`
+                  : "Calculating..."}
               </strong>
             </div>
 
@@ -159,6 +176,7 @@ const Introduction = () => {
                 Modern Web Applications
               </strong>
             </div>
+
           </div>
 
           {/* Description */}
@@ -181,7 +199,9 @@ const Introduction = () => {
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-col justify-center gap-4 pt-2 sm:flex-row md:justify-start">
+          <div className="flex flex-col justify-center gap-4 pt-2 sm:flex-row sm:flex-wrap md:justify-start">
+
+            {/* View Projects */}
             <button
               type="button"
               onClick={() => scrollToSection("projects")}
@@ -190,35 +210,76 @@ const Introduction = () => {
               View My Projects
             </button>
 
+            {/* My Posts */}
+            <Link
+              href="/my-post"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-400/40 bg-blue-500/10 px-7 py-3 font-semibold text-blue-300 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-blue-500/20 hover:text-white"
+            >
+              My Posts
+            </Link>
+
+            {/* Contact */}
             <button
               type="button"
               onClick={() => scrollToSection("contact")}
-              className="rounded-xl border border-cyan-400/40 bg-cyan-400/5 px-7 py-3 font-semibold text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:bg-cyan-400/10"
+              className="rounded-xl border border-cyan-400/40 bg-cyan-400/5 px-7 py-3 font-semibold text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-cyan-400/10"
             >
               Contact Me
             </button>
+
           </div>
+
         </motion.div>
 
         {/* RIGHT PROFILE IMAGE */}
         <motion.div
-          initial={{ opacity: 0, x: reduceMotion ? 0 : 46, scale: reduceMotion ? 1 : 0.96 }}
-          whileInView={{ opacity: 1, x: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.08, ease: "easeOut" }}
+          initial={{
+            opacity: 0,
+            x: reduceMotion ? 0 : 46,
+            scale: reduceMotion ? 1 : 0.96,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            scale: 1,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.18,
+          }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.8,
+            delay: 0.08,
+            ease: "easeOut",
+          }}
           className="order-1 flex justify-center md:order-2 md:justify-end"
         >
+
           <motion.div
-            whileHover={reduceMotion ? undefined : { y: -8, rotate: 0.4 }}
-            transition={{ type: "spring", stiffness: 220, damping: 18 }}
+            whileHover={
+              reduceMotion
+                ? undefined
+                : {
+                    y: -8,
+                    rotate: 0.4,
+                  }
+            }
+            transition={{
+              type: "spring",
+              stiffness: 220,
+              damping: 18,
+            }}
             className="group relative w-full max-w-[430px]"
           >
+
             {/* Image Glow */}
             <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-blue-500/20 via-cyan-400/10 to-transparent blur-3xl transition duration-500 group-hover:from-blue-500/30 group-hover:via-cyan-400/20" />
 
             {/* Image Container */}
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-2 shadow-2xl backdrop-blur-md">
+
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-[var(--bg-primary)]">
+
                 <Image
                   src="/assets/images/me.jpg"
                   alt="Tamim Hasan, frontend web developer"
@@ -233,6 +294,7 @@ const Introduction = () => {
 
                 {/* Image Caption */}
                 <div className="absolute inset-x-0 bottom-0 p-6 text-left">
+
                   <p className="text-xs font-semibold uppercase tracking-[3px] text-cyan-300">
                     Frontend Developer
                   </p>
@@ -240,18 +302,21 @@ const Introduction = () => {
                   <h3 className="mt-2 text-xl font-bold text-white">
                     Building ideas for the web
                   </h3>
+
                 </div>
+
               </div>
+
             </div>
+
           </motion.div>
+
         </motion.div>
+
       </div>
+
     </section>
   );
 };
 
 export default Introduction;
-
-
-
-
