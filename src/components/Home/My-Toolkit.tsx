@@ -21,7 +21,7 @@ import {
   FiZap,
 } from "react-icons/fi";
 
-import libraryData from "../../../public/My-Toolkit.json";
+import { useContentSection } from "@/lib/use-content";
 
 type LibraryItem = {
   name: string;
@@ -43,7 +43,7 @@ const iconMap: Record<string, IconType> = {
   FiZap,
 };
 
-const libraries = libraryData as LibraryItem[];
+
 
 function LibraryCard({ item }: { item: LibraryItem }) {
   const Icon = iconMap[item.icon] ?? FiBox;
@@ -69,7 +69,7 @@ function LibraryCard({ item }: { item: LibraryItem }) {
       className={`
         group
         flex
-        min-w-[110px]
+        min-w-[]
         flex-col
         items-center
         justify-center
@@ -86,7 +86,7 @@ function LibraryCard({ item }: { item: LibraryItem }) {
         hover:-translate-y-1
         hover:border-cyan-400/40
         hover:bg-cyan-400/[0.06]
-        sm:min-w-[125px]
+        sm:min-w-[]
       `}
     >
       <div
@@ -109,7 +109,7 @@ function LibraryCard({ item }: { item: LibraryItem }) {
           group-hover:text-cyan-200
         `}
       >
-        <Icon className="text-[27px]" />
+        <Icon className="text-[]" />
       </div>
 
       <p
@@ -133,6 +133,7 @@ function LibraryCard({ item }: { item: LibraryItem }) {
 }
 
 export default function Library() {
+  const { items: libraries } = useContentSection<LibraryItem>("my-toolkit");
   const reduceMotion = useReducedMotion();
 
   return (
@@ -158,13 +159,13 @@ export default function Library() {
           absolute
           left-1/2
           top-1/2
-          h-[300px]
-          w-[700px]
+          h-[]
+          w-[]
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
           bg-cyan-500/5
-          blur-[120px]
+          blur-[]
         `}
       />
 
@@ -333,11 +334,11 @@ export default function Library() {
           }
 
           to {
-            transform: translateX(calc(-50% - 10px));
+            transform: translateX(calc(-50% - ));
           }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: ) {
           .library-track {
             animation-duration: 24s;
           }

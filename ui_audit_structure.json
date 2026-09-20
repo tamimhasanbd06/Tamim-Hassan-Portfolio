@@ -1,0 +1,322 @@
+[
+  {
+    "type": "component",
+    "path": "src\\app\\api\\auth\\login\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\auth\\logout\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\auth\\resend-otp\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\auth\\session\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\auth\\verify-otp\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\content\\[section]\\bulk\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\content\\[section]\\export\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\content\\[section]\\import\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\content\\[section]\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\content\\[section]\\[id]\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\dashboard\\overview\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\posts\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\posts\\[id]\\comments\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\posts\\[id]\\comments\\[commentId]\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\posts\\[id]\\like\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\posts\\[id]\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\api\\welcome\\route.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\cv\\page.tsx"
+  },
+  {
+    "type": "dashboard",
+    "path": "src\\app\\dashboard\\layout.tsx"
+  },
+  {
+    "type": "dashboard",
+    "path": "src\\app\\dashboard\\overview\\page.tsx"
+  },
+  {
+    "type": "dashboard",
+    "path": "src\\app\\dashboard\\page.tsx"
+  },
+  {
+    "type": "dashboard",
+    "path": "src\\app\\dashboard\\posts\\page.tsx"
+  },
+  {
+    "type": "dashboard",
+    "path": "src\\app\\dashboard\\[section]\\page.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\home\\page.tsx"
+  },
+  {
+    "type": "layout",
+    "path": "src\\app\\layout.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\loading.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\login\\page.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\manifest.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\my-post\\page.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\not-found.tsx"
+  },
+  {
+    "type": "page",
+    "path": "src\\app\\page.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\resume\\page.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\robots.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\site-config.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\app\\sitemap.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\common\\EntrySplash.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\common\\MainLoader.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\common\\MotionReveal.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\common\\PdfDownloadButton.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\common\\PortfolioRunner.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\common\\PwaInstaller.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\common\\RouteChangeLoader.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\common\\TypewriterText.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\dashboard\\DashboardShell.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\dashboard\\PostsManager.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\dashboard\\SectionManager.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\AI-Stack.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\Courses-&-Certifications.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\Developer-Toolkit.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\DevelopmentJourney.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\Get-In-Touch.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\GitHubActivity.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\GitHubContributionChart.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\HowIBuildWebsites.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\MainBanner.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\My-Toolkit.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\MySkills.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Home\\WhatICanDo.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\About-My.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Banner.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Contact-Me.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Experience.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Footer.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Have-Questions.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Introduction.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\My-Education.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\My-Tech-Stack.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Navbar.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Project-Gallery.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\ProjectDetails.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\Main\\Services.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\navigation\\FloatingNavigator.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\components\\ui\\QrCodeSection.tsx"
+  },
+  {
+    "type": "component",
+    "path": "src\\lib\\admin-auth.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\lib\\admin-otp.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\lib\\content-config.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\lib\\content-db.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\lib\\data.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\lib\\db.ts"
+  },
+  {
+    "type": "component",
+    "path": "src\\lib\\use-content.ts"
+  }
+]

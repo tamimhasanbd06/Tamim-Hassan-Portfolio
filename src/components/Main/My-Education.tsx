@@ -41,7 +41,7 @@ export default function Education() {
   useEffect(() => {
     const loadEducation = async () => {
       try {
-        const response = await fetch("/Main/My-Education.json");
+        const response = await fetch("/api/content/education", { cache: "no-store" });
 
         if (!response.ok) {
           throw new Error(
@@ -49,9 +49,9 @@ export default function Education() {
           );
         }
 
-        const data: EducationResponse = await response.json();
+        const data: { items?: Array<{ data: EducationItem }> } = await response.json();
 
-        setEducationData(data.education);
+        setEducationData((data.items || []).map((row) => row.data));
       } catch (error) {
         console.error("Education data loading error:", error);
       }
@@ -83,16 +83,16 @@ export default function Education() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
-      <div className="absolute -left-40 top-0 h-[450px] w-[450px] rounded-full bg-blue-600/15 blur-[150px]" />
+      <div className="absolute -left-40 top-0 h-[] w-[] rounded-full bg-blue-600/15 blur-[]" />
 
-      <div className="absolute -bottom-48 right-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
+      <div className="absolute -bottom-48 right-[-] h-[] w-[] rounded-full bg-cyan-400/10 blur-[]" />
 
       <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:55px_55px]" />
 
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         {/* Header */}
         <header className="mx-auto mb-14 max-w-2xl text-center">
-          <div className="mx-auto mb-5 flex w-fit items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.06] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-300 sm:text-xs">
+          <div className="mx-auto mb-5 flex w-fit items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.06] px-4 py-2 text-[] font-bold uppercase tracking-[0.3em] text-cyan-300 sm:text-xs">
             <FaGraduationCap />
             Academic Background
           </div>
@@ -112,7 +112,7 @@ export default function Education() {
 
         {/* Timeline */}
         <div className="relative mx-auto max-w-4xl">
-          <div className="absolute bottom-0 left-[20px] top-0 hidden w-px bg-gradient-to-b from-cyan-400/70 via-blue-500/30 to-transparent sm:block" />
+          <div className="absolute bottom-0 left-[] top-0 hidden w-px bg-gradient-to-b from-cyan-400/70 via-blue-500/30 to-transparent sm:block" />
 
           <div className="space-y-7 sm:pl-14">
             {visibleEducation.map((education, index) => (
@@ -144,17 +144,17 @@ export default function Education() {
                 className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-white/[0.065] hover:shadow-[0_25px_70px_rgba(6,182,212,0.08)] sm:p-8"
               >
                 {/* Timeline Marker */}
-                <div className="absolute -left-[46px] top-9 hidden h-6 w-6 items-center justify-center rounded-full border-2 border-cyan-400 bg-black shadow-[0_0_20px_rgba(34,211,238,0.65)] sm:flex">
+                <div className="absolute -left-[] top-9 hidden h-6 w-6 items-center justify-center rounded-full border-2 border-cyan-400 bg-black shadow-[0_0_20px_rgba(34,211,238,0.65)] sm:flex">
                   <span className="h-2 w-2 rounded-full bg-cyan-300" />
                 </div>
 
                 {/* Top Accent */}
                 <div
-                  className={`absolute left-0 top-0 h-[2px] w-full bg-gradient-to-r ${education.accent}`}
+                  className={`absolute left-0 top-0 h-[] w-full bg-gradient-to-r ${education.accent}`}
                 />
 
                 {/* Glow */}
-                <div className="absolute -right-24 -top-24 h-60 w-60 rounded-full bg-blue-500/10 blur-[90px] transition group-hover:bg-cyan-500/15" />
+                <div className="absolute -right-24 -top-24 h-60 w-60 rounded-full bg-blue-500/10 blur-[] transition group-hover:bg-cyan-500/15" />
 
                 {/* Bottom Hover Line */}
                 <div
@@ -166,13 +166,13 @@ export default function Education() {
                   <div className="flex-1">
                     {/* Badges */}
                     <div className="mb-5 flex flex-wrap items-center gap-3">
-                      <div className="flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.07] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300 sm:text-xs">
+                      <div className="flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.07] px-3 py-1.5 text-[] font-bold uppercase tracking-[0.2em] text-cyan-300 sm:text-xs">
                         <FaGraduationCap />
                         {education.duration}
                       </div>
 
                       <div
-                        className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] sm:text-xs ${
+                        className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[] font-bold uppercase tracking-[0.16em] sm:text-xs ${
                           education.status === "Running"
                             ? "border-emerald-400/20 bg-emerald-400/[0.07] text-emerald-300"
                             : "border-blue-400/20 bg-blue-400/[0.07] text-blue-300"
@@ -297,7 +297,7 @@ export default function Education() {
         <div className="mt-14 flex items-center justify-center gap-4">
           <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400/30" />
 
-          <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/30 sm:text-xs">
+          <p className="text-[] font-semibold uppercase tracking-[0.35em] text-white/30 sm:text-xs">
             Always learning
           </p>
 

@@ -17,7 +17,7 @@ import {
   FiZap,
 } from "react-icons/fi";
 
-import buildData from "../../../public/HowIBuildWebsites.json";
+import { useContentSection } from "@/lib/use-content";
 
 /* =========================================================
    TYPES
@@ -46,10 +46,17 @@ type BuildData = {
 };
 
 /* =========================================================
-   JSON DATA
+   SECTION COPY
 ========================================================= */
 
-const data = buildData as BuildData;
+const data: Omit<BuildData, "steps"> = {
+  section: {
+    badge: "How I Build Websites",
+    title: "From Idea to",
+    highlightedTitle: "Production",
+    description: "I follow a structured development process to turn ideas into fast, responsive, maintainable, and user-friendly web applications.",
+  },
+};
 
 /* =========================================================
    ICON MAP
@@ -126,7 +133,8 @@ export default function HowIBuildWebsites() {
      STEPS DATA
   ======================================================= */
 
-  const steps = useMemo(() => data.steps ?? [], []);
+  const { items: databaseSteps } = useContentSection<BuildStep>("website-process");
+  const steps = useMemo(() => databaseSteps, [databaseSteps]);
 
   /* =======================================================
      VISIBLE STEPS
@@ -209,12 +217,12 @@ export default function HowIBuildWebsites() {
           absolute
           left-1/2
           top-0
-          h-[600px]
-          w-[900px]
+          h-[]
+          w-[]
           -translate-x-1/2
           rounded-full
           bg-cyan-500/[0.055]
-          blur-[150px]
+          blur-[]
         "
       />
 
@@ -225,12 +233,12 @@ export default function HowIBuildWebsites() {
           absolute
           bottom-0
           left-1/2
-          h-[500px]
-          w-[800px]
+          h-[]
+          w-[]
           -translate-x-1/2
           rounded-full
           bg-blue-500/[0.045]
-          blur-[150px]
+          blur-[]
         "
       />
 
@@ -303,7 +311,7 @@ export default function HowIBuildWebsites() {
 
             <span
               className="
-                text-[10px]
+                text-[]
                 font-bold
                 uppercase
                 tracking-[0.22em]
@@ -517,7 +525,7 @@ export default function HowIBuildWebsites() {
                         bg-white/[0.025]
                         px-2.5
                         py-1.5
-                        text-[9px]
+                        text-[]
                         font-black
                         tracking-[0.16em]
                         text-slate-500
@@ -554,7 +562,7 @@ export default function HowIBuildWebsites() {
                       <p
                         className="
                           mt-1.5
-                          text-[11px]
+                          text-[]
                           font-medium
                           leading-5
                           text-cyan-300/70
@@ -588,7 +596,7 @@ export default function HowIBuildWebsites() {
                     className="
                       mt-4
                       line-clamp-3
-                      text-[12px]
+                      text-[]
                       leading-6
                       text-slate-400
                     "
@@ -617,7 +625,7 @@ export default function HowIBuildWebsites() {
                             bg-cyan-400/[0.045]
                             px-2.5
                             py-1
-                            text-[8px]
+                            text-[]
                             font-bold
                             uppercase
                             tracking-wider
@@ -645,7 +653,7 @@ export default function HowIBuildWebsites() {
                   >
                     <span
                       className="
-                        text-[8px]
+                        text-[]
                         font-bold
                         uppercase
                         tracking-[0.15em]
@@ -734,7 +742,7 @@ export default function HowIBuildWebsites() {
 
                         <span
                           className="
-                            text-[9px]
+                            text-[]
                             font-black
                             uppercase
                             tracking-[0.16em]
@@ -747,7 +755,7 @@ export default function HowIBuildWebsites() {
 
                       <p
                         className="
-                          text-[11px]
+                          text-[]
                           leading-6
                           text-slate-500
                         "
@@ -775,7 +783,7 @@ export default function HowIBuildWebsites() {
 
                         <span
                           className="
-                            text-[9px]
+                            text-[]
                             font-black
                             uppercase
                             tracking-[0.16em]
@@ -812,7 +820,7 @@ export default function HowIBuildWebsites() {
 
                               <span
                                 className="
-                                  text-[11px]
+                                  text-[]
                                   leading-5
                                   text-slate-500
                                 "
@@ -845,7 +853,7 @@ export default function HowIBuildWebsites() {
 
                         <span
                           className="
-                            text-[9px]
+                            text-[]
                             font-black
                             uppercase
                             tracking-[0.16em]
@@ -869,7 +877,7 @@ export default function HowIBuildWebsites() {
                                 bg-white/[0.025]
                                 px-2.5
                                 py-1.5
-                                text-[9px]
+                                text-[]
                                 font-medium
                                 text-slate-500
                               "
@@ -947,7 +955,7 @@ export default function HowIBuildWebsites() {
                 bg-cyan-400/[0.05]
                 px-6
                 py-3
-                text-[10px]
+                text-[]
                 font-black
                 uppercase
                 tracking-[0.16em]

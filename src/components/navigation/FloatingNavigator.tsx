@@ -263,8 +263,8 @@ export default function FloatingNavigator({
             className="
               absolute
               bottom-0
-              left-[68px]
-              w-[225px]
+              left-[]
+              w-[]
               overflow-hidden
               rounded-2xl
               border
@@ -272,7 +272,7 @@ export default function FloatingNavigator({
               bg-[var(--bg-card)]/95
               shadow-[0_20px_70px_rgba(0,0,0,0.65)]
               backdrop-blur-2xl
-              sm:w-[245px]
+              sm:w-[]
             "
           >
             {/* Menu heading */}
@@ -286,7 +286,7 @@ export default function FloatingNavigator({
             >
               <p
                 className="
-                  text-[10px]
+                  text-[]
                   font-bold
                   uppercase
                   tracking-[0.18em]
@@ -310,7 +310,7 @@ export default function FloatingNavigator({
             {/* Menu items */}
             <div
               className="
-                max-h-[390px]
+                max-h-[]
                 overflow-y-auto
                 p-2
               "
@@ -325,7 +325,7 @@ export default function FloatingNavigator({
                     <FaHome className="text-xs text-cyan-300" />
                     Go to Home
                   </span>
-                  <FaChevronRight className="text-[9px] text-cyan-400" />
+                  <FaChevronRight className="text-[] text-cyan-400" />
                 </Link>
               )}
 
@@ -372,7 +372,7 @@ export default function FloatingNavigator({
 
                       <span
                         className={`
-                          text-[9px]
+                          text-[]
                           font-black
                           tracking-wider
                           ${
@@ -508,7 +508,7 @@ export default function FloatingNavigator({
             border
             border-white/10
             bg-black/50
-            text-[7px]
+            text-[]
             text-slate-500
             transition-colors
             duration-300

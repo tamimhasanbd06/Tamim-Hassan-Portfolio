@@ -132,7 +132,7 @@ function StatCard({
         group
         relative
         overflow-hidden
-        rounded-[24px]
+        rounded-[]
         border
         border-white/[0.07]
         bg-white/[0.025]
@@ -233,7 +233,7 @@ function StatCard({
         <p
           className="
             mt-1
-            text-[10px]
+            text-[]
             font-black
             uppercase
             tracking-[0.16em]
@@ -247,7 +247,7 @@ function StatCard({
           className="
             mt-2
             hidden
-            text-[11px]
+            text-[]
             leading-5
             text-slate-600
 
@@ -281,7 +281,7 @@ function GitHubFallback() {
       <div className="mx-auto max-w-7xl">
         <div
           className="
-            rounded-[32px]
+            rounded-[]
             border
             border-white/10
             bg-white/[0.025]
@@ -350,7 +350,7 @@ function GitHubFallback() {
               px-6
               py-3
 
-              text-[10px]
+              text-[]
               font-black
               uppercase
               tracking-[0.15em]
@@ -457,10 +457,10 @@ export default async function GitHubActivity() {
           pointer-events-none
           absolute
           left-1/2
-          top-[-200px]
+          top-[-]
 
-          h-[600px]
-          w-[900px]
+          h-[]
+          w-[]
 
           -translate-x-1/2
 
@@ -468,7 +468,7 @@ export default async function GitHubActivity() {
 
           bg-cyan-500/[0.07]
 
-          blur-[170px]
+          blur-[]
         "
       />
 
@@ -480,14 +480,14 @@ export default async function GitHubActivity() {
           -left-40
           top-1/2
 
-          h-[400px]
-          w-[400px]
+          h-[]
+          w-[]
 
           rounded-full
 
           bg-blue-500/[0.04]
 
-          blur-[150px]
+          blur-[]
         "
       />
 
@@ -499,14 +499,14 @@ export default async function GitHubActivity() {
           -right-40
           bottom-0
 
-          h-[420px]
-          w-[420px]
+          h-[]
+          w-[]
 
           rounded-full
 
           bg-cyan-400/[0.04]
 
-          blur-[150px]
+          blur-[]
         "
       />
 
@@ -569,13 +569,13 @@ export default async function GitHubActivity() {
 
             <span
               className="
-                text-[9px]
+                text-[]
                 font-black
                 uppercase
                 tracking-[0.24em]
                 text-cyan-300
 
-                sm:text-[10px]
+                sm:text-[]
               "
             >
               Developer Network / Live
@@ -641,7 +641,7 @@ export default async function GitHubActivity() {
 
             overflow-hidden
 
-            rounded-[30px]
+            rounded-[]
 
             border
             border-white/[0.07]
@@ -686,7 +686,7 @@ export default async function GitHubActivity() {
                 items-center
                 gap-2
 
-                text-[9px]
+                text-[]
                 font-bold
                 uppercase
                 tracking-[0.18em]
@@ -733,7 +733,7 @@ export default async function GitHubActivity() {
                     absolute
                     -inset-2
 
-                    rounded-[24px]
+                    rounded-[]
 
                     bg-gradient-to-br
                     from-cyan-400/30
@@ -753,10 +753,10 @@ export default async function GitHubActivity() {
                   className="
                     relative
 
-                    h-[84px]
-                    w-[84px]
+                    h-[]
+                    w-[]
 
-                    rounded-[22px]
+                    rounded-[]
 
                     border
                     border-cyan-300/20
@@ -765,8 +765,8 @@ export default async function GitHubActivity() {
 
                     shadow-[0_0_35px_rgba(34,211,238,0.12)]
 
-                    sm:h-[92px]
-                    sm:w-[92px]
+                    sm:h-[]
+                    sm:w-[]
                   "
                 />
 
@@ -781,7 +781,7 @@ export default async function GitHubActivity() {
 
                     rounded-full
 
-                    border-[3px]
+                    border-[]
                     border-[#070a0d]
 
                     bg-emerald-400
@@ -822,7 +822,7 @@ export default async function GitHubActivity() {
                       px-2.5
                       py-1
 
-                      text-[8px]
+                      text-[]
                       font-black
                       uppercase
                       tracking-wider
@@ -892,7 +892,7 @@ export default async function GitHubActivity() {
                 px-5
                 py-3
 
-                text-[10px]
+                text-[]
                 font-black
                 uppercase
                 tracking-[0.15em]
@@ -982,7 +982,7 @@ export default async function GitHubActivity() {
 
             overflow-hidden
 
-            rounded-[30px]
+            rounded-[]
 
             border
             border-white/[0.07]
@@ -1071,7 +1071,7 @@ export default async function GitHubActivity() {
                 items-center
                 gap-4
 
-                text-[10px]
+                text-[]
                 font-bold
                 text-slate-500
               "
@@ -1151,12 +1151,12 @@ export default async function GitHubActivity() {
                       relative
 
                       flex
-                      min-h-[210px]
+                      min-h-[]
                       flex-col
 
                       overflow-hidden
 
-                      rounded-[22px]
+                      rounded-[]
 
                       border
                       border-white/[0.06]
@@ -1206,7 +1206,7 @@ export default async function GitHubActivity() {
                               mb-2
 
                               font-mono
-                              text-[9px]
+                              text-[]
 
                               uppercase
                               tracking-[0.16em]
@@ -1250,7 +1250,7 @@ export default async function GitHubActivity() {
                             px-2.5
                             py-1
 
-                            text-[8px]
+                            text-[]
                             font-black
                             uppercase
                             tracking-[0.14em]
@@ -1301,7 +1301,7 @@ export default async function GitHubActivity() {
                               px-2.5
                               py-1
 
-                              text-[9px]
+                              text-[]
                               font-bold
 
                               text-cyan-300/70
@@ -1327,7 +1327,7 @@ export default async function GitHubActivity() {
                             px-2.5
                             py-1
 
-                            text-[9px]
+                            text-[]
 
                             text-slate-600
                           "
@@ -1353,7 +1353,7 @@ export default async function GitHubActivity() {
                             px-2.5
                             py-1
 
-                            text-[9px]
+                            text-[]
 
                             text-slate-600
                           "
@@ -1381,7 +1381,7 @@ export default async function GitHubActivity() {
                         <span
                           className="
                             font-mono
-                            text-[9px]
+                            text-[]
                             text-slate-700
                           "
                         >
@@ -1446,7 +1446,7 @@ export default async function GitHubActivity() {
                   px-6
                   py-3
 
-                  text-[9px]
+                  text-[]
                   font-black
 
                   uppercase
@@ -1493,7 +1493,7 @@ export default async function GitHubActivity() {
 
             overflow-hidden
 
-            rounded-[30px]
+            rounded-[]
 
             border
             border-white/[0.07]
@@ -1578,7 +1578,7 @@ export default async function GitHubActivity() {
                       px-2.5
                       py-1
 
-                      text-[8px]
+                      text-[]
                       font-black
 
                       uppercase
@@ -1613,7 +1613,7 @@ export default async function GitHubActivity() {
                 gap-2
 
                 font-mono
-                text-[9px]
+                text-[]
                 uppercase
                 tracking-[0.12em]
 
@@ -1663,7 +1663,7 @@ export default async function GitHubActivity() {
               items-center
               gap-2
 
-              text-[9px]
+              text-[]
               font-bold
 
               uppercase
@@ -1680,7 +1680,7 @@ export default async function GitHubActivity() {
           <span
             className="
               font-mono
-              text-[9px]
+              text-[]
 
               text-slate-800
             "

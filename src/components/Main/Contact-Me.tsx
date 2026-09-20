@@ -16,7 +16,7 @@ import {
 
 import { BsTelegram } from "react-icons/bs";
 
-import contactData from "../../../public/Main/Contact-Me.json";
+import { useContentSection } from "@/lib/use-content";
 
 type ContactCategory =
   | "Contact"
@@ -88,6 +88,7 @@ const getContactIcon = (icon: ContactIcon) => {
 };
 
 export default function Contact() {
+  const { items: contacts } = useContentSection<ContactItem>("contact");
   const reduceMotion = useReducedMotion();
 
   const [copiedId, setCopiedId] =
@@ -109,7 +110,7 @@ export default function Contact() {
 
     textarea.value = text;
     textarea.style.position = "fixed";
-    textarea.style.left = "-9999px";
+    textarea.style.left = "-";
     textarea.style.top = "0";
     textarea.style.opacity = "0";
 
@@ -165,7 +166,7 @@ export default function Contact() {
     category: ContactCategory,
   ) => {
     const items = (
-      contactData as ContactItem[]
+      contacts
     ).filter(
       (item) =>
         item.category === category,
@@ -177,7 +178,7 @@ export default function Contact() {
         <div className="mb-4 flex items-center gap-2.5">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.9)]" />
 
-          <h2 className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.26em] text-cyan-300/80 sm:text-xs">
+          <h2 className="whitespace-nowrap text-[] font-bold uppercase tracking-[0.26em] text-cyan-300/80 sm:text-xs">
             {category}
           </h2>
 
@@ -258,7 +259,7 @@ export default function Contact() {
                   absolute
                   bottom-0
                   left-0
-                  h-[1.5px]
+                  h-[1.]
                   w-0
                   bg-gradient-to-r
                   transition-all
@@ -317,11 +318,11 @@ export default function Contact() {
 
                 {/* Text */}
                 <div className="min-w-0">
-                  <h3 className="text-[13px] font-bold leading-tight text-white transition-colors group-hover:text-cyan-200 sm:text-sm">
+                  <h3 className="text-[] font-bold leading-tight text-white transition-colors group-hover:text-cyan-200 sm:text-sm">
                     {item.label}
                   </h3>
 
-                  <p className="mt-0.5 max-w-[180px] truncate text-[10px] leading-5 text-gray-500 transition-colors group-hover:text-gray-400 sm:max-w-[220px] sm:text-xs">
+                  <p className="mt-0.5 max-w-[] truncate text-[] leading-5 text-gray-500 transition-colors group-hover:text-gray-400 sm:max-w-[] sm:text-xs">
                     {item.value}
                   </p>
                 </div>
@@ -338,7 +339,7 @@ export default function Contact() {
                     bg-white/[0.03]
                     px-2.5
                     py-1
-                    text-[9px]
+                    text-[]
                     font-semibold
                     uppercase
                     tracking-wider
@@ -374,7 +375,7 @@ export default function Contact() {
                     rounded-lg
                     border border-white/[0.08]
                     bg-white/[0.035]
-                    text-[11px]
+                    text-[]
                     text-gray-500
                     transition-all
                     hover:border-cyan-400/30
@@ -429,13 +430,13 @@ export default function Contact() {
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Blue Glow */}
-      <div className="absolute -left-40 -top-24 h-[420px] w-[420px] rounded-full bg-blue-600/15 blur-[150px]" />
+      <div className="absolute -left-40 -top-24 h-[] w-[] rounded-full bg-blue-600/15 blur-[]" />
 
       {/* Cyan Glow */}
-      <div className="absolute -bottom-52 -right-32 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-[170px]" />
+      <div className="absolute -bottom-52 -right-32 h-[] w-[] rounded-full bg-cyan-400/10 blur-[]" />
 
       {/* Center Glow */}
-      <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-[130px]" />
+      <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-[]" />
 
       {/* Grid */}
       <div
@@ -452,7 +453,7 @@ export default function Contact() {
         {/* Header */}
         <header className="mb-8 text-center sm:mb-11">
           {/* Status Badge */}
-          <div className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.05] px-3.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.28em] text-cyan-300 sm:text-[10px]">
+          <div className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.05] px-3.5 py-1.5 text-[] font-bold uppercase tracking-[0.28em] text-cyan-300 sm:text-[]">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
 
@@ -493,7 +494,7 @@ export default function Contact() {
         <div className="mt-9 flex items-center justify-center gap-3 text-center">
           <div className="h-px w-10 bg-gradient-to-r from-transparent to-cyan-400/30" />
 
-          <p className="text-[9px] font-semibold uppercase tracking-[0.32em] text-white/25 sm:text-[10px]">
+          <p className="text-[] font-semibold uppercase tracking-[0.32em] text-white/25 sm:text-[]">
             Open to meaningful opportunities
           </p>
 
@@ -519,7 +520,7 @@ export default function Contact() {
           bg-[var(--bg-card)]/95
           px-4
           py-2.5
-          text-[11px]
+          text-[]
           font-semibold
           text-cyan-100
           shadow-[0_15px_50px_rgba(0,0,0,0.5)]

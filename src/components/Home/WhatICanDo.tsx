@@ -25,10 +25,10 @@ export default function WhatICanDo() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch("/WhatICanDo.json");
+        const response = await fetch("/api/content/what-i-can-do", { cache: "no-store" });
         if (!response.ok) throw new Error("Failed to load capabilities");
-        const data: SkillCategory[] = await response.json();
-        setCapabilities(data);
+        const payload: { items?: Array<{ data: SkillCategory }> } = await response.json();
+        setCapabilities((payload.items || []).map((row) => row.data));
       } catch (error) {
         console.error("Error loading capabilities:", error);
       }
@@ -43,7 +43,7 @@ export default function WhatICanDo() {
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2">
             <span className="h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.8)]" />
-            <span className="text-xs font-bold uppercase tracking-[2px] text-blue-300">
+            <span className="text-xs font-bold uppercase tracking-[] text-blue-300">
               My Capabilities
             </span>
           </div>

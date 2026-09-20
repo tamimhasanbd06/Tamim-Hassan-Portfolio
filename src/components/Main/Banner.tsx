@@ -63,7 +63,7 @@ export default function Banner() {
           duration: 0.7,
           ease: "easeOut",
         }}
-        className="relative z-10 flex w-full flex-col items-center justify-center px-4 py-10 text-center min-[360px]:px-5 sm:px-8 sm:py-12 md:px-12 xl:w-[45%] xl:items-start xl:px-16 xl:text-left 2xl:px-20"
+        className="relative z-10 flex w-full flex-col items-center justify-center px-4 py-10 text-center min-[]:px-5 sm:px-8 sm:py-12 md:px-12 xl:w-[45%] xl:items-start xl:px-16 xl:text-left 2xl:px-20"
       >
         {/* Glass background */}
         <div className="absolute inset-0 bg-black/40 backdrop-blur-xl" />
@@ -84,7 +84,7 @@ export default function Banner() {
                 duration: 0.6,
                 delay: 0.2,
               }}
-              className="relative w-20 min-[360px]:w-24 sm:w-28 md:w-32 xl:w-24"
+              className="relative w-20 min-[]:w-24 sm:w-28 md:w-32 xl:w-24"
             >
               <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-xl" />
 
@@ -94,7 +94,7 @@ export default function Banner() {
                   alt="Tamim Hasan web developer logo"
                   fill
                   priority
-                  sizes="(max-width: 640px) 96px, 128px"
+                  sizes="(max-width: ) , "
                   className="object-cover"
                 />
               </div>
@@ -115,7 +115,7 @@ export default function Banner() {
               duration: 0.6,
               delay: 0.25,
             }}
-            className="mb-4 flex items-center justify-center gap-2 min-[360px]:gap-3 xl:justify-start"
+            className="mb-4 flex items-center justify-center gap-2 min-[]:gap-3 xl:justify-start"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
@@ -123,7 +123,7 @@ export default function Banner() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
 
-            <p className="text-[10px] font-semibold uppercase tracking-[2px] text-cyan-300 min-[360px]:text-xs min-[360px]:tracking-[3px] sm:text-sm">
+            <p className="text-[] font-semibold uppercase tracking-[] text-cyan-300 min-[]:text-xs min-[]:tracking-[] sm:text-sm">
               Tamim Hasan • Web Developer
             </p>
           </motion.div>
@@ -185,7 +185,7 @@ export default function Banner() {
               duration: 0.7,
               delay: 0.55,
             }}
-            className="mt-7 flex flex-wrap items-center justify-center gap-2 min-[360px]:gap-3 xl:justify-start"
+            className="mt-7 flex flex-wrap items-center justify-center gap-2 min-[]:gap-3 xl:justify-start"
           >
             {[
               "Next.js",
@@ -195,7 +195,7 @@ export default function Banner() {
             ].map((technology) => (
               <span
                 key={technology}
-                className="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-2 text-[11px] font-medium text-cyan-200 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 min-[360px]:px-4 min-[360px]:text-xs"
+                className="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-2 text-[] font-medium text-cyan-200 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 min-[]:px-4 min-[]:text-xs"
               >
                 {technology}
               </span>
@@ -221,7 +221,7 @@ export default function Banner() {
             {/* My CV button */}
             <Link
               href="/cv"
-              className="group flex min-h-12 items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-cyan-500/30 min-[360px]:px-8 min-[360px]:py-4"
+              className="group flex min-h-12 items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-cyan-500/30 min-[]:px-8 min-[]:py-4"
             >
               <FaFileAlt className="text-sm" />
 
@@ -234,7 +234,7 @@ export default function Banner() {
             <button
               type="button"
               onClick={scrollToContact}
-              className="group flex min-h-12 items-center justify-center gap-3 rounded-xl border border-cyan-400/40 bg-cyan-400/5 px-6 py-3.5 font-semibold text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-cyan-400/10 min-[360px]:px-8 min-[360px]:py-4"
+              className="group flex min-h-12 items-center justify-center gap-3 rounded-xl border border-cyan-400/40 bg-cyan-400/5 px-6 py-3.5 font-semibold text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-cyan-400/10 min-[]:px-8 min-[]:py-4"
             >
               <FaPaperPlane className="text-sm transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
 
@@ -283,8 +283,8 @@ export default function Banner() {
           width={1024}
           height={1536}
           priority
-          sizes="(max-width: 1280px) 100vw, 55vw"
-          className="h-[min(66svh,440px)] w-full object-cover object-center sm:h-[500px] md:h-[560px] xl:h-[calc(100svh-4rem)] xl:min-h-[680px]"
+          sizes="(max-width: ) 100vw, 55vw"
+          className="h-[min(66svh,)] w-full object-cover object-center sm:h-[] md:h-[] xl:h-[calc(100svh-4rem)] xl:min-h-[]"
         />
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-transparent via-black/20 to-black" />

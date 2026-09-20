@@ -60,9 +60,9 @@ const About = () => {
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
 
       {/* Background Glows */}
-      <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[130px]" />
+      <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[]" />
 
-      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[150px]" />
+      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[]" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl">
@@ -71,7 +71,7 @@ const About = () => {
           <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2">
             <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
 
-            <span className="text-xs font-semibold uppercase tracking-[3px] text-cyan-300">
+            <span className="text-xs font-semibold uppercase tracking-[] text-cyan-300">
               Get to know me
             </span>
           </div>
@@ -93,13 +93,13 @@ const About = () => {
         {/* Main About Card */}
         <MotionReveal delay={0.08} className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-8 lg:p-10">
           {/* Inner Glow */}
-          <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-blue-500/10 blur-[100px]" />
+          <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-blue-500/10 blur-[]" />
 
           <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
             {/* Introduction */}
             <div className="flex flex-col justify-between">
               <div>
-                <p className="mb-4 text-xs font-semibold uppercase tracking-[3px] text-cyan-300">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[] text-cyan-300">
                   Frontend Developer
                 </p>
 
@@ -124,7 +124,7 @@ const About = () => {
               {/* Quick Information */}
               <div className="mt-8 grid grid-cols-2 gap-3">
                 <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                  <span className="block text-xs uppercase tracking-[2px] text-gray-500">
+                  <span className="block text-xs uppercase tracking-[] text-gray-500">
                     Location
                   </span>
 
@@ -134,7 +134,7 @@ const About = () => {
                 </div>
 
                 <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                  <span className="block text-xs uppercase tracking-[2px] text-gray-500">
+                  <span className="block text-xs uppercase tracking-[] text-gray-500">
                     Current Level
                   </span>
 
@@ -172,7 +172,7 @@ const About = () => {
 
           {/* Technology Section */}
           <div className="relative mt-10 border-t border-white/10 pt-8">
-            <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[3px] text-gray-500 sm:text-left">
+            <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[] text-gray-500 sm:text-left">
               Technologies I work with
             </p>
 

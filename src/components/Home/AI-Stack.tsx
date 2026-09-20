@@ -18,7 +18,7 @@ import {
   FiCpu as FiOpenai,
 } from "react-icons/fi";
 
-import aiData from "../../../public/AI-Stack.json";
+import { useContentSection } from "@/lib/use-content";
 
 type AiItem = {
   name: string;
@@ -37,7 +37,7 @@ const iconMap: Record<string, IconType> = {
   FiCode,
 };
 
-const aiTools = aiData as AiItem[];
+
 
 function AiCard({ item }: { item: AiItem }) {
   const Icon = iconMap[item.icon] ?? FiCpu;
@@ -63,7 +63,7 @@ function AiCard({ item }: { item: AiItem }) {
       className={`
         group
         flex
-        min-w-[110px]
+        min-w-[]
         flex-col
         items-center
         justify-center
@@ -80,7 +80,7 @@ function AiCard({ item }: { item: AiItem }) {
         hover:-translate-y-1
         hover:border-cyan-400/40
         hover:bg-cyan-400/[0.06]
-        sm:min-w-[125px]
+        sm:min-w-[]
       `}
     >
       <div
@@ -103,7 +103,7 @@ function AiCard({ item }: { item: AiItem }) {
           group-hover:text-cyan-200
         `}
       >
-        <Icon className="text-[27px]" />
+        <Icon className="text-[]" />
       </div>
 
       <p
@@ -127,6 +127,7 @@ function AiCard({ item }: { item: AiItem }) {
 }
 
 export default function AiTools() {
+  const { items: aiTools } = useContentSection<AiItem>("ai-stack");
   const reduceMotion = useReducedMotion();
 
   return (
@@ -152,13 +153,13 @@ export default function AiTools() {
           absolute
           left-1/2
           top-1/2
-          h-[300px]
-          w-[700px]
+          h-[]
+          w-[]
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
           bg-cyan-500/5
-          blur-[120px]
+          blur-[]
         `}
       />
 
@@ -326,11 +327,11 @@ export default function AiTools() {
           }
 
           to {
-            transform: translateX(calc(-50% - 10px));
+            transform: translateX(calc(-50% - ));
           }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: ) {
           .ai-track {
             animation-duration: 24s;
           }

@@ -100,7 +100,7 @@ export default function Skill() {
       setLoadError(null);
 
       try {
-        const response = await fetch("/Main/My-Tech-Stack.json", {
+        const response = await fetch("/api/content/tech-stack", {
           signal: controller.signal,
         });
 
@@ -108,7 +108,8 @@ export default function Skill() {
           throw new Error("Skills data could not be loaded.");
         }
 
-        const data: unknown = await response.json();
+        const payload: { items?: Array<{ data: SkillItem }> } = await response.json();
+        const data: unknown = (payload.items || []).map((row) => row.data);
 
         if (!Array.isArray(data)) {
           throw new Error("Skills data has an invalid format.");
@@ -181,14 +182,14 @@ export default function Skill() {
     <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
-      <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[130px]" />
-      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[150px]" />
+      <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[]" />
+      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[]" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-2 min-[360px]:gap-3 min-[360px]:px-4">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-2 min-[]:gap-3 min-[]:px-4">
             <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[1px] text-cyan-300 min-[360px]:text-xs min-[360px]:tracking-[3px]">
+            <span className="text-[] font-semibold uppercase tracking-[] text-cyan-300 min-[]:text-xs min-[]:tracking-[]">
               Technologies and tools
             </span>
           </div>
@@ -252,7 +253,7 @@ export default function Skill() {
 
         {!isLoading && !loadError && (
           <div className="mb-6 flex items-center justify-between">
-            <p className="text-xs uppercase tracking-[2px] text-gray-500">
+            <p className="text-xs uppercase tracking-[] text-gray-500">
               {filteredSkills.length}{" "}
               {filteredSkills.length === 1 ? "result" : "results"}
             </p>
@@ -270,7 +271,7 @@ export default function Skill() {
         )}
 
         {isLoading ? (
-          <div className="grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" aria-label="Loading skills">
+          <div className="grid grid-cols-1 gap-4 min-[]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" aria-label="Loading skills">
             {Array.from({ length: 10 }, (_, index) => (
               <div
                 key={index}
@@ -293,7 +294,7 @@ export default function Skill() {
             </button>
           </div>
         ) : visibleSkills.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 min-[]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {visibleSkills.map((skill, index) => (
               <motion.article
                 key={skill.id}
@@ -302,7 +303,7 @@ export default function Skill() {
                 whileHover={reduceMotion ? undefined : { y: -8, scale: 1.025 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: reduceMotion ? 0 : 0.4, delay: (index % 10) * 0.035 }}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center transition-all duration-300 hover:-translate-y-2 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04] hover:shadow-[0_20px_50px_rgba(0,100,255,0.12)] min-[380px]:p-5"
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center transition-all duration-300 hover:-translate-y-2 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04] hover:shadow-[0_20px_50px_rgba(0,100,255,0.12)] min-[]:p-5"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-400/0 transition-all duration-500 group-hover:from-blue-500/5 group-hover:to-cyan-400/5" />
                 <div className="relative z-10 flex flex-col items-center">
@@ -315,7 +316,7 @@ export default function Skill() {
                   <p className="mt-2 text-xs leading-5 text-gray-500">
                     {skill.description}
                   </p>
-                  <span className="mt-4 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[1px] text-gray-500">
+                  <span className="mt-4 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[] font-semibold uppercase tracking-[] text-gray-500">
                     {skill.category === "skills"
                       ? "Development"
                       : skill.category === "ai"

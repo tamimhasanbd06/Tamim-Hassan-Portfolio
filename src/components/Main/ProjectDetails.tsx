@@ -29,9 +29,10 @@ export default function ProjectDetails({ projectId }: ProjectDetailsProps) {
   useEffect(() => {
     const loadProject = async () => {
       try {
-        const response = await fetch("/Main/Project-Gallery.json");
+        const response = await fetch("/api/content/projects", { cache: "no-store" });
         if (!response.ok) throw new Error("Failed to load");
-        const data: Project[] = await response.json();
+        const payload: { items?: Array<{ data: Project }> } = await response.json();
+        const data: Project[] = (payload.items || []).map((row) => row.data);
         
         if (data && data.length > 0) {
           if (projectId !== undefined) {
@@ -76,11 +77,11 @@ export default function ProjectDetails({ projectId }: ProjectDetailsProps) {
 
         <div className="p-6 sm:p-8 lg:p-12">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[1.5px] text-blue-200">
+            <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[] font-bold uppercase tracking-[1.] text-blue-200">
               {project.type}
             </span>
             {project.featured && (
-              <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[1.5px] text-cyan-200">
+              <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[] font-bold uppercase tracking-[1.] text-cyan-200">
                 Featured
               </span>
             )}
@@ -95,13 +96,13 @@ export default function ProjectDetails({ projectId }: ProjectDetailsProps) {
           </p>
 
           <div className="mt-7">
-            <h3 className="text-xs font-black uppercase tracking-[2px] text-cyan-300">
+            <h3 className="text-xs font-black uppercase tracking-[] text-cyan-300">
               Key Features
             </h3>
             <ul className="mt-4 space-y-3">
               {project.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-3 text-sm leading-6 text-gray-300">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 text-[9px] text-cyan-300">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 text-[] text-cyan-300">
                     <FaCheck />
                   </span>
                   {feature}
@@ -114,7 +115,7 @@ export default function ProjectDetails({ projectId }: ProjectDetailsProps) {
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-semibold text-gray-300"
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[] font-semibold text-gray-300"
               >
                 {tech}
               </span>

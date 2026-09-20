@@ -80,7 +80,7 @@ export default function EntrySplash() {
                   alt="Tamim Hasan portfolio logo"
                   fill
                   priority
-                  sizes="112px"
+                  sizes=""
                   className="object-cover"
                 />
               </div>

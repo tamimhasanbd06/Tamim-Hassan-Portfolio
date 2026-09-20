@@ -226,12 +226,12 @@ export default function DevelopmentJourney() {
           absolute
           left-1/2
           top-0
-          h-[600px]
-          w-[900px]
+          h-[]
+          w-[]
           -translate-x-1/2
           rounded-full
           bg-cyan-500/[0.055]
-          blur-[150px]
+          blur-[]
         "
       />
 
@@ -242,12 +242,12 @@ export default function DevelopmentJourney() {
           absolute
           bottom-0
           left-1/2
-          h-[500px]
-          w-[800px]
+          h-[]
+          w-[]
           -translate-x-1/2
           rounded-full
           bg-blue-500/[0.045]
-          blur-[150px]
+          blur-[]
         "
       />
 
@@ -320,7 +320,7 @@ export default function DevelopmentJourney() {
 
             <span
               className="
-                text-[10px]
+                text-[]
                 font-bold
                 uppercase
                 tracking-[0.22em]
@@ -554,7 +554,7 @@ export default function DevelopmentJourney() {
                         bg-white/[0.025]
                         px-2.5
                         py-1.5
-                        text-[9px]
+                        text-[]
                         font-black
                         tracking-[0.16em]
                         text-slate-500
@@ -583,7 +583,7 @@ export default function DevelopmentJourney() {
                       <p
                         className="
                           mt-1.5
-                          text-[11px]
+                          text-[]
                           font-medium
                           leading-5
                           text-cyan-300/70
@@ -617,7 +617,7 @@ export default function DevelopmentJourney() {
                     className="
                       mt-4
                       line-clamp-3
-                      text-[12px]
+                      text-[]
                       leading-6
                       text-slate-400
                     "
@@ -641,7 +641,7 @@ export default function DevelopmentJourney() {
                             bg-cyan-400/[0.045]
                             px-2.5
                             py-1
-                            text-[8px]
+                            text-[]
                             font-bold
                             uppercase
                             tracking-wider
@@ -661,7 +661,7 @@ export default function DevelopmentJourney() {
                           bg-white/[0.025]
                           px-2.5
                           py-1
-                          text-[8px]
+                          text-[]
                           font-bold
                           text-slate-600
                         "
@@ -687,7 +687,7 @@ export default function DevelopmentJourney() {
                   >
                     <span
                       className="
-                        text-[8px]
+                        text-[]
                         font-bold
                         uppercase
                         tracking-[0.15em]
@@ -765,7 +765,7 @@ export default function DevelopmentJourney() {
 
                         <span
                           className="
-                            text-[9px]
+                            text-[]
                             font-black
                             uppercase
                             tracking-[0.16em]
@@ -779,7 +779,7 @@ export default function DevelopmentJourney() {
 
                       <p
                         className="
-                          text-[11px]
+                          text-[]
                           leading-6
                           text-slate-500
                         "
@@ -801,7 +801,7 @@ export default function DevelopmentJourney() {
 
                         <span
                           className="
-                            text-[9px]
+                            text-[]
                             font-black
                             uppercase
                             tracking-[0.16em]
@@ -839,7 +839,7 @@ export default function DevelopmentJourney() {
 
                               <span
                                 className="
-                                  text-[11px]
+                                  text-[]
                                   leading-5
                                   text-slate-500
                                 "
@@ -866,7 +866,7 @@ export default function DevelopmentJourney() {
 
                         <span
                           className="
-                            text-[9px]
+                            text-[]
                             font-black
                             uppercase
                             tracking-[0.16em]
@@ -891,7 +891,7 @@ export default function DevelopmentJourney() {
                                 bg-white/[0.025]
                                 px-2.5
                                 py-1.5
-                                text-[9px]
+                                text-[]
                                 font-medium
                                 text-slate-500
                               "
@@ -970,7 +970,7 @@ export default function DevelopmentJourney() {
                 bg-cyan-400/[0.05]
                 px-6
                 py-3
-                text-[10px]
+                text-[]
                 font-black
                 uppercase
                 tracking-[0.16em]

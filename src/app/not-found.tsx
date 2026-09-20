@@ -15,11 +15,11 @@ export default function NotFoundPage() {
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Glow effects */}
-      <div className="absolute -left-40 top-[-100px] h-[480px] w-[480px] animate-pulse rounded-full bg-blue-600/20 blur-[160px]" />
+      <div className="absolute -left-40 top-[-] h-[] w-[] animate-pulse rounded-full bg-blue-600/20 blur-[]" />
 
-      <div className="absolute -bottom-52 right-[-140px] h-[550px] w-[550px] animate-pulse rounded-full bg-cyan-400/10 blur-[180px]" />
+      <div className="absolute -bottom-52 right-[-] h-[] w-[] animate-pulse rounded-full bg-cyan-400/10 blur-[]" />
 
-      <div className="absolute left-1/2 top-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[150px]" />
+      <div className="absolute left-1/2 top-1/2 h-[] w-[] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[]" />
 
       {/* Grid background */}
       <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:55px_55px]" />
@@ -43,7 +43,7 @@ export default function NotFoundPage() {
                 alt="Tamim Hasan web developer logo"
                 fill
                 priority
-                sizes="96px"
+                sizes=""
                 className="object-cover"
               />
             </div>
@@ -51,7 +51,7 @@ export default function NotFoundPage() {
         </Link>
 
         {/* Status badge */}
-        <div className="mx-auto mb-7 flex w-fit items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-400/[0.06] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-300 sm:text-xs">
+        <div className="mx-auto mb-7 flex w-fit items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-400/[0.06] px-4 py-2 text-[] font-bold uppercase tracking-[0.25em] text-cyan-300 sm:text-xs">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-70" />
 
@@ -65,12 +65,12 @@ export default function NotFoundPage() {
         <div className="relative mx-auto w-fit">
           <p
             aria-hidden="true"
-            className="absolute inset-0 translate-x-2 translate-y-2 text-8xl font-black tracking-[-0.08em] text-blue-600/20 blur-sm sm:text-[150px] md:text-[190px]"
+            className="absolute inset-0 translate-x-2 translate-y-2 text-8xl font-black tracking-[-0.08em] text-blue-600/20 blur-sm sm:text-[] md:text-[]"
           >
             404
           </p>
 
-          <h1 className="relative bg-gradient-to-b from-white via-cyan-200 to-blue-500 bg-clip-text text-8xl font-black tracking-[-0.08em] text-transparent drop-shadow-[0_0_40px_rgba(34,211,238,0.2)] sm:text-[150px] md:text-[190px]">
+          <h1 className="relative bg-gradient-to-b from-white via-cyan-200 to-blue-500 bg-clip-text text-8xl font-black tracking-[-0.08em] text-transparent drop-shadow-[0_0_40px_rgba(34,211,238,0.2)] sm:text-[] md:text-[]">
             404
           </h1>
 
@@ -163,7 +163,7 @@ export default function NotFoundPage() {
         <div className="mt-12 flex items-center justify-center gap-4">
           <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-400/30" />
 
-          <p className="text-[9px] font-bold uppercase tracking-[0.35em] text-white/20 sm:text-[10px]">
+          <p className="text-[] font-bold uppercase tracking-[0.35em] text-white/20 sm:text-[]">
             Tamim Hasan Portfolio
           </p>
 

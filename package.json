@@ -20,6 +20,7 @@
     "react-icons": "^5.7.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@babel/parser": "^8.0.5",
     "@babel/traverse": "^8.0.5",
     "@tailwindcss/postcss": "^4",
@@ -30,6 +31,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "glob": "^13.0.6",
+    "playwright": "^1.63.0",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
     "typescript": "^5"

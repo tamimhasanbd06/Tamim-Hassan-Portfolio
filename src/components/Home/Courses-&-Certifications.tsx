@@ -10,7 +10,7 @@ import {
   FaInfoCircle,
   FaTimes,
 } from "react-icons/fa";
-import coursesData from "../../../public/Courses-&-Certifications.json";
+import { useContentSection } from "@/lib/use-content";
 
 type CourseStatus = "Completed" | "Not Started" | "In Progress";
 
@@ -26,7 +26,7 @@ type Course = {
   certificatePdf: string;
 };
 
-const courses = coursesData as Course[];
+
 
 const statusStyles: Record<CourseStatus, string> = {
   Completed: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.15)]",
@@ -73,22 +73,22 @@ function CourseCard({
       transition={{ duration: reduceMotion ? 0 : 0.52, delay: index * 0.08, ease: "easeOut" }}
       className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[var(--bg-primary)]/90 to-[var(--bg-primary)]/95 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-colors duration-500 hover:border-cyan-400/40 hover:shadow-[0_30px_70px_rgba(6,182,212,0.15)]"
     >
-      <div className="pointer-events-none absolute -right-20 -top-24 h-52 w-52 rounded-full bg-cyan-400/10 blur-[80px] transition duration-500 group-hover:scale-125" />
-      <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-blue-500 via-cyan-300 to-transparent" />
+      <div className="pointer-events-none absolute -right-20 -top-24 h-52 w-52 rounded-full bg-cyan-400/10 blur-[] transition duration-500 group-hover:scale-125" />
+      <div className="absolute inset-x-0 top-0 h-[] bg-gradient-to-r from-blue-500 via-cyan-300 to-transparent" />
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/25 bg-cyan-400/10 text-xl text-cyan-300 shadow-inner transition-transform duration-300 group-hover:scale-110">
           <FaAward aria-hidden="true" />
         </div>
         <span
-          className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[1.5px] backdrop-blur-md ${statusStyles[course.status]}`}
+          className={`rounded-full border px-3 py-1 text-[] font-bold uppercase tracking-[1.] backdrop-blur-md ${statusStyles[course.status]}`}
         >
           {course.status}
         </span>
       </div>
 
       <div className="relative mt-6 flex flex-1 flex-col">
-        <p className="text-[11px] font-black uppercase tracking-[2.5px] text-cyan-300">
+        <p className="text-[] font-black uppercase tracking-[2.] text-cyan-300">
           {course.provider}
         </p>
         <h3 className="mt-2 text-xl font-black leading-snug text-white sm:text-2xl">
@@ -105,7 +105,7 @@ function CourseCard({
           <div className="mt-6 grid grid-cols-2 gap-3 text-xs text-slate-400">
             {startDate && (
               <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-3 transition-colors group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.02]">
-                <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+                <span className="flex items-center gap-1.5 text-[] font-bold uppercase tracking-wider text-slate-500">
                   <FaCalendarAlt aria-hidden="true" /> Start
                 </span>
                 <span className="mt-1.5 block font-semibold text-slate-200">
@@ -115,7 +115,7 @@ function CourseCard({
             )}
             {endDate && (
               <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-3 transition-colors group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.02]">
-                <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+                <span className="flex items-center gap-1.5 text-[] font-bold uppercase tracking-wider text-slate-500">
                   <FaCalendarAlt aria-hidden="true" /> End
                 </span>
                 <span className="mt-1.5 block font-semibold text-slate-200">
@@ -193,7 +193,7 @@ function CertificateModal({
       >
         <div className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-4 sm:px-6">
           <div className="min-w-0">
-            <p className="text-[9px] font-bold uppercase tracking-[2px] text-cyan-300">
+            <p className="text-[] font-bold uppercase tracking-[] text-cyan-300">
               {hasCertificate ? "Certificate Preview" : "Certificate Status"}
             </p>
             <h3
@@ -264,6 +264,7 @@ function CertificateModal({
 }
 
 export default function Courses() {
+  const { items: courses } = useContentSection<Course>("courses");
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const certificateTriggerRef = useRef<HTMLElement | null>(null);
 

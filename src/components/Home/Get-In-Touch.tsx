@@ -9,7 +9,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
-import contactData from "../../../public/Get-In-Touch.json";
+import { useContentSection } from "@/lib/use-content";
 
 type ContactIcon =
   | "whatsapp"
@@ -51,7 +51,7 @@ const getContactIcon = (icon: ContactIcon) => {
 const Lockedcontact = () => {
   const reduceMotion = useReducedMotion();
 
-  const contacts = contactData as ContactItem[];
+  const { items: contacts } = useContentSection<ContactItem>("get-in-touch");
 
   return (
     <section

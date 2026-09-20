@@ -20,7 +20,7 @@ export default function MainLoader() {
         animate={{ y: 0, scale: 1 }}
         className="relative flex flex-col items-center gap-5"
       >
-        <div className="absolute -inset-16 rounded-full bg-cyan-400/10 blur-[55px]" />
+        <div className="absolute -inset-16 rounded-full bg-cyan-400/10 blur-[]" />
 
         <div className="relative flex h-28 w-28 items-center justify-center sm:h-32 sm:w-32">
           <div className="absolute inset-0 animate-spin rounded-full border border-transparent border-t-cyan-300 border-r-blue-500" />
@@ -33,7 +33,7 @@ export default function MainLoader() {
               alt="Tamim Hasan portfolio logo"
               fill
               preload
-              sizes="96px"
+              sizes=""
               className="object-cover"
             />
           </div>
@@ -44,7 +44,7 @@ export default function MainLoader() {
             Tamim Hasan
           </p>
 
-          <p className="mt-2 animate-pulse text-[11px] font-medium uppercase tracking-[0.24em] text-cyan-300">
+          <p className="mt-2 animate-pulse text-[] font-medium uppercase tracking-[0.24em] text-cyan-300">
             Please wait...
           </p>
         </div>

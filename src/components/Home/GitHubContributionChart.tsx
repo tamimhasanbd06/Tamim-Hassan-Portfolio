@@ -33,14 +33,14 @@ export default function GitHubContributionChart({
       <div
         className="
           flex
-          min-h-[260px]
+          min-h-[]
 
           flex-col
 
           items-center
           justify-center
 
-          rounded-[24px]
+          rounded-[]
 
           border
           border-dashed
@@ -138,7 +138,7 @@ export default function GitHubContributionChart({
               px-5
               py-2.5
 
-              text-[9px]
+              text-[]
               font-black
 
               uppercase
@@ -180,7 +180,7 @@ export default function GitHubContributionChart({
               px-5
               py-2.5
 
-              text-[9px]
+              text-[]
               font-black
 
               uppercase
@@ -212,7 +212,7 @@ export default function GitHubContributionChart({
 
         overflow-hidden
 
-        rounded-[24px]
+        rounded-[]
 
         border
         border-white/[0.07]
@@ -270,7 +270,7 @@ export default function GitHubContributionChart({
               gap-2
 
               font-mono
-              text-[9px]
+              text-[]
 
               uppercase
               tracking-[0.14em]
@@ -290,7 +290,7 @@ export default function GitHubContributionChart({
             items-center
             gap-2
 
-            text-[8px]
+            text-[]
             font-black
 
             uppercase
@@ -364,7 +364,7 @@ export default function GitHubContributionChart({
       >
         <span
           className="
-            text-[9px]
+            text-[]
             text-slate-700
           "
         >
@@ -439,7 +439,7 @@ export default function GitHubContributionChart({
 
             bg-cyan-500/[0.04]
 
-            blur-[80px]
+            blur-[]
           "
         />
 
@@ -468,7 +468,7 @@ export default function GitHubContributionChart({
           className="
             relative
 
-            min-w-[760px]
+            min-w-[]
 
             rounded-2xl
 
@@ -545,7 +545,7 @@ export default function GitHubContributionChart({
         >
           <span
             className="
-              text-[8px]
+              text-[]
               font-bold
 
               uppercase
@@ -563,7 +563,7 @@ export default function GitHubContributionChart({
                 h-2.5
                 w-2.5
 
-                rounded-[3px]
+                rounded-[]
 
                 border
                 border-white/[0.04]
@@ -577,7 +577,7 @@ export default function GitHubContributionChart({
                 h-2.5
                 w-2.5
 
-                rounded-[3px]
+                rounded-[]
 
                 bg-cyan-950
               "
@@ -588,7 +588,7 @@ export default function GitHubContributionChart({
                 h-2.5
                 w-2.5
 
-                rounded-[3px]
+                rounded-[]
 
                 bg-cyan-800
               "
@@ -599,7 +599,7 @@ export default function GitHubContributionChart({
                 h-2.5
                 w-2.5
 
-                rounded-[3px]
+                rounded-[]
 
                 bg-cyan-500
               "
@@ -610,7 +610,7 @@ export default function GitHubContributionChart({
                 h-2.5
                 w-2.5
 
-                rounded-[3px]
+                rounded-[]
 
                 bg-cyan-300
 
@@ -621,7 +621,7 @@ export default function GitHubContributionChart({
 
           <span
             className="
-              text-[8px]
+              text-[]
 
               text-slate-700
             "
@@ -637,7 +637,7 @@ export default function GitHubContributionChart({
               items-center
               gap-1.5
 
-              text-[8px]
+              text-[]
               font-bold
 
               uppercase
@@ -660,7 +660,7 @@ export default function GitHubContributionChart({
               items-center
               gap-1.5
 
-              text-[8px]
+              text-[]
               font-black
 
               uppercase

@@ -298,7 +298,7 @@ export default function Navbar() {
               </span>
             </span>
 
-            <span className="block text-[9px] font-semibold uppercase tracking-[0.18em] text-gray-600">
+            <span className="block text-[] font-semibold uppercase tracking-[0.18em] text-gray-600">
               Web Developer
             </span>
           </span>
@@ -348,7 +348,7 @@ export default function Navbar() {
                   <span
                     className={`
                       absolute bottom-0 left-1/2
-                      h-[2px] -translate-x-1/2
+                      h-[] -translate-x-1/2
                       rounded-full
                       bg-gradient-to-r
                       from-blue-500 to-cyan-300
@@ -387,13 +387,13 @@ export default function Navbar() {
             {/* Top line */}
             <span
               className={`
-                absolute left-0 h-[2px]
+                absolute left-0 h-[]
                 w-5 rounded-full bg-white
                 transition-all duration-300
                 ${
                   isOpen
-                    ? "top-[9px] rotate-45"
-                    : "top-[2px]"
+                    ? "top-[] rotate-45"
+                    : "top-[]"
                 }
               `}
             />
@@ -401,8 +401,8 @@ export default function Navbar() {
             {/* Middle line */}
             <span
               className={`
-                absolute left-0 top-[9px]
-                h-[2px] rounded-full bg-white
+                absolute left-0 top-[]
+                h-[] rounded-full bg-white
                 transition-all duration-300
                 ${
                   isOpen
@@ -415,13 +415,13 @@ export default function Navbar() {
             {/* Bottom line */}
             <span
               className={`
-                absolute left-0 h-[2px]
+                absolute left-0 h-[]
                 w-5 rounded-full bg-white
                 transition-all duration-300
                 ${
                   isOpen
-                    ? "top-[9px] -rotate-45"
-                    : "top-[16px]"
+                    ? "top-[] -rotate-45"
+                    : "top-[]"
                 }
               `}
             />
@@ -443,12 +443,12 @@ export default function Navbar() {
           lg:hidden
           ${
             isOpen
-              ? "visible max-h-[600px] translate-y-0 opacity-100"
+              ? "visible max-h-[] translate-y-0 opacity-100"
               : "invisible max-h-0 -translate-y-2 opacity-0"
           }
         `}
       >
-        <ul className="grid grid-cols-2 gap-2 p-3 min-[360px]:p-4 sm:px-6">
+        <ul className="grid grid-cols-2 gap-2 p-3 min-[]:p-4 sm:px-6">
           {navigationItems.map(
             (item, index) => {
               const isActive =
@@ -507,8 +507,8 @@ export default function Navbar() {
                     <span
                       className={
                         isActive
-                          ? "text-[10px] font-black text-cyan-300"
-                          : "text-[10px] font-black text-gray-700"
+                          ? "text-[] font-black text-cyan-300"
+                          : "text-[] font-black text-gray-700"
                       }
                     >
                       {String(

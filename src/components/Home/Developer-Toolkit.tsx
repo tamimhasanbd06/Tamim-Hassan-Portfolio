@@ -204,7 +204,7 @@ export default function ProductivitySection() {
 
         const response =
           await fetch(
-            "/Main/Developer-Toolkit.json",
+            "/api/content/developer-toolkit",
             {
               cache: "no-store",
             },
@@ -216,8 +216,9 @@ export default function ProductivitySection() {
           );
         }
 
-        const data: unknown =
+        const payload: { items?: Array<{ data: ToolData }> } =
           await response.json();
+        const data: unknown = (payload.items || []).map((row) => row.data);
 
         if (!Array.isArray(data)) {
           throw new Error(
@@ -510,12 +511,12 @@ export default function ProductivitySection() {
           absolute
           left-1/2
           top-0
-          h-[600px]
-          w-[900px]
+          h-[]
+          w-[]
           -translate-x-1/2
           rounded-full
           bg-cyan-500/[0.055]
-          blur-[150px]
+          blur-[]
         "
       />
 
@@ -526,12 +527,12 @@ export default function ProductivitySection() {
           absolute
           bottom-0
           left-1/2
-          h-[500px]
-          w-[800px]
+          h-[]
+          w-[]
           -translate-x-1/2
           rounded-full
           bg-blue-500/[0.045]
-          blur-[150px]
+          blur-[]
         "
       />
 
@@ -621,7 +622,7 @@ export default function ProductivitySection() {
 
             <span
               className="
-                text-[10px]
+                text-[]
                 font-bold
                 uppercase
                 tracking-[0.22em]
@@ -697,7 +698,7 @@ export default function ProductivitySection() {
               mx-auto
               mt-14
               flex
-              min-h-[220px]
+              min-h-[]
               max-w-xl
               flex-col
               items-center
@@ -885,7 +886,7 @@ export default function ProductivitySection() {
                       <div
                         className="
                           mt-1
-                          text-[9px]
+                          text-[]
                           font-bold
                           uppercase
                           tracking-[0.16em]
@@ -947,7 +948,7 @@ export default function ProductivitySection() {
                           border
                           px-3.5
                           py-2
-                          text-[9px]
+                          text-[]
                           font-bold
                           uppercase
                           tracking-[0.12em]
@@ -1153,8 +1154,8 @@ export default function ProductivitySection() {
                                 className="
                                   pointer-events-none
                                   absolute
-                                  inset-[-8px]
-                                  rounded-[20px]
+                                  inset-[-]
+                                  rounded-[]
                                   bg-cyan-400/10
                                   opacity-0
                                   blur-xl
@@ -1178,7 +1179,7 @@ export default function ProductivitySection() {
                                 bg-white/[0.025]
                                 px-2.5
                                 py-1.5
-                                text-[8px]
+                                text-[]
                                 font-bold
                                 uppercase
                                 tracking-[0.1em]
@@ -1235,8 +1236,8 @@ export default function ProductivitySection() {
                           <p
                             className="
                               mt-3
-                              min-h-[88px]
-                              text-[12px]
+                              min-h-[]
+                              text-[]
                               leading-6
                               text-slate-400
                             "
@@ -1283,7 +1284,7 @@ export default function ProductivitySection() {
                                     bg-cyan-400/[0.045]
                                     px-2.5
                                     py-1
-                                    text-[8px]
+                                    text-[]
                                     font-bold
                                     uppercase
                                     tracking-widest
@@ -1317,7 +1318,7 @@ export default function ProductivitySection() {
                                 flex
                                 items-center
                                 gap-2
-                                text-[8px]
+                                text-[]
                                 font-bold
                                 uppercase
                                 tracking-[0.13em]
@@ -1345,7 +1346,7 @@ export default function ProductivitySection() {
                                 )
                               }
                               className="
-                                text-[8px]
+                                text-[]
                                 font-bold
                                 uppercase
                                 tracking-[0.13em]
@@ -1439,7 +1440,7 @@ export default function ProductivitySection() {
                       bg-cyan-400/[0.05]
                       px-6
                       py-3
-                      text-[10px]
+                      text-[]
                       font-black
                       uppercase
                       tracking-[0.16em]

@@ -45,7 +45,7 @@ export default function QrCodeSection({ qrCodes }: QrCodeSectionProps) {
                   {isBlue ? <FaFilePdf /> : <FaQrcode />}
                   <h3>{qr.title}</h3>
                 </div>
-                <p className="max-w-[200px] text-xs text-gray-400">
+                <p className="max-w-[] text-xs text-gray-400">
                   {qr.description}
                 </p>
               </div>
@@ -75,7 +75,7 @@ export default function QrCodeSection({ qrCodes }: QrCodeSectionProps) {
                     src={qr.image}
                     alt={qr.alt}
                     fill
-                    sizes="96px"
+                    sizes=""
                     className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 flex items-center justify-center gap-1 bg-black/40 text-xs font-semibold text-white opacity-0 transition-opacity group-hover:opacity-100">
@@ -112,7 +112,7 @@ export default function QrCodeSection({ qrCodes }: QrCodeSectionProps) {
                 src={modalImage.src}
                 alt={modalImage.title}
                 fill
-                sizes="300px"
+                sizes=""
                 className="object-contain p-2"
               />
             </div>

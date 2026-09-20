@@ -25,10 +25,18 @@ export async function ensurePostSchema() {
           title TEXT NOT NULL,
           content TEXT NOT NULL,
           image_url TEXT,
+          status TEXT NOT NULL DEFAULT 'published',
+          featured BOOLEAN NOT NULL DEFAULT FALSE,
+          tags TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[],
           created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
           expires_at TIMESTAMPTZ
         )
       `;
+
+
+      await sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'published'`;
+      await sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS featured BOOLEAN NOT NULL DEFAULT FALSE`;
+      await sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS tags TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[]`;
 
       await sql`
         CREATE TABLE IF NOT EXISTS post_likes (
