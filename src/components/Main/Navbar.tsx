@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
+
 type SectionId =
   | "home"
   | "about"
@@ -18,6 +19,7 @@ type NavigationItem = {
   name: string;
   sectionId: SectionId;
 };
+
 
 const navigationItems: NavigationItem[] = [
   { name: "Home", sectionId: "home" },
@@ -600,3 +602,4 @@ export default function Navbar() {
     </nav>
   );
 }
+
