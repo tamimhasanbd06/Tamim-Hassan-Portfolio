@@ -85,12 +85,12 @@ function ProjectCard({
         </span>
 
         {project.featured && (
-          <span className="absolute bottom-4 left-4 z-20 rounded-full border border-cyan-400/20 bg-black/70 px-3 py-1.5 text-[] font-bold uppercase tracking-[] text-cyan-300 backdrop-blur-md">
+          <span className="absolute bottom-4 left-4 z-20 rounded-full border border-cyan-400/20 bg-black/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[2px] text-cyan-300 backdrop-blur-md">
             Featured
           </span>
         )}
 
-        <span className="absolute bottom-4 right-4 z-20 rounded-full border border-white/10 bg-black/70 px-3 py-1.5 text-[] font-bold uppercase tracking-[] text-blue-300 backdrop-blur-md">
+        <span className="absolute bottom-4 right-4 z-20 rounded-full border border-white/10 bg-black/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[1px] text-blue-300 backdrop-blur-md">
           {project.type}
         </span>
       </button>
@@ -108,7 +108,7 @@ function ProjectCard({
           {project.technologies.map((technology) => (
             <span
               key={technology}
-              className="rounded-full border border-blue-400/15 bg-blue-400/5 px-3 py-1 text-[] font-semibold text-blue-200"
+              className="rounded-full border border-blue-400/15 bg-blue-400/5 px-3 py-1 text-[10px] font-semibold text-blue-200"
             >
               {technology}
             </span>
@@ -174,11 +174,11 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           <div className="p-5 sm:p-8 lg:p-10">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[] font-bold uppercase tracking-[1.] text-blue-200">
+              <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[1.5px] text-blue-200">
                 {project.type}
               </span>
               {project.featured && (
-                <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[] font-bold uppercase tracking-[1.] text-cyan-200">
+                <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[1.5px] text-cyan-200">
                   Featured
                 </span>
               )}
@@ -196,7 +196,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
             </p>
 
             <div className="mt-7">
-              <h3 className="text-xs font-black uppercase tracking-[] text-cyan-300">
+              <h3 className="text-xs font-black uppercase tracking-[2px] text-cyan-300">
                 Key features
               </h3>
               <ul className="mt-4 space-y-3">
@@ -205,7 +205,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
                     key={feature}
                     className="flex items-start gap-3 text-sm leading-6 text-gray-300"
                   >
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 text-[] text-cyan-300">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 text-[9px] text-cyan-300">
                       <FaCheck aria-hidden="true" />
                     </span>
                     {feature}
@@ -218,7 +218,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
               {project.technologies.map((technology) => (
                 <span
                   key={technology}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[] font-semibold text-gray-300"
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-semibold text-gray-300"
                 >
                   {technology}
                 </span>
@@ -261,7 +261,7 @@ export default function Projects() {
       setLoadError(null);
 
       try {
-        const response = await fetch("/api/content/projects", {
+        const response = await fetch("/Main/Project-Gallery.json", {
           signal: controller.signal,
         });
 
@@ -269,8 +269,7 @@ export default function Projects() {
           throw new Error("Project data could not be loaded.");
         }
 
-        const payload: { items?: Array<{ data: Project }> } = await response.json();
-        const data: unknown = (payload.items || []).map((row) => row.data);
+        const data: unknown = await response.json();
 
         if (!Array.isArray(data)) {
           throw new Error("Project data has an invalid format.");
@@ -347,14 +346,14 @@ export default function Projects() {
     <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
-      <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[]" />
-      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[]" />
+      <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[130px]" />
+      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[150px]" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-2 min-[]:gap-3 min-[]:px-4">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-2 min-[360px]:gap-3 min-[360px]:px-4">
             <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
-            <span className="text-[] font-semibold uppercase tracking-[] text-cyan-300 min-[]:text-xs min-[]:tracking-[]">
+            <span className="text-[10px] font-semibold uppercase tracking-[1px] text-cyan-300 min-[360px]:text-xs min-[360px]:tracking-[3px]">
               Selected work
             </span>
           </div>
@@ -418,7 +417,7 @@ export default function Projects() {
 
         {!isLoading && !loadError && (
           <div className="mb-6 flex items-center justify-between">
-            <p className="text-xs uppercase tracking-[] text-gray-500">
+            <p className="text-xs uppercase tracking-[2px] text-gray-500">
               {filteredProjects.length}{" "}
               {filteredProjects.length === 1 ? "project" : "projects"}
             </p>
@@ -439,7 +438,7 @@ export default function Projects() {
             {Array.from({ length: 3 }, (_, index) => (
               <div
                 key={index}
-                className="h-[] animate-pulse rounded-3xl border border-white/10 bg-white/[0.04]"
+                className="h-[510px] animate-pulse rounded-3xl border border-white/10 bg-white/[0.04]"
               />
             ))}
           </div>

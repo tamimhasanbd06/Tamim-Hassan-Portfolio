@@ -2,7 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
 import {
   FaArrowUp,
@@ -153,10 +153,6 @@ export default function Footer() {
     useState<number | null>(null);
 
   const [toast, setToast] = useState("");
-  const [welcomeEmail, setWelcomeEmail] = useState("");
-  const [welcomeConsent, setWelcomeConsent] = useState(false);
-  const [welcomeStatus, setWelcomeStatus] = useState("");
-  const [welcomeLoading, setWelcomeLoading] = useState(false);
 
   /*
    * =========================================================
@@ -183,7 +179,7 @@ export default function Footer() {
     textarea.value = text;
 
     textarea.style.position = "fixed";
-    textarea.style.left = "-";
+    textarea.style.left = "-9999px";
     textarea.style.top = "0";
     textarea.style.opacity = "0";
 
@@ -235,22 +231,6 @@ export default function Footer() {
    * BACK TO TOP
    * =========================================================
    */
-  const submitWelcomeEmail = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setWelcomeStatus("");
-    if (!welcomeConsent) { setWelcomeStatus("Please confirm email consent first."); return; }
-    setWelcomeLoading(true);
-    try {
-      const response = await fetch("/api/welcome", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: welcomeEmail, consent: true }) });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Could not send welcome email.");
-      setWelcomeStatus(data.alreadySent ? "Welcome email was already sent to this address." : "Welcome email sent successfully.");
-      setWelcomeEmail("");
-      setWelcomeConsent(false);
-    } catch (error) { setWelcomeStatus(error instanceof Error ? error.message : "Could not send welcome email."); }
-    finally { setWelcomeLoading(false); }
-  };
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -288,9 +268,9 @@ export default function Footer() {
 
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
-      <div className="absolute -left-40 top-[-] h-[] w-[] rounded-full bg-blue-600/15 blur-[]" />
+      <div className="absolute -left-40 top-[-160px] h-[480px] w-[480px] rounded-full bg-blue-600/15 blur-[160px]" />
 
-      <div className="absolute -bottom-52 right-[-] h-[] w-[] rounded-full bg-cyan-400/10 blur-[]" />
+      <div className="absolute -bottom-52 right-[-150px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
 
       <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(rgba(255,255,255,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.5)_1px,transparent_1px)] [background-size:55px_55px]" />
 
@@ -326,7 +306,7 @@ export default function Footer() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
 
-              <span className="text-[] font-bold uppercase tracking-[0.28em] text-emerald-300 sm:text-xs">
+              <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-300 sm:text-xs">
                 Available for opportunities
               </span>
             </div>
@@ -356,19 +336,6 @@ export default function Footer() {
             <FaEnvelope className="transition-transform group-hover:translate-x-1" />
           </a>
         </motion.div>
-
-        <form onSubmit={submitWelcomeEmail} className="mb-10 rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.04] p-5 sm:p-6">
-          <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
-              <h3 className="font-bold text-white">Get a welcome email</h3>
-              <p className="mt-1 text-sm text-gray-400">Enter your email voluntarily. The site never reads your browser or Gmail account.</p>
-              <input type="email" required value={welcomeEmail} onChange={(event)=>setWelcomeEmail(event.target.value)} placeholder="you@example.com" className="mt-4 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none placeholder:text-gray-600 focus:border-cyan-400/50" />
-              <label className="mt-3 flex items-start gap-2 text-xs leading-5 text-gray-400"><input type="checkbox" checked={welcomeConsent} onChange={(event)=>setWelcomeConsent(event.target.checked)} className="mt-1" />I explicitly consent to receiving one welcome email at this address.</label>
-              {welcomeStatus && <p className="mt-3 text-xs text-cyan-200">{welcomeStatus}</p>}
-            </div>
-            <button disabled={welcomeLoading || !welcomeConsent} className="rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-3 text-sm font-bold text-white disabled:opacity-50">{welcomeLoading ? "Sending..." : "Send Welcome Email"}</button>
-          </div>
-        </form>
 
         {/* ===================================================
             FOOTER COLUMNS
@@ -457,7 +424,7 @@ export default function Footer() {
                             </span>
 
                             {item.value && (
-                              <span className="mt-0.5 block truncate text-[] text-gray-600 transition group-hover:text-gray-500">
+                              <span className="mt-0.5 block truncate text-[11px] text-gray-600 transition group-hover:text-gray-500">
                                 {item.value}
                               </span>
                             )}
@@ -516,7 +483,7 @@ export default function Footer() {
               rights reserved.
             </p>
 
-            <p className="mt-1 text-[] text-gray-700">
+            <p className="mt-1 text-[11px] text-gray-700">
               Designed and developed with Next.js
               and TypeScript.
             </p>

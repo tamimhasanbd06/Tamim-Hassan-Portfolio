@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { FaJsSquare, FaPython } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript } from "react-icons/si";
 
-import { useContentSection } from "@/lib/use-content";
+import skillsData from "../../../public/MySkills.json";
 
 type SkillIcon =
   | "javascript"
@@ -40,7 +40,7 @@ const getSkillIcon = (icon: SkillIcon) => {
 const LookSkills = () => {
   const reduceMotion = useReducedMotion();
 
-  const { items: skills } = useContentSection<Skill>("skills");
+  const skills = skillsData as Skill[];
 
   return (
     <section
@@ -110,7 +110,7 @@ const LookSkills = () => {
                 ease: "easeOut",
               }}
               className="
-                relative flex h-72 w-full max-w-[]
+                relative flex h-72 w-full max-w-[260px]
                 flex-col items-center justify-center text-center
 
                 rounded-2xl bg-white/5
@@ -122,7 +122,7 @@ const LookSkills = () => {
                 active:scale-95
                 sm:h-80 sm:rounded-3xl
                 sm:hover:scale-110
-                md:h-[]
+                md:h-[340px]
 
                 hover:border-cyan-400/40
               "

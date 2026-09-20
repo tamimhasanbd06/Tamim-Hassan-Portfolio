@@ -44,7 +44,7 @@ const Experience = () => {
   useEffect(() => {
     const loadExperience = async () => {
       try {
-        const response = await fetch("/api/content/experience", { cache: "no-store" });
+        const response = await fetch("/Main/Experience.json");
 
         if (!response.ok) {
           throw new Error(
@@ -52,10 +52,10 @@ const Experience = () => {
           );
         }
 
-        const data: { items?: Array<{ data: ExperienceItem }> } =
+        const data: ExperienceResponse =
           await response.json();
 
-        setExperienceData((data.items || []).map((row) => row.data));
+        setExperienceData(data.experience);
       } catch (error) {
         console.error(
           "Failed to load experience data:",
@@ -144,15 +144,15 @@ const Experience = () => {
       <div className="absolute inset-0 opacity-10 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
 
       {/* Background Glows */}
-      <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-blue-500/10 blur-[]" />
+      <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-blue-500/10 blur-[120px]" />
 
-      <div className="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-cyan-400/10 blur-[]" />
+      <div className="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-cyan-400/10 blur-[130px]" />
 
       {/* Main Content */}
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         {/* Section Title */}
         <div className="mb-10 text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[] text-cyan-400">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[3px] text-cyan-400">
             My career
           </p>
 
@@ -167,7 +167,7 @@ const Experience = () => {
         {/* Timeline */}
         <div className="relative pl-8 sm:pl-14">
           {/* Timeline Line */}
-          <div className="absolute bottom-0 left-[] top-0 w-[] bg-gradient-to-b from-cyan-400 via-blue-500 to-transparent sm:left-[]" />
+          <div className="absolute bottom-0 left-[7px] top-0 w-[2px] bg-gradient-to-b from-cyan-400 via-blue-500 to-transparent sm:left-[11px]" />
 
           {experienceData.map(
             (experience, index) => {
@@ -205,18 +205,18 @@ const Experience = () => {
                   className="relative"
                 >
                   {/* Timeline Glow */}
-                  <div className="absolute -left-[] top-11 h-16 w-16 rounded-full bg-cyan-400/10 blur-2xl sm:-left-[]" />
+                  <div className="absolute -left-[42px] top-11 h-16 w-16 rounded-full bg-cyan-400/10 blur-2xl sm:-left-[62px]" />
 
                   {/* Timeline Dot */}
-                  <div className="absolute -left-[] top-12 z-20 h-4 w-4 rounded-full border-[] border-cyan-400 bg-[var(--bg-gradient-via)] shadow-[0_0_24px_rgba(34,211,238,0.9)] sm:-left-[] sm:h-6 sm:w-6" />
+                  <div className="absolute -left-[31px] top-12 z-20 h-4 w-4 rounded-full border-[3px] border-cyan-400 bg-[var(--bg-gradient-via)] shadow-[0_0_24px_rgba(34,211,238,0.9)] sm:-left-[53px] sm:h-6 sm:w-6" />
 
                   {/* Experience Card */}
-                  <div className="group relative overflow-hidden rounded-[] border border-slate-800 bg-[var(--bg-card)]/95 px-5 py-6 shadow-[0_25px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_30px_90px_rgba(0,100,255,0.14)] sm:px-8 sm:py-8 lg:px-10">
+                  <div className="group relative overflow-hidden rounded-[28px] border border-slate-800 bg-[var(--bg-card)]/95 px-5 py-6 shadow-[0_25px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_30px_90px_rgba(0,100,255,0.14)] sm:px-8 sm:py-8 lg:px-10">
                     {/* Card Gradient */}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-500/[0.035] via-transparent to-cyan-400/[0.025]" />
 
                     {/* Top Glow */}
-                    <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-400/5 blur-[] transition-colors duration-500 group-hover:bg-cyan-400/10" />
+                    <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-400/5 blur-[90px] transition-colors duration-500 group-hover:bg-cyan-400/10" />
 
                     <div className="relative z-10">
                       {/* Header */}
@@ -228,7 +228,7 @@ const Experience = () => {
                           </div>
 
                           <div>
-                            <p className="mb-1 text-[] font-semibold uppercase tracking-[] text-cyan-400/70">
+                            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[2px] text-cyan-400/70">
                               {experience.status ===
                               "Running"
                                 ? "Current position"
@@ -309,7 +309,7 @@ const Experience = () => {
 
                               {copiedNumber ===
                                 experience.customerCare && (
-                                <span className="text-[] font-semibold text-green-400">
+                                <span className="text-[10px] font-semibold text-green-400">
                                   Copied!
                                 </span>
                               )}
@@ -421,7 +421,7 @@ const Experience = () => {
                           (technology) => (
                             <span
                               key={technology}
-                              className="rounded-full border border-blue-400/15 bg-blue-400/5 px-3 py-1.5 text-[] font-semibold text-blue-200 transition hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200"
+                              className="rounded-full border border-blue-400/15 bg-blue-400/5 px-3 py-1.5 text-[10px] font-semibold text-blue-200 transition hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200"
                             >
                               {technology}
                             </span>

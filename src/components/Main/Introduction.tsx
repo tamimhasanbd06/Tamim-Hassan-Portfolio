@@ -69,8 +69,8 @@ const Introduction = () => {
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
 
       {/* Background Glows */}
-      <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-blue-500/20 blur-[]" />
-      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[]" />
+      <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-blue-500/20 blur-[120px]" />
+      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[140px]" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-10rem)] w-full max-w-6xl grid-cols-1 items-center gap-14 md:grid-cols-2 lg:gap-20">
@@ -103,7 +103,7 @@ const Introduction = () => {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
             </span>
 
-            <span className="text-xs font-semibold uppercase tracking-[] text-cyan-300">
+            <span className="text-xs font-semibold uppercase tracking-[3px] text-cyan-300">
               Available for opportunities
             </span>
           </div>
@@ -136,7 +136,7 @@ const Introduction = () => {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 
             <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
-              <span className="block text-xs uppercase tracking-[] text-gray-500">
+              <span className="block text-xs uppercase tracking-[2px] text-gray-500">
                 Age
               </span>
 
@@ -148,7 +148,7 @@ const Introduction = () => {
             </div>
 
             <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
-              <span className="block text-xs uppercase tracking-[] text-gray-500">
+              <span className="block text-xs uppercase tracking-[2px] text-gray-500">
                 Education
               </span>
 
@@ -158,7 +158,7 @@ const Introduction = () => {
             </div>
 
             <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
-              <span className="block text-xs uppercase tracking-[] text-gray-500">
+              <span className="block text-xs uppercase tracking-[2px] text-gray-500">
                 Born
               </span>
 
@@ -168,7 +168,7 @@ const Introduction = () => {
             </div>
 
             <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
-              <span className="block text-xs uppercase tracking-[] text-gray-500">
+              <span className="block text-xs uppercase tracking-[2px] text-gray-500">
                 Focus
               </span>
 
@@ -269,7 +269,7 @@ const Introduction = () => {
               stiffness: 220,
               damping: 18,
             }}
-            className="group relative w-full max-w-[]"
+            className="group relative w-full max-w-[430px]"
           >
 
             {/* Image Glow */}
@@ -285,7 +285,7 @@ const Introduction = () => {
                   alt="Tamim Hasan, frontend web developer"
                   fill
                   priority
-                  sizes="(max-width: ) 90vw, "
+                  sizes="(max-width: 768px) 90vw, 430px"
                   className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
 
@@ -295,7 +295,7 @@ const Introduction = () => {
                 {/* Image Caption */}
                 <div className="absolute inset-x-0 bottom-0 p-6 text-left">
 
-                  <p className="text-xs font-semibold uppercase tracking-[] text-cyan-300">
+                  <p className="text-xs font-semibold uppercase tracking-[3px] text-cyan-300">
                     Frontend Developer
                   </p>
 

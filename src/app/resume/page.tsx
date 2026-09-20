@@ -167,8 +167,8 @@ export default function ResumePage() {
           BACKGROUND
       ========================== */}
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]" />
-      <div className="fixed -left-40 top-0 h-[] w-[] rounded-full bg-blue-600/10 blur-[]" />
-      <div className="fixed -bottom-52 right-[-] h-[] w-[] rounded-full bg-cyan-400/10 blur-[]" />
+      <div className="fixed -left-40 top-0 h-[480px] w-[480px] rounded-full bg-blue-600/10 blur-[160px]" />
+      <div className="fixed -bottom-52 right-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
 
       {/* =========================
           PAGE CONTAINER
@@ -203,12 +203,12 @@ export default function ResumePage() {
         </div>
 
         {loading ? (
-          <div className="flex min-h-[] flex-col items-center justify-center rounded-[] border border-white/10 bg-[var(--bg-card)]/90 p-12 text-center backdrop-blur-xl">
+          <div className="flex min-h-[500px] flex-col items-center justify-center rounded-[30px] border border-white/10 bg-[var(--bg-card)]/90 p-12 text-center backdrop-blur-xl">
             <div className="h-12 w-12 animate-spin rounded-full border-4 border-cyan-400/20 border-t-cyan-400" />
             <p className="mt-4 text-sm font-medium text-gray-400">Loading resume data...</p>
           </div>
         ) : error ? (
-          <div className="flex min-h-[] flex-col items-center justify-center rounded-[] border border-red-500/20 bg-[var(--bg-card)]/90 p-8 text-center backdrop-blur-xl">
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[30px] border border-red-500/20 bg-[var(--bg-card)]/90 p-8 text-center backdrop-blur-xl">
             <FaExclamationTriangle className="text-4xl text-amber-400" />
             <h3 className="mt-4 text-lg font-bold text-white">Unable to Load Resume</h3>
             <p className="mt-2 text-sm text-gray-400">{error}</p>
@@ -223,13 +223,13 @@ export default function ResumePage() {
           /* =========================
               RESUME CONTAINER
           ========================== */
-          <article className="overflow-hidden rounded-[] border border-white/10 bg-[var(--bg-card)]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+          <article className="overflow-hidden rounded-[30px] border border-white/10 bg-[var(--bg-card)]/90 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
             {/* =========================
                 HEADER
             ========================== */}
             <header className="relative overflow-hidden border-b border-white/10 px-6 py-10 sm:px-10 lg:px-14">
-              <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-500/15 blur-[]" />
-              <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-cyan-400/10 blur-[]" />
+              <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-500/15 blur-[100px]" />
+              <div className="absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-cyan-400/10 blur-[100px]" />
               <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
                 {/* LEFT */}
                 <div>
@@ -262,7 +262,7 @@ export default function ResumePage() {
                       alt={data.personalInfo.imageAlt}
                       fill
                       priority
-                      sizes=""
+                      sizes="96px"
                       className="object-cover object-top"
                     />
                   </div>
@@ -331,7 +331,7 @@ export default function ResumePage() {
                                 {experience.location}
                               </p>
                             </div>
-                            <span className="w-fit rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[] font-bold uppercase tracking-wider text-blue-300">
+                            <span className="w-fit rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-300">
                               {experience.period}
                             </span>
                           </div>
@@ -539,7 +539,7 @@ export default function ResumePage() {
                           {isBlue ? <FaFilePdf /> : <FaQrcode />}
                           <h3>{qr.title}</h3>
                         </div>
-                        <p className="max-w-[] text-xs text-gray-400">
+                        <p className="max-w-[200px] text-xs text-gray-400">
                           {qr.description}
                         </p>
                       </div>
@@ -569,7 +569,7 @@ export default function ResumePage() {
                             src={qr.image}
                             alt={qr.alt}
                             fill
-                            sizes=""
+                            sizes="96px"
                             className="object-contain p-1 transition-transform duration-300 group-hover:scale-110"
                           />
                           <div className="absolute inset-0 flex items-center justify-center gap-1 bg-black/40 text-xs font-semibold text-white opacity-0 transition-opacity group-hover:opacity-100">
@@ -624,7 +624,7 @@ export default function ResumePage() {
                 src={modalImage.src}
                 alt={modalImage.title}
                 fill
-                sizes=""
+                sizes="300px"
                 className="object-contain p-2"
               />
             </div>
@@ -708,7 +708,7 @@ function EducationRow({
           {title}
         </h3>
         <span
-          className={`rounded-full border px-3 py-1 text-[] font-bold uppercase tracking-wider ${
+          className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${
             isRunning
               ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
               : "border-blue-400/20 bg-blue-400/10 text-blue-300"

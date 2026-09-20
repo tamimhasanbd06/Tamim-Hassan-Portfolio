@@ -58,7 +58,7 @@ export default function PortfolioRunner({ onRetry }: PortfolioRunnerProps) {
   const status = reduceMotion ? "Reduced motion is enabled — the game is paused." : game.running ? game.paused ? "Paused" : "Tap the arena or press Space to jump" : game.score > 0 ? "Signal lost — run ended. Restart when ready." : "Tap the arena or press Space to begin";
   return (
     <div className="mx-auto max-w-3xl rounded-3xl border border-cyan-400/20 bg-white/[0.035] p-5 text-center shadow-[0_25px_70px_rgba(0,0,0,0.25)] backdrop-blur-xl sm:p-7">
-      <p className="text-[] font-black uppercase tracking-[0.2em] text-cyan-300">Connection timeout</p>
+      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-300">Connection timeout</p>
       <h2 className="mt-2 text-2xl font-black text-white sm:text-3xl">Keep the signal moving</h2>
       <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-400">The live GitHub request is taking longer than expected. This small offline runner is optional; your portfolio content remains available.</p>
       <button type="button" onClick={jump} disabled={reduceMotion} aria-label="Jump in the offline runner game" className="relative mt-6 h-40 w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020817] text-left disabled:cursor-not-allowed sm:h-48">
@@ -68,7 +68,7 @@ export default function PortfolioRunner({ onRetry }: PortfolioRunnerProps) {
         <span className="absolute left-4 top-4 text-xs font-bold text-slate-300">Score {Math.floor(game.score)}</span><span className="absolute right-4 top-4 text-xs font-bold text-slate-500">Best {game.highScore}</span>
       </button>
       <p className="mt-3 text-xs text-slate-500">{status} Use P to pause.</p>
-      <div className="mt-5 flex flex-col justify-center gap-3 min-[]:flex-row">
+      <div className="mt-5 flex flex-col justify-center gap-3 min-[420px]:flex-row">
         <button type="button" onClick={restart} disabled={reduceMotion} className="min-h-11 rounded-xl border border-cyan-400/20 bg-cyan-400/[0.05] px-5 text-sm font-semibold text-cyan-300 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50">Restart runner</button>
         <button type="button" onClick={togglePause} disabled={!game.running || reduceMotion} className="min-h-11 rounded-xl border border-white/10 bg-white/[0.03] px-5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/30 hover:text-white disabled:cursor-not-allowed disabled:opacity-50">{game.paused ? "Resume" : "Pause"}</button>
         <button type="button" onClick={onRetry} className="min-h-11 rounded-xl border border-cyan-400/20 bg-cyan-400/[0.05] px-5 text-sm font-semibold text-cyan-300 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-white">Retry GitHub</button>

@@ -18,9 +18,9 @@ export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
 
   useEffect(() => {
-    fetch("/api/content/services", { cache: "no-store" })
+    fetch("/Services.json")
       .then((response) => response.ok ? response.json() : Promise.reject(new Error("Failed to load services")))
-      .then((data) => setServices((data.items || []).map((row: { data: Service }) => row.data)))
+      .then((data: Service[]) => setServices(data))
       .catch((error: unknown) => console.error("Error loading services:", error));
   }, []);
 
@@ -31,7 +31,7 @@ export default function Services() {
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2">
             <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
-            <span className="text-xs font-bold uppercase tracking-[] text-cyan-300">
+            <span className="text-xs font-bold uppercase tracking-[2px] text-cyan-300">
               My Services
             </span>
           </div>

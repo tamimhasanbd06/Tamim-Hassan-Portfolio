@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { FaChevronDown, FaQuestionCircle } from "react-icons/fa";
 
-import { useContentSection } from "@/lib/use-content";
+import faqItems from "../../../public/Main/Have-Questions.json";
 
 type FAQItem = {
   question: string;
@@ -12,7 +12,6 @@ type FAQItem = {
 };
 
 export default function FAQ() {
-  const { items: faqs } = useContentSection<FAQItem>("questions");
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
@@ -30,10 +29,10 @@ export default function FAQ() {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[var(--bg-card)] to-black" />
 
         {/* Blue Glow */}
-        <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-blue-600/10 blur-[]" />
+        <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-blue-600/10 blur-[140px]" />
 
         {/* Cyan Glow */}
-        <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-cyan-400/10 blur-[]" />
+        <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-cyan-400/10 blur-[150px]" />
 
         {/* Grid */}
         <div className="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:55px_55px]" />
@@ -64,7 +63,7 @@ export default function FAQ() {
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.06] px-4 py-2">
             <FaQuestionCircle className="text-sm text-cyan-300" />
 
-            <span className="text-[] font-bold uppercase tracking-[0.2em] text-cyan-300 sm:text-xs">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300 sm:text-xs">
               Frequently Asked Questions
             </span>
           </div>
@@ -86,7 +85,7 @@ export default function FAQ() {
 
         {/* FAQ List */}
         <div className="space-y-4">
-          {faqs.map((item, index) => {
+          {(faqItems as FAQItem[]).map((item, index) => {
             const isOpen = activeIndex === index;
 
             return (
@@ -213,7 +212,7 @@ export default function FAQ() {
                       className="overflow-hidden"
                     >
                       <div className="border-t border-white/[0.07] px-5 py-5 sm:px-6">
-                        <p className="pl-[] text-sm leading-7 text-gray-400">
+                        <p className="pl-[52px] text-sm leading-7 text-gray-400">
                           {item.answer}
                         </p>
                       </div>
