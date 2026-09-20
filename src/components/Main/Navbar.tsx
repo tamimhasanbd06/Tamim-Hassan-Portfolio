@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -35,6 +36,13 @@ export default function Navbar() {
   const navbarRef = useRef<HTMLElement>(null);
 
   const logoClickTimerRef =
+    useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Counts consecutive logo clicks.
+  const logoClickCountRef = useRef(0);
+
+  // Resets the consecutive-click counter after inactivity.
+  const logoClickResetTimerRef =
     useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -178,6 +186,14 @@ export default function Navbar() {
 
         logoClickTimerRef.current = null;
       }
+
+      if (logoClickResetTimerRef.current) {
+        clearTimeout(
+          logoClickResetTimerRef.current,
+        );
+
+        logoClickResetTimerRef.current = null;
+      }
     };
   }, []);
 
@@ -212,19 +228,71 @@ export default function Navbar() {
     setIsOpen(false);
   };
 
+  /**
+   * Logo click behavior:
+   *
+   * 1 click  -> landing page (/)
+   * 2 clicks -> home section
+   * 5+ consecutive clicks -> /login
+   *
+   * The click counter resets if another click
+   * does not happen within 1.5 seconds.
+   */
   const handleLogoClick = () => {
+    logoClickCountRef.current += 1;
+
+    // Redirect to login after 5 consecutive clicks.
+    if (logoClickCountRef.current >= 5) {
+      if (logoClickTimerRef.current) {
+        clearTimeout(
+          logoClickTimerRef.current,
+        );
+
+        logoClickTimerRef.current = null;
+      }
+
+      if (logoClickResetTimerRef.current) {
+        clearTimeout(
+          logoClickResetTimerRef.current,
+        );
+
+        logoClickResetTimerRef.current = null;
+      }
+
+      logoClickCountRef.current = 0;
+
+      router.push("/login");
+
+      return;
+    }
+
+    // Clear the previous landing-page timer.
     if (logoClickTimerRef.current) {
       clearTimeout(
         logoClickTimerRef.current,
       );
     }
 
+    // Preserve the original single-click behavior.
     logoClickTimerRef.current =
       setTimeout(() => {
         router.push("/");
 
         logoClickTimerRef.current = null;
       }, 250);
+
+    // Reset consecutive click count after 1.5 seconds.
+    if (logoClickResetTimerRef.current) {
+      clearTimeout(
+        logoClickResetTimerRef.current,
+      );
+    }
+
+    logoClickResetTimerRef.current =
+      setTimeout(() => {
+        logoClickCountRef.current = 0;
+        logoClickResetTimerRef.current = null;
+      }, 1500);
   };
 
   const handleLogoDoubleClick = () => {
@@ -532,7 +600,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-
-
-
