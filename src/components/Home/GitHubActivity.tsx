@@ -12,7 +12,6 @@ import {
   FiStar,
   FiTerminal,
   FiUsers,
-  FiUserPlus,
   FiZap,
 } from "react-icons/fi";
 
@@ -31,6 +30,7 @@ type GitHubUser = {
   public_repos: number;
   followers: number;
   following: number;
+  created_at: string;
 };
 
 type GitHubRepository = {
@@ -50,214 +50,226 @@ type GitHubRepository = {
 ========================================================= */
 
 const GITHUB_USERNAME = "tamimhasanbd06";
-const GITHUB_API = "https://api.github.com";
 
 /* =========================================================
    API
 ========================================================= */
 
-async function fetchGitHub<T>(endpoint: string): Promise<T | null> {
-  try {
-    const response = await fetch(`${GITHUB_API}${endpoint}`, {
-      headers: {
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
+async function fetchGitHub<T>(endpoint: string): Promise<T> {
+  const response = await fetch(`https://api.github.com${endpoint}`, {
+    headers: {
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+    next: {
+      revalidate: 3600,
+    },
+  });
 
-      next: {
-        revalidate: 3600,
-      },
-    });
-
-    if (!response.ok) {
-      console.error(
-        `[GitHubActivity] Request failed with status ${response.status}`,
-      );
-
-      return null;
-    }
-
-    return (await response.json()) as T;
-  } catch (error) {
-    console.error("[GitHubActivity] Request failed:", error);
-
-    return null;
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status}`);
   }
+
+  return response.json();
 }
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
-function formatNumber(value: number) {
-  return new Intl.NumberFormat("en-US", {
-    notation: value >= 1000 ? "compact" : "standard",
-    maximumFractionDigits: 1,
-  }).format(value);
-}
-
-function formatDate(value: string) {
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) {
-    return "Recently";
+function formatNumber(value: number): string {
+  if (value >= 1000000) {
+    return `${(value / 1000000).toFixed(1)}M`;
   }
 
-  return new Intl.DateTimeFormat("en-US", {
+  if (value >= 1000) {
+    return `${(value / 1000).toFixed(1)}K`;
+  }
+
+  return value.toString();
+}
+
+function formatDate(date: string): string {
+  return new Intl.DateTimeFormat("en", {
     month: "short",
     day: "numeric",
-  }).format(date);
+    year: "numeric",
+  }).format(new Date(date));
 }
 
 /* =========================================================
    STAT CARD
 ========================================================= */
 
-type StatCardProps = {
-  icon: ReactNode;
-  value: string;
-  label: string;
-  description: string;
-};
-
 function StatCard({
   icon,
-  value,
   label,
-  description,
-}: StatCardProps) {
+  value,
+  accent = "cyan",
+}: {
+  icon: ReactNode;
+  label: string;
+  value: string | number;
+  accent?: "cyan" | "blue" | "violet" | "emerald";
+}) {
+  const accentStyles = {
+    cyan: {
+      icon: "text-cyan-300",
+      iconBg: "bg-cyan-400/[0.08]",
+      border: "border-cyan-400/[0.12]",
+      hoverBorder: "group-hover:border-cyan-400/25",
+      glow: "bg-cyan-400/10",
+      line: "bg-cyan-300",
+    },
+
+    blue: {
+      icon: "text-blue-300",
+      iconBg: "bg-blue-400/[0.08]",
+      border: "border-blue-400/[0.12]",
+      hoverBorder: "group-hover:border-blue-400/25",
+      glow: "bg-blue-400/10",
+      line: "bg-blue-300",
+    },
+
+    violet: {
+      icon: "text-violet-300",
+      iconBg: "bg-violet-400/[0.08]",
+      border: "border-violet-400/[0.12]",
+      hoverBorder: "group-hover:border-violet-400/25",
+      glow: "bg-violet-400/10",
+      line: "bg-violet-300",
+    },
+
+    emerald: {
+      icon: "text-emerald-300",
+      iconBg: "bg-emerald-400/[0.08]",
+      border: "border-emerald-400/[0.12]",
+      hoverBorder: "group-hover:border-emerald-400/25",
+      glow: "bg-emerald-400/10",
+      line: "bg-emerald-300",
+    },
+  };
+
+  const style = accentStyles[accent];
+
   return (
-    <article
-      className="
+    <div
+      className={`
         group
         relative
+        min-w-0
         overflow-hidden
-        rounded-[24px]
+        rounded-xl
         border
-        border-white/[0.07]
-        bg-white/[0.025]
-        p-4
-
+        ${style.border}
+        ${style.hoverBorder}
+        bg-white/[0.018]
+        px-3
+        py-3.5
         transition-all
-        duration-500
-
-        hover:-translate-y-1
-        hover:border-cyan-400/20
-        hover:bg-white/[0.04]
-
-        sm:p-5
-      "
+        duration-300
+        hover:-translate-y-0.5
+        hover:bg-white/[0.035]
+        min-[400px]:rounded-2xl
+        min-[400px]:px-4
+        min-[400px]:py-4
+        sm:px-5
+        sm:py-5
+      `}
     >
-      {/* glow */}
+      {/* Accent line */}
 
       <div
-        aria-hidden="true"
-        className="
+        className={`
+          absolute
+          left-0
+          top-0
+          h-px
+          w-0
+          ${style.line}
+          opacity-70
+          transition-all
+          duration-500
+          group-hover:w-full
+        `}
+      />
+
+      {/* Soft internal glow */}
+
+      <div
+        className={`
           pointer-events-none
           absolute
-          -right-10
-          -top-10
-          h-28
-          w-28
+          -right-8
+          -top-8
+          h-20
+          w-20
           rounded-full
-          bg-cyan-400/10
-          opacity-0
+          ${style.glow}
+          opacity-30
           blur-3xl
-
-          transition-opacity
+          transition-all
           duration-500
-
-          group-hover:opacity-100
-        "
+          group-hover:scale-150
+          group-hover:opacity-50
+        `}
       />
 
-      {/* corner */}
-
-      <div
-        aria-hidden="true"
-        className="
-          absolute
-          right-3
-          top-3
-          h-2
-          w-2
-          rounded-full
-          border
-          border-cyan-300/20
-          bg-cyan-300/10
-        "
-      />
-
-      <div className="relative z-10">
+      <div className="relative flex min-w-0 items-center gap-3">
         <div
-          className="
-            mb-5
+          className={`
             flex
-            h-11
-            w-11
+            h-9
+            w-9
+            shrink-0
             items-center
             justify-center
-
-            rounded-2xl
-            border
-            border-cyan-400/15
-            bg-cyan-400/[0.055]
-
-            text-cyan-300
-
-            shadow-[0_0_30px_rgba(34,211,238,0.04)]
-
-            transition-all
+            rounded-lg
+            ${style.iconBg}
+            ${style.icon}
+            transition-transform
             duration-300
-
-            group-hover:border-cyan-300/30
-            group-hover:bg-cyan-400/10
-          "
+            group-hover:scale-105
+            min-[400px]:h-10
+            min-[400px]:w-10
+            min-[400px]:rounded-xl
+          `}
         >
           {icon}
         </div>
 
-        <p
-          className="
-            text-2xl
-            font-black
-            tracking-[-0.04em]
-            text-white
+        <div className="min-w-0">
+          <p
+            className="
+              truncate
+              text-[8px]
+              font-semibold
+              uppercase
+              tracking-[0.16em]
+              text-white/30
+              min-[400px]:text-[9px]
+              sm:text-[10px]
+            "
+          >
+            {label}
+          </p>
 
-            sm:text-3xl
-          "
-        >
-          {value}
-        </p>
-
-        <p
-          className="
-            mt-1
-            text-[10px]
-            font-black
-            uppercase
-            tracking-[0.16em]
-            text-slate-400
-          "
-        >
-          {label}
-        </p>
-
-        <p
-          className="
-            mt-2
-            hidden
-            text-[11px]
-            leading-5
-            text-slate-600
-
-            sm:block
-          "
-        >
-          {description}
-        </p>
+          <p
+            className="
+              mt-0.5
+              truncate
+              text-base
+              font-bold
+              tracking-tight
+              text-white
+              min-[400px]:text-lg
+            "
+          >
+            {value}
+          </p>
+        </div>
       </div>
-    </article>
+    </div>
   );
 }
 
@@ -269,542 +281,378 @@ function GitHubFallback() {
   return (
     <section
       id="github"
+      aria-labelledby="github-heading"
       className="
-        relative
+        mx-auto
+        w-full
+        min-w-[300px]
+        max-w-[2000px]
         overflow-hidden
-        bg-black
-        px-4
-        py-20
-        text-white
+        px-3
+        py-12
+        sm:px-6
+        sm:py-20
+        lg:px-8
+        lg:py-24
+        xl:px-10
+        2xl:px-12
       "
     >
-      <div className="mx-auto max-w-7xl">
-        <div
-          className="
-            rounded-[32px]
-            border
-            border-white/10
-            bg-white/[0.025]
-            p-8
-            text-center
-            backdrop-blur-xl
+      <div
+        className="
+          mx-auto
+          w-full
+          max-w-5xl
+          rounded-2xl
+          border
+          border-white/[0.08]
+          bg-white/[0.02]
+          p-6
+          text-center
+          sm:rounded-3xl
+          sm:p-10
+        "
+      >
+        <FiGithub className="mx-auto h-8 w-8 text-white/40" />
 
-            sm:p-12
+        <h2
+          id="github-heading"
+          className="
+            mt-4
+            text-xl
+            font-bold
+            tracking-tight
+            text-white
+            sm:text-2xl
           "
         >
-          <div
-            className="
-              mx-auto
-              flex
-              h-16
-              w-16
-              items-center
-              justify-center
-              rounded-2xl
-              border
-              border-cyan-400/15
-              bg-cyan-400/[0.06]
-              text-2xl
-              text-cyan-300
-            "
-          >
-            <FiGithub />
-          </div>
+          GitHub Activity
+        </h2>
 
-          <h2 className="mt-6 text-2xl font-black sm:text-3xl">
-            GitHub Network Offline
-          </h2>
-
-          <p
-            className="
-              mx-auto
-              mt-3
-              max-w-lg
-              text-sm
-              leading-7
-              text-slate-500
-            "
-          >
-            GitHub data is temporarily unavailable. You can still open my
-            public GitHub profile directly.
-          </p>
-
-          <a
-            href={`https://github.com/${GITHUB_USERNAME}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              mt-7
-              inline-flex
-              min-h-11
-              items-center
-              justify-center
-              gap-2
-
-              rounded-full
-              border
-              border-cyan-400/20
-
-              bg-cyan-400/[0.06]
-
-              px-6
-              py-3
-
-              text-[10px]
-              font-black
-              uppercase
-              tracking-[0.15em]
-              text-cyan-300
-
-              transition-all
-              duration-300
-
-              hover:border-cyan-300/40
-              hover:bg-cyan-400/10
-              hover:text-white
-            "
-          >
-            <FiGithub size={16} />
-
-            Open GitHub
-
-            <FiArrowUpRight size={14} />
-          </a>
-        </div>
+        <p
+          className="
+            mx-auto
+            mt-2
+            max-w-md
+            text-xs
+            leading-6
+            text-white/40
+            sm:text-sm
+          "
+        >
+          GitHub activity is currently unavailable. Please try again later.
+        </p>
       </div>
     </section>
   );
 }
 
 /* =========================================================
-   MAIN SERVER COMPONENT
+   MAIN COMPONENT
 ========================================================= */
 
 export default async function GitHubActivity() {
-  const [user, reposResponse] = await Promise.all([
-    fetchGitHub<GitHubUser>(`/users/${GITHUB_USERNAME}`),
+  let user: GitHubUser;
+  let repositories: GitHubRepository[];
 
-    fetchGitHub<GitHubRepository[]>(
-      `/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc&per_page=100`,
-    ),
-  ]);
+  try {
+    [user, repositories] = await Promise.all([
+      fetchGitHub<GitHubUser>(`/users/${GITHUB_USERNAME}`),
 
-  if (!user) {
+      fetchGitHub<GitHubRepository[]>(
+        `/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`
+      ),
+    ]);
+  } catch {
     return <GitHubFallback />;
   }
 
-  const repositories = (reposResponse ?? []).filter(
-    (repo) => !repo.private,
+  /* =======================================================
+     DATA
+  ======================================================= */
+
+  const publicRepositories = repositories.filter(
+    (repository) => !repository.private
   );
 
-  const totalStars = repositories.reduce(
-    (total, repo) => total + repo.stargazers_count,
-    0,
+  const totalStars = publicRepositories.reduce(
+    (total, repository) => total + repository.stargazers_count,
+    0
   );
 
-  const totalForks = repositories.reduce(
-    (total, repo) => total + repo.forks_count,
-    0,
+  const totalForks = publicRepositories.reduce(
+    (total, repository) => total + repository.forks_count,
+    0
   );
 
-  const recentRepositories = repositories.slice(0, 6);
+  const recentRepositories = publicRepositories
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.updated_at).getTime() -
+        new Date(a.updated_at).getTime()
+    )
+    .slice(0, 6);
+
+  /* =======================================================
+     UI
+  ======================================================= */
 
   return (
     <section
       id="github"
       aria-labelledby="github-heading"
       className="
-        theme-section
         relative
+        mx-auto
+        w-full
+        min-w-[300px]
+        max-w-[2000px]
         overflow-hidden
-
-        bg-[#030507]
-
-        px-4
-        py-20
-
+        px-3
+        py-12
         text-white
-
+        min-[400px]:px-4
+        min-[400px]:py-14
         sm:px-6
-        sm:py-24
-
-        lg:px-8
+        sm:py-20
+        md:px-8
+        md:py-24
+        lg:px-10
         lg:py-28
+        xl:px-12
+        2xl:px-16
+        2xl:py-32
       "
     >
-      {/* =====================================================
-          BACKGROUND
-      ====================================================== */}
+      {/* ===================================================
+          CONTENT
+      =================================================== */}
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-
-          [background-image:linear-gradient(rgba(34,211,238,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.035)_1px,transparent_1px)]
-
-          [background-size:64px_64px]
-
-          [mask-image:linear-gradient(to_bottom,black,transparent_92%)]
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-[-200px]
-
-          h-[600px]
-          w-[900px]
-
-          -translate-x-1/2
-
-          rounded-full
-
-          bg-cyan-500/[0.07]
-
-          blur-[170px]
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          -left-40
-          top-1/2
-
-          h-[400px]
-          w-[400px]
-
-          rounded-full
-
-          bg-blue-500/[0.04]
-
-          blur-[150px]
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          -right-40
-          bottom-0
-
-          h-[420px]
-          w-[420px]
-
-          rounded-full
-
-          bg-cyan-400/[0.04]
-
-          blur-[150px]
-        "
-      />
-
-      <div className="relative z-10 mx-auto max-w-7xl">
-        {/* =====================================================
-            SECTION HEADER
-        ====================================================== */}
-
-        <header
-          className="
-            mx-auto
-            max-w-4xl
-            text-center
-          "
-        >
-          <div
-            className="
-              inline-flex
-              items-center
-              gap-3
-
-              rounded-full
-
-              border
-              border-cyan-400/15
-
-              bg-cyan-400/[0.04]
-
-              px-4
-              py-2
-
-              shadow-[0_0_30px_rgba(34,211,238,0.04)]
-            "
-          >
-            <span className="relative flex h-2 w-2">
-              <span
-                className="
-                  absolute
-                  inline-flex
-                  h-full
-                  w-full
-                  animate-ping
-                  rounded-full
-                  bg-cyan-400
-                  opacity-50
-                "
-              />
-
-              <span
-                className="
-                  relative
-                  inline-flex
-                  h-2
-                  w-2
-                  rounded-full
-                  bg-cyan-300
-                "
-              />
-            </span>
-
-            <span
-              className="
-                text-[9px]
-                font-black
-                uppercase
-                tracking-[0.24em]
-                text-cyan-300
-
-                sm:text-[10px]
-              "
-            >
-              Developer Network / Live
-            </span>
-          </div>
-
-          <h2
-            id="github-heading"
-            className="
-              mt-6
-
-              text-4xl
-              font-black
-
-              tracking-[-0.05em]
-
-              sm:text-5xl
-              lg:text-6xl
-            "
-          >
-            GitHub{" "}
-            <span
-              className="
-                bg-gradient-to-r
-                from-blue-400
-                via-cyan-300
-                to-emerald-300
-
-                bg-clip-text
-                text-transparent
-              "
-            >
-              Command Center
-            </span>
-          </h2>
-
-          <p
-            className="
-              mx-auto
-              mt-5
-              max-w-2xl
-
-              text-sm
-              leading-7
-              text-slate-500
-
-              sm:text-base
-            "
-          >
-            A live developer dashboard showcasing repositories, code activity,
-            open-source work and contribution history.
-          </p>
-        </header>
-
-        {/* =====================================================
-            PROFILE CONSOLE
-        ====================================================== */}
+      <div className="mx-auto w-full max-w-[1440px]">
+        {/* =================================================
+            HEADER
+        ================================================= */}
 
         <div
           className="
-            relative
-            mt-12
-
-            overflow-hidden
-
-            rounded-[30px]
-
-            border
-            border-white/[0.07]
-
-            bg-white/[0.025]
-
-            shadow-[0_30px_100px_rgba(0,0,0,0.45)]
-
-            backdrop-blur-xl
-
-            sm:mt-16
+            mb-7
+            flex
+            flex-col
+            gap-5
+            min-[500px]:mb-9
+            sm:mb-10
+            md:mb-12
+            md:flex-row
+            md:items-end
+            md:justify-between
+            lg:mb-14
           "
         >
-          {/* top terminal bar */}
+          <div className="min-w-0">
+            {/* Badge */}
 
+            <div
+              className="
+                mb-3
+                inline-flex
+                items-center
+                gap-2
+                rounded-full
+                border
+                border-cyan-400/[0.12]
+                bg-cyan-400/[0.035]
+                px-2.5
+                py-1.5
+                text-[8px]
+                font-semibold
+                uppercase
+                tracking-[0.2em]
+                text-cyan-300/70
+                min-[400px]:px-3
+                min-[400px]:text-[9px]
+                sm:text-[10px]
+              "
+            >
+              <FiActivity className="h-3 w-3" />
+
+              <span>Open Source Activity</span>
+            </div>
+
+            {/* Title */}
+
+            <h2
+              id="github-heading"
+              className="
+                max-w-3xl
+                text-[1.75rem]
+                font-bold
+                leading-[1.05]
+                tracking-[-0.045em]
+                text-white
+                min-[400px]:text-3xl
+                sm:text-4xl
+                md:text-5xl
+                lg:text-[3.4rem]
+                xl:text-[3.75rem]
+              "
+            >
+              GitHub Activity
+            </h2>
+
+            {/* Description */}
+
+            <p
+              className="
+                mt-3
+                max-w-2xl
+                text-[11px]
+                leading-5
+                text-white/40
+                min-[400px]:text-xs
+                min-[400px]:leading-6
+                sm:mt-4
+                sm:text-sm
+                sm:leading-7
+                lg:text-[15px]
+              "
+            >
+              A live snapshot of my open-source work, repositories,
+              contributions, and development activity.
+            </p>
+          </div>
+
+          {/* GitHub Button */}
+
+          <a
+            href={user.html_url}
+            target="_blank"
+            rel="noreferrer"
+            className="
+              group
+              inline-flex
+              w-fit
+              shrink-0
+              items-center
+              gap-2
+              rounded-xl
+              border
+              border-white/[0.09]
+              bg-white/[0.025]
+              px-3.5
+              py-2.5
+              text-[11px]
+              font-semibold
+              text-white/60
+              shadow-sm
+              transition-all
+              duration-300
+              hover:-translate-y-0.5
+              hover:border-cyan-400/25
+              hover:bg-cyan-400/[0.035]
+              hover:text-white
+              min-[400px]:px-4
+              min-[400px]:py-3
+              sm:text-xs
+              md:text-sm
+            "
+          >
+            <FiGithub className="h-4 w-4" />
+
+            <span>View GitHub</span>
+
+            <FiArrowUpRight
+              className="
+                h-3.5
+                w-3.5
+                transition-transform
+                duration-300
+                group-hover:-translate-y-0.5
+                group-hover:translate-x-0.5
+              "
+            />
+          </a>
+        </div>
+
+        {/* =================================================
+            PROFILE
+        ================================================= */}
+
+        <div
+          className="
+            group
+            overflow-hidden
+            rounded-2xl
+            border
+            border-white/[0.075]
+            bg-white/[0.018]
+            transition-colors
+            duration-300
+            hover:border-white/[0.11]
+            sm:rounded-3xl
+          "
+        >
           <div
             className="
               flex
-              items-center
-              justify-between
-
-              border-b
-              border-white/[0.06]
-
-              bg-black/30
-
-              px-4
-              py-3
-
-              sm:px-6
+              flex-col
+              gap-5
+              p-4
+              min-[400px]:p-5
+              sm:p-6
+              md:flex-row
+              md:items-center
+              md:justify-between
+              lg:p-7
+              xl:p-8
             "
           >
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
-            </div>
+            {/* Profile */}
 
-            <div
-              className="
-                flex
-                items-center
-                gap-2
-
-                text-[9px]
-                font-bold
-                uppercase
-                tracking-[0.18em]
-                text-slate-600
-              "
-            >
-              <FiTerminal size={12} />
-
-              github.profile
-            </div>
-          </div>
-
-          {/* profile body */}
-
-          <div
-            className="
-              grid
-              gap-6
-
-              p-5
-
-              sm:p-7
-
-              lg:grid-cols-[1fr_auto]
-              lg:items-center
-
-              lg:p-8
-            "
-          >
-            <div
-              className="
-                flex
-                min-w-0
-                flex-col
-                gap-5
-
-                sm:flex-row
-                sm:items-center
-              "
-            >
-              <div className="relative mx-auto shrink-0 sm:mx-0">
-                <div
-                  className="
-                    absolute
-                    -inset-2
-
-                    rounded-[24px]
-
-                    bg-gradient-to-br
-                    from-cyan-400/30
-                    to-blue-500/10
-
-                    blur-xl
-                  "
-                />
-
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-
+            <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+              <div
+                className="
+                  relative
+                  h-11
+                  w-11
+                  shrink-0
+                  overflow-hidden
+                  rounded-xl
+                  border
+                  border-white/[0.1]
+                  bg-white/[0.04]
+                  shadow-lg
+                  min-[400px]:h-12
+                  min-[400px]:w-12
+                  sm:h-14
+                  sm:w-14
+                  sm:rounded-2xl
+                "
+              >
                 <img
                   src={user.avatar_url}
-                  alt={`${user.login} GitHub avatar`}
-                  width={92}
-                  height={92}
+                  alt={user.name || user.login}
                   className="
-                    relative
-
-                    h-[84px]
-                    w-[84px]
-
-                    rounded-[22px]
-
-                    border
-                    border-cyan-300/20
-
+                    h-full
+                    w-full
                     object-cover
-
-                    shadow-[0_0_35px_rgba(34,211,238,0.12)]
-
-                    sm:h-[92px]
-                    sm:w-[92px]
-                  "
-                />
-
-                <span
-                  className="
-                    absolute
-                    -bottom-1
-                    -right-1
-
-                    h-4
-                    w-4
-
-                    rounded-full
-
-                    border-[3px]
-                    border-[#070a0d]
-
-                    bg-emerald-400
-
-                    shadow-[0_0_14px_rgba(52,211,153,0.7)]
+                    transition-transform
+                    duration-500
+                    group-hover:scale-105
                   "
                 />
               </div>
 
-              <div className="min-w-0 text-center sm:text-left">
-                <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+              <div className="min-w-0">
+                <div className="flex min-w-0 items-center gap-2">
                   <h3
                     className="
                       truncate
-
-                      text-xl
-                      font-black
-
-                      tracking-tight
-
+                      text-sm
+                      font-bold
                       text-white
-
-                      sm:text-2xl
+                      min-[400px]:text-base
+                      sm:text-lg
                     "
                   >
                     {user.name || user.login}
@@ -812,21 +660,19 @@ export default async function GitHubActivity() {
 
                   <span
                     className="
+                      hidden
                       rounded-full
-
                       border
-                      border-cyan-400/10
-
+                      border-cyan-400/[0.12]
                       bg-cyan-400/[0.04]
-
-                      px-2.5
-                      py-1
-
+                      px-2
+                      py-0.5
                       text-[8px]
-                      font-black
+                      font-semibold
                       uppercase
                       tracking-wider
-                      text-cyan-300/80
+                      text-cyan-300/65
+                      min-[500px]:inline-flex
                     "
                   >
                     Developer
@@ -835,29 +681,25 @@ export default async function GitHubActivity() {
 
                 <p
                   className="
-                    mt-1
-
-                    font-mono
-                    text-xs
-
-                    text-cyan-300/70
+                    mt-0.5
+                    truncate
+                    text-[11px]
+                    text-white/30
+                    sm:text-xs
                   "
                 >
-                  github.com/{user.login}
+                  @{user.login}
                 </p>
 
                 {user.bio && (
                   <p
                     className="
-                      mx-auto
-                      mt-3
-                      max-w-2xl
-
-                      text-sm
-                      leading-6
-                      text-slate-500
-
-                      sm:mx-0
+                      mt-1.5
+                      line-clamp-1
+                      max-w-xl
+                      text-[10px]
+                      text-white/35
+                      sm:text-xs
                     "
                   >
                     {user.bio}
@@ -866,827 +708,541 @@ export default async function GitHubActivity() {
               </div>
             </div>
 
-            <a
-              href={user.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Meta */}
+
+            <div
               className="
-                group
-
-                inline-flex
-                min-h-12
-
+                flex
+                flex-wrap
                 items-center
-                justify-center
-                gap-2.5
-
-                rounded-2xl
-
-                border
-                border-cyan-400/15
-
-                bg-gradient-to-r
-                from-cyan-400/[0.07]
-                to-blue-500/[0.05]
-
-                px-5
-                py-3
-
-                text-[10px]
-                font-black
-                uppercase
-                tracking-[0.15em]
-
-                text-cyan-300
-
-                transition-all
-                duration-300
-
-                hover:border-cyan-300/30
-                hover:text-white
-
-                sm:px-6
+                gap-x-4
+                gap-y-2
+                border-t
+                border-white/[0.06]
+                pt-4
+                text-[9px]
+                text-white/30
+                sm:gap-x-5
+                sm:text-[10px]
+                md:border-l
+                md:border-t-0
+                md:pl-5
+                md:pt-0
+                lg:pl-7
               "
             >
-              <FiGithub size={17} />
+              <div className="flex items-center gap-1.5">
+                <FiTerminal className="h-3.5 w-3.5 text-cyan-300/60" />
 
-              Open Profile
+                <span>github.com</span>
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                <FiCommand className="h-3.5 w-3.5 text-blue-300/60" />
+
+                <span>Public Profile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* =================================================
+            STATS
+        ================================================= */}
+
+        <div
+          className="
+            mt-3
+            grid
+            grid-cols-2
+            gap-2
+            min-[400px]:mt-4
+            min-[400px]:gap-3
+            sm:gap-4
+            md:grid-cols-4
+            lg:mt-5
+          "
+        >
+          <StatCard
+            icon={<FiBookOpen className="h-4 w-4" />}
+            label="Repositories"
+            value={formatNumber(publicRepositories.length)}
+            accent="cyan"
+          />
+
+          <StatCard
+            icon={<FiStar className="h-4 w-4" />}
+            label="Stars"
+            value={formatNumber(totalStars)}
+            accent="blue"
+          />
+
+          <StatCard
+            icon={<FiGitBranch className="h-4 w-4" />}
+            label="Forks"
+            value={formatNumber(totalForks)}
+            accent="violet"
+          />
+
+          <StatCard
+            icon={<FiUsers className="h-4 w-4" />}
+            label="Followers"
+            value={formatNumber(user.followers)}
+            accent="emerald"
+          />
+        </div>
+
+        {/* =================================================
+            REPOSITORY PANEL
+        ================================================= */}
+
+        <div
+          className="
+            mt-3
+            overflow-hidden
+            rounded-2xl
+            border
+            border-white/[0.075]
+            bg-white/[0.018]
+            sm:mt-4
+            sm:rounded-3xl
+            lg:mt-5
+          "
+        >
+          {/* Panel Header */}
+
+          <div
+            className="
+              flex
+              flex-col
+              gap-3
+              border-b
+              border-white/[0.06]
+              p-4
+              min-[400px]:p-5
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+              sm:p-6
+              lg:p-7
+            "
+          >
+            <div>
+              <div className="flex items-center gap-2">
+                <FiLayers className="h-4 w-4 text-cyan-300/65" />
+
+                <h3
+                  className="
+                    text-sm
+                    font-bold
+                    text-white
+                    sm:text-base
+                  "
+                >
+                  Recent Repositories
+                </h3>
+              </div>
+
+              <p
+                className="
+                  mt-1
+                  text-[10px]
+                  text-white/30
+                  sm:text-xs
+                "
+              >
+                Recently updated public repositories
+              </p>
+            </div>
+
+            <a
+              href={`https://github.com/${GITHUB_USERNAME}?tab=repositories`}
+              target="_blank"
+              rel="noreferrer"
+              className="
+                group
+                inline-flex
+                w-fit
+                items-center
+                gap-1.5
+                text-[10px]
+                font-semibold
+                text-white/35
+                transition-colors
+                hover:text-cyan-300
+                sm:text-xs
+              "
+            >
+              <span>All repositories</span>
 
               <FiArrowUpRight
-                size={14}
                 className="
+                  h-3
+                  w-3
                   transition-transform
                   duration-300
-
                   group-hover:-translate-y-0.5
                   group-hover:translate-x-0.5
                 "
               />
             </a>
           </div>
-        </div>
 
-        {/* =====================================================
-            STATS
-        ====================================================== */}
-
-        <div
-          className="
-            mt-4
-
-            grid
-            grid-cols-2
-            gap-3
-
-            sm:gap-4
-
-            lg:grid-cols-4
-          "
-        >
-          <StatCard
-            icon={<FiBookOpen size={19} />}
-            value={formatNumber(user.public_repos)}
-            label="Repositories"
-            description="Public repositories available on GitHub."
-          />
-
-          <StatCard
-            icon={<FiUsers size={19} />}
-            value={formatNumber(user.followers)}
-            label="Followers"
-            description="Developers following this GitHub profile."
-          />
-
-          <StatCard
-            icon={<FiUserPlus size={19} />}
-            value={formatNumber(user.following)}
-            label="Following"
-            description="Developers and projects currently followed."
-          />
-
-          <StatCard
-            icon={<FiStar size={19} />}
-            value={formatNumber(totalStars)}
-            label="Stars"
-            description="Stars collected across loaded repositories."
-          />
-        </div>
-
-        {/* =====================================================
-            REPOSITORY PANEL
-        ====================================================== */}
-
-        <div
-          className="
-            mt-8
-
-            overflow-hidden
-
-            rounded-[30px]
-
-            border
-            border-white/[0.07]
-
-            bg-white/[0.022]
-
-            shadow-[0_30px_100px_rgba(0,0,0,0.25)]
-          "
-        >
-          {/* panel header */}
+          {/* Repository Grid */}
 
           <div
             className="
-              flex
-              flex-col
-              gap-4
-
-              border-b
-              border-white/[0.06]
-
-              bg-black/20
-
-              px-5
-              py-5
-
-              sm:flex-row
-              sm:items-center
-              sm:justify-between
-
-              sm:px-7
+              grid
+              grid-cols-1
+              divide-y
+              divide-white/[0.05]
+              md:grid-cols-2
+              md:divide-x
+              md:divide-y-0
             "
           >
-            <div className="flex items-start gap-3">
-              <div
-                className="
-                  flex
-                  h-10
-                  w-10
-                  shrink-0
-                  items-center
-                  justify-center
-
-                  rounded-xl
-
-                  border
-                  border-cyan-400/15
-
-                  bg-cyan-400/[0.055]
-
-                  text-cyan-300
-                "
-              >
-                <FiLayers size={18} />
-              </div>
-
-              <div>
-                <h3
-                  className="
-                    text-lg
-                    font-black
-
-                    tracking-tight
-
-                    sm:text-xl
-                  "
-                >
-                  Repository Network
-                </h3>
-
-                <p
-                  className="
-                    mt-1
-                    text-xs
-                    leading-5
-                    text-slate-600
-                  "
-                >
-                  Latest public codebases and active development projects.
-                </p>
-              </div>
-            </div>
-
-            <div
-              className="
-                flex
-                items-center
-                gap-4
-
-                text-[10px]
-                font-bold
-                text-slate-500
-              "
-            >
-              <span className="inline-flex items-center gap-1.5">
-                <FiStar className="text-cyan-300" />
-
-                {formatNumber(totalStars)}
-              </span>
-
-              <span className="inline-flex items-center gap-1.5">
-                <FiGitBranch className="text-cyan-300" />
-
-                {formatNumber(totalForks)}
-              </span>
-
-              <span
-                className="
-                  inline-flex
-                  items-center
-                  gap-1.5
-
-                  text-emerald-400/80
-                "
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-
-                Live
-              </span>
-            </div>
-          </div>
-
-          {/* repository grid */}
-
-          <div className="p-4 sm:p-6">
-            {recentRepositories.length === 0 ? (
-              <div
-                className="
-                  rounded-2xl
-
-                  border
-                  border-dashed
-                  border-white/10
-
-                  bg-black/20
-
-                  p-8
-
-                  text-center
-
-                  text-sm
-                  text-slate-600
-                "
-              >
-                No public repositories were found.
-              </div>
-            ) : (
-              <div
-                className="
-                  grid
-                  gap-3
-
-                  md:grid-cols-2
-
-                  lg:gap-4
-                "
-              >
-                {recentRepositories.map((repository, index) => (
-                  <a
-                    key={repository.id}
-                    href={repository.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="
-                      group
-
-                      relative
-
-                      flex
-                      min-h-[210px]
-                      flex-col
-
-                      overflow-hidden
-
-                      rounded-[22px]
-
-                      border
-                      border-white/[0.06]
-
-                      bg-black/20
-
-                      p-5
-
-                      transition-all
-                      duration-500
-
-                      hover:-translate-y-1
-                      hover:border-cyan-400/20
-                      hover:bg-white/[0.035]
-                    "
-                  >
-                    <div
-                      aria-hidden="true"
-                      className="
-                        absolute
-                        -right-20
-                        -top-20
-
-                        h-40
-                        w-40
-
-                        rounded-full
-
-                        bg-cyan-400/[0.08]
-
-                        opacity-0
-
-                        blur-3xl
-
-                        transition-opacity
-                        duration-500
-
-                        group-hover:opacity-100
-                      "
-                    />
-
-                    <div className="relative z-10 flex h-full flex-col">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="min-w-0">
-                          <p
-                            className="
-                              mb-2
-
-                              font-mono
-                              text-[9px]
-
-                              uppercase
-                              tracking-[0.16em]
-
-                              text-slate-700
-                            "
-                          >
-                            Repository / {String(index + 1).padStart(2, "0")}
-                          </p>
-
-                          <h4
-                            className="
-                              truncate
-
-                              text-base
-                              font-black
-
-                              text-white
-
-                              transition-colors
-                              duration-300
-
-                              group-hover:text-cyan-300
-                            "
-                          >
-                            {repository.name}
-                          </h4>
-                        </div>
-
-                        <span
-                          className="
-                            shrink-0
-
-                            rounded-lg
-
-                            border
-                            border-cyan-400/10
-
-                            bg-cyan-400/[0.045]
-
-                            px-2.5
-                            py-1
-
-                            text-[8px]
-                            font-black
-                            uppercase
-                            tracking-[0.14em]
-
-                            text-cyan-300/70
-                          "
-                        >
-                          Public
-                        </span>
-                      </div>
-
-                      <p
-                        className="
-                          mt-4
-
-                          line-clamp-2
-
-                          text-sm
-                          leading-6
-
-                          text-slate-600
-                        "
-                      >
-                        {repository.description ||
-                          "No repository description is available."}
-                      </p>
-
-                      <div
-                        className="
-                          mt-5
-
-                          flex
-                          flex-wrap
-                          items-center
-                          gap-2
-                        "
-                      >
-                        {repository.language && (
-                          <span
-                            className="
-                              rounded-lg
-
-                              border
-                              border-cyan-400/10
-
-                              bg-cyan-400/[0.04]
-
-                              px-2.5
-                              py-1
-
-                              text-[9px]
-                              font-bold
-
-                              text-cyan-300/70
-                            "
-                          >
-                            {repository.language}
-                          </span>
-                        )}
-
-                        <span
-                          className="
-                            inline-flex
-                            items-center
-                            gap-1.5
-
-                            rounded-lg
-
-                            border
-                            border-white/[0.05]
-
-                            bg-white/[0.02]
-
-                            px-2.5
-                            py-1
-
-                            text-[9px]
-
-                            text-slate-600
-                          "
-                        >
-                          <FiStar size={11} />
-
-                          {repository.stargazers_count}
-                        </span>
-
-                        <span
-                          className="
-                            inline-flex
-                            items-center
-                            gap-1.5
-
-                            rounded-lg
-
-                            border
-                            border-white/[0.05]
-
-                            bg-white/[0.02]
-
-                            px-2.5
-                            py-1
-
-                            text-[9px]
-
-                            text-slate-600
-                          "
-                        >
-                          <FiGitBranch size={11} />
-
-                          {repository.forks_count}
-                        </span>
-                      </div>
-
-                      <div
-                        className="
-                          mt-auto
-
-                          flex
-                          items-center
-                          justify-between
-
-                          border-t
-                          border-white/[0.05]
-
-                          pt-4
-                        "
-                      >
-                        <span
-                          className="
-                            font-mono
-                            text-[9px]
-                            text-slate-700
-                          "
-                        >
-                          updated {formatDate(repository.updated_at)}
-                        </span>
-
-                        <span
-                          className="
-                            flex
-                            h-8
-                            w-8
-                            items-center
-                            justify-center
-
-                            rounded-lg
-
-                            border
-                            border-white/[0.06]
-
-                            bg-white/[0.025]
-
-                            text-slate-600
-
-                            transition-all
-                            duration-300
-
-                            group-hover:border-cyan-400/20
-                            group-hover:text-cyan-300
-                          "
-                        >
-                          <FiArrowUpRight size={14} />
-                        </span>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            )}
-
-            <div className="mt-7 flex justify-center">
+            {recentRepositories.map((repository) => (
               <a
-                href={`${user.html_url}?tab=repositories`}
+                key={repository.id}
+                href={repository.html_url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 className="
                   group
-
-                  inline-flex
-                  min-h-11
-
-                  items-center
-                  justify-center
-                  gap-2
-
-                  rounded-full
-
-                  border
-                  border-white/[0.08]
-
-                  bg-white/[0.025]
-
-                  px-6
-                  py-3
-
-                  text-[9px]
-                  font-black
-
-                  uppercase
-                  tracking-[0.15em]
-
-                  text-slate-400
-
+                  relative
+                  min-w-0
+                  p-4
                   transition-all
                   duration-300
-
-                  hover:border-cyan-400/20
-                  hover:bg-cyan-400/[0.05]
-                  hover:text-cyan-300
+                  hover:bg-white/[0.025]
+                  min-[400px]:p-5
+                  sm:p-6
+                  lg:p-7
                 "
               >
-                <FiGithub size={15} />
+                {/* Repository top */}
 
-                Explore Repository Network
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex min-w-0 items-center gap-2">
+                      <div
+                        className="
+                          flex
+                          h-7
+                          w-7
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-lg
+                          bg-cyan-400/[0.05]
+                          text-cyan-300/60
+                          transition-all
+                          duration-300
+                          group-hover:bg-cyan-400/[0.09]
+                          group-hover:text-cyan-300
+                        "
+                      >
+                        <FiCode className="h-3.5 w-3.5" />
+                      </div>
 
-                <FiArrowUpRight
-                  size={13}
+                      <h4
+                        className="
+                          truncate
+                          text-sm
+                          font-semibold
+                          text-white
+                          transition-colors
+                          group-hover:text-cyan-200
+                          sm:text-[15px]
+                        "
+                      >
+                        {repository.name}
+                      </h4>
+                    </div>
+
+                    <p
+                      className="
+                        mt-3
+                        line-clamp-2
+                        text-[11px]
+                        leading-5
+                        text-white/35
+                        sm:text-xs
+                        sm:leading-6
+                      "
+                    >
+                      {repository.description ||
+                        "No description available for this repository."}
+                    </p>
+                  </div>
+
+                  <FiArrowUpRight
+                    className="
+                      h-3.5
+                      w-3.5
+                      shrink-0
+                      text-white/15
+                      transition-all
+                      duration-300
+                      group-hover:-translate-y-0.5
+                      group-hover:translate-x-0.5
+                      group-hover:text-cyan-300
+                    "
+                  />
+                </div>
+
+                {/* Repository meta */}
+
+                <div
                   className="
-                    transition-transform
-                    duration-300
-
-                    group-hover:translate-x-0.5
+                    mt-5
+                    flex
+                    flex-wrap
+                    items-center
+                    gap-x-4
+                    gap-y-2
+                    text-[9px]
+                    text-white/30
+                    sm:text-[10px]
+                    md:text-xs
                   "
-                />
-              </a>
-            </div>
-          </div>
-        </div>
+                >
+                  {repository.language && (
+                    <span className="flex items-center gap-1.5">
+                      <span
+                        className="
+                          h-1.5
+                          w-1.5
+                          rounded-full
+                          bg-cyan-300/70
+                          shadow-[0_0_8px_rgba(103,232,249,0.35)]
+                        "
+                      />
 
-        {/* =====================================================
-            CONTRIBUTION MATRIX
-        ====================================================== */}
+                      {repository.language}
+                    </span>
+                  )}
 
-        <section
-          aria-labelledby="github-contributions-heading"
-          className="
-            relative
+                  <span className="flex items-center gap-1">
+                    <FiStar className="h-3 w-3" />
 
-            mt-8
+                    {formatNumber(repository.stargazers_count)}
+                  </span>
 
-            overflow-hidden
+                  <span className="flex items-center gap-1">
+                    <FiGitBranch className="h-3 w-3" />
 
-            rounded-[30px]
-
-            border
-            border-white/[0.07]
-
-            bg-white/[0.022]
-
-            shadow-[0_30px_100px_rgba(0,0,0,0.28)]
-          "
-        >
-          {/* calendar top */}
-
-          <div
-            className="
-              flex
-              flex-col
-              gap-5
-
-              border-b
-              border-white/[0.06]
-
-              bg-black/25
-
-              px-5
-              py-5
-
-              sm:flex-row
-              sm:items-center
-              sm:justify-between
-
-              sm:px-7
-            "
-          >
-            <div className="flex items-start gap-3">
-              <div
-                className="
-                  flex
-                  h-10
-                  w-10
-                  shrink-0
-
-                  items-center
-                  justify-center
-
-                  rounded-xl
-
-                  border
-                  border-cyan-400/15
-
-                  bg-cyan-400/[0.055]
-
-                  text-cyan-300
-                "
-              >
-                <FiActivity size={18} />
-              </div>
-
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3
-                    id="github-contributions-heading"
-                    className="
-                      text-lg
-                      font-black
-
-                      tracking-tight
-
-                      sm:text-xl
-                    "
-                  >
-                    Developer Activity Matrix
-                  </h3>
-
-                  <span
-                    className="
-                      rounded-full
-
-                      border
-                      border-emerald-400/10
-
-                      bg-emerald-400/[0.045]
-
-                      px-2.5
-                      py-1
-
-                      text-[8px]
-                      font-black
-
-                      uppercase
-                      tracking-wider
-
-                      text-emerald-300/80
-                    "
-                  >
-                    Live
+                    {formatNumber(repository.forks_count)}
                   </span>
                 </div>
 
+                {/* Updated */}
+
                 <p
                   className="
-                    mt-1
-
-                    text-xs
-                    leading-5
-
-                    text-slate-600
+                    mt-3
+                    text-[9px]
+                    text-white/20
+                    sm:text-[10px]
                   "
                 >
-                  GitHub contribution frequency and development consistency.
+                  Updated {formatDate(repository.updated_at)}
                 </p>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* =================================================
+            CONTRIBUTION PANEL
+        ================================================= */}
+
+        <div
+          className="
+            mt-3
+            overflow-hidden
+            rounded-2xl
+            border
+            border-white/[0.075]
+            bg-white/[0.018]
+            sm:mt-4
+            sm:rounded-3xl
+            lg:mt-5
+          "
+        >
+          {/* Contribution Header */}
+
+          <div
+            className="
+              flex
+              flex-col
+              gap-3
+              border-b
+              border-white/[0.06]
+              p-4
+              min-[400px]:p-5
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+              sm:p-6
+              lg:p-7
+            "
+          >
+            <div>
+              <div className="flex items-center gap-2">
+                <FiZap className="h-4 w-4 text-cyan-300/65" />
+
+                <h3
+                  className="
+                    text-sm
+                    font-bold
+                    text-white
+                    sm:text-base
+                  "
+                >
+                  Contribution Activity
+                </h3>
               </div>
+
+              <p
+                className="
+                  mt-1
+                  text-[10px]
+                  text-white/30
+                  sm:text-xs
+                "
+              >
+                GitHub contribution history
+              </p>
             </div>
+
+            {/* Legend */}
 
             <div
               className="
                 flex
                 items-center
                 gap-2
-
-                font-mono
-                text-[9px]
-                uppercase
-                tracking-[0.12em]
-
-                text-slate-700
+                text-[8px]
+                text-white/25
+                sm:text-[10px]
               "
             >
-              <FiCommand />
+              <span>Less</span>
 
-              contribution.timeline
+              <div className="flex items-center gap-1">
+                <span className="h-2.5 w-2.5 rounded-[2px] bg-white/[0.055]" />
+
+                <span className="h-2.5 w-2.5 rounded-[2px] bg-cyan-400/20" />
+
+                <span className="h-2.5 w-2.5 rounded-[2px] bg-cyan-400/40" />
+
+                <span className="h-2.5 w-2.5 rounded-[2px] bg-cyan-400/60" />
+
+                <span className="h-2.5 w-2.5 rounded-[2px] bg-cyan-400/90" />
+              </div>
+
+              <span>More</span>
             </div>
           </div>
 
-          <div className="p-4 sm:p-6">
-            <GitHubContributionChart
-              username={user.login}
-              profileUrl={user.html_url}
-            />
-          </div>
-        </section>
+          {/* Chart */}
 
-        {/* bottom status */}
+          <div
+            className="
+              overflow-x-auto
+              overscroll-x-contain
+              p-3
+              min-[400px]:p-4
+              sm:p-6
+              lg:p-7
+              xl:p-8
+            "
+          >
+            <div className="min-w-[680px]">
+              <GitHubContributionChart
+                username={GITHUB_USERNAME}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* =================================================
+            BOTTOM STATUS
+        ================================================= */}
 
         <div
           className="
-            mt-6
-
+            mt-3
             flex
             flex-col
-            items-center
-            justify-between
             gap-3
-
-            border-t
-            border-white/[0.04]
-
-            pt-6
-
-            text-center
-
+            rounded-xl
+            border
+            border-white/[0.06]
+            bg-white/[0.012]
+            px-3
+            py-3
+            text-[8px]
+            text-white/25
+            min-[400px]:px-4
+            sm:mt-4
             sm:flex-row
-            sm:text-left
+            sm:items-center
+            sm:justify-between
+            sm:rounded-2xl
+            sm:px-5
+            sm:py-3.5
+            sm:text-[10px]
+            lg:px-6
           "
         >
+          {/* Status */}
+
+          <div className="flex items-center gap-2">
+            <span
+              className="
+                h-1.5
+                w-1.5
+                shrink-0
+                rounded-full
+                bg-emerald-400
+                shadow-[0_0_10px_rgba(52,211,153,0.45)]
+              "
+            />
+
+            <span>GitHub data synchronized</span>
+          </div>
+
+          {/* Meta */}
+
           <div
             className="
               flex
+              flex-wrap
               items-center
-              gap-2
-
-              text-[9px]
-              font-bold
-
-              uppercase
-              tracking-[0.14em]
-
-              text-slate-700
+              gap-x-4
+              gap-y-1.5
             "
           >
-            <FiZap className="text-cyan-400/60" />
+            <span className="flex items-center gap-1.5">
+              <FiUsers className="h-3 w-3" />
 
-            GitHub data cached for performance
+              {formatNumber(user.following)} following
+            </span>
+
+            <span className="flex items-center gap-1.5">
+              <FiCode className="h-3 w-3" />
+
+              {formatNumber(publicRepositories.length)} public repos
+            </span>
+
+            <span className="hidden items-center gap-1.5 sm:flex">
+              <FiActivity className="h-3 w-3" />
+
+              Updated hourly
+            </span>
           </div>
-
-          <span
-            className="
-              font-mono
-              text-[9px]
-
-              text-slate-800
-            "
-          >
-            github://{user.login}/activity
-          </span>
         </div>
       </div>
     </section>

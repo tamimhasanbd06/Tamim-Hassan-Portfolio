@@ -142,32 +142,10 @@ export default function Library() {
         relative
         w-full
         overflow-hidden
-        bg-gradient-to-b
-        from-black
-        via-[var(--bg-card)]
-        to-black
         py-16
         sm:py-20
       `}
     >
-      {/* Background glow */}
-      <div
-        aria-hidden="true"
-        className={`
-          pointer-events-none
-          absolute
-          left-1/2
-          top-1/2
-          h-[300px]
-          w-[700px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          bg-cyan-500/5
-          blur-[120px]
-        `}
-      />
-
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Heading */}
         <motion.div
@@ -219,7 +197,7 @@ export default function Library() {
               lg:text-5xl
             `}
           >
-            Libraries I{" "}
+            Libraries{" "}
             <span
               className={`
                 bg-gradient-to-r
@@ -230,7 +208,7 @@ export default function Library() {
                 text-transparent
               `}
             >
-              Work With
+              I Work With
             </span>
           </h2>
 
@@ -252,44 +230,6 @@ export default function Library() {
 
         {/* Slider */}
         <div className="relative w-full overflow-hidden">
-          {/* Left gradient */}
-          <div
-            aria-hidden="true"
-            className={`
-              pointer-events-none
-              absolute
-              left-0
-              top-0
-              z-20
-              h-full
-              w-16
-              bg-gradient-to-r
-              from-[var(--bg-primary)]
-              via-[var(--bg-card)]/90
-              to-transparent
-              sm:w-28
-            `}
-          />
-
-          {/* Right gradient */}
-          <div
-            aria-hidden="true"
-            className={`
-              pointer-events-none
-              absolute
-              right-0
-              top-0
-              z-20
-              h-full
-              w-16
-              bg-gradient-to-l
-              from-[var(--bg-primary)]
-              via-[var(--bg-card)]/90
-              to-transparent
-              sm:w-28
-            `}
-          />
-
           <div className="library-track flex w-max gap-5 px-2">
             {/* First copy */}
             <div className="flex shrink-0 gap-5">
@@ -352,6 +292,3 @@ export default function Library() {
     </section>
   );
 }
-
-
-

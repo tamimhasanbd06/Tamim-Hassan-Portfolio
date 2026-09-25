@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -56,19 +57,51 @@ const Lockedcontact = () => {
   return (
     <section
       id="lock-social"
-      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[var(--bg-primary)] px-4 py-16 sm:px-6 sm:py-16 lg:px-12"
+      className="
+        relative flex w-full
+        items-center justify-center
+        overflow-hidden
+
+        px-3
+        py-12
+
+        min-[360px]:px-4
+        min-[400px]:py-14
+
+        sm:px-6
+        sm:py-16
+
+        md:px-8
+        md:py-20
+
+        lg:px-10
+        lg:py-24
+
+        xl:px-12
+        xl:py-28
+
+        2xl:py-32
+      "
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
-
-      <div className="absolute top-10 left-5 h-40 w-40 animate-pulse rounded-full bg-blue-500/20 blur-3xl sm:top-20 sm:left-10 sm:h-72 sm:w-72" />
-
-      <div className="absolute right-5 bottom-10 h-52 w-52 animate-pulse rounded-full bg-cyan-400/10 blur-3xl sm:right-20 sm:h-96 sm:w-96" />
+      {/* =====================================================
+          NO BACKGROUND
+          Completely transparent section
+      ====================================================== */}
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-6xl">
-        {/* Title */}
-        <motion.h1
+
+      <div
+        className="
+          relative z-10
+          w-full
+          max-w-[1800px]
+        "
+      >
+        {/* ===================================================
+            TITLE
+        ==================================================== */}
+
+        <motion.div
           initial={{
             opacity: 0,
             y: reduceMotion ? 0 : 24,
@@ -79,14 +112,140 @@ const Lockedcontact = () => {
           }}
           viewport={{
             once: true,
+            amount: 0.5,
           }}
-          className="mb-10 text-center text-3xl font-extrabold text-white sm:mb-14 sm:text-5xl md:text-6xl"
-        >
-          Get In <span className="text-cyan-300">Touch</span>
-        </motion.h1>
+          transition={{
+            duration: reduceMotion ? 0 : 0.6,
+            ease: "easeOut",
+          }}
+          className="
+            mx-auto
+            mb-9
+            max-w-3xl
+            text-center
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-5 lg:gap-5">
+            min-[400px]:mb-11
+
+            sm:mb-14
+
+            md:mb-16
+
+            lg:mb-20
+          "
+        >
+          {/* Small Label */}
+
+          <span
+            className="
+              mb-3
+              inline-block
+
+              text-[10px]
+              font-semibold
+              uppercase
+              tracking-[0.3em]
+
+              text-cyan-300/70
+
+              min-[400px]:text-xs
+
+              sm:mb-4
+            "
+          >
+            Let's Connect
+          </span>
+
+          {/* Main Title */}
+
+          <h1
+            className="
+              text-3xl
+              font-black
+              tracking-tight
+              text-white
+
+              min-[360px]:text-4xl
+
+              min-[400px]:text-[2.75rem]
+
+              sm:text-5xl
+
+              md:text-6xl
+
+              lg:text-7xl
+
+              xl:text-8xl
+            "
+          >
+            Get In{" "}
+            <span
+              className="
+                bg-gradient-to-r
+                from-cyan-300
+                via-sky-400
+                to-blue-500
+
+                bg-clip-text
+                text-transparent
+              "
+            >
+              Touch
+            </span>
+          </h1>
+
+          {/* Description */}
+
+          <p
+            className="
+              mx-auto
+              mt-4
+              max-w-xl
+              px-3
+
+              text-xs
+              leading-relaxed
+              text-white/45
+
+              min-[400px]:text-sm
+
+              sm:mt-5
+              sm:text-base
+
+              md:text-lg
+            "
+          >
+            Feel free to connect with me through any of the platforms below.
+          </p>
+        </motion.div>
+
+        {/* ===================================================
+            CONTACT GRID
+        ==================================================== */}
+
+        <div
+          className="
+            grid
+            grid-cols-1
+
+            place-items-center
+
+            gap-4
+
+            min-[400px]:gap-5
+
+            sm:grid-cols-2
+            sm:gap-6
+
+            md:gap-7
+
+            lg:grid-cols-5
+            lg:gap-5
+
+            xl:gap-7
+
+            2xl:gap-9
+          "
+        >
           {contacts.map((item, index) => (
             <motion.a
               key={item.name}
@@ -97,17 +256,19 @@ const Lockedcontact = () => {
               initial={{
                 opacity: 0,
                 y: reduceMotion ? 0 : 30,
+                scale: reduceMotion ? 1 : 0.97,
               }}
               whileInView={{
                 opacity: 1,
                 y: 0,
+                scale: 1,
               }}
               whileHover={
                 reduceMotion
                   ? undefined
                   : {
-                      y: -10,
-                      scale: 1.035,
+                      y: -9,
+                      scale: 1.025,
                     }
               }
               whileTap={{
@@ -115,60 +276,292 @@ const Lockedcontact = () => {
               }}
               viewport={{
                 once: true,
-                amount: 0.25,
+                amount: 0.2,
               }}
               transition={{
-                duration: reduceMotion ? 0 : 0.48,
-                delay: index * 0.06,
+                duration: reduceMotion ? 0 : 0.5,
+                delay: reduceMotion ? 0 : index * 0.07,
+                ease: [0.22, 1, 0.36, 1],
               }}
               className={`
-                group relative flex h-32
-                flex-col items-center justify-center
-                rounded-2xl bg-white/5
+                group relative
+
+                flex
+                w-full
+                max-w-[300px]
+
+                items-center
+                justify-center
+
+                overflow-hidden
+
+                rounded-2xl
+
+                border
+                border-white/[0.08]
+
+                bg-white/[0.025]
+
+                shadow-[0_18px_60px_rgba(0,0,0,0.18)]
+
                 backdrop-blur-xl
-                border border-white/10
-                shadow-xl
-                transition-all duration-300
-                active:scale-95
-                sm:h-40 sm:rounded-3xl
-                sm:hover:scale-110
+
+                transition-all
+                duration-500
+
+                hover:border-cyan-300/30
+                hover:bg-white/[0.045]
+                hover:shadow-[0_25px_80px_rgba(0,0,0,0.35)]
+
+                active:scale-[0.97]
+
+                min-[300px]:h-28
+
+                min-[360px]:h-32
+
+                min-[400px]:h-36
+
+                sm:h-40
+                sm:rounded-3xl
+
                 md:h-44
-                hover:border-cyan-400/40
+
+                lg:h-40
+
+                xl:h-44
+
+                2xl:h-48
+
                 ${item.glow}
               `}
             >
-              {/* Glow Layer */}
-              <div className="absolute -inset-4 rounded-3xl bg-blue-500/10 opacity-0 blur-2xl transition group-hover:opacity-100 sm:-inset-6" />
+              {/* =================================================
+                  HOVER LIGHT
+              ================================================== */}
 
-              {/* Icon */}
               <div
-                className={`
-                  z-10 mb-2 text-3xl text-cyan-300
-                  transition sm:mb-3 sm:text-4xl
-                  ${item.color}
-                `}
+                aria-hidden="true"
+                className="
+                  pointer-events-none
+                  absolute
+
+                  -right-12
+                  -top-12
+
+                  h-28
+                  w-28
+
+                  rounded-full
+
+                  bg-cyan-400/0
+
+                  blur-3xl
+
+                  transition-all
+                  duration-700
+
+                  group-hover:scale-150
+                  group-hover:bg-cyan-400/10
+                "
+              />
+
+              <div
+                aria-hidden="true"
+                className="
+                  pointer-events-none
+                  absolute
+
+                  -bottom-12
+                  -left-12
+
+                  h-28
+                  w-28
+
+                  rounded-full
+
+                  bg-blue-500/0
+
+                  blur-3xl
+
+                  transition-all
+                  duration-700
+
+                  group-hover:scale-150
+                  group-hover:bg-blue-500/10
+                "
+              />
+
+              {/* =================================================
+                  TOP ACCENT
+              ================================================== */}
+
+              <div
+                aria-hidden="true"
+                className="
+                  pointer-events-none
+
+                  absolute
+                  left-1/2
+                  top-0
+
+                  h-px
+                  w-0
+
+                  -translate-x-1/2
+
+                  bg-gradient-to-r
+                  from-transparent
+                  via-cyan-300
+                  to-transparent
+
+                  opacity-0
+
+                  transition-all
+                  duration-500
+
+                  group-hover:w-2/3
+                  group-hover:opacity-100
+                "
+              />
+
+              {/* =================================================
+                  CONTENT
+              ================================================== */}
+
+              <div
+                className="
+                  relative
+                  z-10
+
+                  flex
+                  flex-col
+                  items-center
+                  justify-center
+                "
               >
-                {getContactIcon(item.icon)}
+                {/* Icon */}
+
+                <div
+                  className={`
+                    mb-2
+
+                    text-3xl
+
+                    transition-all
+                    duration-500
+
+                    sm:mb-3
+                    sm:text-4xl
+
+                    md:text-5xl
+
+                    group-hover:scale-110
+
+                    ${item.color}
+                  `}
+                >
+                  {getContactIcon(item.icon)}
+                </div>
+
+                {/* Name */}
+
+                <p
+                  className="
+                    text-xs
+                    font-semibold
+                    tracking-wide
+
+                    text-white/70
+
+                    transition-colors
+                    duration-300
+
+                    min-[400px]:text-sm
+
+                    sm:text-base
+
+                    group-hover:text-white
+                  "
+                >
+                  {item.name}
+                </p>
               </div>
 
-              {/* Name */}
-              <p className="z-10 text-sm font-semibold tracking-wide text-white/80 sm:text-base">
-                {item.name}
-              </p>
+              {/* =================================================
+                  BOTTOM ACCENT
+              ================================================== */}
+
+              <div
+                aria-hidden="true"
+                className="
+                  pointer-events-none
+
+                  absolute
+                  bottom-0
+                  left-1/2
+
+                  h-px
+                  w-0
+
+                  -translate-x-1/2
+
+                  bg-gradient-to-r
+                  from-transparent
+                  via-cyan-300
+                  to-transparent
+
+                  opacity-0
+
+                  transition-all
+                  duration-500
+
+                  group-hover:w-1/2
+                  group-hover:opacity-80
+                "
+              />
             </motion.a>
           ))}
         </div>
 
-        {/* Footer */}
-        <p className="mt-10 text-center text-xs text-white/40 sm:mt-16 sm:text-sm">
-          Designed with modern neon UI theme ⚡
-        </p>
+        {/* ===================================================
+            FOOTER
+        ==================================================== */}
+
+        <motion.p
+          initial={{
+            opacity: 0,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.6,
+            delay: reduceMotion ? 0 : 0.35,
+          }}
+          className="
+            mt-9
+
+            text-center
+            text-[10px]
+            tracking-wide
+            text-white/30
+
+            min-[400px]:text-xs
+
+            sm:mt-14
+            sm:text-sm
+
+            md:mt-16
+          "
+        >
+          Let's build something amazing together ⚡
+        </motion.p>
       </div>
     </section>
   );
 };
 
 export default Lockedcontact;
-
-
-

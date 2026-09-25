@@ -1,8 +1,16 @@
-
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
+import {
+  motion,
+  useReducedMotion,
+} from "framer-motion";
+
 import type { IconType } from "react-icons";
 
 import { FaReact } from "react-icons/fa";
@@ -55,14 +63,18 @@ type DeveloperJourneyData = {
    JSON DATA
 ========================================================= */
 
-const data = journeyData as DeveloperJourneyData;
+const data =
+  journeyData as DeveloperJourneyData;
 
 /* =========================================================
    ICON MAP
 ========================================================= */
 
-const iconMap: Record<string, IconType> = {
-  /* Journey icons */
+const iconMap: Record<
+  string,
+  IconType
+> = {
+  /* Journey */
   flag: FiFlag,
   book: FiBookOpen,
   react: FaReact,
@@ -84,9 +96,12 @@ const iconMap: Record<string, IconType> = {
 
 function getIcon(
   iconName: string,
-  fallback: IconType = FiCode
+  fallback: IconType = FiCode,
 ): IconType {
-  return iconMap[iconName] ?? fallback;
+  return (
+    iconMap[iconName] ??
+    fallback
+  );
 }
 
 /* =========================================================
@@ -94,46 +109,70 @@ function getIcon(
 ========================================================= */
 
 export default function DevelopmentJourney() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion =
+    useReducedMotion();
 
   /* =======================================================
      STATES
   ======================================================= */
 
-  const [activeJourney, setActiveJourney] = useState<string | null>(
-    null
+  const [
+    activeJourney,
+    setActiveJourney,
+  ] = useState<string | null>(
+    null,
   );
 
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] =
+    useState(false);
 
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [
+    visibleCount,
+    setVisibleCount,
+  ] = useState(4);
 
   /* =======================================================
-     RESPONSIVE VISIBLE CARD COUNT
+     RESPONSIVE CARD COUNT
   ======================================================= */
 
   useEffect(() => {
-    const updateVisibleCount = () => {
-      const width = window.innerWidth;
+    const updateVisibleCount =
+      () => {
+        const width =
+          window.innerWidth;
 
-      if (width < 640) {
-        // Mobile: 1 card per row, show 2 cards
-        setVisibleCount(2);
-      } else if (width < 1024) {
-        // Tablet: 2 cards per row, show 2 cards
-        setVisibleCount(2);
-      } else {
-        // Desktop/Laptop: 4 cards in one row, show 4 cards
-        setVisibleCount(4);
-      }
-    };
+        if (width < 640) {
+          /*
+           * Small mobile
+           */
+          setVisibleCount(2);
+        } else if (
+          width < 1024
+        ) {
+          /*
+           * Tablet
+           */
+          setVisibleCount(2);
+        } else {
+          /*
+           * Desktop
+           */
+          setVisibleCount(4);
+        }
+      };
 
     updateVisibleCount();
 
-    window.addEventListener("resize", updateVisibleCount);
+    window.addEventListener(
+      "resize",
+      updateVisibleCount,
+    );
 
     return () => {
-      window.removeEventListener("resize", updateVisibleCount);
+      window.removeEventListener(
+        "resize",
+        updateVisibleCount,
+      );
     };
   }, []);
 
@@ -149,31 +188,54 @@ export default function DevelopmentJourney() {
      VISIBLE JOURNEY
   ======================================================= */
 
-  const visibleJourney = useMemo(() => {
-    if (showAll) {
-      return journey;
-    }
+  const visibleJourney =
+    useMemo(() => {
+      if (showAll) {
+        return journey;
+      }
 
-    return journey.slice(0, visibleCount);
-  }, [journey, showAll, visibleCount]);
+      return journey.slice(
+        0,
+        visibleCount,
+      );
+    }, [
+      journey,
+      showAll,
+      visibleCount,
+    ]);
 
-  const hasMoreJourney = journey.length > visibleCount;
+  /*
+   * Important:
+   * Determines whether See More button
+   * should be visible.
+   */
+  const hasMoreJourney =
+    journey.length >
+    visibleCount;
 
   /* =======================================================
-     ESC KEY
+     ESCAPE KEY
   ======================================================= */
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = (
+      event: KeyboardEvent,
+    ) => {
       if (event.key === "Escape") {
         setActiveJourney(null);
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener(
+      "keydown",
+      handleKeyDown,
+    );
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener(
+        "keydown",
+        handleKeyDown,
+      );
     };
   }, []);
 
@@ -181,20 +243,32 @@ export default function DevelopmentJourney() {
      CARD CLICK
   ======================================================= */
 
-  const handleJourneyClick = (id: string) => {
-    setActiveJourney((current) =>
-      current === id ? null : id
+  const handleJourneyClick = (
+    id: string,
+  ) => {
+    setActiveJourney(
+      (current) =>
+        current === id
+          ? null
+          : id,
     );
   };
 
   /* =======================================================
-     SEE MORE / SHOW LESS
+     SEE MORE
   ======================================================= */
 
   const handleSeeMore = () => {
-    setShowAll((current) => !current);
+    setShowAll(
+      (current) => !current,
+    );
+
     setActiveJourney(null);
   };
+
+  /* =======================================================
+     RETURN
+  ======================================================= */
 
   return (
     <section
@@ -203,80 +277,49 @@ export default function DevelopmentJourney() {
         relative
         w-full
         overflow-hidden
-        bg-gradient-to-b
-        from-black
-        via-[var(--bg-card)]
-        to-black
-        px-4
-        py-20
+        px-3
+        py-14
         text-white
+
+        min-[400px]:px-4
+        min-[400px]:py-16
+
         sm:px-6
-        sm:py-24
+        sm:py-20
+
+        md:py-24
+
         lg:px-8
+        lg:py-28
+
+        xl:py-32
+
+        2xl:py-36
       "
     >
       {/* =====================================================
-          BACKGROUND GLOW
+          MAIN CONTAINER
       ===================================================== */}
 
       <div
-        aria-hidden="true"
         className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-0
-          h-[600px]
-          w-[900px]
-          -translate-x-1/2
-          rounded-full
-          bg-cyan-500/[0.055]
-          blur-[150px]
+          relative
+          z-10
+          mx-auto
+          w-full
+          max-w-[2000px]
         "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          bottom-0
-          left-1/2
-          h-[500px]
-          w-[800px]
-          -translate-x-1/2
-          rounded-full
-          bg-blue-500/[0.045]
-          blur-[150px]
-        "
-      />
-
-      {/* =====================================================
-          GRID BACKGROUND
-      ===================================================== */}
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          opacity-[0.055]
-          [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)]
-          [background-size:55px_55px]
-        "
-      />
-
-      <div className="relative z-10 mx-auto max-w-7xl">
-
+      >
         {/* ===================================================
-            CONTENT SECTION
+            HEADER
         =================================================== */}
 
         <motion.div
           initial={{
             opacity: 0,
-            y: reduceMotion ? 0 : 24,
+            y: reduceMotion
+              ? 0
+              : 24,
           }}
           whileInView={{
             opacity: 1,
@@ -288,43 +331,63 @@ export default function DevelopmentJourney() {
           }}
           transition={{
             duration: 0.7,
-            ease: [0.22, 1, 0.36, 1],
+            ease: [
+              0.22,
+              1,
+              0.36,
+              1,
+            ],
           }}
-          className="mx-auto max-w-3xl text-center"
+          className="
+            mx-auto
+            max-w-4xl
+            text-center
+          "
         >
-          {/* Badge */}
+          {/* =================================================
+              BADGE
+          ================================================= */}
 
           <div
             className="
-              mb-5
+              mb-4
               inline-flex
               items-center
               gap-2
               rounded-full
               border
-              border-cyan-400/20
-              bg-cyan-400/[0.05]
-              px-4
-              py-2
+              border-cyan-400/15
+              bg-cyan-400/[0.035]
+              px-3
+              py-1.5
+
+              min-[400px]:px-4
+              min-[400px]:py-2
             "
           >
             <span
               className="
-                h-2
-                w-2
+                h-1.5
+                w-1.5
                 rounded-full
                 bg-cyan-400
                 shadow-[0_0_14px_rgba(34,211,238,0.8)]
+
+                min-[400px]:h-2
+                min-[400px]:w-2
               "
             />
 
             <span
               className="
-                text-[10px]
+                text-[9px]
                 font-bold
                 uppercase
-                tracking-[0.22em]
+                tracking-[0.2em]
                 text-cyan-300
+
+                min-[400px]:text-[10px]
+
                 sm:text-xs
               "
             >
@@ -332,15 +395,24 @@ export default function DevelopmentJourney() {
             </span>
           </div>
 
-          {/* Heading */}
+          {/* =================================================
+              TITLE
+          ================================================= */}
 
           <h2
             className="
               text-3xl
               font-black
-              tracking-tight
-              sm:text-4xl
-              lg:text-5xl
+              tracking-[-0.04em]
+              text-white
+
+              min-[400px]:text-4xl
+
+              sm:text-5xl
+
+              lg:text-6xl
+
+              xl:text-7xl
             "
           >
             {data.section.title}{" "}
@@ -348,593 +420,818 @@ export default function DevelopmentJourney() {
             <span
               className="
                 bg-gradient-to-r
-                from-blue-400
-                via-cyan-300
-                to-sky-400
+                from-cyan-300
+                via-sky-400
+                to-blue-500
                 bg-clip-text
                 text-transparent
               "
             >
-              {data.section.highlightedTitle}
+              {
+                data.section
+                  .highlightedTitle
+              }
             </span>
           </h2>
 
-          {/* Description */}
+          {/* =================================================
+              DESCRIPTION
+          ================================================= */}
 
           <p
             className="
               mx-auto
-              mt-5
+              mt-4
               max-w-2xl
-              text-sm
-              leading-7
-              text-slate-400
+              text-xs
+              leading-6
+              text-slate-500
+
+              min-[400px]:text-sm
+              min-[400px]:leading-7
+
               sm:text-base
             "
           >
-            {data.section.description}
+            {
+              data.section
+                .description
+            }
           </p>
         </motion.div>
 
         {/* ===================================================
-            JOURNEY CARDS
+            JOURNEY GRID
         =================================================== */}
 
         <div
           className="
             mx-auto
-            mt-14
+            mt-8
             grid
-            max-w-6xl
-            gap-5
+            w-full
+            max-w-[1800px]
+            grid-cols-1
+            gap-3
+
+            min-[400px]:mt-10
+            min-[400px]:gap-4
+
+            sm:mt-12
             sm:grid-cols-2
+            sm:gap-5
+
+            lg:mt-14
             lg:grid-cols-4
+
+            xl:gap-6
+
+            2xl:gap-7
           "
         >
-          {visibleJourney.map((item, index) => {
-            const Icon = getIcon(item.icon);
+          {visibleJourney.map(
+            (item, index) => {
+              const Icon = getIcon(
+                item.icon,
+              );
 
-            const isActive =
-              activeJourney === item.id;
+              const isActive =
+                activeJourney ===
+                item.id;
 
-            return (
-              <motion.article
-                key={item.id}
-                layout={!reduceMotion}
-                initial={{
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 25,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.12,
-                }}
-                transition={{
-                  duration: 0.55,
-                  delay: index * 0.045,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                whileHover={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        y: -6,
-                      }
-                }
-                className={`
-                  group
-                  relative
-                  overflow-hidden
-                  rounded-3xl
-                  border
-                  transition-all
-                  duration-300
-                  ${
-                    isActive
-                      ? `
-                        border-cyan-300/40
-                        bg-cyan-400/[0.075]
-                        shadow-[0_25px_70px_rgba(34,211,238,0.12)]
-                      `
-                      : `
-                        border-white/10
-                        bg-white/[0.025]
-                        hover:border-cyan-400/25
-                        hover:bg-white/[0.045]
-                      `
+              return (
+                <motion.article
+                  key={item.id}
+                  layout={
+                    !reduceMotion
                   }
-                `}
-              >
-                {/* Card Glow */}
-
-                <div
-                  aria-hidden="true"
-                  className="
-                    pointer-events-none
-                    absolute
-                    -right-20
-                    -top-20
-                    h-44
-                    w-44
-                    rounded-full
-                    bg-cyan-400/10
-                    opacity-0
-                    blur-3xl
-                    transition-opacity
-                    duration-500
-                    group-hover:opacity-100
-                  "
-                />
-
-                <div
-                  aria-hidden="true"
-                  className="
-                    pointer-events-none
-                    absolute
-                    -bottom-24
-                    -left-24
-                    h-44
-                    w-44
-                    rounded-full
-                    bg-blue-500/[0.07]
-                    opacity-0
-                    blur-3xl
-                    transition-opacity
-                    duration-500
-                    group-hover:opacity-100
-                  "
-                />
-
-                {/* =================================================
-                    CLICKABLE CARD
-                ================================================= */}
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    handleJourneyClick(item.id)
+                  initial={{
+                    opacity: 0,
+                    y: reduceMotion
+                      ? 0
+                      : 25,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.12,
+                  }}
+                  transition={{
+                    duration: 0.55,
+                    delay:
+                      index * 0.045,
+                    ease: [
+                      0.22,
+                      1,
+                      0.36,
+                      1,
+                    ],
+                  }}
+                  whileHover={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          y: -7,
+                        }
                   }
-                  aria-expanded={isActive}
-                  className="
+                  className={`
+                    group
                     relative
-                    z-10
-                    w-full
-                    p-5
-                    text-left
-                    sm:p-6
-                  "
+                    overflow-hidden
+                    rounded-2xl
+                    border
+                    transition-all
+                    duration-300
+
+                    min-[400px]:rounded-3xl
+
+                    ${
+                      isActive
+                        ? `
+                          border-cyan-300/35
+                          bg-cyan-400/[0.045]
+                          shadow-[0_20px_60px_rgba(34,211,238,0.08)]
+                        `
+                        : `
+                          border-white/[0.07]
+                          bg-white/[0.018]
+                          hover:border-cyan-400/25
+                          hover:bg-white/[0.03]
+                          hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)]
+                        `
+                    }
+                  `}
                 >
-                  {/* Icon / Number */}
+                  {/* =================================================
+                      TOP ACCENT
+                  ================================================= */}
 
-                  <div className="flex items-start justify-between gap-4">
-
-                    <div
-                      className={`
-                        flex
-                        h-12
-                        w-12
-                        shrink-0
-                        items-center
-                        justify-center
-                        rounded-2xl
-                        border
-                        text-xl
-                        transition-all
-                        duration-300
-                        ${
-                          isActive
-                            ? `
-                              border-cyan-300/45
-                              bg-cyan-400/15
-                              text-cyan-200
-                              shadow-[0_0_30px_rgba(34,211,238,0.16)]
-                            `
-                            : `
-                              border-cyan-400/15
-                              bg-cyan-400/[0.06]
-                              text-cyan-300
-                              group-hover:border-cyan-300/35
-                              group-hover:bg-cyan-400/10
-                            `
-                        }
-                      `}
-                    >
-                      <Icon />
-                    </div>
-
-                    <span
-                      className="
-                        rounded-full
-                        border
-                        border-white/10
-                        bg-white/[0.025]
-                        px-2.5
-                        py-1.5
-                        text-[9px]
-                        font-black
-                        tracking-[0.16em]
-                        text-slate-500
-                      "
-                    >
-                      {item.number}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-
-                  <div className="mt-5 flex items-start justify-between gap-3">
-                    <div>
-
-                      <h3
-                        className="
-                          text-lg
-                          font-black
-                          tracking-tight
-                          text-white
-                        "
-                      >
-                        {item.title}
-                      </h3>
-
-                      <p
-                        className="
-                          mt-1.5
-                          text-[11px]
-                          font-medium
-                          leading-5
-                          text-cyan-300/70
-                        "
-                      >
-                        {item.subtitle}
-                      </p>
-
-                    </div>
-
-                    <FiChevronDown
-                      className={`
-                        mt-1
-                        shrink-0
-                        text-lg
-                        text-slate-600
-                        transition-transform
-                        duration-300
-                        ${
-                          isActive
-                            ? "rotate-180 text-cyan-300"
-                            : "group-hover:text-cyan-300"
-                        }
-                      `}
-                    />
-                  </div>
-
-                  {/* Description */}
-
-                  <p
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      scaleX:
+                        isActive
+                          ? 1
+                          : 0,
+                      opacity:
+                        isActive
+                          ? 1
+                          : 0,
+                    }}
+                    transition={{
+                      duration: 0.3,
+                    }}
                     className="
-                      mt-4
-                      line-clamp-3
-                      text-[12px]
-                      leading-6
-                      text-slate-400
+                      absolute
+                      left-0
+                      right-0
+                      top-0
+                      h-px
+                      origin-center
+                      bg-gradient-to-r
+                      from-transparent
+                      via-cyan-400
+                      to-transparent
+                    "
+                  />
+
+                  {/* =================================================
+                      HOVER LIGHT
+                  ================================================= */}
+
+                  <div
+                    aria-hidden="true"
+                    className="
+                      pointer-events-none
+                      absolute
+                      -right-20
+                      -top-20
+                      h-40
+                      w-40
+                      rounded-full
+                      bg-cyan-400/[0.06]
+                      opacity-0
+                      blur-3xl
+                      transition-opacity
+                      duration-500
+                      group-hover:opacity-100
+                    "
+                  />
+
+                  {/* =================================================
+                      CARD BUTTON
+                  ================================================= */}
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleJourneyClick(
+                        item.id,
+                      )
+                    }
+                    aria-expanded={
+                      isActive
+                    }
+                    className="
+                      relative
+                      z-10
+                      w-full
+                      p-4
+                      text-left
+
+                      min-[400px]:p-5
+
+                      sm:p-6
                     "
                   >
-                    {item.description}
-                  </p>
+                    {/* =================================================
+                        ICON + NUMBER
+                    ================================================= */}
 
-                  {/* Technologies */}
+                    <div
+                      className="
+                        flex
+                        items-start
+                        justify-between
+                        gap-3
+                      "
+                    >
+                      {/* Icon */}
 
-                  <div className="mt-5 flex flex-wrap gap-2">
+                      <div
+                        className={`
+                          flex
+                          h-11
+                          w-11
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-xl
+                          border
+                          text-lg
+                          transition-all
+                          duration-300
 
-                    {item.technologies
-                      .slice(0, 3)
-                      .map((technology) => (
-                        <span
-                          key={technology}
-                          className="
-                            rounded-full
-                            border
-                            border-cyan-400/10
-                            bg-cyan-400/[0.045]
-                            px-2.5
-                            py-1
-                            text-[8px]
-                            font-bold
-                            uppercase
-                            tracking-wider
-                            text-cyan-300/80
-                          "
-                        >
-                          {technology}
-                        </span>
-                      ))}
+                          min-[400px]:h-12
+                          min-[400px]:w-12
+                          min-[400px]:rounded-2xl
 
-                    {item.technologies.length > 3 && (
+                          ${
+                            isActive
+                              ? `
+                                border-cyan-300/40
+                                bg-cyan-400/10
+                                text-cyan-200
+                                shadow-[0_0_25px_rgba(34,211,238,0.12)]
+                              `
+                              : `
+                                border-cyan-400/10
+                                bg-cyan-400/[0.045]
+                                text-cyan-300
+                                group-hover:border-cyan-300/30
+                                group-hover:bg-cyan-400/[0.08]
+                                group-hover:scale-105
+                              `
+                          }
+                        `}
+                      >
+                        <Icon />
+                      </div>
+
+                      {/* Number */}
+
                       <span
                         className="
                           rounded-full
                           border
-                          border-white/10
-                          bg-white/[0.025]
-                          px-2.5
+                          border-white/[0.07]
+                          bg-white/[0.02]
+                          px-2
                           py-1
                           text-[8px]
-                          font-bold
+                          font-black
+                          tracking-[0.15em]
                           text-slate-600
+
+                          min-[400px]:px-2.5
+                          min-[400px]:py-1.5
+                          min-[400px]:text-[9px]
                         "
                       >
-                        +{item.technologies.length - 3}
+                        {item.number}
                       </span>
-                    )}
+                    </div>
 
-                  </div>
-
-                  {/* Action */}
-
-                  <div
-                    className="
-                      mt-5
-                      flex
-                      items-center
-                      justify-between
-                      border-t
-                      border-white/[0.06]
-                      pt-4
-                    "
-                  >
-                    <span
-                      className="
-                        text-[8px]
-                        font-bold
-                        uppercase
-                        tracking-[0.15em]
-                        text-slate-600
-                      "
-                    >
-                      {isActive
-                        ? "Details Open"
-                        : "Click To Explore"}
-                    </span>
-
-                    <FiArrowRight
-                      className={`
-                        text-sm
-                        transition-all
-                        duration-300
-                        ${
-                          isActive
-                            ? "translate-x-1 text-cyan-300"
-                            : "text-slate-700 group-hover:translate-x-1 group-hover:text-cyan-300"
-                        }
-                      `}
-                    />
-                  </div>
-                </button>
-
-                {/* =================================================
-                    DETAILS
-                ================================================= */}
-
-                <motion.div
-                  initial={false}
-                  animate={{
-                    height: isActive ? "auto" : 0,
-                    opacity: isActive ? 1 : 0,
-                  }}
-                  transition={{
-                    duration: reduceMotion ? 0 : 0.3,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="
-                    relative
-                    z-10
-                    overflow-hidden
-                  "
-                >
-                  <div
-                    className="
-                      border-t
-                      border-white/[0.07]
-                      px-5
-                      pb-6
-                      pt-5
-                      sm:px-6
-                    "
-                  >
-
-                    {/* What I Learned */}
+                    {/* =================================================
+                        TITLE
+                    ================================================= */}
 
                     <div
                       className="
-                        rounded-2xl
-                        border
-                        border-white/[0.06]
-                        bg-black/20
-                        p-4
+                        mt-4
+                        flex
+                        items-start
+                        justify-between
+                        gap-3
+
+                        min-[400px]:mt-5
                       "
                     >
-                      <div className="mb-3 flex items-center gap-2">
-
-                        <FiCode
-                          className="text-cyan-300"
-                          size={14}
-                        />
-
-                        <span
+                      <div className="min-w-0">
+                        <h3
                           className="
-                            text-[9px]
+                            text-base
                             font-black
-                            uppercase
-                            tracking-[0.16em]
-                            text-slate-400
+                            tracking-tight
+                            text-white
+
+                            min-[400px]:text-lg
                           "
                         >
-                          What I Learned
-                        </span>
+                          {item.title}
+                        </h3>
 
+                        <p
+                          className="
+                            mt-1
+                            text-[10px]
+                            font-medium
+                            leading-5
+                            text-cyan-300/65
+
+                            min-[400px]:text-[11px]
+                          "
+                        >
+                          {
+                            item.subtitle
+                          }
+                        </p>
                       </div>
 
-                      <p
+                      <FiChevronDown
+                        className={`
+                          mt-0.5
+                          shrink-0
+                          text-base
+                          text-slate-600
+                          transition-all
+                          duration-300
+
+                          min-[400px]:text-lg
+
+                          ${
+                            isActive
+                              ? "rotate-180 text-cyan-300"
+                              : "group-hover:text-cyan-300"
+                          }
+                        `}
+                      />
+                    </div>
+
+                    {/* =================================================
+                        DESCRIPTION
+                    ================================================= */}
+
+                    <p
+                      className="
+                        mt-3
+                        line-clamp-3
+                        text-[11px]
+                        leading-6
+                        text-slate-500
+
+                        min-[400px]:mt-4
+                        min-[400px]:text-[12px]
+                      "
+                    >
+                      {
+                        item.description
+                      }
+                    </p>
+
+                    {/* =================================================
+                        TECHNOLOGIES
+                    ================================================= */}
+
+                    <div
+                      className="
+                        mt-4
+                        flex
+                        flex-wrap
+                        gap-1.5
+
+                        min-[400px]:mt-5
+                        min-[400px]:gap-2
+                      "
+                    >
+                      {item.technologies
+                        .slice(0, 3)
+                        .map(
+                          (
+                            technology,
+                          ) => (
+                            <span
+                              key={
+                                technology
+                              }
+                              className="
+                                rounded-full
+                                border
+                                border-cyan-400/10
+                                bg-cyan-400/[0.035]
+                                px-2
+                                py-1
+                                text-[7px]
+                                font-bold
+                                uppercase
+                                tracking-wider
+                                text-cyan-300/70
+
+                                min-[400px]:px-2.5
+                                min-[400px]:text-[8px]
+                              "
+                            >
+                              {
+                                technology
+                              }
+                            </span>
+                          ),
+                        )}
+
+                      {item
+                        .technologies
+                        .length >
+                        3 && (
+                        <span
+                          className="
+                            rounded-full
+                            border
+                            border-white/[0.07]
+                            bg-white/[0.02]
+                            px-2
+                            py-1
+                            text-[7px]
+                            font-bold
+                            text-slate-600
+
+                            min-[400px]:px-2.5
+                            min-[400px]:text-[8px]
+                          "
+                        >
+                          +
+                          {item
+                            .technologies
+                            .length -
+                            3}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* =================================================
+                        ACTION
+                    ================================================= */}
+
+                    <div
+                      className="
+                        mt-4
+                        flex
+                        items-center
+                        justify-between
+                        border-t
+                        border-white/[0.05]
+                        pt-3
+
+                        min-[400px]:mt-5
+                        min-[400px]:pt-4
+                      "
+                    >
+                      <span
                         className="
-                          text-[11px]
-                          leading-6
-                          text-slate-500
+                          text-[7px]
+                          font-bold
+                          uppercase
+                          tracking-[0.15em]
+                          text-slate-600
+
+                          min-[400px]:text-[8px]
                         "
                       >
-                        {item.description}
-                      </p>
+                        {isActive
+                          ? "Details Open"
+                          : "Click To Explore"}
+                      </span>
+
+                      <FiArrowRight
+                        className={`
+                          text-xs
+                          transition-all
+                          duration-300
+
+                          min-[400px]:text-sm
+
+                          ${
+                            isActive
+                              ? "translate-x-1 text-cyan-300"
+                              : "text-slate-700 group-hover:translate-x-1 group-hover:text-cyan-300"
+                          }
+                        `}
+                      />
                     </div>
+                  </button>
 
-                    {/* Key Progress */}
+                  {/* =================================================
+                      DETAILS
+                  ================================================= */}
 
-                    <div className="mt-4">
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      height:
+                        isActive
+                          ? "auto"
+                          : 0,
+                      opacity:
+                        isActive
+                          ? 1
+                          : 0,
+                    }}
+                    transition={{
+                      duration:
+                        reduceMotion
+                          ? 0
+                          : 0.3,
+                      ease: [
+                        0.22,
+                        1,
+                        0.36,
+                        1,
+                      ],
+                    }}
+                    className="
+                      relative
+                      z-10
+                      overflow-hidden
+                    "
+                  >
+                    <div
+                      className="
+                        border-t
+                        border-white/[0.06]
+                        px-4
+                        pb-5
+                        pt-4
 
-                      <div className="mb-3 flex items-center gap-2">
+                        min-[400px]:px-5
+                        min-[400px]:pb-6
+                        min-[400px]:pt-5
 
-                        <FiCheck
-                          className="text-cyan-300"
-                          size={14}
-                        />
+                        sm:px-6
+                      "
+                    >
+                      {/* =================================================
+                          WHAT I LEARNED
+                      ================================================= */}
 
-                        <span
+                      <div
+                        className="
+                          rounded-xl
+                          border
+                          border-white/[0.05]
+                          bg-black/[0.12]
+                          p-3.5
+
+                          min-[400px]:rounded-2xl
+                          min-[400px]:p-4
+                        "
+                      >
+                        <div
                           className="
-                            text-[9px]
-                            font-black
-                            uppercase
-                            tracking-[0.16em]
-                            text-slate-400
+                            mb-2.5
+                            flex
+                            items-center
+                            gap-2
+
+                            min-[400px]:mb-3
                           "
                         >
-                          Key Progress
-                        </span>
+                          <FiCode
+                            className="text-cyan-300"
+                            size={14}
+                          />
 
+                          <span
+                            className="
+                              text-[8px]
+                              font-black
+                              uppercase
+                              tracking-[0.16em]
+                              text-slate-500
+                            "
+                          >
+                            What I Learned
+                          </span>
+                        </div>
+
+                        <p
+                          className="
+                            text-[10px]
+                            leading-6
+                            text-slate-500
+
+                            min-[400px]:text-[11px]
+                          "
+                        >
+                          {
+                            item.description
+                          }
+                        </p>
                       </div>
 
-                      <div className="space-y-2.5">
+                      {/* =================================================
+                          KEY PROGRESS
+                      ================================================= */}
 
-                        {item.highlights.map(
-                          (highlight) => (
-                            <div
-                              key={highlight}
-                              className="
-                                flex
-                                items-start
-                                gap-2.5
-                              "
-                            >
-                              <span
-                                className="
-                                  mt-1.5
-                                  h-1.5
-                                  w-1.5
-                                  shrink-0
-                                  rounded-full
-                                  bg-cyan-400
-                                  shadow-[0_0_8px_rgba(34,211,238,0.5)]
-                                "
-                              />
+                      <div className="mt-4">
+                        <div
+                          className="
+                            mb-3
+                            flex
+                            items-center
+                            gap-2
+                          "
+                        >
+                          <FiCheck
+                            className="text-cyan-300"
+                            size={14}
+                          />
 
-                              <span
+                          <span
+                            className="
+                              text-[8px]
+                              font-black
+                              uppercase
+                              tracking-[0.16em]
+                              text-slate-500
+                            "
+                          >
+                            Key Progress
+                          </span>
+                        </div>
+
+                        <div className="space-y-2.5">
+                          {item.highlights.map(
+                            (
+                              highlight,
+                            ) => (
+                              <div
+                                key={
+                                  highlight
+                                }
                                 className="
-                                  text-[11px]
-                                  leading-5
-                                  text-slate-500
+                                  flex
+                                  items-start
+                                  gap-2.5
                                 "
                               >
-                                {highlight}
-                              </span>
-                            </div>
-                          )
-                        )}
+                                <span
+                                  className="
+                                    mt-1.5
+                                    h-1.5
+                                    w-1.5
+                                    shrink-0
+                                    rounded-full
+                                    bg-cyan-400
+                                    shadow-[0_0_8px_rgba(34,211,238,0.5)]
+                                  "
+                                />
 
+                                <span
+                                  className="
+                                    text-[10px]
+                                    leading-5
+                                    text-slate-500
+
+                                    min-[400px]:text-[11px]
+                                  "
+                                >
+                                  {
+                                    highlight
+                                  }
+                                </span>
+                              </div>
+                            ),
+                          )}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Technologies */}
+                      {/* =================================================
+                          TECHNOLOGIES
+                      ================================================= */}
 
-                    <div className="mt-5">
-
-                      <div className="mb-3 flex items-center gap-2">
-
-                        <FiTool
-                          className="text-cyan-300"
-                          size={14}
-                        />
-
-                        <span
+                      <div className="mt-5">
+                        <div
                           className="
-                            text-[9px]
-                            font-black
-                            uppercase
-                            tracking-[0.16em]
-                            text-slate-400
+                            mb-3
+                            flex
+                            items-center
+                            gap-2
                           "
                         >
-                          Technologies
-                        </span>
+                          <FiTool
+                            className="text-cyan-300"
+                            size={14}
+                          />
 
-                      </div>
+                          <span
+                            className="
+                              text-[8px]
+                              font-black
+                              uppercase
+                              tracking-[0.16em]
+                              text-slate-500
+                            "
+                          >
+                            Technologies
+                          </span>
+                        </div>
 
-                      <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2">
+                          {item.technologies.map(
+                            (
+                              technology,
+                            ) => (
+                              <span
+                                key={
+                                  technology
+                                }
+                                className="
+                                  rounded-lg
+                                  border
+                                  border-white/[0.06]
+                                  bg-white/[0.02]
+                                  px-2
+                                  py-1.5
+                                  text-[8px]
+                                  font-medium
+                                  text-slate-500
 
-                        {item.technologies.map(
-                          (technology) => (
-                            <span
-                              key={technology}
-                              className="
-                                rounded-lg
-                                border
-                                border-white/[0.07]
-                                bg-white/[0.025]
-                                px-2.5
-                                py-1.5
-                                text-[9px]
-                                font-medium
-                                text-slate-500
-                              "
-                            >
-                              {technology}
-                            </span>
-                          )
-                        )}
-
+                                  min-[400px]:px-2.5
+                                  min-[400px]:text-[9px]
+                                "
+                              >
+                                {
+                                  technology
+                                }
+                              </span>
+                            ),
+                          )}
+                        </div>
                       </div>
                     </div>
+                  </motion.div>
 
-                  </div>
-                </motion.div>
+                  {/* =================================================
+                      ACTIVE BOTTOM LINE
+                  ================================================= */}
 
-                {/* Active Line */}
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      scaleX:
+                        isActive
+                          ? 1
+                          : 0,
+                      opacity:
+                        isActive
+                          ? 1
+                          : 0,
+                    }}
+                    transition={{
+                      duration: 0.3,
+                    }}
+                    className="
+                      absolute
+                      bottom-0
+                      left-5
+                      right-5
+                      h-px
+                      origin-left
+                      bg-gradient-to-r
+                      from-transparent
+                      via-cyan-400
+                      to-transparent
 
-                <motion.div
-                  initial={false}
-                  animate={{
-                    scaleX: isActive ? 1 : 0,
-                    opacity: isActive ? 1 : 0,
-                  }}
-                  transition={{
-                    duration: 0.3,
-                  }}
-                  className="
-                    absolute
-                    bottom-0
-                    left-6
-                    right-6
-                    h-px
-                    origin-left
-                    bg-gradient-to-r
-                    from-transparent
-                    via-cyan-400
-                    to-transparent
-                  "
-                />
-
-              </motion.article>
-            );
-          })}
+                      sm:left-6
+                      sm:right-6
+                    "
+                  />
+                </motion.article>
+              );
+            },
+          )}
         </div>
 
         {/* ===================================================
@@ -945,7 +1242,9 @@ export default function DevelopmentJourney() {
           <motion.div
             initial={{
               opacity: 0,
-              y: reduceMotion ? 0 : 15,
+              y: reduceMotion
+                ? 0
+                : 15,
             }}
             animate={{
               opacity: 1,
@@ -954,34 +1253,46 @@ export default function DevelopmentJourney() {
             transition={{
               duration: 0.45,
             }}
-            className="mt-10 flex justify-center"
+            className="
+              mt-8
+              flex
+              justify-center
+
+              sm:mt-10
+            "
           >
             <button
               type="button"
-              onClick={handleSeeMore}
+              onClick={
+                handleSeeMore
+              }
               className="
                 group
                 inline-flex
                 items-center
-                gap-2.5
+                gap-2
                 rounded-full
                 border
-                border-cyan-400/20
-                bg-cyan-400/[0.05]
-                px-6
-                py-3
-                text-[10px]
+                border-cyan-400/15
+                bg-cyan-400/[0.035]
+                px-5
+                py-2.5
+                text-[9px]
                 font-black
                 uppercase
                 tracking-[0.16em]
                 text-cyan-300
-                shadow-[0_0_30px_rgba(34,211,238,0.05)]
                 transition-all
                 duration-300
-                hover:border-cyan-400/40
-                hover:bg-cyan-400/[0.1]
+
+                min-[400px]:gap-2.5
+                min-[400px]:px-6
+                min-[400px]:py-3
+                min-[400px]:text-[10px]
+
+                hover:border-cyan-400/35
+                hover:bg-cyan-400/[0.07]
                 hover:text-white
-                hover:shadow-[0_0_35px_rgba(34,211,238,0.1)]
               "
             >
               <span>
@@ -991,10 +1302,11 @@ export default function DevelopmentJourney() {
               </span>
 
               <FiChevronDown
-                size={15}
+                size={14}
                 className={`
                   transition-transform
                   duration-300
+
                   ${
                     showAll
                       ? "rotate-180"
@@ -1005,12 +1317,7 @@ export default function DevelopmentJourney() {
             </button>
           </motion.div>
         )}
-
       </div>
     </section>
   );
 }
-
-
-
-

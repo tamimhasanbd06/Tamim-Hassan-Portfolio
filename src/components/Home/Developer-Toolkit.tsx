@@ -181,12 +181,6 @@ export default function ProductivitySection() {
     "All" | string
   >("All");
 
-  /*
-   * IMPORTANT
-   *
-   * false = only first 4 cards
-   * true  = show all cards
-   */
   const [showAll, setShowAll] =
     useState(false);
 
@@ -221,7 +215,7 @@ export default function ProductivitySection() {
 
         if (!Array.isArray(data)) {
           throw new Error(
-            "ProductivitySection.json must contain an array.",
+            "Developer-Toolkit.json must contain an array.",
           );
         }
 
@@ -244,23 +238,29 @@ export default function ProductivitySection() {
             .map(
               (item) => ({
                 ...item,
+
                 id: String(
                   item.id,
                 ),
+
                 name: String(
                   item.name,
                 ),
+
                 description:
                   String(
                     item.description,
                   ),
+
                 category:
                   String(
                     item.category,
                   ),
+
                 icon: String(
                   item.icon,
                 ),
+
                 tags: Array.isArray(
                   item.tags,
                 )
@@ -268,6 +268,7 @@ export default function ProductivitySection() {
                       String,
                     )
                   : [],
+
                 iconComponent:
                   getToolIcon(
                     String(
@@ -378,14 +379,6 @@ export default function ProductivitySection() {
   /*                       Visible Tools                                     */
   /* ----------------------------------------------------------------------- */
 
-  /*
-   * First 4 cards are shown initially.
-   * After See More, all cards appear.
-   *
-   * If there are 4 or fewer cards,
-   * See More will not appear.
-   */
-
   const visibleTools =
     useMemo(() => {
       if (showAll) {
@@ -452,15 +445,8 @@ export default function ProductivitySection() {
       category,
     );
 
-    /*
-     * Reset See More whenever
-     * category changes.
-     */
     setShowAll(false);
 
-    /*
-     * Close active card.
-     */
     setActiveTool(null);
   };
 
@@ -487,66 +473,20 @@ export default function ProductivitySection() {
         relative
         w-full
         overflow-hidden
-        bg-gradient-to-b
-        from-black
-        via-[var(--bg-card)]
-        to-black
-        px-4
-        py-20
+        px-3
+        py-14
         text-white
+        min-[400px]:px-4
+        min-[400px]:py-16
         sm:px-6
-        sm:py-24
+        sm:py-20
+        md:py-24
         lg:px-8
+        lg:py-28
+        xl:py-32
+        2xl:py-36
       "
     >
-      {/* =================================================================== */}
-      {/* Background                                                          */}
-      {/* =================================================================== */}
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-0
-          h-[600px]
-          w-[900px]
-          -translate-x-1/2
-          rounded-full
-          bg-cyan-500/[0.055]
-          blur-[150px]
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          bottom-0
-          left-1/2
-          h-[500px]
-          w-[800px]
-          -translate-x-1/2
-          rounded-full
-          bg-blue-500/[0.045]
-          blur-[150px]
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          opacity-[0.055]
-          [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)]
-          [background-size:55px_55px]
-        "
-      />
-
       {/* =================================================================== */}
       {/* Container                                                           */}
       {/* =================================================================== */}
@@ -556,7 +496,8 @@ export default function ProductivitySection() {
           relative
           z-10
           mx-auto
-          max-w-7xl
+          w-full
+          max-w-[2000px]
         "
       >
         {/* ================================================================= */}
@@ -589,6 +530,7 @@ export default function ProductivitySection() {
           }}
           className="
             mx-auto
+            w-full
             max-w-3xl
             text-center
           "
@@ -597,36 +539,44 @@ export default function ProductivitySection() {
 
           <div
             className="
-              mb-5
+              mb-4
               inline-flex
               items-center
               gap-2
               rounded-full
               border
               border-cyan-400/20
-              bg-cyan-400/[0.05]
-              px-4
-              py-2
+              bg-cyan-400/[0.035]
+              px-3
+              py-1.5
+              shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
+              min-[400px]:px-4
+              min-[400px]:py-2
+              sm:mb-5
             "
           >
             <span
               className="
-                h-2
-                w-2
+                h-1.5
+                w-1.5
                 rounded-full
                 bg-cyan-400
-                shadow-[0_0_14px_rgba(34,211,238,0.8)]
+                shadow-[0_0_12px_rgba(34,211,238,0.75)]
+                sm:h-2
+                sm:w-2
               "
             />
 
             <span
               className="
-                text-[10px]
+                text-[9px]
                 font-bold
                 uppercase
-                tracking-[0.22em]
+                tracking-[0.18em]
                 text-cyan-300
+                min-[400px]:text-[10px]
                 sm:text-xs
+                sm:tracking-[0.22em]
               "
             >
               Developer Toolkit
@@ -637,20 +587,26 @@ export default function ProductivitySection() {
 
           <h2
             className="
-              text-3xl
+              text-[1.75rem]
               font-black
-              tracking-tight
+              leading-[1.1]
+              tracking-[-0.04em]
+              text-white
+              min-[400px]:text-3xl
               sm:text-4xl
+              md:text-[2.75rem]
               lg:text-5xl
+              xl:text-[3.5rem]
+              2xl:text-[4rem]
             "
           >
             Tools That Power{" "}
             <span
               className="
                 bg-gradient-to-r
-                from-blue-400
-                via-cyan-300
-                to-sky-400
+                from-cyan-300
+                via-sky-400
+                to-blue-500
                 bg-clip-text
                 text-transparent
               "
@@ -664,12 +620,17 @@ export default function ProductivitySection() {
           <p
             className="
               mx-auto
-              mt-5
-              max-w-2xl
-              text-sm
-              leading-7
-              text-slate-400
-              sm:text-base
+              mt-4
+              max-w-[680px]
+              text-[11px]
+              leading-6
+              text-slate-500
+              min-[400px]:text-xs
+              sm:mt-5
+              sm:text-sm
+              sm:leading-7
+              lg:text-base
+              xl:max-w-2xl
             "
           >
             A focused collection of
@@ -695,36 +656,43 @@ export default function ProductivitySection() {
             }}
             className="
               mx-auto
-              mt-14
+              mt-12
               flex
-              min-h-[220px]
+              min-h-[190px]
+              w-full
               max-w-xl
               flex-col
               items-center
               justify-center
-              rounded-3xl
+              rounded-[24px]
               border
-              border-white/10
-              bg-white/[0.025]
-              backdrop-blur-xl
+              border-white/[0.08]
+              bg-white/[0.02]
+              px-5
+              py-8
+              sm:mt-14
+              sm:min-h-[220px]
+              sm:rounded-3xl
             "
           >
             <FiLoader
               className="
                 animate-spin
-                text-3xl
+                text-2xl
                 text-cyan-300
+                sm:text-3xl
               "
             />
 
             <p
               className="
                 mt-4
-                text-xs
+                text-[9px]
                 font-bold
                 uppercase
-                tracking-[0.16em]
-                text-slate-500
+                tracking-[0.15em]
+                text-slate-600
+                sm:text-[10px]
               "
             >
               Loading developer tools
@@ -741,41 +709,50 @@ export default function ProductivitySection() {
             <div
               className="
                 mx-auto
-                mt-14
+                mt-12
+                w-full
                 max-w-xl
-                rounded-3xl
+                rounded-[24px]
                 border
-                border-red-400/20
-                bg-red-400/[0.04]
-                p-8
+                border-red-400/15
+                bg-red-400/[0.025]
+                p-6
                 text-center
+                sm:mt-14
+                sm:rounded-3xl
+                sm:p-8
               "
             >
               <FiCode
                 className="
                   mx-auto
-                  text-3xl
+                  text-2xl
                   text-red-300
+                  sm:text-3xl
                 "
               />
 
               <h3
                 className="
                   mt-4
-                  text-base
+                  text-sm
                   font-bold
                   text-white
+                  sm:text-base
                 "
               >
-                Unable to load developer tools
+                Unable to load developer
+                tools
               </h3>
 
               <p
                 className="
                   mt-2
-                  text-xs
-                  leading-6
-                  text-slate-500
+                  text-[10px]
+                  leading-5
+                  text-slate-600
+                  sm:text-xs
+                  sm:leading-6
                 "
               >
                 {error}
@@ -816,12 +793,16 @@ export default function ProductivitySection() {
                 }}
                 className="
                   mx-auto
-                  mt-10
+                  mt-9
                   grid
-                  max-w-3xl
+                  w-full
+                  max-w-4xl
                   grid-cols-2
-                  gap-3
+                  gap-2.5
+                  min-[400px]:gap-3
+                  sm:mt-10
                   sm:grid-cols-4
+                  sm:gap-4
                 "
               >
                 {[
@@ -859,22 +840,31 @@ export default function ProductivitySection() {
                         index
                       }
                       className="
+                        group
                         rounded-2xl
                         border
-                        border-white/10
-                        bg-white/[0.025]
-                        px-4
-                        py-4
+                        border-white/[0.07]
+                        bg-white/[0.018]
+                        px-3
+                        py-3.5
                         text-center
-                        backdrop-blur-xl
+                        transition-all
+                        duration-300
+                        hover:border-cyan-400/20
+                        hover:bg-cyan-400/[0.025]
+                        min-[400px]:px-4
+                        sm:rounded-[20px]
+                        sm:py-4
                       "
                     >
                       <div
                         className="
-                          text-xl
+                          text-lg
                           font-black
+                          tracking-tight
                           text-cyan-300
                           sm:text-2xl
+                          lg:text-3xl
                         "
                       >
                         {
@@ -885,11 +875,13 @@ export default function ProductivitySection() {
                       <div
                         className="
                           mt-1
-                          text-[9px]
+                          text-[8px]
                           font-bold
                           uppercase
-                          tracking-[0.16em]
-                          text-slate-500
+                          tracking-[0.13em]
+                          text-slate-600
+                          min-[400px]:text-[9px]
+                          sm:tracking-[0.16em]
                         "
                       >
                         {
@@ -907,11 +899,19 @@ export default function ProductivitySection() {
 
               <div
                 className="
-                  mt-12
+                  mt-9
                   flex
-                  flex-wrap
-                  justify-center
+                  w-full
                   gap-2
+                  overflow-x-auto
+                  px-1
+                  pb-2
+                  scrollbar-none
+                  sm:mt-12
+                  sm:flex-wrap
+                  sm:justify-center
+                  sm:overflow-visible
+                  sm:pb-0
                 "
               >
                 {categories.map(
@@ -941,27 +941,36 @@ export default function ProductivitySection() {
                         }
                         className={`
                           inline-flex
+                          shrink-0
                           items-center
-                          gap-2
+                          gap-1.5
                           rounded-full
                           border
-                          px-3.5
+                          px-3
                           py-2
-                          text-[9px]
+                          text-[8px]
                           font-bold
                           uppercase
-                          tracking-[0.12em]
+                          tracking-[0.1em]
                           transition-all
                           duration-300
+                          min-[400px]:px-3.5
+                          min-[400px]:text-[9px]
+                          sm:px-4
+                          sm:py-2.5
+                          sm:text-[10px]
                           ${
                             isSelected
-                              ? "border-cyan-300/40 bg-cyan-400/10 text-cyan-200 shadow-[0_0_25px_rgba(34,211,238,0.08)]"
-                              : "border-white/10 bg-white/[0.025] text-slate-500 hover:border-cyan-400/25 hover:bg-cyan-400/[0.05] hover:text-cyan-300"
+                              ? "border-cyan-300/35 bg-cyan-400/10 text-cyan-200 shadow-[0_0_25px_rgba(34,211,238,0.06)]"
+                              : "border-white/[0.08] bg-white/[0.018] text-slate-600 hover:border-cyan-400/20 hover:bg-cyan-400/[0.035] hover:text-cyan-300"
                           }
                         `}
                       >
                         <CategoryIcon
-                          className="text-sm"
+                          className="
+                            text-xs
+                            sm:text-sm
+                          "
                         />
 
                         {category}
@@ -978,12 +987,17 @@ export default function ProductivitySection() {
               <motion.div
                 layout
                 className="
-                  mt-10
+                  mt-8
                   grid
-                  gap-5
-                  sm:grid-cols-2
+                  grid-cols-1
+                  gap-3.5
+                  min-[500px]:grid-cols-2
+                  min-[500px]:gap-4
+                  sm:mt-10
                   lg:grid-cols-3
+                  lg:gap-5
                   xl:grid-cols-4
+                  2xl:gap-6
                 "
               >
                 {visibleTools.map(
@@ -1035,67 +1049,56 @@ export default function ProductivitySection() {
                           reduceMotion
                             ? undefined
                             : {
-                                y: -7,
+                                y: -6,
                               }
                         }
                         className={`
                           group
                           relative
                           overflow-hidden
-                          rounded-3xl
+                          rounded-[22px]
                           border
-                          p-5
+                          p-4
                           transition-all
                           duration-300
+                          min-[400px]:rounded-[24px]
+                          min-[400px]:p-5
+                          sm:p-5
+                          lg:p-6
                           ${
                             isActive
-                              ? "border-cyan-300/45 bg-cyan-400/[0.075] shadow-[0_25px_70px_rgba(34,211,238,0.13)]"
-                              : "border-white/10 bg-white/[0.035] hover:border-cyan-400/25 hover:bg-white/[0.05] hover:shadow-[0_25px_60px_rgba(0,0,0,0.35)]"
+                              ? "border-cyan-300/35 bg-cyan-400/[0.045] shadow-[0_20px_60px_rgba(34,211,238,0.07)]"
+                              : "border-white/[0.075] bg-white/[0.018] hover:border-cyan-400/20 hover:bg-white/[0.03]"
                           }
                         `}
                       >
-                        {/* Card Glow */}
+                        {/* Top Highlight */}
 
                         <div
                           aria-hidden="true"
                           className="
                             pointer-events-none
                             absolute
-                            -right-20
-                            -top-20
-                            h-40
-                            w-40
-                            rounded-full
-                            bg-cyan-400/10
+                            inset-x-5
+                            top-0
+                            h-px
+                            bg-gradient-to-r
+                            from-transparent
+                            via-cyan-400/30
+                            to-transparent
                             opacity-0
-                            blur-3xl
                             transition-opacity
-                            duration-500
+                            duration-300
                             group-hover:opacity-100
                           "
                         />
 
                         <div
-                          aria-hidden="true"
                           className="
-                            pointer-events-none
-                            absolute
-                            -bottom-24
-                            -left-24
-                            h-44
-                            w-44
-                            rounded-full
-                            bg-blue-500/[0.06]
-                            opacity-0
-                            blur-3xl
-                            transition-opacity
-                            duration-500
-                            group-hover:opacity-100
+                            relative
+                            z-10
                           "
-                        />
-
-                        <div className="relative z-10">
-
+                        >
                           {/* Top Row */}
 
                           <div
@@ -1129,38 +1132,31 @@ export default function ProductivitySection() {
                               className={`
                                 relative
                                 flex
-                                h-12
-                                w-12
+                                h-11
+                                w-11
                                 shrink-0
                                 items-center
                                 justify-center
-                                rounded-2xl
+                                rounded-[15px]
                                 border
-                                text-xl
                                 transition-all
                                 duration-300
+                                min-[400px]:h-12
+                                min-[400px]:w-12
+                                min-[400px]:rounded-2xl
+                                sm:h-12
+                                sm:w-12
                                 ${
                                   isActive
-                                    ? "border-cyan-300/50 bg-cyan-400/15 text-cyan-200 shadow-[0_0_35px_rgba(34,211,238,0.2)]"
-                                    : "border-cyan-400/15 bg-cyan-400/[0.06] text-cyan-300 group-hover:border-cyan-300/35 group-hover:bg-cyan-400/10 group-hover:text-cyan-100"
+                                    ? "border-cyan-300/40 bg-cyan-400/10 text-cyan-200"
+                                    : "border-cyan-400/10 bg-cyan-400/[0.035] text-cyan-300 group-hover:border-cyan-300/30 group-hover:bg-cyan-400/[0.07] group-hover:text-cyan-100"
                                 }
                               `}
                             >
-                              <Icon />
-
-                              <span
-                                aria-hidden="true"
+                              <Icon
                                 className="
-                                  pointer-events-none
-                                  absolute
-                                  inset-[-8px]
-                                  rounded-[20px]
-                                  bg-cyan-400/10
-                                  opacity-0
-                                  blur-xl
-                                  transition-opacity
-                                  duration-500
-                                  group-hover:opacity-100
+                                  text-lg
+                                  sm:text-xl
                                 "
                               />
                             </motion.button>
@@ -1170,26 +1166,33 @@ export default function ProductivitySection() {
                             <span
                               className="
                                 inline-flex
+                                max-w-[50%]
                                 items-center
-                                gap-1.5
+                                gap-1
                                 rounded-full
                                 border
-                                border-white/10
-                                bg-white/[0.025]
-                                px-2.5
-                                py-1.5
-                                text-[8px]
+                                border-white/[0.07]
+                                bg-white/[0.018]
+                                px-2
+                                py-1
+                                text-[7px]
                                 font-bold
                                 uppercase
-                                tracking-[0.1em]
-                                text-slate-500
+                                tracking-[0.08em]
+                                text-slate-600
+                                min-[400px]:px-2.5
+                                min-[400px]:py-1.5
+                                min-[400px]:text-[8px]
+                                sm:text-[9px]
                               "
                             >
                               <CategoryIcon />
 
-                              {
-                                tool.category
-                              }
+                              <span className="truncate">
+                                {
+                                  tool.category
+                                }
+                              </span>
                             </span>
                           </div>
 
@@ -1197,19 +1200,23 @@ export default function ProductivitySection() {
 
                           <div
                             className="
-                              mt-5
+                              mt-4
                               flex
                               items-center
                               justify-between
                               gap-3
+                              min-[400px]:mt-5
                             "
                           >
                             <h3
                               className="
-                                text-base
-                                font-black
+                                min-w-0
+                                truncate
+                                text-sm
+                                font-extrabold
                                 tracking-tight
                                 text-white
+                                min-[400px]:text-base
                               "
                             >
                               {
@@ -1219,13 +1226,15 @@ export default function ProductivitySection() {
 
                             <FiArrowUpRight
                               className="
-                                text-lg
+                                shrink-0
+                                text-base
                                 text-slate-700
                                 transition-all
                                 duration-300
                                 group-hover:-translate-y-0.5
                                 group-hover:translate-x-0.5
                                 group-hover:text-cyan-300
+                                sm:text-lg
                               "
                             />
                           </div>
@@ -1234,11 +1243,14 @@ export default function ProductivitySection() {
 
                           <p
                             className="
-                              mt-3
-                              min-h-[88px]
-                              text-[12px]
-                              leading-6
-                              text-slate-400
+                              mt-2.5
+                              min-h-[84px]
+                              text-[11px]
+                              leading-5
+                              text-slate-500
+                              min-[400px]:mt-3
+                              min-[400px]:text-xs
+                              min-[400px]:leading-6
                             "
                           >
                             {
@@ -1252,10 +1264,7 @@ export default function ProductivitySection() {
                             className="
                               my-4
                               h-px
-                              bg-gradient-to-r
-                              from-transparent
-                              via-white/10
-                              to-transparent
+                              bg-white/[0.06]
                             "
                           />
 
@@ -1264,8 +1273,9 @@ export default function ProductivitySection() {
                           <div
                             className="
                               flex
+                              min-h-[26px]
                               flex-wrap
-                              gap-2
+                              gap-1.5
                             "
                           >
                             {tool.tags.map(
@@ -1279,19 +1289,20 @@ export default function ProductivitySection() {
                                   className="
                                     rounded-full
                                     border
-                                    border-cyan-400/10
-                                    bg-cyan-400/[0.045]
-                                    px-2.5
+                                    border-cyan-400/[0.08]
+                                    bg-cyan-400/[0.025]
+                                    px-2
                                     py-1
-                                    text-[8px]
+                                    text-[7px]
                                     font-bold
                                     uppercase
-                                    tracking-widest
-                                    text-cyan-300/80
-                                    transition-colors
+                                    tracking-[0.08em]
+                                    text-cyan-300/60
+                                    transition-all
                                     duration-300
-                                    group-hover:border-cyan-400/20
-                                    group-hover:text-cyan-300
+                                    group-hover:border-cyan-400/15
+                                    group-hover:text-cyan-300/80
+                                    min-[400px]:text-[8px]
                                   "
                                 >
                                   {
@@ -1310,31 +1321,38 @@ export default function ProductivitySection() {
                               flex
                               items-center
                               justify-between
+                              gap-2
                             "
                           >
                             <div
                               className="
                                 flex
+                                min-w-0
                                 items-center
-                                gap-2
-                                text-[8px]
+                                gap-1.5
+                                text-[7px]
                                 font-bold
                                 uppercase
-                                tracking-[0.13em]
-                                text-slate-600
+                                tracking-[0.1em]
+                                text-slate-700
+                                min-[400px]:text-[8px]
                               "
                             >
                               <span
                                 className="
                                   h-1.5
                                   w-1.5
+                                  shrink-0
                                   rounded-full
-                                  bg-emerald-400/80
-                                  shadow-[0_0_9px_rgba(52,211,153,0.6)]
+                                  bg-emerald-400/70
+                                  shadow-[0_0_8px_rgba(52,211,153,0.45)]
                                 "
                               />
 
-                              Active Workflow
+                              <span className="truncate">
+                                Active
+                                Workflow
+                              </span>
                             </div>
 
                             <button
@@ -1345,14 +1363,16 @@ export default function ProductivitySection() {
                                 )
                               }
                               className="
-                                text-[8px]
+                                shrink-0
+                                text-[7px]
                                 font-bold
                                 uppercase
-                                tracking-[0.13em]
-                                text-cyan-400/60
+                                tracking-[0.1em]
+                                text-cyan-400/50
                                 transition-colors
                                 duration-300
                                 hover:text-cyan-300
+                                min-[400px]:text-[8px]
                               "
                             >
                               {isActive
@@ -1361,10 +1381,12 @@ export default function ProductivitySection() {
                             </button>
                           </div>
 
-                          {/* Active Line */}
+                          {/* Active Indicator */}
 
                           <motion.div
-                            initial={false}
+                            initial={
+                              false
+                            }
                             animate={{
                               scaleX:
                                 isActive
@@ -1381,14 +1403,16 @@ export default function ProductivitySection() {
                             className="
                               absolute
                               bottom-0
-                              left-5
-                              right-5
+                              left-4
+                              right-4
                               h-px
                               origin-left
                               bg-gradient-to-r
                               from-transparent
                               via-cyan-400
                               to-transparent
+                              min-[400px]:left-5
+                              min-[400px]:right-5
                             "
                           />
                         </div>
@@ -1399,7 +1423,7 @@ export default function ProductivitySection() {
               </motion.div>
 
               {/* =========================================================== */}
-              {/* SEE MORE / SHOW LESS                                        */}
+              {/* See More / Show Less                                        */}
               {/* =========================================================== */}
 
               {hasMoreTools && (
@@ -1418,9 +1442,10 @@ export default function ProductivitySection() {
                     duration: 0.45,
                   }}
                   className="
-                    mt-10
+                    mt-8
                     flex
                     justify-center
+                    sm:mt-10
                   "
                 >
                   <button
@@ -1432,25 +1457,27 @@ export default function ProductivitySection() {
                       group
                       inline-flex
                       items-center
-                      gap-2.5
+                      gap-2
                       rounded-full
                       border
-                      border-cyan-400/20
-                      bg-cyan-400/[0.05]
-                      px-6
-                      py-3
-                      text-[10px]
+                      border-cyan-400/15
+                      bg-cyan-400/[0.03]
+                      px-5
+                      py-2.5
+                      text-[8px]
                       font-black
                       uppercase
-                      tracking-[0.16em]
-                      text-cyan-300
-                      shadow-[0_0_30px_rgba(34,211,238,0.05)]
+                      tracking-[0.14em]
+                      text-cyan-300/80
                       transition-all
                       duration-300
-                      hover:border-cyan-400/40
-                      hover:bg-cyan-400/[0.1]
-                      hover:text-white
-                      hover:shadow-[0_0_35px_rgba(34,211,238,0.1)]
+                      hover:border-cyan-400/30
+                      hover:bg-cyan-400/[0.07]
+                      hover:text-cyan-200
+                      min-[400px]:px-6
+                      min-[400px]:py-3
+                      min-[400px]:text-[9px]
+                      sm:text-[10px]
                     "
                   >
                     {showAll
@@ -1459,7 +1486,7 @@ export default function ProductivitySection() {
 
                     {showAll ? (
                       <FiArrowUp
-                        size={15}
+                        size={14}
                         className="
                           transition-transform
                           duration-300
@@ -1468,7 +1495,7 @@ export default function ProductivitySection() {
                       />
                     ) : (
                       <FiArrowDown
-                        size={15}
+                        size={14}
                         className="
                           transition-transform
                           duration-300
@@ -1488,28 +1515,33 @@ export default function ProductivitySection() {
                 0 && (
                 <div
                   className="
-                    mt-10
-                    rounded-3xl
+                    mt-8
+                    rounded-[24px]
                     border
-                    border-white/10
-                    bg-white/[0.025]
-                    p-12
+                    border-white/[0.07]
+                    bg-white/[0.018]
+                    p-10
                     text-center
+                    sm:mt-10
+                    sm:rounded-3xl
+                    sm:p-12
                   "
                 >
                   <FiCode
                     className="
                       mx-auto
-                      text-3xl
-                      text-slate-600
+                      text-2xl
+                      text-slate-700
+                      sm:text-3xl
                     "
                   />
 
                   <p
                     className="
                       mt-4
-                      text-sm
-                      text-slate-500
+                      text-xs
+                      text-slate-600
+                      sm:text-sm
                     "
                   >
                     No tools found in
@@ -1523,5 +1555,3 @@ export default function ProductivitySection() {
     </section>
   );
 }
-
-
