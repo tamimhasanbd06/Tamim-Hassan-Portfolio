@@ -1,0 +1,27 @@
+{
+  "education": [
+    {
+      "id": 1,
+      "institution": "Cauliflower English High School",
+      "degree": "Class 9",
+      "department": "Secondary Education",
+      "duration": "Currently Studying",
+      "address": "Farmgate, Dhaka, near Holy Cross",
+      "description": "I am currently studying in Class 9 while developing my academic knowledge, communication skills, creativity, and interest in modern technology.",
+      "status": "Running",
+      "accent": "from-cyan-400 via-blue-500 to-indigo-500"
+    },
+    {
+      "id": 2,
+      "institution": "Johorpur Al-Fatah Darul Uloom Qawmi Madrasa",
+      "degree": "Kafia Jamaat",
+      "department": "Kitab Department",
+      "duration": "Completed through Kafia Jamaat",
+      "address": "Johorpur, Barpara, Bandar, Narayanganj, Dhaka",
+      "contact": "+880 1789-105420",
+      "description": "I studied here through Kafia Jamaat, building a strong foundation in discipline, Islamic knowledge, and Arabic studies.",
+      "status": "End",
+      "accent": "from-blue-500 via-indigo-500 to-purple-500"
+    }
+  ]
+}

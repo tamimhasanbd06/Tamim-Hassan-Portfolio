@@ -1,0 +1,60 @@
+[
+  {
+    "title": "Contact",
+    "items": [
+      {
+        "id": 1,
+        "label": "WhatsApp",
+        "value": "Let's connect on WhatsApp",
+        "href": "https://wa.me/8801XXXXXXXXX",
+        "icon": "whatsapp",
+        "external": true
+      },
+      {
+        "id": 2,
+        "label": "GitHub",
+        "value": "github.com/tamimhasanbd06",
+        "href": "https://github.com/tamimhasanbd06",
+        "icon": "github",
+        "external": true
+      },
+      {
+        "id": 3,
+        "label": "Facebook",
+        "value": "Connect on Facebook",
+        "href": "https://facebook.com/",
+        "icon": "facebook",
+        "external": true
+      }
+    ]
+  },
+  {
+    "title": "Pages",
+    "items": [
+      {
+        "id": 4,
+        "label": "Resume",
+        "value": "Professional resume",
+        "href": "/resume",
+        "icon": "resume",
+        "external": false
+      },
+      {
+        "id": 5,
+        "label": "CV",
+        "value": "Curriculum vitae",
+        "href": "/cv",
+        "icon": "cv",
+        "external": false
+      },
+      {
+        "id": 6,
+        "label": "Login",
+        "value": "Dashboard access",
+        "href": "/login",
+        "icon": "login",
+        "external": false
+      }
+    ]
+  }
+]

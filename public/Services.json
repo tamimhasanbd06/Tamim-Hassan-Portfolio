@@ -1,0 +1,6 @@
+[
+  { "title": "Frontend Development", "description": "Develop responsive and modern web interfaces using React.js, Next.js, TypeScript, JavaScript, and Tailwind CSS.", "icon": "frontend" },
+  { "title": "Responsive Web Design", "description": "Convert UI designs and project requirements into reusable and maintainable frontend components.", "icon": "responsive" },
+  { "title": "Backend Integration", "description": "Work with REST APIs and integrate frontend applications with backend services.", "icon": "backend" },
+  { "title": "UI/UX Implementation", "description": "Transform project requirements and designs into clean, reusable, responsive, and maintainable applications.", "icon": "design" }
+]

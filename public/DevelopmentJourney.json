@@ -1,0 +1,244 @@
+{
+  "section": {
+    "badge": "Development Journey",
+    "title": "My Journey as a",
+    "highlightedTitle": "Developer",
+    "description": "From learning the fundamentals to exploring modern full-stack development, every step has been about learning, building, and improving."
+  },
+  "journey": [
+    {
+      "id": "beginning",
+      "number": "01",
+      "title": "The Beginning",
+      "subtitle": "Where my development journey started",
+      "description": "My journey into web development started with curiosity about how websites work. I began exploring the fundamentals of web pages, structure, styling, and the ideas behind modern websites.",
+      "icon": "flag",
+      "technologies": [
+        "Web Fundamentals",
+        "HTML",
+        "CSS"
+      ],
+      "highlights": [
+        "Understanding how websites work",
+        "Learning basic page structure",
+        "Exploring layouts and styling"
+      ]
+    },
+    {
+      "id": "fundamentals",
+      "number": "02",
+      "title": "Web Fundamentals",
+      "subtitle": "Building a strong foundation",
+      "description": "I focused on understanding HTML, CSS, and JavaScript fundamentals. Instead of only focusing on the final visual result, I started learning how structure, styling, and programming logic work together.",
+      "icon": "book",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "highlights": [
+        "Semantic HTML",
+        "Responsive layouts",
+        "JavaScript fundamentals",
+        "Interactive web interfaces"
+      ]
+    },
+    {
+      "id": "react",
+      "number": "03",
+      "title": "Entering React",
+      "subtitle": "Learning component-based development",
+      "description": "React changed the way I thought about building interfaces. I started breaking large interfaces into smaller reusable components and learning how state and interaction work together.",
+      "icon": "react",
+      "technologies": [
+        "React",
+        "Components",
+        "Hooks"
+      ],
+      "highlights": [
+        "Reusable components",
+        "Component architecture",
+        "State management concepts",
+        "Interactive UI"
+      ]
+    },
+    {
+      "id": "modern-web",
+      "number": "04",
+      "title": "Modern Web Development",
+      "subtitle": "Moving toward modern application development",
+      "description": "I started working with TypeScript, Next.js, and Tailwind CSS to build more structured, responsive, and maintainable applications.",
+      "icon": "nextjs",
+      "technologies": [
+        "TypeScript",
+        "Next.js",
+        "Tailwind CSS"
+      ],
+      "highlights": [
+        "Type-safe development",
+        "Modern routing",
+        "Reusable UI systems",
+        "Responsive application design"
+      ]
+    },
+    {
+      "id": "backend",
+      "number": "05",
+      "title": "Backend & APIs",
+      "subtitle": "Going beyond the interface",
+      "description": "After becoming comfortable with frontend development, I started exploring backend concepts to understand what happens behind the interface and how applications communicate with servers.",
+      "icon": "server",
+      "technologies": [
+        "Node.js",
+        "Python",
+        "FastAPI",
+        "REST APIs"
+      ],
+      "highlights": [
+        "API integration",
+        "Backend fundamentals",
+        "Server-side logic",
+        "HTTP and JSON concepts"
+      ]
+    },
+    {
+      "id": "database",
+      "number": "06",
+      "title": "Working With Data",
+      "subtitle": "Understanding application data",
+      "description": "As applications became more complex, I started learning how data is structured, stored, queried, and connected with application logic.",
+      "icon": "database",
+      "technologies": [
+        "PostgreSQL",
+        "MongoDB",
+        "SQL",
+        "Data Modeling"
+      ],
+      "highlights": [
+        "Relational database concepts",
+        "NoSQL concepts",
+        "Database relationships",
+        "Data modeling"
+      ]
+    },
+    {
+      "id": "devops",
+      "number": "07",
+      "title": "DevOps & Deployment",
+      "subtitle": "Understanding the bigger picture",
+      "description": "I expanded my development knowledge into version control, containerization, servers, cloud infrastructure, and deployment workflows.",
+      "icon": "cloud",
+      "technologies": [
+        "Git",
+        "GitHub",
+        "Docker",
+        "NGINX",
+        "AWS"
+      ],
+      "highlights": [
+        "Version control",
+        "GitHub workflows",
+        "Containerization",
+        "Server fundamentals",
+        "Cloud concepts"
+      ]
+    },
+    {
+      "id": "future",
+      "number": "08",
+      "title": "What's Next",
+      "subtitle": "The journey continues",
+      "description": "Development is a continuous learning process. My goal is to keep improving my fundamentals, build more real-world applications, strengthen my full-stack knowledge, and become a better problem solver.",
+      "icon": "target",
+      "technologies": [
+        "Full-Stack",
+        "Architecture",
+        "Performance"
+      ],
+      "highlights": [
+        "Build more real-world applications",
+        "Improve problem solving",
+        "Learn advanced architecture",
+        "Keep improving every day"
+      ]
+    }
+  ],
+  "technologies": [
+    {
+      "name": "HTML",
+      "icon": "globe"
+    },
+    {
+      "name": "CSS",
+      "icon": "layers"
+    },
+    {
+      "name": "JavaScript",
+      "icon": "code"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "typescript"
+    },
+    {
+      "name": "React",
+      "icon": "react"
+    },
+    {
+      "name": "Next.js",
+      "icon": "nextjs"
+    },
+    {
+      "name": "Tailwind CSS",
+      "icon": "tailwind"
+    },
+    {
+      "name": "Python",
+      "icon": "python"
+    },
+    {
+      "name": "Node.js",
+      "icon": "nodejs"
+    },
+    {
+      "name": "FastAPI",
+      "icon": "fastapi"
+    },
+    {
+      "name": "PostgreSQL",
+      "icon": "postgresql"
+    },
+    {
+      "name": "MongoDB",
+      "icon": "mongodb"
+    },
+    {
+      "name": "Git",
+      "icon": "git"
+    },
+    {
+      "name": "GitHub",
+      "icon": "github"
+    },
+    {
+      "name": "Docker",
+      "icon": "docker"
+    },
+    {
+      "name": "NGINX",
+      "icon": "nginx"
+    },
+    {
+      "name": "AWS",
+      "icon": "aws"
+    }
+  ],
+  "closing": {
+    "icon": "zap",
+    "title": "The journey is",
+    "highlightedTitle": "still going.",
+    "description": "Every project is another opportunity to learn something new, solve a problem, and become a better developer.",
+    "buttonText": "Explore My Projects",
+    "buttonHref": "#projects"
+  }
+}

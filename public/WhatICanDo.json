@@ -1,0 +1,6 @@
+[
+  { "category": "Frontend Development", "items": "Next.js, React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, DaisyUI, HeroUI" },
+  { "category": "Backend Development", "items": "Node.js, Express.js, MongoDB, REST API" },
+  { "category": "Development Tools", "items": "GitHub, Git, Vercel, Netlify, Visual Studio Code, Vite, Antigravity" },
+  { "category": "Design & UI Tools", "items": "Figma, Canva, Adobe Photoshop, Responsive Design, UI/UX Implementation" }
+]

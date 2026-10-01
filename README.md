@@ -1,0 +1,83 @@
+# Tamim Hasan Portfolio
+
+A responsive Next.js 16 and TypeScript portfolio for Md. Tamim Hasan.
+
+## Project structure
+
+```text
+src/
+├── app/                    # Routes, metadata, and app configuration
+└── components/
+    ├── common/             # Shared loaders, PWA, motion, and download controls
+    ├── Home/               # Home page sections (root '/' page)
+    ├── Main/               # Main page sections ('/home' page)
+    └── navigation/         # Shared floating page navigation
+
+public/
+├── assets/
+│   ├── brand/              # Logo and social preview
+│   ├── documents/          # CV and resume PDFs
+│   ├── icons/              # PWA and device icons
+│   └── images/             # Portfolio images
+├── data/                   # Skills, projects, and app data
+└── library/                # Library, course, AI-tool, and certificate data
+```
+
+## Included
+
+- Responsive layouts from approximately 300px phones to 2000px+ displays
+- Stable 64px navigation that becomes sticky with a glass shadow after scrolling
+- Mobile app-style navigation and touch targets
+- Home, portfolio, CV, resume, and custom 404 pages
+- Skills and projects loaded from separate JSON data files
+- Searchable project gallery with image-click detail modal
+- Real client-side PDF downloads for the CV and resume
+- Installable Progressive Web App manifest, icons, service worker, and install prompt
+- Route-specific metadata, Open Graph, X cards, JSON-LD, sitemap, and robots
+- Accessibility improvements and reduced-motion support
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+## Production validation
+
+```bash
+npm run lint
+npm run build
+npm start
+```
+
+## Site URL
+
+For correct canonical links, sitemap entries, and social metadata, create `.env.local`:
+
+```env
+NEXT_PUBLIC_SITE_URL=https://your-real-domain.com
+```
+
+The default fallback is `https://tamim-hassan-portfolio.vercel.app`.
+
+## Installable app
+
+The browser install option appears after the deployed site is served over HTTPS. On iPhone or iPad, use Share and then **Add to Home Screen**.
+
+## PDF files
+
+The downloadable documents are stored at:
+
+- `public/assets/documents/Tamim-Hasan-CV.pdf`
+- `public/assets/documents/Tamim-Hasan-Resume.pdf`
+
+## Portfolio data
+
+Update Skills and Projects without editing the card components:
+
+- `public/data/skills.json`
+- `public/data/projects.json`
+- `public/data/myapps.json`

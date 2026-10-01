@@ -1,0 +1,22 @@
+{
+  "experience": [
+    {
+      "id": 1,
+      "jobTitle": "Frontend Developer",
+      "company": "Ionic Corporation",
+      "customerCare": "01511142320",
+      "website": "https://ionicerp.xyz/",
+      "employmentType": "Full-time · Permanent",
+      "status": "Running",
+      "startingDate": "2026-04-25",
+      "endDate": "",
+      "description": "I work as a permanent Frontend Developer at Ionic Corporation, creating responsive, accessible, and user-focused interfaces with clean and maintainable code.",
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Tailwind CSS"
+      ]
+    }
+  ]
+}

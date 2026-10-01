@@ -1,0 +1,37 @@
+
+
+[
+{
+"id": "next-level-web-development-batch-7",
+"title": "Next Level Web Development",
+"provider": "Programming Hero",
+"batch": "Batch 7",
+"status": "Not Started",
+"startDate": "2026-10-30",
+"endDate": "2027-09-01",
+"certificateImage": "",
+"certificatePdf": ""
+},
+{
+"id": "programming-hero-batch-13",
+"title": "Programming Hero Batch 13",
+"provider": "Programming Hero",
+"batch": "Batch 13",
+"status": "Completed",
+"startDate": "2026-01-01",
+"endDate": "2026-06-29",
+"certificateImage": "/certificates/programming-hero-batch-13.png",
+"certificatePdf": "/certificates/programming-hero-batch-13.pdf"
+},
+{
+"id": "programming-hero-14-day-bootcamp-2025",
+"title": "Programming Hero 14 Day Bootcamp 2025",
+"provider": "Programming Hero",
+"batch": "",
+"status": "Completed",
+"startDate": "2025-05-31",
+"endDate": "2025-06-13",
+"certificateImage": "",
+"certificatePdf": ""
+}
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "question": "What services do you provide?",
+    "answer": "I build responsive and modern web applications using technologies like Next.js, React, TypeScript, JavaScript, Tailwind CSS, Node.js, Express.js, and MongoDB."
+  },
+  {
+    "question": "Do you build responsive websites?",
+    "answer": "Yes. I build responsive websites that work properly across mobile, tablet, laptop, and desktop devices."
+  },
+  {
+    "question": "Do you work with Next.js and React?",
+    "answer": "Yes. Next.js and React are two of the main technologies I use for building modern frontend applications."
+  },
+  {
+    "question": "Can you integrate APIs into a website?",
+    "answer": "Yes. I can integrate REST APIs and connect frontend applications with backend services."
+  },
+  {
+    "question": "Do you work with backend technologies?",
+    "answer": "Yes. I have experience working with Node.js, Express.js, MongoDB, and API-based backend development."
+  },
+  {
+    "question": "Are you available for new opportunities?",
+    "answer": "Yes. I am open to meaningful development opportunities, collaborations, practical projects, and learning opportunities."
+  },
+  {
+    "question": "Can you convert a design into a real website?",
+    "answer": "Yes. I can convert UI designs and project requirements into responsive and reusable web interfaces."
+  },
+  {
+    "question": "How can I contact you?",
+    "answer": "You can contact me through the Contact section of this portfolio using phone, email, WhatsApp, LinkedIn, or other available social links."
+  }
+]

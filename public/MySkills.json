@@ -1,0 +1,22 @@
+[
+  {
+    "name": "JavaScript",
+    "full": "JavaScript Programming Language",
+    "icon": "javascript"
+  },
+  {
+    "name": "TypeScript",
+    "full": "Type-safe JavaScript at scale",
+    "icon": "typescript"
+  },
+  {
+    "name": "Next.js",
+    "full": "Production-ready React framework",
+    "icon": "nextjs"
+  },
+  {
+    "name": "Python",
+    "full": "Powerful language for modern development",
+    "icon": "python"
+  }
+]

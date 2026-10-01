@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "name": "DigiTools",
+    "type": "React",
+    "image": "https://s2.imgbb.ws/file/storage-sv2/Ds3SZ.png",
+    "description": "An AI tool subscription platform designed to improve productivity, creativity, and access to modern AI services.",
+    "longDescription": "DigiTools presents modern AI services through a clear, subscription-focused experience. The interface is designed for fast discovery, readable product information, and a smooth journey across mobile and desktop devices.",
+    "live": "https://digi-tools-xi.vercel.app/",
+    "technologies": ["React", "Tailwind CSS", "API Integration"],
+    "features": ["Responsive subscription interface", "Clear AI tool discovery", "Modern card-based experience", "Mobile-friendly navigation"],
+    "featured": true
+  },
+  {
+    "id": 2,
+    "name": "MediQueue",
+    "type": "Next.js",
+    "image": "https://s1.imgbb.ws/file/storage-sv1/sWkmJ.png",
+    "description": "A modern Tutor Booking web application where students can explore tutors, book learning sessions, and manage scheduled classes efficiently.",
+    "longDescription": "MediQueue is a full-stack Tutor Booking platform designed to simplify tutor discovery, session scheduling, and booking management. Students can browse available tutors, search by name, filter tutors by session date, view tutor details, and book learning sessions based on real-time slot availability. The platform includes secure authentication, JWT-protected routes, tutor CRUD operations, booking restrictions, responsive design, dark and light themes, smooth animations, and toast notifications.",
+    "live": "https://medi-queue-rouge.vercel.app/",
+    "technologies": ["Next.js", "React", "Tailwind CSS", "MongoDB", "Better Auth", "JWT", "Express.js", "Framer Motion"],
+    "features": ["Google and Email Authentication", "Tutor Search and Filtering", "Online Tutor Session Booking", "Real-Time Slot Availability", "Tutor CRUD Operations", "Booked Session Management", "JWT Protected Routes", "Dark and Light Theme", "Responsive Design", "Toast Notifications"],
+    "featured": true
+  },
+  {
+    "id": 3,
+    "name": "Bank Loan Calculator",
+    "type": "React",
+    "image": "https://s1.imgbb.ws/file/storage-sv1/Kv3Xp.png",
+    "description": "A financial platform where users can explore loan options, calculate payments, and plan repayments.",
+    "longDescription": "A practical financial calculator that converts loan amount, interest rate, and repayment term into clear monthly payment estimates. Interactive controls make it easy to compare values and understand repayment planning.",
+    "live": "https://bank-loan-calculator.vercel.app/",
+    "technologies": ["React", "JavaScript", "Material UI", "Chart.js"],
+    "features": ["Instant payment calculations", "Interactive amount controls", "Responsive financial visualization", "Accessible user interface"],
+    "featured": false
+  }
+
+]

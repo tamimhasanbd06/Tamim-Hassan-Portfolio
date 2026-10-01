@@ -1,0 +1,66 @@
+[
+  {
+    "id": "git",
+    "name": "Git",
+    "description": "Distributed version control for managing source code and maintaining a clean development history.",
+    "category": "Development",
+    "tags": ["Version Control", "Source Code"],
+    "icon": "git"
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "description": "A professional platform for source control, collaboration, code review, and repository management.",
+    "category": "Development",
+    "tags": ["Git", "Collaboration"],
+    "icon": "github"
+  },
+  {
+    "id": "nodejs",
+    "name": "Node.js",
+    "description": "JavaScript runtime for building scalable APIs, backend services, and full-stack applications.",
+    "category": "Backend",
+    "tags": ["JavaScript", "Backend"],
+    "icon": "nodejs"
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "description": "Strongly typed JavaScript development for building scalable and maintainable applications.",
+    "category": "Development",
+    "tags": ["JavaScript", "Type Safety"],
+    "icon": "typescript"
+  },
+  {
+    "id": "react",
+    "name": "React",
+    "description": "Component-based library for building modern, interactive, and scalable user interfaces.",
+    "category": "Frontend",
+    "tags": ["UI", "Components"],
+    "icon": "react"
+  },
+  {
+    "id": "nextjs",
+    "name": "Next.js",
+    "description": "Production-ready React framework for full-stack applications, rendering, routing, and optimization.",
+    "category": "Frontend",
+    "tags": ["React", "Full Stack"],
+    "icon": "nextjs"
+  },
+  {
+    "id": "docker",
+    "name": "Docker",
+    "description": "Container platform for creating consistent development, testing, and production environments.",
+    "category": "DevOps",
+    "tags": ["Containers", "Deployment"],
+    "icon": "docker"
+  },
+  {
+    "id": "postgresql",
+    "name": "PostgreSQL",
+    "description": "Powerful relational database for structured data, complex queries, and production-grade applications.",
+    "category": "Database",
+    "tags": ["SQL", "Database"],
+    "icon": "postgresql"
+  }
+]

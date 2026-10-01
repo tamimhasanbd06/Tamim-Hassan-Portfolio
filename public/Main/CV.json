@@ -1,0 +1,157 @@
+{
+  "personalInfo": {
+    "name": "Tamim",
+    "highlightedName": "Hasan",
+    "title": "Frontend Developer",
+    "summary": "Building responsive, accessible, and high-performance web applications with modern frontend technologies.",
+    "status": "Open to opportunities",
+    "image": "/assets/images/me.jpg",
+    "imageAlt": "Tamim Hasan, frontend web developer",
+    "location": "Bandar, Narayanganj, Dhaka, Bangladesh",
+    "phone": "+880 1883-650010",
+    "email": "tamimhasanbd06@gmail.com"
+  },
+  "download": {
+    "source": "/assets/documents/Tamim-Hasan-CV.pdf",
+    "filename": "Tamim-Hasan-CV.pdf",
+    "label": "Download My CV"
+  },
+  "profile": {
+    "title": "Professional Summary",
+    "paragraphs": [
+      "Motivated frontend developer focused on creating responsive, accessible, and high-performance web applications. Experienced in building practical projects using React, Next.js, TypeScript, JavaScript, Tailwind CSS, Express.js, and MongoDB.",
+      "I am passionate about modern web development and continuously improving my technical knowledge. I am eager to contribute my skills, learn from experienced development teams, and grow through real-world projects."
+    ]
+  },
+  "projects": [
+    {
+      "name": "Bank Loan Calculator",
+      "type": "Frontend Web Application",
+      "description": "An interactive loan calculation platform where users can enter a loan amount, interest rate, and payment term to calculate estimated monthly payments instantly.",
+      "features": [
+        "Calculate monthly loan payments instantly",
+        "Interactive controls for loan amounts and payment terms",
+        "Responsive financial data visualization",
+        "Modern and accessible user interface"
+      ],
+      "technologies": "React.js, Material UI, Emotion, Styled Components, Chart.js, and Tailwind CSS",
+      "demo": "https://bank-loan-calculator.vercel.app"
+    },
+    {
+      "name": "Tile Gallery",
+      "type": "Full-Stack Web Application",
+      "description": "A tile discovery and collection platform where users can browse different tiles, view complete information, save favorites, and manage personal collections.",
+      "features": [
+        "Detailed tile browsing functionality",
+        "Favorite and like functionality",
+        "Personal user profiles and collections",
+        "Email and password authentication",
+        "Google authentication"
+      ],
+      "technologies": "React.js, Node.js, Express.js, MongoDB, and Tailwind CSS"
+    }
+  ],
+  "education": [
+    {
+      "title": "Alim (Qawmi) — Kafia Level, Class 12",
+      "institution": "Jaharpur Al-Fatah Darul Ulum Qawmi Madrasa",
+      "location": "Jaharpur, Barpara, Bandar, Narayanganj",
+      "current": false
+    },
+    {
+      "title": "Secondary Education — Class 9",
+      "institution": "Cauliflower English High School",
+      "location": "Farmgate, Dhaka, near Holy Cross",
+      "current": true
+    }
+  ],
+  "skills": [
+    {
+      "category": "Front-End",
+      "items": "Next.js, React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, DaisyUI, HeroUI"
+    },
+    {
+      "category": "Back-End",
+      "items": "Node.js, Express.js, MongoDB"
+    },
+    {
+      "category": "Development Tools",
+      "items": "GitHub, Vercel, Visual Studio Code, Antigravity"
+    },
+    {
+      "category": "Soft Skills",
+      "items": "Public speaking, communication, problem-solving, teamwork, and continuous learning"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Programming Hero Level 1",
+      "meta": "Batch 13 — Running"
+    },
+    {
+      "title": "Presentation and Public Speaking",
+      "meta": "10 Minute School, Online"
+    }
+  ],
+  "personalInformation": [
+    {
+      "label": "Full Name",
+      "value": "Tamim Hasan"
+    },
+    {
+      "label": "Father’s Name",
+      "value": "Md. Abdul Wahab"
+    },
+    {
+      "label": "Date of Birth",
+      "value": "6 June 2010"
+    },
+    {
+      "label": "Religion",
+      "value": "Islam (Sunni)"
+    },
+    {
+      "label": "Marital Status",
+      "value": "Unmarried"
+    },
+    {
+      "label": "Gender",
+      "value": "Male"
+    },
+    {
+      "label": "Present and Permanent Address",
+      "value": "Musapur, Bandar, Narayanganj, Dhaka, Bangladesh"
+    },
+    {
+      "label": "Contact Number",
+      "value": "+880 1883-650010"
+    }
+  ],
+  "reference": {
+    "name": "Md. Shofiqul Islam",
+    "role": "MERN Stack Developer",
+    "company": "IONIC Corporation",
+    "location": "Jurain, Dhaka, Bangladesh",
+    "phone": "+880 1917-369303",
+    "email": "shofiq69303@gmail.com"
+  },
+  "qrCodes": [
+    {
+      "id": "portfolio",
+      "title": "Portfolio URL QR Code",
+      "description": "Scan to visit my live interactive portfolio and projects.",
+      "image": "/assets/QR-Code/Tamim Hasa URL QR Code.png",
+      "alt": "Tamim Hasan Portfolio URL QR Code",
+      "accent": "cyan"
+    },
+    {
+      "id": "cv-pdf",
+      "title": "CV PDF QR Code",
+      "description": "Scan to instantly access and download my professional CV PDF.",
+      "image": "/assets/QR-Code/Tamim Hasa CV PDF QR Code.png",
+      "alt": "Tamim Hasan CV PDF QR Code",
+      "accent": "blue"
+    }
+  ],
+  "footer": "I confirm that the information provided above is accurate to the best of my knowledge."
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "category": "Contact",
+    "label": "Phone",
+    "value": "+880 1883-650010",
+    "copyText": "+8801883650010",
+    "href": "tel:+8801883650010",
+    "icon": "phone",
+    "accent": "from-blue-500 to-cyan-400"
+  },
+  {
+    "id": 2,
+    "category": "Contact",
+    "label": "WhatsApp",
+    "value": "+880 1883-650010",
+    "copyText": "https://wa.me/8801883650010",
+    "href": "https://wa.me/8801883650010",
+    "icon": "whatsapp",
+    "accent": "from-emerald-500 to-green-400"
+  },
+  {
+    "id": 3,
+    "category": "Contact",
+    "label": "Email",
+    "value": "tamimhasanbd06@gmail.com",
+    "copyText": "tamimhasanbd06@gmail.com",
+    "href": "mailto:tamimhasanbd06@gmail.com",
+    "icon": "email",
+    "accent": "from-purple-500 to-pink-400"
+  },
+  {
+    "id": 4,
+    "category": "Social Profiles",
+    "label": "LinkedIn",
+    "value": "@tamim-hasan-th018836",
+    "copyText": "https://www.linkedin.com/in/tamim-hasan-th018836/",
+    "href": "https://www.linkedin.com/in/tamim-hasan-th018836/",
+    "icon": "linkedin",
+    "accent": "from-blue-600 to-cyan-400"
+  },
+  {
+    "id": 5,
+    "category": "Social Profiles",
+    "label": "Facebook",
+    "value": "@tamimhasanbd06",
+    "copyText": "https://www.facebook.com/tamimhasanbd06",
+    "href": "https://www.facebook.com/tamimhasanbd06",
+    "icon": "facebook",
+    "accent": "from-blue-500 to-indigo-400"
+  },
+  {
+    "id": 6,
+    "category": "Social Profiles",
+    "label": "Telegram",
+    "value": "@tamimhasan",
+    "copyText": "https://t.me/tamimhasan",
+    "href": "https://t.me/tamimhasan",
+    "icon": "telegram",
+    "accent": "from-sky-500 to-cyan-300"
+  },
+  {
+    "id": 7,
+    "category": "Web Development",
+    "label": "GitHub",
+    "value": "@tamimhasanbd06",
+    "copyText": "https://github.com/tamimhasanbd06",
+    "href": "https://github.com/tamimhasanbd06",
+    "icon": "github",
+    "accent": "from-slate-500 to-cyan-400"
+  },
+  {
+    "id": 8,
+    "category": "Web Development",
+    "label": "Vercel",
+    "value": "@tamimhasanbd06s",
+    "copyText": "https://vercel.com/tamimhasanbd06s",
+    "href": "https://vercel.com/tamimhasanbd06s",
+    "icon": "vercel",
+    "accent": "from-white to-slate-400"
+  },
+  {
+    "id": 9,
+    "category": "Web Development",
+    "label": "Netlify",
+    "value": "@tamimhasanbd06",
+    "copyText": "https://app.netlify.com/teams/tamimhasanbd06/projects",
+    "href": "https://app.netlify.com/teams/tamimhasanbd06/projects",
+    "icon": "netlify",
+    "accent": "from-cyan-400 to-teal-300"
+  }
+]

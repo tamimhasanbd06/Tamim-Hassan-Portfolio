@@ -1,0 +1,228 @@
+[
+  {
+    "title": "Contact",
+    "items": [
+      {
+        "id": 1,
+        "label": "Phone",
+        "value": "+880 1883-650010",
+        "href": "tel:+8801883650010",
+        "copyText": "+8801883650010",
+        "icon": "phone"
+      },
+      {
+        "id": 2,
+        "label": "Secondary Phone",
+        "value": "+880 1743-267595",
+        "href": "tel:+8801743267595",
+        "copyText": "+8801743267595",
+        "icon": "phone"
+      },
+      {
+        "id": 3,
+        "label": "Email",
+        "value": "tamimhasanbd06@gmail.com",
+        "href": "mailto:tamimhasanbd06@gmail.com",
+        "copyText": "tamimhasanbd06@gmail.com",
+        "icon": "email"
+      },
+      {
+        "id": 4,
+        "label": "Secondary Email",
+        "value": "tamimhasanbd06ai@gmail.com",
+        "href": "mailto:tamimhasanbd06ai@gmail.com",
+        "copyText": "tamimhasanbd06ai@gmail.com",
+        "icon": "email"
+      },
+      {
+        "id": 5,
+        "label": "WhatsApp",
+        "value": "@tamimhasanbd",
+        "href": "https://wa.me/8801883650010",
+        "copyText": "https://wa.me/8801883650010",
+        "icon": "whatsapp",
+        "external": true
+      },
+      {
+        "id": 6,
+        "label": "Messenger",
+        "value": "Send me a message",
+        "href": "https://m.me/tamimhasanbd06",
+        "copyText": "https://m.me/tamimhasanbd06",
+        "icon": "messenger",
+        "external": true
+      }
+    ]
+  },
+  {
+    "title": "Social Profiles",
+    "items": [
+      {
+        "id": 7,
+        "label": "LinkedIn",
+        "value": "@tamim-hasan-th018836",
+        "href": "https://www.linkedin.com/in/tamim-hasan-th018836/",
+        "copyText": "https://www.linkedin.com/in/tamim-hasan-th018836/",
+        "icon": "linkedin",
+        "external": true
+      },
+      {
+        "id": 8,
+        "label": "Facebook",
+        "value": "@tamimhasanbd06",
+        "href": "https://www.facebook.com/tamimhasanbd06",
+        "copyText": "https://www.facebook.com/tamimhasanbd06",
+        "icon": "facebook",
+        "external": true
+      },
+      {
+        "id": 9,
+        "label": "Telegram",
+        "value": "@tamimhasan662009",
+        "href": "https://t.me/tamimhasan662009",
+        "copyText": "https://t.me/tamimhasan662009",
+        "icon": "telegram",
+        "external": true
+      },
+      {
+        "id": 10,
+        "label": "TikTok",
+        "value": "@tamimhasanbd662009",
+        "href": "https://www.tiktok.com/@tamimhasanbd662009",
+        "copyText": "https://www.tiktok.com/@tamimhasanbd662009",
+        "icon": "tiktok",
+        "external": true
+      },
+      {
+        "id": 11,
+        "label": "X",
+        "value": "@tamim_hasabd",
+        "href": "https://x.com/tamim_hasabd",
+        "copyText": "https://x.com/tamim_hasabd",
+        "icon": "x",
+        "external": true
+      },
+      {
+        "id": 12,
+        "label": "Instagram",
+        "value": "@tamimhasanbd662009",
+        "href": "https://www.instagram.com/tamimhasanbd662009/",
+        "copyText": "https://www.instagram.com/tamimhasanbd662009/",
+        "icon": "instagram",
+        "external": true
+      },
+      {
+        "id": 13,
+        "label": "Threads",
+        "value": "@tamimhasanbd662009",
+        "href": "https://www.threads.com/@tamimhasanbd662009",
+        "copyText": "https://www.threads.com/@tamimhasanbd662009",
+        "icon": "threads",
+        "external": true
+      }
+    ]
+  },
+  {
+    "title": "Web Development",
+    "items": [
+      {
+        "id": 14,
+        "label": "GitHub",
+        "value": "@tamimhasanbd06",
+        "href": "https://github.com/tamimhasanbd06",
+        "copyText": "https://github.com/tamimhasanbd06",
+        "icon": "github",
+        "external": true
+      },
+      {
+        "id": 15,
+        "label": "Vercel",
+        "value": "@tamimhasanbd06s",
+        "href": "https://vercel.com/tamimhasanbd06s",
+        "copyText": "https://vercel.com/tamimhasanbd06s",
+        "icon": "vercel",
+        "external": true
+      },
+      {
+        "id": 16,
+        "label": "Netlify",
+        "value": "@tamimhasanbd06",
+        "href": "https://app.netlify.com/teams/tamimhasanbd06/projects",
+        "copyText": "https://app.netlify.com/teams/tamimhasanbd06/projects",
+        "icon": "netlify",
+        "external": true
+      }
+    ]
+  },
+  {
+    "title": "Quick Links",
+    "items": [
+      {
+        "id": 17,
+        "label": "Home",
+        "href": "#home",
+        "icon": "01"
+      },
+      {
+        "id": 18,
+        "label": "About Me",
+        "href": "#about",
+        "icon": "02"
+      },
+      {
+        "id": 19,
+        "label": "Skills",
+        "href": "#skills",
+        "icon": "03"
+      },
+      {
+        "id": 20,
+        "label": "Projects",
+        "href": "#projects",
+        "icon": "04"
+      },
+      {
+        "id": 21,
+        "label": "Experience",
+        "href": "#experience",
+        "icon": "05"
+      },
+      {
+        "id": 22,
+        "label": "Education",
+        "href": "#education",
+        "icon": "06"
+      },
+      {
+        "id": 23,
+        "label": "FAQ",
+        "href": "#faq",
+        "icon": "07"
+      },
+      {
+        "id": 24,
+        "label": "Contact",
+        "href": "#contact",
+        "icon": "08"
+      },
+      {
+        "id": 25,
+        "label": "Resume",
+        "href": "/resume",
+        "icon": "01"
+      },
+      {
+        "id": 26,
+        "label": "CV",
+        "href": "/cv",
+        "icon": "02"
+      },
+      {
+        "id": 27,
+        "label": "Login",
+        "href": "/login",
+        "icon": "03"
+      }
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "WhatsApp",
+    "icon": "whatsapp",
+    "link": "https://wa.me/8801883650010?text=Hello%20Tamim%20Hasan%2C%20I%20would%20like%20to%20discuss%20a%20web%20development%20project%20with%20you.",
+    "color": "hover:text-emerald-300",
+    "glow": "hover:shadow-emerald-500/40"
+  },
+  {
+    "name": "Facebook",
+    "icon": "facebook",
+    "link": "https://www.facebook.com/tamimhasanbd06",
+    "color": "hover:text-blue-400",
+    "glow": "hover:shadow-blue-500/40"
+  },
+  {
+    "name": "GitHub",
+    "icon": "github",
+    "link": "https://github.com/tamimhasanbd06",
+    "color": "hover:text-white",
+    "glow": "hover:shadow-white/20"
+  },
+  {
+    "name": "LinkedIn",
+    "icon": "linkedin",
+    "link": "https://www.linkedin.com/in/tamim-hasan-th018836/",
+    "color": "hover:text-cyan-300",
+    "glow": "hover:shadow-cyan-400/40"
+  },
+  {
+    "name": "Email",
+    "icon": "email",
+    "link": "mailto:tamimhasanbd06@gmail.com",
+    "color": "hover:text-pink-300",
+    "glow": "hover:shadow-pink-500/30"
+  }
+]

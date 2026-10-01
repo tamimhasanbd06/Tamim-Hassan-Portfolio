@@ -1,0 +1,8 @@
+[
+  { "name": "Material UI", "icon": "SiMui" },
+  { "name": "HeroUI", "icon": "FiZap" },
+  { "name": "DaisyUI", "icon": "FiGrid" },
+  { "name": "Framer Motion", "icon": "SiFramer" },
+  { "name": "Better Auth", "icon": "FiShield" },
+  { "name": "React Icons", "icon": "FiBox" }
+]
