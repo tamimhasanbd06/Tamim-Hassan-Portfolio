@@ -146,13 +146,10 @@ export default function DashboardShell({
    * Inactive item:
    * dash-nav
    */
-  const NavItem = ({
-    item,
-    adminContext = false,
-  }: {
-    item: NavigationItem;
-    adminContext?: boolean;
-  }) => {
+  const renderNavItem = (
+    item: NavigationItem,
+    adminContext: boolean = false
+  ) => {
     const Icon = item.icon;
     const active = isActive(item.href);
 
@@ -180,7 +177,7 @@ export default function DashboardShell({
   /**
    * Sidebar
    */
-  const Sidebar = () => (
+  const renderSidebar = () => (
     <aside
       className="
         flex h-full w-72 flex-col
@@ -252,10 +249,9 @@ export default function DashboardShell({
 
         <nav className="grid gap-2">
           {dashboardItems.map((item) => (
-            <NavItem
-              key={item.href}
-              item={item}
-            />
+            <div key={item.href}>
+              {renderNavItem(item)}
+            </div>
           ))}
         </nav>
       </div>
@@ -272,11 +268,9 @@ export default function DashboardShell({
 
         <nav className="grid gap-2">
           {portfolioItems.map((item) => (
-            <NavItem
-              key={item.href}
-              item={item}
-              adminContext
-            />
+            <div key={item.href}>
+              {renderNavItem(item, true)}
+            </div>
           ))}
         </nav>
       </div>
@@ -332,7 +326,7 @@ export default function DashboardShell({
     <div className="min-h-screen bg-transparent text-white">
       {/* Desktop Sidebar */}
       <div className="fixed left-0 top-0 z-40 hidden h-screen lg:block">
-        <Sidebar />
+        {renderSidebar()}
       </div>
 
       {/* Mobile Sidebar */}
@@ -351,7 +345,7 @@ export default function DashboardShell({
             className="h-full w-72"
             onClick={(event) => event.stopPropagation()}
           >
-            <Sidebar />
+            {renderSidebar()}
           </div>
         </div>
       ) : null}
