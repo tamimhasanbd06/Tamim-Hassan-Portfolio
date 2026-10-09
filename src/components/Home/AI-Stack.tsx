@@ -136,15 +136,11 @@ export default function AiTools() {
         relative
         w-full
         overflow-hidden
-        bg-gradient-to-b
-        from-black
-        via-[var(--bg-card)]
-        to-black
         py-16
         sm:py-20
       `}
     >
-      {/* Background glow */}
+      {/* Background glow — preserved */}
       <div
         aria-hidden="true"
         className={`
@@ -345,6 +341,3 @@ export default function AiTools() {
     </section>
   );
 }
-
-
-

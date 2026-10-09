@@ -1,7 +1,8 @@
+
 "use client";
 
 import {
-  FormEvent,
+  type FormEvent,
   useEffect,
   useState,
 } from "react";
@@ -77,7 +78,7 @@ export default function LoginPage() {
    * =========================================================
    */
 
-  async function submit(e: FormEvent) {
+  async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setLoading(true);
@@ -99,9 +100,7 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.message || "Login failed.",
-        );
+        throw new Error(data.message || "Login failed.");
       }
 
       router.replace("/dashboard/overview");
@@ -110,7 +109,7 @@ export default function LoginPage() {
       setError(
         err instanceof Error
           ? err.message
-          : "Login failed.",
+          : "Login failed."
       );
     } finally {
       setLoading(false);
@@ -118,34 +117,53 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="relative isolate flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#020617] px-4 py-10 text-white sm:px-6 lg:px-8">
+    <main className="relative isolate flex min-h-screen min-h-dvh w-full items-center justify-center overflow-hidden bg-[var(--bg-primary)] px-4 py-10 text-white sm:px-6 lg:px-8">
+
       {/* =====================================================
-          BACKGROUND
+          SAME CV PAGE BACKGROUND
       ====================================================== */}
 
-      <div className="pointer-events-none absolute inset-0 -z-30 bg-[radial-gradient(circle_at_15%_15%,rgba(37,99,235,0.13),transparent_30%),radial-gradient(circle_at_85%_85%,rgba(6,182,212,0.10),transparent_32%),linear-gradient(135deg,#020617_0%,#030712_50%,#020617_100%)]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      >
+        {/* Blue and cyan radial gradients */}
+        <div
+          className="
+            absolute inset-0
+            bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]
+          "
+        />
 
-      {/* Blue glow */}
+        {/* Blue ambient glow */}
+        <div
+          className="
+            absolute -left-40 top-0
+            h-[480px] w-[480px]
+            rounded-full
+            bg-blue-600/10
+            blur-[160px]
+          "
+        />
 
-      <div className="pointer-events-none absolute -left-48 -top-48 -z-20 h-[520px] w-[520px] rounded-full bg-blue-600/[0.10] blur-[150px]" />
-
-      {/* Cyan glow */}
-
-      <div className="pointer-events-none absolute -bottom-56 -right-48 -z-20 h-[560px] w-[560px] rounded-full bg-cyan-400/[0.08] blur-[160px]" />
-
-      {/* Center glow */}
-
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/[0.035] blur-[140px]" />
-
-      {/* Grid */}
-
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.025] [background-image:linear-gradient(rgba(255,255,255,0.45)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.45)_1px,transparent_1px)] [background-size:56px_56px]" />
+        {/* Cyan ambient glow */}
+        <div
+          className="
+            absolute -bottom-52 right-[-120px]
+            h-[520px] w-[520px]
+            rounded-full
+            bg-cyan-400/10
+            blur-[170px]
+          "
+        />
+      </div>
 
       {/* =====================================================
           MAIN WRAPPER
       ====================================================== */}
 
-      <div className="relative w-full max-w-md">
+      <div className="relative z-10 w-full max-w-md">
+
         {/* ===================================================
             BACK TO PORTFOLIO
         ==================================================== */}
@@ -174,17 +192,17 @@ export default function LoginPage() {
         ==================================================== */}
 
         <section className="relative overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.025] shadow-[0_30px_120px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
-          {/* Card glow */}
 
+          {/* Card glow */}
           <div className="pointer-events-none absolute -right-28 -top-28 h-72 w-72 rounded-full bg-cyan-400/[0.07] blur-[100px]" />
 
           <div className="pointer-events-none absolute -bottom-32 -left-24 h-64 w-64 rounded-full bg-blue-500/[0.07] blur-[100px]" />
 
           {/* Top accent */}
-
           <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent" />
 
           <div className="relative p-6 sm:p-8">
+
             {/* =================================================
                 BRAND / ICON
             ================================================== */}
@@ -200,7 +218,6 @@ export default function LoginPage() {
               <div className="rounded-full border border-emerald-300/10 bg-emerald-300/[0.045] px-3 py-1.5">
                 <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-300">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
-
                   Protected
                 </span>
               </div>
@@ -285,6 +302,7 @@ export default function LoginPage() {
                 onSubmit={submit}
                 className="space-y-5"
               >
+
                 {/* =================================================
                     EMAIL
                 ================================================== */}
@@ -332,7 +350,6 @@ export default function LoginPage() {
 
                     <span className="flex items-center gap-1 text-[10px] text-slate-700">
                       <Fingerprint size={11} />
-
                       Protected
                     </span>
                   </span>
@@ -344,9 +361,7 @@ export default function LoginPage() {
                     />
 
                     <input
-                      type={
-                        show ? "text" : "password"
-                      }
+                      type={show ? "text" : "password"}
                       autoComplete="current-password"
                       required
                       value={password}
@@ -420,7 +435,6 @@ export default function LoginPage() {
                   className="group relative flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-xl border border-cyan-300/20 bg-gradient-to-r from-cyan-400/[0.14] via-blue-500/[0.16] to-indigo-500/[0.14] text-sm font-bold text-cyan-100 shadow-[0_10px_35px_rgba(34,211,238,0.07)] transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300/35 hover:shadow-[0_15px_45px_rgba(34,211,238,0.12)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
                 >
                   {/* Button glow */}
-
                   <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
 
                   {loading ? (

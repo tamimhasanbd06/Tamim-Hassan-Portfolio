@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import {
   FaArrowLeft,
@@ -95,7 +96,8 @@ export default function OverviewPage() {
               Portfolio Overview
             </div>
 
-            <h1 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+            {/* Main heading: slider-inspired gradient */}
+            <h1 className="mt-4 bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
               Portfolio at a glance
             </h1>
 
@@ -224,9 +226,7 @@ export default function OverviewPage() {
         </div>
 
         <div className="grid gap-5 xl:grid-cols-2">
-          {/* =====================================================
-              TECHNOLOGY GRAPH
-          ====================================================== */}
+          {/* TECHNOLOGY GRAPH */}
           <section className="dash-card overflow-hidden p-5 sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -256,9 +256,7 @@ export default function OverviewPage() {
 
                 const width = Math.max(
                   8,
-                  Math.round(
-                    (count / maxTechCount) * 100
-                  )
+                  Math.round((count / maxTechCount) * 100)
                 );
 
                 return (
@@ -276,18 +274,13 @@ export default function OverviewPage() {
                     <div className="relative h-3 overflow-hidden rounded-full bg-white/[0.045]">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-cyan-300/80 via-blue-400/75 to-indigo-400/75 transition-all duration-700 group-hover:brightness-125"
-                        style={{
-                          width: `${width}%`,
-                        }}
+                        style={{ width: `${width}%` }}
                       />
 
                       <div
                         className="absolute inset-y-0 left-0 rounded-full bg-white/10"
                         style={{
-                          width: `${Math.min(
-                            width,
-                            20
-                          )}%`,
+                          width: `${Math.min(width, 20)}%`,
                         }}
                       />
                     </div>
@@ -297,9 +290,7 @@ export default function OverviewPage() {
             </div>
           </section>
 
-          {/* =====================================================
-              PROJECT GRAPH
-          ====================================================== */}
+          {/* PROJECT GRAPH */}
           <section className="dash-card overflow-hidden p-5 sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -329,9 +320,7 @@ export default function OverviewPage() {
 
                 const width = Math.max(
                   10,
-                  Math.round(
-                    (count / maxProjectCount) * 100
-                  )
+                  Math.round((count / maxProjectCount) * 100)
                 );
 
                 return (
@@ -352,9 +341,7 @@ export default function OverviewPage() {
                     <div className="h-2 overflow-hidden rounded-full bg-white/[0.045]">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-blue-300/75 to-indigo-400/75 transition-all duration-700"
-                        style={{
-                          width: `${width}%`,
-                        }}
+                        style={{ width: `${width}%` }}
                       />
                     </div>
                   </div>
@@ -397,15 +384,14 @@ export default function OverviewPage() {
           {toolCats.map((cat) => {
             const count = getToolCount(cat);
 
-            const percentage = Math.round(
-              (count / toolkit.length) * 100
-            );
+            const percentage =
+              toolkit.length > 0
+                ? Math.round((count / toolkit.length) * 100)
+                : 0;
 
             const width = Math.max(
               8,
-              Math.round(
-                (count / maxToolCount) * 100
-              )
+              Math.round((count / maxToolCount) * 100)
             );
 
             return (
@@ -432,9 +418,7 @@ export default function OverviewPage() {
                 <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/[0.045]">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-indigo-300/70 to-blue-400/70 transition-all duration-700 group-hover:brightness-125"
-                    style={{
-                      width: `${width}%`,
-                    }}
+                    style={{ width: `${width}%` }}
                   />
                 </div>
               </div>
@@ -467,19 +451,13 @@ export default function OverviewPage() {
             </div>
 
             <span className="text-2xl font-black text-cyan-300">
-              {
-                tech.filter(
-                  (t) => t.category === "skills"
-                ).length
-              }
+              {tech.filter((t) => t.category === "skills").length}
             </span>
           </div>
 
           <div className="mt-6 flex flex-wrap gap-2">
             {tech
-              .filter(
-                (t) => t.category === "skills"
-              )
+              .filter((t) => t.category === "skills")
               .map((t) => (
                 <span
                   key={t.id}
@@ -492,7 +470,7 @@ export default function OverviewPage() {
           </div>
         </section>
 
-        {/* Toolkit Preview */}
+        {/* Toolkit Preview — skill badge-inspired design */}
         <section className="dash-card overflow-hidden p-5 sm:p-6">
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -516,20 +494,20 @@ export default function OverviewPage() {
             </span>
           </div>
 
-          <div className="mt-6 grid gap-2 sm:grid-cols-2">
+          {/* Rounded tool badges matching Skills & tech stack */}
+          <div className="mt-6 flex flex-wrap gap-2">
             {toolkit.slice(0, 8).map((tool) => (
-              <div
+              <span
                 key={tool.id}
-                className="rounded-xl border border-white/[0.055] bg-white/[0.018] p-3 transition-all duration-300 hover:border-indigo-300/15 hover:bg-white/[0.035]"
+                title={`${tool.name} — ${tool.category}`}
+                className="group inline-flex items-center gap-1.5 rounded-full border border-indigo-300/10 bg-indigo-300/[0.035] px-3 py-1.5 text-sm text-slate-300 transition-all duration-300 hover:border-indigo-300/25 hover:bg-indigo-300/[0.075] hover:text-indigo-200"
               >
-                <p className="truncate text-sm font-semibold text-slate-200">
-                  {tool.name}
-                </p>
+                <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-300/70 transition-all group-hover:bg-indigo-300" />
 
-                <p className="mt-1 text-[11px] capitalize text-slate-500">
-                  {tool.category}
-                </p>
-              </div>
+                <span className="max-w-full truncate">
+                  {tool.name}
+                </span>
+              </span>
             ))}
           </div>
 

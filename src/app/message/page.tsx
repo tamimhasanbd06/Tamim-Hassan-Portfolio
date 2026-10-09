@@ -76,15 +76,10 @@ export default function MessagePage() {
    * Admin navigation context.
    *
    * Dashboard sidebar opens this page as:
-   *
    * /message?from=admin
    *
    * Normal public visitors open:
-   *
    * /message
-   *
-   * Therefore the Admin button is only rendered
-   * when the page was opened from the dashboard.
    */
   const isAdminView = searchParams.get("from") === "admin";
 
@@ -98,9 +93,7 @@ export default function MessagePage() {
   const [mine, setMine] = useState<OwnMessage[]>([]);
   const [editing, setEditing] = useState<string | null>(null);
 
-  const [loadingMessages, setLoadingMessages] =
-    useState(true);
-
+  const [loadingMessages, setLoadingMessages] = useState(true);
   const [loadError, setLoadError] = useState("");
 
   const load = useCallback(async () => {
@@ -121,9 +114,7 @@ export default function MessagePage() {
       }
 
       setMine(
-        Array.isArray(data.messages)
-          ? data.messages
-          : [],
+        Array.isArray(data.messages) ? data.messages : [],
       );
     } catch (err) {
       setLoadError(
@@ -140,14 +131,6 @@ export default function MessagePage() {
     void load();
   }, [load]);
 
-  /**
-   * Admin → Dashboard
-   *
-   * replace() is intentional here.
-   *
-   * It prevents the user from being sent back to
-   * /message?from=admin again by pressing browser back.
-   */
   function backToDashboard() {
     router.replace("/dashboard/overview");
   }
@@ -166,9 +149,7 @@ export default function MessagePage() {
       setNotice("");
     } catch (err) {
       setNotice(
-        err instanceof Error
-          ? err.message
-          : "Invalid image.",
+        err instanceof Error ? err.message : "Invalid image.",
       );
     }
   }
@@ -188,9 +169,7 @@ export default function MessagePage() {
 
     try {
       const response = await fetch(
-        editing
-          ? `/api/messages/${editing}`
-          : "/api/messages",
+        editing ? `/api/messages/${editing}` : "/api/messages",
         {
           method: editing ? "PATCH" : "POST",
           headers: {
@@ -258,45 +237,51 @@ export default function MessagePage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#010409] text-white">
+    <main className="relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
       {/* =========================================================
-          BACKGROUND DECORATION
+          SAME CV PAGE BACKGROUND
       ========================================================== */}
 
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 overflow-hidden"
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
       >
-        {/* Cyan glow */}
-        <div className="absolute -left-40 top-10 h-[420px] w-[420px] rounded-full bg-cyan-400/[0.055] blur-[120px]" />
+        {/* Blue and cyan radial gradients */}
+        <div
+          className="
+            absolute inset-0
+            bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]
+          "
+        />
 
-        {/* Blue glow */}
-        <div className="absolute -right-48 top-[25%] h-[500px] w-[500px] rounded-full bg-blue-600/[0.055] blur-[130px]" />
+        {/* Blue ambient glow */}
+        <div
+          className="
+            absolute -left-40 top-0
+            h-[480px] w-[480px]
+            rounded-full bg-blue-600/10
+            blur-[160px]
+          "
+        />
 
-        {/* Indigo glow */}
-        <div className="absolute bottom-[-180px] left-[45%] h-[450px] w-[450px] rounded-full bg-indigo-500/[0.045] blur-[130px]" />
-
-        {/* Top radial atmosphere */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,210,255,0.045),transparent_38%)]" />
-
-        {/* Very subtle grid */}
-        <div className="absolute inset-0 opacity-[0.018] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:70px_70px]" />
+        {/* Cyan ambient glow */}
+        <div
+          className="
+            absolute -bottom-52 right-[-120px]
+            h-[520px] w-[520px]
+            rounded-full bg-cyan-400/10
+            blur-[170px]
+          "
+        />
       </div>
 
-      {/* =========================================================
-          PAGE CONTENT
-      ========================================================== */}
+      {/* PAGE CONTENT */}
 
       <div className="relative z-10 mx-auto w-full max-w-2xl px-4 py-7 sm:px-6 sm:py-10">
-        {/* =======================================================
-            NAVIGATION
-        ======================================================== */}
+        {/* NAVIGATION */}
 
         <div className="flex flex-wrap items-center gap-2.5">
           {isAdminView ? (
-            /* ===================================================
-               ADMIN → DASHBOARD
-            ==================================================== */
             <button
               type="button"
               onClick={backToDashboard}
@@ -322,9 +307,6 @@ export default function MessagePage() {
               />
             </button>
           ) : (
-            /* ===================================================
-               PUBLIC → PORTFOLIO
-            ==================================================== */
             <Link
               href="/home"
               className="
@@ -359,59 +341,40 @@ export default function MessagePage() {
           )}
         </div>
 
-        {/* =======================================================
-            ADMIN CONTEXT INDICATOR
-        ======================================================== */}
+        {/* ADMIN CONTEXT */}
 
         {isAdminView ? (
           <div className="mt-3 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-cyan-400/60">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-
             Admin workspace
           </div>
         ) : null}
 
-        {/* =======================================================
-            MAIN MESSAGE CARD
-        ======================================================== */}
+        {/* MAIN MESSAGE CARD */}
 
         <section className="relative mt-5 overflow-hidden rounded-[22px] border border-cyan-400/[0.12] bg-[#02070e]/90 shadow-[0_25px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
-          {/* Top gradient line */}
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80" />
 
-          {/* Soft card glow */}
           <div className="pointer-events-none absolute -right-32 -top-32 h-64 w-64 rounded-full bg-cyan-400/[0.035] blur-3xl" />
 
-          {/* =====================================================
-              HEADER
-          ====================================================== */}
+          {/* HEADER */}
 
           <div className="relative border-b border-white/[0.055] px-5 py-5 sm:px-6">
             <div className="flex items-start gap-3.5">
-              {/* Icon */}
               <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan-400/20 bg-gradient-to-br from-cyan-400/[0.12] to-blue-500/[0.08] text-cyan-300 shadow-[0_0_30px_rgba(0,210,255,0.07)]">
                 <div className="absolute inset-0 rounded-xl bg-cyan-400/[0.025] blur-md" />
 
                 {editing ? (
-                  <Pencil
-                    size={18}
-                    className="relative"
-                  />
+                  <Pencil size={18} className="relative" />
                 ) : (
-                  <MessageCircle
-                    size={19}
-                    className="relative"
-                  />
+                  <MessageCircle size={19} className="relative" />
                 )}
               </div>
 
-              {/* Header text */}
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-300">
-                    {editing
-                      ? "Edit Message"
-                      : "Message Me"}
+                    {editing ? "Edit Message" : "Message Me"}
                   </p>
 
                   <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/15 bg-cyan-400/[0.055] px-2 py-0.5 text-[9px] font-semibold text-cyan-200">
@@ -420,7 +383,9 @@ export default function MessagePage() {
                   </span>
                 </div>
 
-                <h1 className="mt-1 text-[23px] font-black tracking-tight text-white sm:text-[26px]">
+                {/* TITLE: SAME GRADIENT AS THE SEND BUTTON */}
+
+                <h1 className="mt-1 bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-600 bg-clip-text text-[23px] font-black tracking-tight text-transparent sm:text-[26px]">
                   {editing
                     ? "Update your message"
                     : "Send a private message"}
@@ -434,16 +399,12 @@ export default function MessagePage() {
             </div>
           </div>
 
-          {/* =====================================================
-              FORM
-          ====================================================== */}
+          {/* FORM */}
 
           <form
             onSubmit={submit}
             className="relative space-y-4 px-5 py-5 sm:px-6 sm:py-6"
           >
-            {/* NAME */}
-
             <label className="block">
               <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
                 Your name
@@ -453,16 +414,12 @@ export default function MessagePage() {
                 type="text"
                 maxLength={100}
                 value={name}
-                onChange={(e) =>
-                  setName(e.target.value)
-                }
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
                 required
                 className="w-full rounded-xl border border-white/[0.08] bg-[#030a12] px-3.5 py-2.5 text-sm text-white outline-none transition-all duration-300 placeholder:text-slate-600 hover:border-cyan-400/[0.16] focus:border-cyan-400/35 focus:bg-[#04101a] focus:ring-2 focus:ring-cyan-400/[0.07]"
               />
             </label>
-
-            {/* MESSAGE */}
 
             <label className="block">
               <span className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
@@ -471,9 +428,7 @@ export default function MessagePage() {
 
               <textarea
                 value={message}
-                onChange={(e) =>
-                  setMessage(e.target.value)
-                }
+                onChange={(e) => setMessage(e.target.value)}
                 placeholder="Write your message..."
                 className="min-h-[120px] w-full resize-y rounded-xl border border-white/[0.08] bg-[#030a12] px-3.5 py-3 text-sm leading-6 text-white outline-none transition-all duration-300 placeholder:text-slate-600 hover:border-cyan-400/[0.16] focus:border-cyan-400/35 focus:bg-[#04101a] focus:ring-2 focus:ring-cyan-400/[0.07]"
               />
@@ -507,7 +462,6 @@ export default function MessagePage() {
             <div className="grid gap-2.5 sm:grid-cols-[auto_1fr]">
               <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-cyan-400/[0.13] bg-[#030a12] px-4 py-2.5 text-xs font-bold text-cyan-200 transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.055] hover:text-cyan-100">
                 <ImagePlus size={16} />
-
                 Add Image
 
                 <input
@@ -519,9 +473,7 @@ export default function MessagePage() {
               </label>
 
               <label className="relative block">
-                <span className="sr-only">
-                  Optional link
-                </span>
+                <span className="sr-only">Optional link</span>
 
                 <Link2
                   size={16}
@@ -531,9 +483,7 @@ export default function MessagePage() {
                 <input
                   type="url"
                   value={linkUrl}
-                  onChange={(e) =>
-                    setLinkUrl(e.target.value)
-                  }
+                  onChange={(e) => setLinkUrl(e.target.value)}
                   placeholder="Optional https:// link"
                   className="w-full rounded-xl border border-white/[0.08] bg-[#030a12] py-2.5 pl-9 pr-3.5 text-xs text-white outline-none transition-all duration-300 placeholder:text-slate-600 hover:border-cyan-400/[0.16] focus:border-cyan-400/35 focus:bg-[#04101a] focus:ring-2 focus:ring-cyan-400/[0.07]"
                 />
@@ -548,18 +498,14 @@ export default function MessagePage() {
               </div>
             ) : null}
 
-            {/* =================================================
-                BUTTONS
-            ================================================== */}
+            {/* BUTTONS */}
 
             <div className="flex flex-col gap-2.5 sm:flex-row">
-              {/* Primary */}
               <button
                 type="submit"
                 disabled={busy}
                 className="group relative inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-600 px-5 py-2.5 text-sm font-extrabold text-white shadow-[0_10px_30px_rgba(0,174,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_35px_rgba(0,174,255,0.22)] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {/* Button shine */}
                 <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
 
                 <Send
@@ -578,7 +524,6 @@ export default function MessagePage() {
                 </span>
               </button>
 
-              {/* Cancel */}
               {editing ? (
                 <button
                   type="button"
@@ -597,16 +542,12 @@ export default function MessagePage() {
           </form>
         </section>
 
-        {/* =======================================================
-            RECENT MESSAGES
-        ======================================================== */}
+        {/* RECENT MESSAGES */}
 
         <section
           className="mt-8"
           aria-labelledby="recent-messages-title"
         >
-          {/* Section heading */}
-
           <div className="mb-3.5 flex items-end justify-between">
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400">
@@ -626,14 +567,12 @@ export default function MessagePage() {
             mine.length > 0 ? (
               <span className="rounded-full border border-cyan-400/[0.12] bg-cyan-400/[0.035] px-2.5 py-1 text-[10px] font-bold text-cyan-300">
                 {mine.length}{" "}
-                {mine.length === 1
-                  ? "message"
-                  : "messages"}
+                {mine.length === 1 ? "message" : "messages"}
               </span>
             ) : null}
           </div>
 
-          {/* LOADING */}
+          {/* LOADING / ERROR / EMPTY / MESSAGES */}
 
           {loadingMessages ? (
             <div className="flex min-h-[135px] items-center justify-center gap-2.5 rounded-2xl border border-white/[0.07] bg-[#02070e]/75 p-6 text-xs text-slate-500 backdrop-blur-xl">
@@ -641,14 +580,11 @@ export default function MessagePage() {
                 size={17}
                 className="animate-spin text-cyan-400"
               />
-
               Loading messages...
             </div>
           ) : loadError ? (
             <EmptyState
-              icon={
-                <RefreshCw size={22} />
-              }
+              icon={<RefreshCw size={22} />}
               title="Unable to load messages"
               description={loadError}
               action={
@@ -679,16 +615,11 @@ export default function MessagePage() {
                       : "border-white/[0.07] hover:border-cyan-400/[0.16] hover:bg-[#030a12]"
                   }`}
                 >
-                  {/* Left accent */}
                   <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-cyan-400 via-blue-500/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-                  {/* Date / status */}
 
                   <div className="flex items-start justify-between gap-3">
                     <time className="text-[10px] font-medium text-slate-600">
-                      {new Date(
-                        item.createdAt,
-                      ).toLocaleString()}
+                      {new Date(item.createdAt).toLocaleString()}
                     </time>
 
                     {item.isSaved ? (
@@ -702,14 +633,9 @@ export default function MessagePage() {
                     )}
                   </div>
 
-                  {/* Message */}
-
                   <p className="mt-2.5 break-words text-sm leading-6 text-slate-300">
-                    {item.message ||
-                      "Attachment message"}
+                    {item.message || "Attachment message"}
                   </p>
-
-                  {/* Image */}
 
                   {item.imageUrl ? (
                     <div className="mt-3 overflow-hidden rounded-xl border border-white/[0.06] bg-black">
@@ -721,19 +647,14 @@ export default function MessagePage() {
                     </div>
                   ) : null}
 
-                  {/* Actions */}
-
                   <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
                     {!item.isSaved ? (
                       <button
                         type="button"
-                        onClick={() =>
-                          startEditing(item)
-                        }
+                        onClick={() => startEditing(item)}
                         className="inline-flex items-center gap-1.5 text-[11px] font-bold text-cyan-300 transition-colors hover:text-cyan-100"
                       >
                         <Pencil size={13} />
-
                         Edit your message
                       </button>
                     ) : null}
@@ -746,13 +667,10 @@ export default function MessagePage() {
                         className="inline-flex items-center gap-1.5 text-[11px] font-bold text-blue-400 transition-colors hover:text-blue-300"
                       >
                         <ExternalLink size={13} />
-
                         Open link
                       </a>
                     ) : null}
                   </div>
-
-                  {/* ADMIN REPLY */}
 
                   {item.adminReply ? (
                     <div className="mt-4 overflow-hidden rounded-xl border border-cyan-400/[0.11] bg-gradient-to-br from-cyan-400/[0.055] via-blue-500/[0.025] to-transparent p-3.5">
@@ -778,9 +696,7 @@ export default function MessagePage() {
           )}
         </section>
 
-        {/* =======================================================
-            FOOTER DECORATION
-        ======================================================== */}
+        {/* FOOTER DECORATION */}
 
         <div className="mt-8 flex items-center justify-center gap-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-700">
           <span className="h-px w-10 bg-gradient-to-r from-transparent to-cyan-400/20" />

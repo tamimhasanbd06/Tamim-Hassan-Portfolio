@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion } from "framer-motion";
@@ -40,15 +41,7 @@ type HomeFooterSection = {
   items: HomeFooterItem[];
 };
 
-/*
- * =========================================================
- * ICON MAPPING
- * =========================================================
- */
-
-const getHomeFooterIcon = (
-  icon: HomeFooterIcon,
-) => {
+const getHomeFooterIcon = (icon: HomeFooterIcon) => {
   switch (icon) {
     case "whatsapp":
       return <FaWhatsapp />;
@@ -73,20 +66,8 @@ const getHomeFooterIcon = (
   }
 };
 
-/*
- * =========================================================
- * HOME FOOTER
- * =========================================================
- */
-
 export default function HomeFooter() {
   const currentYear = new Date().getFullYear();
-
-  /*
-   * =======================================================
-   * BACK TO TOP
-   * =======================================================
-   */
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -96,221 +77,195 @@ export default function HomeFooter() {
   };
 
   return (
-    <footer className="relative isolate overflow-hidden border-t border-white/[0.07] bg-[#020617] text-white">
+    <footer className="relative isolate overflow-hidden border-t border-white/[0.07] bg-[#020617]/50 text-white backdrop-blur-xl">
 
-      {/* ===================================================
-          BACKGROUND SYSTEM
-      ==================================================== */}
+      {/* Background glow effects */}
 
-      <div className="absolute inset-0 -z-30 bg-[radial-gradient(circle_at_15%_20%,rgba(37,99,235,0.12),transparent_32%),radial-gradient(circle_at_85%_80%,rgba(6,182,212,0.10),transparent_30%),linear-gradient(135deg,#020617_0%,#030712_45%,#020617_100%)]" />
+      <div className="pointer-events-none absolute -left-40 -top-40 -z-10 h-[420px] w-[420px] rounded-full bg-blue-600/[0.10] blur-[150px]" />
 
-      {/* Top glow */}
+      <div className="pointer-events-none absolute -bottom-48 -right-40 -z-10 h-[480px] w-[480px] rounded-full bg-cyan-400/[0.08] blur-[160px]" />
 
-      <div className="absolute -left-40 -top-40 -z-20 h-[480px] w-[480px] rounded-full bg-blue-600/[0.10] blur-[150px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/[0.04] blur-[140px]" />
 
-      {/* Bottom glow */}
+      {/* Main container */}
 
-      <div className="absolute -bottom-56 -right-40 -z-20 h-[560px] w-[560px] rounded-full bg-cyan-400/[0.08] blur-[170px]" />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-7 pt-14 sm:px-6 sm:pb-9 sm:pt-20 lg:px-10 lg:pt-24">
 
-      {/* Center glow */}
-
-      <div className="absolute left-1/2 top-1/2 -z-20 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/[0.035] blur-[150px]" />
-
-      {/* Grid */}
-
-      <div className="absolute inset-0 -z-10 opacity-[0.025] [background-image:linear-gradient(rgba(255,255,255,0.45)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.45)_1px,transparent_1px)] [background-size:56px_56px]" />
-
-      {/* ===================================================
-          MAIN CONTAINER
-      ==================================================== */}
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-8 pt-16 sm:px-6 sm:pt-20 lg:px-10">
-
-        {/* =================================================
-            PREMIUM IDENTITY HERO
-        ================================================== */}
+        {/* Profile / Hero section */}
 
         <motion.section
-          initial={{
-            opacity: 0,
-            y: 28,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
-          transition={{
-            duration: 0.7,
-            ease: "easeOut",
-          }}
-          className="relative mb-12 overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.025] p-6 shadow-[0_25px_100px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-8 lg:p-10"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+          className="group relative mb-10 overflow-hidden rounded-[1.75rem] border border-white/[0.09] bg-white/[0.025] shadow-[0_25px_100px_rgba(0,0,0,0.20)] backdrop-blur-2xl sm:mb-12 sm:rounded-[2rem]"
         >
+          {/* Decorative accents */}
 
-          {/* Hero inner glow */}
+          <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-cyan-400/[0.07] blur-[100px] transition-opacity duration-500 group-hover:bg-cyan-400/[0.10]" />
 
-          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-400/[0.08] blur-[100px]" />
+          <div className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-blue-500/[0.06] blur-[100px]" />
 
-          <div className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-blue-500/[0.07] blur-[100px]" />
+          <div className="relative p-5 sm:p-8 lg:p-10">
 
-          <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
 
-            {/* Identity */}
+              {/* Profile identity */}
 
-            <div className="flex min-w-0 flex-col gap-5 sm:flex-row sm:items-center">
+              <div className="flex min-w-0 flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
 
-              {/* Monogram */}
+                {/* Monogram */}
 
-              <div className="relative shrink-0">
+                <div className="relative mx-auto shrink-0 sm:mx-0">
 
-                <div className="absolute inset-0 rounded-2xl bg-cyan-400/20 blur-xl" />
+                  <div className="absolute -inset-2 rounded-[1.5rem] bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-indigo-500/20 opacity-70 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
 
-                <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-cyan-300/20 bg-gradient-to-br from-cyan-300/[0.10] via-blue-500/[0.08] to-indigo-500/[0.10] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:h-24 sm:w-24">
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-[1.35rem] border border-cyan-300/20 bg-gradient-to-br from-cyan-300/[0.12] via-blue-500/[0.08] to-indigo-500/[0.12] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:h-24 sm:w-24">
 
-                  <span className="bg-gradient-to-br from-white via-cyan-100 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl">
-                    TH
+                    <span className="bg-gradient-to-br from-white via-cyan-100 to-cyan-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl">
+                      TH
+                    </span>
+
+                  </div>
+
+                  <span
+                    className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-[3px] border-[#07101f] bg-emerald-400"
+                    aria-label="Available for opportunities"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-950" />
                   </span>
+
+                </div>
+
+                {/* Profile details */}
+
+                <div className="min-w-0 text-center sm:text-left">
+
+                  <div className="mb-3 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+
+                    <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.18em] text-emerald-300 sm:text-[10px]">
+
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
+
+                      Available for opportunities
+
+                    </span>
+
+                  </div>
+
+                  <h2 className="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
+
+                    Tamim{" "}
+
+                    <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
+                      Hasan
+                    </span>
+
+                  </h2>
+
+                  <p className="mt-3 text-sm font-semibold text-slate-300 sm:text-base">
+
+                    Frontend Web Developer
+
+                    <span className="mx-2 text-slate-600">/</span>
+
+                    <span className="text-cyan-300">
+                      Next.js & TypeScript
+                    </span>
+
+                  </p>
+
+                  <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-400 sm:mx-0">
+
+                    I build modern, responsive, high-performance web
+                    experiences with a focus on clean interfaces,
+                    meaningful interactions, and maintainable frontend
+                    architecture.
+
+                  </p>
 
                 </div>
 
               </div>
 
-              {/* Details */}
+              {/* Resume CTA */}
 
-              <div className="min-w-0">
+              <div className="flex shrink-0 flex-col items-stretch gap-3 sm:flex-row lg:flex-col">
 
-                {/* Availability */}
+                <Link
+                  href="/resume"
+                  className="group/cta inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_8px_30px_rgba(34,211,238,0.16)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_38px_rgba(34,211,238,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617]"
+                >
+                  <FaFileLines className="text-base" />
 
-                <div className="mb-2 flex items-center gap-2">
+                  View Resume
 
-                  <span className="relative flex h-2 w-2">
-
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-
+                  <span className="transition-transform duration-300 group-hover/cta:translate-x-1">
+                    →
                   </span>
 
-                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-300 sm:text-xs">
-                    Available for opportunities
-                  </span>
-
-                </div>
-
-                {/* Name */}
-
-                <h2 className="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
-
-                  Tamim{" "}
-
-                  <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
-                    Hasan
-                  </span>
-
-                </h2>
-
-                {/* Role */}
-
-                <p className="mt-2 text-sm font-semibold text-slate-300 sm:text-base">
-                  Frontend Web Developer
-                  <span className="mx-2 text-slate-700">
-                    •
-                  </span>
-                  Next.js & TypeScript
-                </p>
-
-                {/* Description */}
-
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
-                  I build modern, responsive, high-performance
-                  web experiences with a strong focus on clean
-                  interfaces, thoughtful interactions, and
-                  maintainable frontend architecture.
-                </p>
+                </Link>
 
               </div>
 
             </div>
 
-            {/* CTA */}
+            {/* Technology tags */}
 
-            <div className="shrink-0">
+            <div className="mt-8 border-t border-white/[0.07] pt-6">
 
-              <Link
-                href="/resume"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-300/20 bg-gradient-to-r from-cyan-400/[0.10] to-blue-500/[0.10] px-5 py-3 text-sm font-bold text-cyan-100 shadow-[0_10px_35px_rgba(34,211,238,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/35 hover:bg-cyan-300/[0.13] hover:shadow-[0_15px_45px_rgba(34,211,238,0.10)] sm:w-auto"
-              >
-                View Resume
+              <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                Technologies I work with
+              </p>
 
-                <FaFileLines className="transition-transform duration-300 group-hover:translate-x-1" />
+              <div className="flex flex-wrap justify-center gap-2 sm:justify-start">
 
-              </Link>
+                {[
+                  "React",
+                  "Next.js",
+                  "TypeScript",
+                  "Tailwind CSS",
+                  "Framer Motion",
+                ].map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-lg border border-white/[0.07] bg-white/[0.025] px-3 py-2 text-[10px] font-semibold text-slate-400 transition-all duration-300 hover:border-cyan-300/20 hover:bg-cyan-300/[0.05] hover:text-cyan-200 sm:text-[11px]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+
+              </div>
 
             </div>
 
           </div>
-
-          {/* Tech line */}
-
-          <div className="relative mt-8 flex flex-wrap gap-2 border-t border-white/[0.06] pt-6">
-
-            {[
-              "React",
-              "Next.js",
-              "TypeScript",
-              "Tailwind CSS",
-              "Framer Motion",
-            ].map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-white/[0.07] bg-white/[0.025] px-3 py-1.5 text-[10px] font-semibold text-slate-500 transition-colors hover:border-cyan-300/15 hover:text-cyan-300"
-              >
-                {tech}
-              </span>
-            ))}
-
-          </div>
-
         </motion.section>
 
-        {/* =================================================
-            LINK AREA
-        ================================================== */}
+        {/* Footer navigation */}
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2 md:gap-6">
 
           {(homeFooterData as HomeFooterSection[]).map(
             (section, sectionIndex) => (
 
               <motion.section
                 key={section.title}
-                initial={{
-                  opacity: 0,
-                  y: 30,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.2,
-                }}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{
                   duration: 0.55,
                   delay: sectionIndex * 0.1,
                 }}
-                className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-5 shadow-[0_20px_70px_rgba(0,0,0,0.14)] backdrop-blur-xl sm:p-6"
+                className="group/section relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.018] p-5 transition-colors duration-300 hover:border-white/[0.11] hover:bg-white/[0.025] sm:rounded-3xl sm:p-6"
               >
 
-                {/* Section Header */}
+                {/* Section header */}
 
                 <div className="mb-5 flex items-center gap-3">
 
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-cyan-300/10 bg-cyan-300/[0.05]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-300/15 bg-gradient-to-br from-cyan-300/[0.09] to-blue-500/[0.05]">
 
                     <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
 
@@ -318,59 +273,56 @@ export default function HomeFooter() {
 
                   <div className="min-w-0">
 
-                    <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-cyan-300">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-cyan-300">
                       Explore
                     </p>
 
-                    <h3 className="mt-0.5 text-base font-bold text-white">
+                    <h3 className="mt-1 text-base font-bold text-white sm:text-lg">
                       {section.title}
                     </h3>
 
                   </div>
 
-                  <div className="ml-auto h-px flex-1 bg-gradient-to-r from-cyan-400/20 to-transparent" />
+                  <div className="ml-auto h-px min-w-5 flex-1 bg-gradient-to-r from-cyan-400/20 to-transparent" />
 
                 </div>
 
-                {/* Links */}
+                {/* Navigation links */}
 
                 <div className="grid gap-3 sm:grid-cols-2">
 
                   {section.items.map((item) => {
 
-                    const isExternal =
-                      Boolean(item.external);
+                    const isExternal = Boolean(item.external);
 
                     const content = (
                       <>
-                        {/* Hover glow */}
+                        {/* Hover background */}
 
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-cyan-400/[0.04] via-transparent to-blue-500/[0.04] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        <span className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/[0.045] via-transparent to-blue-500/[0.045] opacity-0 transition-opacity duration-300 group-hover/link:opacity-100" />
 
-                        {/* Bottom line */}
+                        {/* Bottom accent */}
 
-                        <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-blue-500 via-cyan-400 to-transparent transition-all duration-500 group-hover:w-full" />
+                        <span className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-blue-500 via-cyan-400 to-transparent transition-all duration-500 group-hover/link:w-full" />
 
                         {/* Icon */}
 
-                        <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.035] text-cyan-300 transition-all duration-300 group-hover:scale-105 group-hover:border-cyan-300/20 group-hover:bg-cyan-300/[0.07] group-hover:text-cyan-200 group-hover:shadow-[0_0_24px_rgba(34,211,238,0.08)]">
+                        <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.035] text-lg text-cyan-300 transition-all duration-300 group-hover/link:scale-105 group-hover/link:border-cyan-300/20 group-hover/link:bg-cyan-300/[0.07] group-hover/link:text-cyan-200">
 
-                          {getHomeFooterIcon(
-                            item.icon,
-                          )}
+                          {getHomeFooterIcon(item.icon)}
 
                         </span>
 
-                        {/* Text */}
+                        {/* Link information */}
 
                         <span className="relative min-w-0 flex-1">
 
-                          <span className="block text-sm font-bold text-slate-300 transition-colors duration-300 group-hover:text-cyan-100">
+                          <span className="block truncate text-sm font-bold text-slate-300 transition-colors duration-300 group-hover/link:text-cyan-100">
                             {item.label}
                           </span>
 
                           {item.value && (
-                            <span className="mt-1 block truncate text-[11px] leading-5 text-slate-600 transition-colors duration-300 group-hover:text-slate-500">
+                            <span className="mt-1 block truncate text-[11px] leading-5 text-slate-500 transition-colors duration-300 group-hover/link:text-slate-400">
                               {item.value}
                             </span>
                           )}
@@ -379,12 +331,14 @@ export default function HomeFooter() {
 
                         {/* Arrow */}
 
-                        <span className="relative shrink-0 text-slate-700 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300">
+                        <span className="relative shrink-0 text-sm text-slate-600 transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:text-cyan-300">
                           →
                         </span>
-
                       </>
                     );
+
+                    const linkClassName =
+                      "group/link relative flex min-w-0 items-center gap-3 overflow-hidden rounded-xl border border-white/[0.065] bg-white/[0.02] p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300/20 hover:bg-white/[0.04] hover:shadow-[0_10px_30px_rgba(34,211,238,0.035)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60";
 
                     if (isExternal) {
                       return (
@@ -393,7 +347,7 @@ export default function HomeFooter() {
                           href={item.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group relative flex min-w-0 items-center gap-3 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/20 hover:bg-white/[0.045] hover:shadow-[0_15px_40px_rgba(34,211,238,0.05)]"
+                          className={linkClassName}
                         >
                           {content}
                         </a>
@@ -404,7 +358,7 @@ export default function HomeFooter() {
                       <Link
                         key={item.id}
                         href={item.href}
-                        className="group relative flex min-w-0 items-center gap-3 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/20 hover:bg-white/[0.045] hover:shadow-[0_15px_40px_rgba(34,211,238,0.05)]"
+                        className={linkClassName}
                       >
                         {content}
                       </Link>
@@ -419,37 +373,23 @@ export default function HomeFooter() {
 
         </div>
 
-        {/* =================================================
-            SIGNATURE BAR
-        ================================================== */}
+        {/* Footer signature */}
 
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.5,
-            delay: 0.15,
-          }}
-          className="mt-7 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.018]"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-6 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.018] sm:mt-7"
         >
 
-          <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+          <div className="flex flex-col gap-5 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
 
             {/* Identity */}
 
             <div className="flex items-center gap-3">
 
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/10 bg-gradient-to-br from-cyan-300/[0.08] to-blue-500/[0.06]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-300/15 bg-gradient-to-br from-cyan-300/[0.09] to-blue-500/[0.06]">
 
                 <span className="text-xs font-black text-cyan-300">
                   TH
@@ -459,11 +399,11 @@ export default function HomeFooter() {
 
               <div>
 
-                <p className="text-xs font-bold text-slate-300">
+                <p className="text-xs font-bold text-slate-200">
                   Tamim Hasan
                 </p>
 
-                <p className="mt-0.5 text-[10px] text-slate-600">
+                <p className="mt-1 text-[10px] text-slate-500">
                   Frontend Web Developer
                 </p>
 
@@ -473,15 +413,20 @@ export default function HomeFooter() {
 
             {/* Built with */}
 
-            <p className="text-center text-[10px] font-medium text-slate-600 sm:text-left">
+            <p className="text-center text-[10px] font-medium leading-6 text-slate-500 sm:text-left">
+
               Designed & developed with
-              <span className="mx-1 text-cyan-400">
+
+              <span className="mx-1.5 font-semibold text-cyan-300">
                 Next.js
               </span>
+
               &
-              <span className="mx-1 text-blue-400">
+
+              <span className="mx-1.5 font-semibold text-blue-300">
                 TypeScript
               </span>
+
             </p>
 
             {/* Back to top */}
@@ -490,12 +435,12 @@ export default function HomeFooter() {
               type="button"
               onClick={scrollToTop}
               aria-label="Scroll back to top"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-2.5 text-xs font-semibold text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/20 hover:bg-cyan-300/[0.06] hover:text-cyan-200 sm:w-auto"
+              className="group/top inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.025] px-4 py-3 text-xs font-semibold text-slate-400 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300/20 hover:bg-cyan-300/[0.05] hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:w-auto"
             >
 
               Back to Top
 
-              <FaArrowUp className="transition-transform duration-300 group-hover:-translate-y-1" />
+              <FaArrowUp className="transition-transform duration-300 group-hover/top:-translate-y-1" />
 
             </button>
 
@@ -503,27 +448,25 @@ export default function HomeFooter() {
 
         </motion.div>
 
-        {/* =================================================
-            COPYRIGHT
-        ================================================== */}
+        {/* Copyright */}
 
-        <div className="mt-7 flex flex-col items-center justify-between gap-2 border-t border-white/[0.06] pt-6 text-center sm:flex-row sm:text-left">
+        <div className="mt-6 flex flex-col items-center gap-3 border-t border-white/[0.065] pt-6 text-center sm:mt-7 sm:flex-row sm:justify-between sm:text-left">
 
           <div>
 
-            <p className="text-xs text-slate-500 sm:text-sm">
+            <p className="text-xs text-slate-400">
               © {currentYear} Tamim Hasan. All rights reserved.
             </p>
 
-            <p className="mt-1 text-[10px] text-slate-700">
+            <p className="mt-1.5 max-w-xl text-[10px] leading-5 text-slate-600">
               Building digital experiences with passion,
               precision, and modern web technologies.
             </p>
 
           </div>
 
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">
-            Tamim Hasan
+          <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-slate-600">
+            Crafted with purpose
           </p>
 
         </div>

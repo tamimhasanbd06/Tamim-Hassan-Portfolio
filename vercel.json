@@ -1,1 +1,8 @@
-{"crons":[{"path":"/api/messages/cleanup","schedule":"0 * * * *"}]}
+{
+  "crons": [
+    {
+      "path": "/api/messages/cleanup",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

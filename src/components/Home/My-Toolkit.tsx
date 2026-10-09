@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { IconType } from "react-icons";
@@ -19,8 +20,6 @@ import {
   FiShield,
   FiGrid,
   FiZap,
-
-  
 } from "react-icons/fi";
 
 import libraryData from "../../../public/My-Toolkit.json";
@@ -144,10 +143,6 @@ export default function Library() {
         relative
         w-full
         overflow-hidden
-        bg-gradient-to-b
-        from-black
-        via-[var(--bg-card)]
-        to-black
         py-16
         sm:py-20
       `}
@@ -207,7 +202,6 @@ export default function Library() {
             `}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-
             My Toolkit
           </div>
 
@@ -354,6 +348,3 @@ export default function Library() {
     </section>
   );
 }
-
-
-

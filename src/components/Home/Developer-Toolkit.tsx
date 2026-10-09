@@ -487,10 +487,6 @@ export default function ProductivitySection() {
         relative
         w-full
         overflow-hidden
-        bg-gradient-to-b
-        from-black
-        via-[var(--bg-card)]
-        to-black
         px-4
         py-20
         text-white
@@ -1523,5 +1519,3 @@ export default function ProductivitySection() {
     </section>
   );
 }
-
-

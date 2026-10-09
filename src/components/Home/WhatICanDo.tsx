@@ -1,5 +1,4 @@
 
-
 "use client";
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -37,7 +36,7 @@ export default function WhatICanDo() {
   }, []);
 
   return (
-    <section className="theme-section relative w-full overflow-hidden px-4 py-20 sm:px-6 md:px-10 lg:px-16">
+    <section className="relative w-full overflow-hidden px-4 py-20 sm:px-6 md:px-10 lg:px-16">
       
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-16 max-w-3xl text-center">

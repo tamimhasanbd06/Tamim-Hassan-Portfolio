@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -69,9 +70,7 @@ export default function MessagesManager() {
       }
 
       setItems(
-        Array.isArray(data.messages)
-          ? data.messages
-          : []
+        Array.isArray(data.messages) ? data.messages : []
       );
     } catch (err) {
       setLoadError(
@@ -89,22 +88,14 @@ export default function MessagesManager() {
 
     const handler = () => void load();
 
-    window.addEventListener(
-      "dashboard-refresh",
-      handler
-    );
+    window.addEventListener("dashboard-refresh", handler);
 
     return () =>
-      window.removeEventListener(
-        "dashboard-refresh",
-        handler
-      );
+      window.removeEventListener("dashboard-refresh", handler);
   }, [load]);
 
   const stats = useMemo(() => {
-    const saved = items.filter(
-      (item) => item.isSaved
-    ).length;
+    const saved = items.filter((item) => item.isSaved).length;
 
     const replied = items.filter(
       (item) =>
@@ -137,23 +128,19 @@ export default function MessagesManager() {
     setBusyId(id);
 
     try {
-      const response = await fetch(
-        `/api/messages/${id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch(`/api/messages/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(
-          data.message ||
-            "Could not update message."
+          data.message || "Could not update message."
         );
       }
 
@@ -178,24 +165,17 @@ export default function MessagesManager() {
       );
     } catch (err) {
       setNotice(
-        err instanceof Error
-          ? err.message
-          : "Update failed."
+        err instanceof Error ? err.message : "Update failed."
       );
     }
   }
 
   async function sendReply(message: Message) {
     const replyText =
-      reply[message.id] ??
-      message.adminReply ??
-      "";
+      reply[message.id] ?? message.adminReply ?? "";
 
     if (!replyText.trim()) {
-      setNotice(
-        "Write a reply before saving it."
-      );
-
+      setNotice("Write a reply before saving it.");
       return;
     }
 
@@ -215,38 +195,28 @@ export default function MessagesManager() {
       });
     } catch (err) {
       setNotice(
-        err instanceof Error
-          ? err.message
-          : "Reply failed."
+        err instanceof Error ? err.message : "Reply failed."
       );
     }
   }
 
   async function remove(id: string) {
-    if (
-      !window.confirm(
-        "Delete this message permanently?"
-      )
-    ) {
+    if (!window.confirm("Delete this message permanently?")) {
       return;
     }
 
     setBusyId(id);
 
     try {
-      const response = await fetch(
-        `/api/messages/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`/api/messages/${id}`, {
+        method: "DELETE",
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(
-          data.message ||
-            "Could not delete message."
+          data.message || "Could not delete message."
         );
       }
 
@@ -255,9 +225,7 @@ export default function MessagesManager() {
       await load();
     } catch (err) {
       setNotice(
-        err instanceof Error
-          ? err.message
-          : "Delete failed."
+        err instanceof Error ? err.message : "Delete failed."
       );
     } finally {
       setBusyId(null);
@@ -278,38 +246,37 @@ export default function MessagesManager() {
     const normalized = status.toLowerCase();
 
     if (normalized === "replied") {
-      return "border-cyan-300/10 bg-cyan-300/[0.06] text-cyan-200";
+      return "border-cyan-300/15 bg-cyan-300/[0.06] text-cyan-200";
     }
 
-    if (
-      normalized === "read" ||
-      normalized === "viewed"
-    ) {
-      return "border-blue-300/10 bg-blue-300/[0.06] text-blue-200";
+    if (normalized === "read" || normalized === "viewed") {
+      return "border-blue-300/15 bg-blue-300/[0.06] text-blue-200";
     }
 
     return "border-white/[0.07] bg-white/[0.035] text-slate-400";
   }
 
+  const statCard =
+    "group rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.035] to-white/[0.012] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300/20 hover:shadow-[0_12px_35px_rgba(8,145,178,0.06)]";
+
+  const iconTile =
+    "rounded-xl border border-cyan-300/10 bg-gradient-to-br from-cyan-300/[0.11] to-blue-500/[0.06] p-2.5";
+
   return (
     <div className="space-y-7 pb-4">
-      {/* =========================================================
-          HEADER
-      ========================================================== */}
-      <header className="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-gradient-to-br from-cyan-300/[0.055] via-white/[0.02] to-blue-500/[0.035] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.18)] sm:p-8">
-        <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-cyan-400/[0.08] blur-3xl" />
-
-        <div className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-blue-500/[0.06] blur-3xl" />
+      {/* HEADER */}
+      <header className="relative isolate overflow-hidden rounded-3xl border border-cyan-300/[0.10] bg-gradient-to-br from-[#0b192e]/95 via-[#080f20]/95 to-[#11132c]/95 p-6 shadow-[0_20px_80px_rgba(0,0,0,0.20)] sm:p-8">
+        <div className="pointer-events-none absolute -right-20 -top-24 -z-10 h-64 w-64 rounded-full bg-cyan-400/[0.10] blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 left-1/3 -z-10 h-72 w-72 rounded-full bg-indigo-500/[0.09] blur-3xl" />
 
         <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/15 bg-cyan-300/[0.045] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-200">
               <Inbox size={13} />
-
               Message Center
             </div>
 
-            <h1 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h1 className="mt-4 bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
               Visitor inbox
             </h1>
 
@@ -319,32 +286,19 @@ export default function MessagesManager() {
               workspace.
             </p>
 
-            {/* Header Stats */}
             <div className="mt-6 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 py-1.5 text-xs text-slate-400">
-                <MessageSquare
-                  size={13}
-                  className="text-cyan-300"
-                />
-
+              <span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/10 bg-cyan-300/[0.035] px-3 py-1.5 text-xs text-slate-300">
+                <MessageSquare size={13} className="text-cyan-300" />
                 {stats.total} messages
               </span>
 
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 py-1.5 text-xs text-slate-400">
-                <Bookmark
-                  size={13}
-                  className="text-blue-300"
-                />
-
+              <span className="inline-flex items-center gap-2 rounded-full border border-blue-300/10 bg-blue-300/[0.035] px-3 py-1.5 text-xs text-slate-300">
+                <Bookmark size={13} className="text-blue-300" />
                 {stats.saved} saved
               </span>
 
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 py-1.5 text-xs text-slate-400">
-                <Reply
-                  size={13}
-                  className="text-indigo-300"
-                />
-
+              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-300/10 bg-indigo-300/[0.035] px-3 py-1.5 text-xs text-slate-300">
+                <Reply size={13} className="text-indigo-300" />
                 {stats.replied} replied
               </span>
             </div>
@@ -352,136 +306,99 @@ export default function MessagesManager() {
 
           <Link
             href="/home"
-            className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-xl border border-cyan-300/15 bg-cyan-300/[0.045] px-4 py-2.5 text-sm font-semibold text-slate-200 transition-all duration-300 hover:border-cyan-300/30 hover:bg-cyan-300/[0.09] hover:text-cyan-200 hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
+            className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-xl border border-cyan-300/15 bg-gradient-to-r from-cyan-300/[0.07] to-blue-400/[0.05] px-4 py-2.5 text-sm font-semibold text-slate-200 transition-all duration-300 hover:border-cyan-300/30 hover:from-cyan-300/[0.12] hover:to-blue-400/[0.10] hover:text-cyan-200 hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
           >
             <ArrowLeft
               size={17}
               className="text-cyan-300 transition-transform duration-300 group-hover:-translate-x-1"
             />
-
             Back to Portfolio
           </Link>
         </div>
       </header>
 
-      {/* =========================================================
-          PRODUCTIVITY STATS
-      ========================================================== */}
+      {/* PRODUCTIVITY STATS */}
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {/* Total */}
-        <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300/15 hover:bg-white/[0.035]">
+        <div className={statCard}>
           <div className="flex items-center justify-between">
-            <div className="rounded-xl bg-cyan-300/[0.07] p-2.5">
-              <Inbox
-                size={18}
-                className="text-cyan-300"
-              />
+            <div className={iconTile}>
+              <Inbox size={18} className="text-cyan-300" />
             </div>
-
             <span className="text-2xl font-black text-white">
               {stats.total}
             </span>
           </div>
-
           <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
             Total Messages
           </p>
-
           <p className="mt-1 text-xs text-slate-600">
             Current inbox
           </p>
         </div>
 
-        {/* Saved */}
-        <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-300/15 hover:bg-white/[0.035]">
+        <div className={statCard}>
           <div className="flex items-center justify-between">
-            <div className="rounded-xl bg-blue-300/[0.07] p-2.5">
-              <Bookmark
-                size={18}
-                className="text-blue-300"
-              />
+            <div className="rounded-xl border border-blue-300/10 bg-gradient-to-br from-blue-300/[0.11] to-indigo-400/[0.06] p-2.5">
+              <Bookmark size={18} className="text-blue-300" />
             </div>
-
             <span className="text-2xl font-black text-white">
               {stats.saved}
             </span>
           </div>
-
           <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
             Saved
           </p>
-
           <p className="mt-1 text-xs text-slate-600">
             Permanently retained
           </p>
         </div>
 
-        {/* Replied */}
-        <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-300/15 hover:bg-white/[0.035]">
+        <div className={statCard}>
           <div className="flex items-center justify-between">
-            <div className="rounded-xl bg-indigo-300/[0.07] p-2.5">
-              <Reply
-                size={18}
-                className="text-indigo-300"
-              />
+            <div className="rounded-xl border border-indigo-300/10 bg-gradient-to-br from-indigo-300/[0.11] to-blue-400/[0.06] p-2.5">
+              <Reply size={18} className="text-indigo-300" />
             </div>
-
             <span className="text-2xl font-black text-white">
               {stats.replied}
             </span>
           </div>
-
           <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
             Replied
           </p>
-
           <p className="mt-1 text-xs text-slate-600">
             Conversations answered
           </p>
         </div>
 
-        {/* Unsaved */}
-        <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300/15 hover:bg-white/[0.035]">
+        <div className="group rounded-2xl border border-amber-300/[0.09] bg-gradient-to-br from-amber-300/[0.035] to-white/[0.012] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300/20">
           <div className="flex items-center justify-between">
-            <div className="rounded-xl bg-amber-300/[0.07] p-2.5">
-              <Clock3
-                size={18}
-                className="text-amber-300"
-              />
+            <div className="rounded-xl border border-amber-300/10 bg-gradient-to-br from-amber-300/[0.10] to-orange-400/[0.04] p-2.5">
+              <Clock3 size={18} className="text-amber-300" />
             </div>
-
             <span className="text-2xl font-black text-white">
               {stats.unsaved}
             </span>
           </div>
-
           <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
             Unsaved
           </p>
-
           <p className="mt-1 text-xs text-slate-600">
             Subject to expiry
           </p>
         </div>
       </section>
 
-      {/* =========================================================
-          QUICK STATUS BAR
-      ========================================================== */}
-      <section className="flex flex-col gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.018] p-4 sm:flex-row sm:items-center sm:justify-between">
+      {/* QUICK STATUS BAR */}
+      <section className="flex flex-col gap-3 rounded-2xl border border-cyan-300/[0.08] bg-gradient-to-r from-cyan-300/[0.025] via-white/[0.015] to-indigo-400/[0.025] p-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
-          <div className="rounded-xl bg-cyan-300/[0.06] p-2.5">
-            <Zap
-              size={17}
-              className="text-cyan-300"
-            />
+          <div className={iconTile}>
+            <Zap size={17} className="text-cyan-300" />
           </div>
 
           <div>
             <p className="text-sm font-semibold text-slate-200">
               Inbox workspace
             </p>
-
             <p className="text-xs text-slate-500">
               Keep important conversations saved before
               they expire.
@@ -497,28 +414,23 @@ export default function MessagesManager() {
         >
           <RefreshCw
             size={16}
-            className={
-              loading ? "animate-spin" : ""
-            }
+            className={loading ? "animate-spin" : ""}
           />
-
           Refresh Inbox
         </button>
       </section>
 
-      {/* =========================================================
-          NOTICE
-      ========================================================== */}
+      {/* NOTICE */}
       {notice ? (
         <div
-          className="flex items-start gap-3 rounded-2xl border border-cyan-300/10 bg-cyan-300/[0.04] px-4 py-3 text-sm text-cyan-200"
+          className={`flex items-start gap-3 rounded-2xl border px-4 py-3 text-sm ${
+            notice.toLowerCase().includes("success")
+              ? "border-cyan-300/15 bg-gradient-to-r from-cyan-300/[0.06] to-blue-400/[0.035] text-cyan-200"
+              : "border-amber-300/15 bg-amber-300/[0.045] text-amber-200"
+          }`}
           aria-live="polite"
         >
-          <CheckCircle2
-            size={18}
-            className="mt-0.5 shrink-0"
-          />
-
+          <CheckCircle2 size={18} className="mt-0.5 shrink-0" />
           <span>{notice}</span>
 
           <button
@@ -532,17 +444,15 @@ export default function MessagesManager() {
         </div>
       ) : null}
 
-      {/* =========================================================
-          MESSAGES
-      ========================================================== */}
+      {/* MESSAGES */}
       <section aria-label="Visitor messages">
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-300">
+            <p className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-[11px] font-bold uppercase tracking-[0.2em] text-transparent">
               Inbox
             </p>
 
-            <h2 className="mt-1 text-2xl font-black text-white">
+            <h2 className="mt-1 bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-2xl font-black text-transparent">
               Visitor messages
             </h2>
 
@@ -552,24 +462,21 @@ export default function MessagesManager() {
           </div>
 
           <div className="flex flex-wrap gap-2 text-[11px]">
-            <span className="rounded-full border border-white/[0.06] bg-white/[0.025] px-2.5 py-1 text-slate-500">
+            <span className="rounded-full border border-blue-300/10 bg-blue-300/[0.035] px-2.5 py-1 text-blue-200/80">
               {stats.withImages} attachments
             </span>
-
-            <span className="rounded-full border border-white/[0.06] bg-white/[0.025] px-2.5 py-1 text-slate-500">
+            <span className="rounded-full border border-indigo-300/10 bg-indigo-300/[0.035] px-2.5 py-1 text-indigo-200/80">
               {stats.withLinks} links
             </span>
           </div>
         </div>
 
-        {/* Loading */}
         {loading ? (
           <div className="dash-card flex min-h-52 items-center justify-center gap-3 p-8 text-slate-400">
             <RefreshCw
               className="animate-spin text-cyan-300"
               size={20}
             />
-
             Loading messages...
           </div>
         ) : loadError ? (
@@ -597,35 +504,29 @@ export default function MessagesManager() {
         ) : (
           <div className="space-y-5">
             {items.map((message) => {
-              const isBusy =
-                busyId === message.id;
+              const isBusy = busyId === message.id;
 
               const currentReply =
-                reply[message.id] ??
-                message.adminReply ??
-                "";
+                reply[message.id] ?? message.adminReply ?? "";
 
               return (
                 <article
                   key={message.id}
-                  className={`group overflow-hidden rounded-2xl border bg-white/[0.022] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.035] ${
+                  className={`group overflow-hidden rounded-2xl border bg-gradient-to-br from-[#0b1428]/90 via-[#080f20]/90 to-[#10152c]/90 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_60px_rgba(0,0,0,0.20)] ${
                     message.isSaved
-                      ? "border-cyan-300/15 shadow-[0_10px_45px_rgba(34,211,238,0.035)]"
-                      : "border-white/[0.07] hover:border-cyan-300/10"
+                      ? "border-cyan-300/15 shadow-[0_10px_45px_rgba(34,211,238,0.035)] hover:border-cyan-300/25"
+                      : "border-white/[0.07] hover:border-cyan-300/15"
                   }`}
                 >
-                  {/* Saved Accent */}
                   {message.isSaved ? (
-                    <div className="h-0.5 bg-gradient-to-r from-cyan-300/70 via-blue-400/50 to-transparent" />
+                    <div className="h-0.5 bg-gradient-to-r from-cyan-300/80 via-blue-400/60 to-indigo-400/20" />
                   ) : null}
 
                   <div className="p-5 sm:p-6">
-                    {/* =================================================
-                        MESSAGE HEADER
-                    ================================================== */}
+                    {/* MESSAGE HEADER */}
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex min-w-0 gap-3">
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan-300/10 bg-cyan-300/[0.055]">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan-300/10 bg-gradient-to-br from-cyan-300/[0.11] to-blue-500/[0.06]">
                           <UserRound
                             size={19}
                             className="text-cyan-300"
@@ -634,64 +535,48 @@ export default function MessagesManager() {
 
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="truncate text-base font-bold text-white">
+                            <h3 className="truncate text-base font-bold text-white transition-colors group-hover:text-cyan-100">
                               {message.senderName}
                             </h3>
 
                             <span
                               className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold ${
                                 message.isSaved
-                                  ? "border-cyan-300/10 bg-cyan-300/[0.06] text-cyan-200"
+                                  ? "border-cyan-300/15 bg-cyan-300/[0.06] text-cyan-200"
                                   : "border-white/[0.07] bg-white/[0.035] text-slate-500"
                               }`}
                             >
-                              {message.isSaved
-                                ? "Saved"
-                                : "Unsaved"}
+                              {message.isSaved ? "Saved" : "Unsaved"}
                             </span>
 
                             <span
-                              className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold capitalize ${getStatusClass(
-                                message.status
-                              )}`}
+                              className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold capitalize ${getStatusClass(message.status)}`}
                             >
                               {message.status}
                             </span>
                           </div>
 
                           <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-slate-500">
-                            <Clock3 size={13} />
-
-                            <time>
-                              {formatDate(
-                                message.createdAt
-                              )}
-                            </time>
+                            <Clock3 size={13} className="text-cyan-300/70" />
+                            <time>{formatDate(message.createdAt)}</time>
 
                             {!message.isSaved ? (
                               <>
-                                <span className="text-slate-700">
-                                  •
-                                </span>
-
-                                <span>
-                                  Expires automatically
-                                </span>
+                                <span className="text-slate-700">•</span>
+                                <span>Expires automatically</span>
                               </>
                             ) : null}
                           </div>
                         </div>
                       </div>
 
-                      {/* Actions */}
+                      {/* MESSAGE ACTIONS */}
                       <div className="flex shrink-0 gap-2">
                         <button
                           type="button"
                           disabled={isBusy}
-                          onClick={() =>
-                            void toggleSave(message)
-                          }
-                          className={`ui-button-ghost min-h-0 p-2.5 ${
+                          onClick={() => void toggleSave(message)}
+                          className={`ui-button-ghost min-h-0 rounded-lg p-2.5 ${
                             message.isSaved
                               ? "border-cyan-300/15 bg-cyan-300/[0.05] text-cyan-200"
                               : ""
@@ -717,10 +602,8 @@ export default function MessagesManager() {
                         <button
                           type="button"
                           disabled={isBusy}
-                          onClick={() =>
-                            void remove(message.id)
-                          }
-                          className="ui-button-danger min-h-0 p-2.5"
+                          onClick={() => void remove(message.id)}
+                          className="ui-button-danger min-h-0 rounded-lg p-2.5"
                           aria-label="Delete message"
                           title="Delete message"
                         >
@@ -729,10 +612,8 @@ export default function MessagesManager() {
                       </div>
                     </div>
 
-                    {/* =================================================
-                        MESSAGE BODY
-                    ================================================== */}
-                    <div className="mt-5 rounded-2xl border border-white/[0.055] bg-black/[0.08] p-4 sm:p-5">
+                    {/* MESSAGE BODY */}
+                    <div className="mt-5 rounded-2xl border border-white/[0.055] bg-[#020617]/30 p-4 sm:p-5">
                       {message.message ? (
                         <p className="whitespace-pre-wrap break-words text-sm leading-7 text-slate-300">
                           {message.message}
@@ -744,17 +625,11 @@ export default function MessagesManager() {
                       )}
                     </div>
 
-                    {/* =================================================
-                        ATTACHMENT
-                    ================================================== */}
+                    {/* ATTACHMENT */}
                     {message.imageUrl ? (
-                      <div className="mt-4 overflow-hidden rounded-2xl border border-white/[0.07] bg-black/20">
-                        <div className="flex items-center gap-2 border-b border-white/[0.06] px-4 py-3">
-                          <ImageIcon
-                            size={15}
-                            className="text-blue-300"
-                          />
-
+                      <div className="mt-4 overflow-hidden rounded-2xl border border-cyan-300/[0.08] bg-[#050b17]">
+                        <div className="flex items-center gap-2 border-b border-white/[0.06] bg-white/[0.015] px-4 py-3">
+                          <ImageIcon size={15} className="text-blue-300" />
                           <span className="text-xs font-semibold text-slate-400">
                             Visitor attachment
                           </span>
@@ -769,28 +644,22 @@ export default function MessagesManager() {
                       </div>
                     ) : null}
 
-                    {/* =================================================
-                        LINK
-                    ================================================== */}
+                    {/* EXTERNAL LINK */}
                     {message.linkUrl ? (
                       <a
                         href={message.linkUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="mt-4 flex min-w-0 items-center gap-3 rounded-2xl border border-blue-300/10 bg-blue-300/[0.035] px-4 py-3.5 transition-all duration-300 hover:border-cyan-300/20 hover:bg-cyan-300/[0.045]"
+                        className="mt-4 flex min-w-0 items-center gap-3 rounded-2xl border border-blue-300/10 bg-gradient-to-r from-blue-300/[0.045] to-indigo-400/[0.035] px-4 py-3.5 transition-all duration-300 hover:border-cyan-300/20 hover:from-cyan-300/[0.06] hover:to-blue-400/[0.05]"
                       >
-                        <div className="rounded-lg bg-blue-300/[0.08] p-2">
-                          <Link2
-                            size={15}
-                            className="text-blue-300"
-                          />
+                        <div className="rounded-lg border border-blue-300/10 bg-blue-300/[0.07] p-2">
+                          <Link2 size={15} className="text-blue-300" />
                         </div>
 
                         <div className="min-w-0 flex-1">
                           <p className="text-[10px] font-bold uppercase tracking-wider text-slate-600">
                             External Link
                           </p>
-
                           <p className="mt-0.5 truncate text-sm font-medium text-blue-300">
                             {message.linkUrl}
                           </p>
@@ -803,33 +672,26 @@ export default function MessagesManager() {
                       </a>
                     ) : null}
 
-                    {/* =================================================
-                        REPLY WORKSPACE
-                    ================================================== */}
+                    {/* REPLY WORKSPACE */}
                     <div className="mt-6 border-t border-white/[0.06] pt-5">
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div>
                           <div className="flex items-center gap-2">
-                            <div className="rounded-lg bg-cyan-300/[0.06] p-2">
-                              <Reply
-                                size={15}
-                                className="text-cyan-300"
-                              />
+                            <div className="rounded-lg border border-cyan-300/10 bg-gradient-to-br from-cyan-300/[0.10] to-blue-400/[0.05] p-2">
+                              <Reply size={15} className="text-cyan-300" />
                             </div>
-
                             <h4 className="text-sm font-bold text-slate-200">
                               Reply to visitor
                             </h4>
                           </div>
 
                           <p className="mt-1 text-xs text-slate-600">
-                            Write a response and save it to
-                            this conversation.
+                            Write a response and save it to this conversation.
                           </p>
                         </div>
 
                         {message.adminReply ? (
-                          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-cyan-300/10 bg-cyan-300/[0.045] px-2.5 py-1 text-[10px] font-semibold text-cyan-200">
+                          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-cyan-300/15 bg-cyan-300/[0.045] px-2.5 py-1 text-[10px] font-semibold text-cyan-200">
                             <CheckCircle2 size={12} />
                             Reply saved
                           </span>
@@ -842,8 +704,7 @@ export default function MessagesManager() {
                         onChange={(e) =>
                           setReply({
                             ...reply,
-                            [message.id]:
-                              e.target.value,
+                            [message.id]: e.target.value,
                           })
                         }
                         placeholder="Write a thoughtful reply for this visitor..."
@@ -858,39 +719,27 @@ export default function MessagesManager() {
                         <button
                           type="button"
                           disabled={isBusy}
-                          onClick={() =>
-                            void sendReply(message)
-                          }
+                          onClick={() => void sendReply(message)}
                           className="ui-button-primary w-full justify-center sm:w-auto"
                         >
                           {isBusy ? (
                             <>
-                              <RefreshCw
-                                size={16}
-                                className="animate-spin"
-                              />
-
+                              <RefreshCw size={16} className="animate-spin" />
                               Saving...
                             </>
                           ) : (
                             <>
                               <Send size={16} />
-
                               Save Reply
                             </>
                           )}
                         </button>
                       </div>
 
-                      {/* Existing reply */}
                       {message.adminReply ? (
-                        <div className="mt-4 rounded-2xl border border-cyan-300/10 bg-cyan-300/[0.025] p-4">
+                        <div className="mt-4 rounded-2xl border border-cyan-300/10 bg-gradient-to-br from-cyan-300/[0.035] to-blue-400/[0.02] p-4">
                           <div className="mb-2 flex items-center gap-2">
-                            <Sparkles
-                              size={14}
-                              className="text-cyan-300"
-                            />
-
+                            <Sparkles size={14} className="text-cyan-300" />
                             <span className="text-[11px] font-bold uppercase tracking-wider text-cyan-200">
                               Saved reply
                             </span>
@@ -910,19 +759,16 @@ export default function MessagesManager() {
         )}
       </section>
 
-      {/* =========================================================
-          BOTTOM NAVIGATION
-      ========================================================== */}
+      {/* BOTTOM NAVIGATION */}
       <div className="flex justify-center border-t border-white/[0.05] pt-7">
         <Link
           href="/home"
-          className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.025] px-5 py-2.5 text-sm font-semibold text-slate-300 transition-all duration-300 hover:border-cyan-300/20 hover:bg-cyan-300/[0.04] hover:text-cyan-200"
+          className="group inline-flex items-center gap-2 rounded-xl border border-cyan-300/10 bg-gradient-to-r from-cyan-300/[0.035] to-indigo-400/[0.035] px-5 py-2.5 text-sm font-semibold text-slate-300 transition-all duration-300 hover:border-cyan-300/25 hover:from-cyan-300/[0.07] hover:to-blue-400/[0.07] hover:text-cyan-200"
         >
           <ArrowLeft
             size={17}
             className="text-cyan-300 transition-transform duration-300 group-hover:-translate-x-1"
           />
-
           Return to Portfolio
         </Link>
       </div>

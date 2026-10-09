@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -13,7 +14,6 @@ import {
   RefreshCw,
   ScrollText,
   Send,
-  X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useState } from "react";
@@ -79,11 +79,6 @@ export default function DashboardShell({
 
   /**
    * Add admin context to portfolio pages.
-   *
-   * Example:
-   * /resume
-   * becomes
-   * /resume?from=admin
    */
   const getAdminHref = (href: string) => {
     return `${href}?from=admin`;
@@ -109,46 +104,42 @@ export default function DashboardShell({
     setLoggingOut(true);
 
     try {
-      await fetch("/api/auth/logout", {
+      const response = await fetch("/api/auth/logout", {
         method: "POST",
+        cache: "no-store",
       });
+
+      if (!response.ok) {
+        throw new Error("Logout failed. Please try again.");
+      }
+
+      setOpen(false);
 
       router.replace("/login");
       router.refresh();
-    } finally {
+    } catch (error) {
+      console.error("Dashboard logout failed:", error);
+
       setLoggingOut(false);
     }
   }
 
   /**
-   * Refresh dashboard data.
+   * Perform a real browser reload.
    */
   function refresh() {
     if (refreshing) return;
 
     setRefreshing(true);
-
-    router.refresh();
-
-    window.dispatchEvent(new Event("dashboard-refresh"));
-
-    window.setTimeout(() => {
-      setRefreshing(false);
-    }, 500);
+    window.location.reload();
   }
 
   /**
    * Sidebar navigation item.
-   *
-   * Active item:
-   * ui-button-primary
-   *
-   * Inactive item:
-   * dash-nav
    */
   const renderNavItem = (
     item: NavigationItem,
-    adminContext: boolean = false
+    adminContext = false
   ) => {
     const Icon = item.icon;
     const active = isActive(item.href);
@@ -159,6 +150,7 @@ export default function DashboardShell({
 
     return (
       <Link
+        key={item.href}
         href={href}
         onClick={() => setOpen(false)}
         aria-current={active ? "page" : undefined}
@@ -175,12 +167,14 @@ export default function DashboardShell({
   };
 
   /**
-   * Sidebar
+   * Sidebar.
+   * No close button is rendered inside the sidebar.
    */
   const renderSidebar = () => (
     <aside
       className="
         flex h-full w-72 flex-col
+        overflow-y-auto
         border-r border-white/10
         bg-[#04101d]/95
         p-4
@@ -189,28 +183,19 @@ export default function DashboardShell({
       aria-label="Dashboard navigation"
     >
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-cyan-300">
-            Portfolio Admin
-          </p>
 
-          <h2 className="mt-1 text-lg font-bold text-white">
-            Dashboard
-          </h2>
-        </div>
+      <div className="mb-6">
+        <p className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+          Portfolio Admin
+        </p>
 
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="ui-button-ghost min-h-0 p-2 lg:hidden"
-          aria-label="Close navigation"
-        >
-          <X size={20} />
-        </button>
+        <h2 className="mt-1 text-lg font-bold text-white">
+          Dashboard
+        </h2>
       </div>
 
       {/* Quick Access */}
+
       <div className="mb-6">
         <p className="mb-2 px-2 text-[9px] font-bold uppercase tracking-[0.25em] text-white/30">
           Quick Access
@@ -237,7 +222,8 @@ export default function DashboardShell({
         </div>
       </div>
 
-      {/* Dashboard */}
+      {/* Dashboard Navigation */}
+
       <div className="mb-6">
         <div className="mb-2 flex items-center gap-2 px-2">
           <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
@@ -247,7 +233,10 @@ export default function DashboardShell({
           </p>
         </div>
 
-        <nav className="grid gap-2">
+        <nav
+          className="grid gap-2"
+          aria-label="Dashboard pages"
+        >
           {dashboardItems.map((item) => (
             <div key={item.href}>
               {renderNavItem(item)}
@@ -256,7 +245,8 @@ export default function DashboardShell({
         </nav>
       </div>
 
-      {/* Portfolio */}
+      {/* Portfolio Navigation */}
+
       <div>
         <div className="mb-2 flex items-center gap-2 px-2">
           <span className="h-1.5 w-1.5 rounded-full bg-blue-400 shadow-[0_0_10px_rgba(96,165,250,0.8)]" />
@@ -266,7 +256,10 @@ export default function DashboardShell({
           </p>
         </div>
 
-        <nav className="grid gap-2">
+        <nav
+          className="grid gap-2"
+          aria-label="Portfolio pages"
+        >
           {portfolioItems.map((item) => (
             <div key={item.href}>
               {renderNavItem(item, true)}
@@ -276,17 +269,22 @@ export default function DashboardShell({
       </div>
 
       {/* Bottom Actions */}
+
       <div className="mt-auto grid gap-2 pt-6">
         {/* Refresh */}
+
         <button
           type="button"
           onClick={refresh}
           disabled={refreshing}
           className="
-            dash-nav w-full text-left
-            disabled:cursor-not-allowed
-            disabled:opacity-50
+            dash-nav w-full
+            text-left
+            transition-all duration-300
+            disabled:cursor-wait
+            disabled:opacity-70
           "
+          title="Reload the current page"
         >
           <RefreshCw
             size={18}
@@ -299,20 +297,26 @@ export default function DashboardShell({
         </button>
 
         {/* Logout */}
+
         <button
           type="button"
           onClick={logout}
           disabled={loggingOut}
           className="
-            dash-nav w-full text-left
-            text-rose-200
-            hover:border-rose-400/20
-            hover:bg-rose-400/[0.06]
+            ui-button-primary
+            w-full justify-start
+            shadow-[0_8px_30px_rgba(6,182,212,0.18)]
+            transition-all duration-300
+            hover:shadow-[0_10px_35px_rgba(6,182,212,0.28)]
             disabled:cursor-not-allowed
-            disabled:opacity-50
+            disabled:opacity-60
           "
+          title="Log out of the admin dashboard"
         >
-          <LogOut size={18} />
+          <LogOut
+            size={18}
+            className={loggingOut ? "animate-pulse" : ""}
+          />
 
           <span>
             {loggingOut ? "Logging out..." : "Logout"}
@@ -324,13 +328,15 @@ export default function DashboardShell({
 
   return (
     <div className="min-h-screen bg-transparent text-white">
-      {/* Desktop Sidebar */}
+      {/* Desktop Sidebar: Always Visible */}
+
       <div className="fixed left-0 top-0 z-40 hidden h-screen lg:block">
         {renderSidebar()}
       </div>
 
-      {/* Mobile Sidebar */}
-      {open ? (
+      {/* Mobile / Tablet Sidebar Overlay */}
+
+      {open && (
         <div
           className="
             fixed inset-0 z-50
@@ -341,18 +347,22 @@ export default function DashboardShell({
           onClick={() => setOpen(false)}
           role="presentation"
         >
+          {/* Sidebar: Clicking inside does not close it */}
+
           <div
-            className="h-full w-72"
+            className="h-full w-72 max-w-[85vw]"
             onClick={(event) => event.stopPropagation()}
           >
             {renderSidebar()}
           </div>
         </div>
-      ) : null}
+      )}
 
       {/* Main Content */}
+
       <div className="lg:pl-72">
-        {/* Mobile Header */}
+        {/* Mobile / Tablet Header */}
+
         <header
           className="
             sticky top-0 z-30
@@ -370,6 +380,7 @@ export default function DashboardShell({
             className="ui-button-ghost min-h-0 p-2"
             aria-label="Open navigation"
             aria-expanded={open}
+            aria-controls="dashboard-sidebar"
           >
             <Menu size={21} />
           </button>
@@ -379,7 +390,8 @@ export default function DashboardShell({
           </span>
         </header>
 
-        {/* Page */}
+        {/* Page Content */}
+
         <main
           className="
             mx-auto w-full max-w-7xl

@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -128,16 +129,10 @@ export default function PostsManager() {
 
     const handler = () => void load();
 
-    window.addEventListener(
-      "dashboard-refresh",
-      handler
-    );
+    window.addEventListener("dashboard-refresh", handler);
 
     return () =>
-      window.removeEventListener(
-        "dashboard-refresh",
-        handler
-      );
+      window.removeEventListener("dashboard-refresh", handler);
   }, [load]);
 
   const stats = useMemo(() => {
@@ -199,7 +194,6 @@ export default function PostsManager() {
       setNotice(
         "Add text, an image, or a link before publishing."
       );
-
       return;
     }
 
@@ -208,9 +202,7 @@ export default function PostsManager() {
 
     try {
       const response = await fetch(
-        editing
-          ? `/api/posts/${editing}`
-          : "/api/posts",
+        editing ? `/api/posts/${editing}` : "/api/posts",
         {
           method: editing ? "PATCH" : "POST",
           headers: {
@@ -277,21 +269,14 @@ export default function PostsManager() {
   }
 
   async function remove(id: string) {
-    if (
-      !window.confirm(
-        "Delete this post permanently?"
-      )
-    ) {
+    if (!window.confirm("Delete this post permanently?")) {
       return;
     }
 
     try {
-      const response = await fetch(
-        `/api/posts/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`/api/posts/${id}`, {
+        method: "DELETE",
+      });
 
       const data = await response.json();
 
@@ -317,15 +302,21 @@ export default function PostsManager() {
     }
   }
 
+  const iconTile =
+    "rounded-xl border border-cyan-300/10 bg-gradient-to-br from-cyan-300/[0.11] to-blue-500/[0.06] p-2.5";
+
+  const statCard =
+    "group rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.035] to-white/[0.012] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300/20 hover:shadow-[0_12px_35px_rgba(8,145,178,0.06)]";
+
+  const postCard =
+    "group overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-br from-[#0b1428]/90 via-[#080f20]/90 to-[#10152c]/90 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/20 hover:shadow-[0_18px_60px_rgba(0,0,0,0.24)]";
+
   return (
     <div className="space-y-7 pb-4">
-      {/* =========================================================
-          HEADER
-      ========================================================== */}
-      <header className="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-gradient-to-br from-cyan-300/[0.055] via-white/[0.02] to-blue-500/[0.035] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.18)] sm:p-8">
-        <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-cyan-400/[0.08] blur-3xl" />
-
-        <div className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-blue-500/[0.06] blur-3xl" />
+      {/* HEADER */}
+      <header className="relative isolate overflow-hidden rounded-3xl border border-cyan-300/[0.10] bg-gradient-to-br from-[#0b192e]/95 via-[#080f20]/95 to-[#11132c]/95 p-6 shadow-[0_20px_80px_rgba(0,0,0,0.20)] sm:p-8">
+        <div className="pointer-events-none absolute -right-20 -top-24 -z-10 h-64 w-64 rounded-full bg-cyan-400/[0.10] blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 left-1/3 -z-10 h-72 w-72 rounded-full bg-indigo-500/[0.09] blur-3xl" />
 
         <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
@@ -334,8 +325,8 @@ export default function PostsManager() {
               Content Workspace
             </div>
 
-            <h1 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Create & manage posts
+            <h1 className="mt-4 bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
+              Create &amp; manage posts
             </h1>
 
             <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
@@ -343,29 +334,19 @@ export default function PostsManager() {
               and useful links from one simple workspace.
             </p>
 
-            {/* Quick Stats */}
             <div className="mt-6 flex flex-wrap gap-2">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 py-1.5 text-xs text-slate-400">
-                <FileText
-                  size={13}
-                  className="text-cyan-300"
-                />
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/10 bg-cyan-300/[0.035] px-3 py-1.5 text-xs text-slate-300">
+                <FileText size={13} className="text-cyan-300" />
                 {stats.total} posts
               </div>
 
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 py-1.5 text-xs text-slate-400">
-                <ImagePlus
-                  size={13}
-                  className="text-blue-300"
-                />
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-300/10 bg-blue-300/[0.035] px-3 py-1.5 text-xs text-slate-300">
+                <ImagePlus size={13} className="text-blue-300" />
                 {stats.withImages} with images
               </div>
 
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 py-1.5 text-xs text-slate-400">
-                <Link2
-                  size={13}
-                  className="text-indigo-300"
-                />
+              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-300/10 bg-indigo-300/[0.035] px-3 py-1.5 text-xs text-slate-300">
+                <Link2 size={13} className="text-indigo-300" />
                 {stats.withLinks} with links
               </div>
             </div>
@@ -373,36 +354,28 @@ export default function PostsManager() {
 
           <Link
             href="/home"
-            className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-xl border border-cyan-300/15 bg-cyan-300/[0.045] px-4 py-2.5 text-sm font-semibold text-slate-200 transition-all duration-300 hover:border-cyan-300/30 hover:bg-cyan-300/[0.09] hover:text-cyan-200 hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
+            className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-xl border border-cyan-300/15 bg-gradient-to-r from-cyan-300/[0.07] to-blue-400/[0.05] px-4 py-2.5 text-sm font-semibold text-slate-200 transition-all duration-300 hover:border-cyan-300/30 hover:from-cyan-300/[0.12] hover:to-blue-400/[0.10] hover:text-cyan-200 hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
           >
             <ArrowLeft
               size={17}
               className="text-cyan-300 transition-transform duration-300 group-hover:-translate-x-1"
             />
-
             Back to Portfolio
           </Link>
         </div>
       </header>
 
-      {/* =========================================================
-          PRODUCTIVITY STRIP
-      ========================================================== */}
+      {/* PRODUCTIVITY STRIP */}
       <section className="grid gap-3 sm:grid-cols-3">
-        <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all hover:border-cyan-300/15 hover:bg-white/[0.035]">
+        <div className={statCard}>
           <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-cyan-300/[0.07] p-2.5">
-              <Zap
-                size={17}
-                className="text-cyan-300"
-              />
+            <div className={iconTile}>
+              <Zap size={17} className="text-cyan-300" />
             </div>
-
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Fast publishing
               </p>
-
               <p className="mt-1 text-sm font-semibold text-slate-200">
                 Simple composer
               </p>
@@ -410,20 +383,15 @@ export default function PostsManager() {
           </div>
         </div>
 
-        <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all hover:border-blue-300/15 hover:bg-white/[0.035]">
+        <div className={statCard}>
           <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-blue-300/[0.07] p-2.5">
-              <BarChart3
-                size={17}
-                className="text-blue-300"
-              />
+            <div className="rounded-xl border border-blue-300/10 bg-gradient-to-br from-blue-300/[0.11] to-indigo-400/[0.06] p-2.5">
+              <BarChart3 size={17} className="text-blue-300" />
             </div>
-
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Content library
               </p>
-
               <p className="mt-1 text-sm font-semibold text-slate-200">
                 {stats.total} published
               </p>
@@ -431,20 +399,15 @@ export default function PostsManager() {
           </div>
         </div>
 
-        <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all hover:border-indigo-300/15 hover:bg-white/[0.035]">
+        <div className={statCard}>
           <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-indigo-300/[0.07] p-2.5">
-              <Clock3
-                size={17}
-                className="text-indigo-300"
-              />
+            <div className="rounded-xl border border-indigo-300/10 bg-gradient-to-br from-indigo-300/[0.11] to-blue-400/[0.06] p-2.5">
+              <Clock3 size={17} className="text-indigo-300" />
             </div>
-
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Publishing mode
               </p>
-
               <p className="mt-1 text-sm font-semibold text-slate-200">
                 Always available
               </p>
@@ -453,26 +416,18 @@ export default function PostsManager() {
         </div>
       </section>
 
-      {/* =========================================================
-          COMPOSER
-      ========================================================== */}
+      {/* COMPOSER */}
       <section className="dash-card overflow-hidden">
-        {/* Composer Header */}
-        <div className="border-b border-white/[0.06] bg-white/[0.018] px-5 py-4 sm:px-6">
+        <div className="border-b border-cyan-300/[0.08] bg-gradient-to-r from-cyan-300/[0.035] via-white/[0.015] to-indigo-400/[0.035] px-5 py-4 sm:px-6">
           <div className="flex items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <div className="rounded-lg bg-cyan-300/[0.07] p-2">
-                  <Send
-                    size={16}
-                    className="text-cyan-300"
-                  />
+                <div className="rounded-xl border border-cyan-300/10 bg-gradient-to-br from-cyan-300/[0.12] to-blue-400/[0.06] p-2">
+                  <Send size={16} className="text-cyan-300" />
                 </div>
 
-                <h2 className="text-base font-bold text-white">
-                  {editing
-                    ? "Edit post"
-                    : "Create a new post"}
+                <h2 className="bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-base font-bold text-transparent">
+                  {editing ? "Edit post" : "Create a new post"}
                 </h2>
               </div>
 
@@ -482,49 +437,39 @@ export default function PostsManager() {
             </div>
 
             {editing ? (
-              <span className="rounded-full border border-amber-300/10 bg-amber-300/[0.05] px-3 py-1 text-[11px] font-semibold text-amber-200">
+              <span className="rounded-full border border-amber-300/15 bg-amber-300/[0.06] px-3 py-1 text-[11px] font-semibold text-amber-200">
                 Editing
               </span>
             ) : (
-              <span className="hidden rounded-full border border-cyan-300/10 bg-cyan-300/[0.04] px-3 py-1 text-[11px] font-semibold text-cyan-200 sm:inline-flex">
+              <span className="hidden rounded-full border border-cyan-300/15 bg-cyan-300/[0.045] px-3 py-1 text-[11px] font-semibold text-cyan-200 sm:inline-flex">
                 Ready to publish
               </span>
             )}
           </div>
         </div>
 
-        <form
-          onSubmit={submit}
-          className="p-5 sm:p-6"
-        >
-          {/* Title */}
+        <form onSubmit={submit} className="p-5 sm:p-6">
           <label className="block">
             <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500">
               Title
             </span>
-
             <input
               className="dash-input"
               placeholder="Give your post a short title..."
               value={form.title}
               maxLength={200}
               onChange={(e) =>
-                setForm({
-                  ...form,
-                  title: e.target.value,
-                })
+                setForm({ ...form, title: e.target.value })
               }
             />
           </label>
 
-          {/* Content */}
           <label className="mt-5 block">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Content
               </span>
-
-              <span className="text-[11px] text-slate-600">
+              <span className="text-[11px] text-slate-500">
                 {characterCount} characters
               </span>
             </div>
@@ -534,18 +479,14 @@ export default function PostsManager() {
               placeholder="Write your post here..."
               value={form.content}
               onChange={(e) =>
-                setForm({
-                  ...form,
-                  content: e.target.value,
-                })
+                setForm({ ...form, content: e.target.value })
               }
             />
           </label>
 
-          {/* Image Preview */}
           {form.imageUrl ? (
-            <div className="relative mt-5 overflow-hidden rounded-2xl border border-white/[0.08] bg-black/20">
-              <div className="absolute left-3 top-3 z-10 rounded-full border border-white/10 bg-black/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-md">
+            <div className="relative mt-5 overflow-hidden rounded-2xl border border-cyan-300/15 bg-[#050b17] shadow-[0_0_35px_rgba(8,145,178,0.06)]">
+              <div className="absolute left-3 top-3 z-10 rounded-full border border-cyan-300/15 bg-[#020617]/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan-100 backdrop-blur-md">
                 Image Preview
               </div>
 
@@ -558,12 +499,9 @@ export default function PostsManager() {
               <button
                 type="button"
                 onClick={() =>
-                  setForm({
-                    ...form,
-                    imageUrl: "",
-                  })
+                  setForm({ ...form, imageUrl: "" })
                 }
-                className="absolute right-3 top-3 rounded-full border border-white/10 bg-black/70 p-2 text-white backdrop-blur-md transition hover:bg-black/90 hover:text-cyan-200"
+                className="absolute right-3 top-3 rounded-full border border-white/10 bg-[#020617]/80 p-2 text-white backdrop-blur-md transition hover:border-cyan-300/30 hover:text-cyan-200"
                 aria-label="Remove image"
               >
                 <X size={17} />
@@ -571,14 +509,13 @@ export default function PostsManager() {
             </div>
           ) : null}
 
-          {/* Link */}
           <label className="relative mt-5 block">
             <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500">
               External link
             </span>
 
             <Link2
-              className="absolute left-3 top-[2.65rem] text-slate-500"
+              className="absolute left-3 top-[2.65rem] text-cyan-300/70"
               size={17}
             />
 
@@ -588,21 +525,16 @@ export default function PostsManager() {
               placeholder="https://example.com"
               value={form.linkUrl}
               onChange={(e) =>
-                setForm({
-                  ...form,
-                  linkUrl: e.target.value,
-                })
+                setForm({ ...form, linkUrl: e.target.value })
               }
             />
           </label>
 
-          {/* Actions */}
-          <div className="mt-5 flex flex-col gap-3 border-t border-white/[0.06] pt-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-5 flex flex-col gap-3 border-t border-white/[0.07] pt-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2">
               <label className="dash-button cursor-pointer">
                 <ImagePlus size={17} />
                 Add Image
-
                 <input
                   type="file"
                   accept="image/png,image/jpeg,image/webp,image/gif"
@@ -615,10 +547,7 @@ export default function PostsManager() {
                 <button
                   type="button"
                   onClick={() =>
-                    setForm({
-                      ...form,
-                      imageUrl: "",
-                    })
+                    setForm({ ...form, imageUrl: "" })
                   }
                   className="ui-button-ghost"
                 >
@@ -646,60 +575,48 @@ export default function PostsManager() {
             >
               {busy ? (
                 <>
-                  <RefreshCw
-                    size={17}
-                    className="animate-spin"
-                  />
-
+                  <RefreshCw size={17} className="animate-spin" />
                   Saving...
                 </>
               ) : (
                 <>
                   <Send size={17} />
-
                   {editing ? "Update Post" : "Publish Post"}
                 </>
               )}
             </button>
           </div>
 
-          {/* Notice */}
           {notice ? (
             <div
               className={`mt-4 flex items-start gap-2 rounded-xl border px-3.5 py-3 text-sm ${
                 notice.toLowerCase().includes("success")
-                  ? "border-cyan-300/10 bg-cyan-300/[0.04] text-cyan-200"
-                  : "border-amber-300/10 bg-amber-300/[0.04] text-amber-200"
+                  ? "border-cyan-300/15 bg-gradient-to-r from-cyan-300/[0.06] to-blue-400/[0.035] text-cyan-200"
+                  : "border-amber-300/15 bg-amber-300/[0.045] text-amber-200"
               }`}
               aria-live="polite"
             >
-              <CheckCircle2
-                size={17}
-                className="mt-0.5 shrink-0"
-              />
-
+              <CheckCircle2 size={17} className="mt-0.5 shrink-0" />
               <span>{notice}</span>
             </div>
           ) : null}
         </form>
       </section>
 
-      {/* =========================================================
-          POSTS SECTION HEADER
-      ========================================================== */}
+      {/* POSTS SECTION HEADER */}
       <section aria-label="Published posts">
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-300">
+            <p className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-[11px] font-bold uppercase tracking-[0.2em] text-transparent">
               Content Library
             </p>
 
-            <h2 className="mt-1 text-2xl font-black text-white">
+            <h2 className="mt-1 bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-2xl font-black text-transparent">
               Published posts
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Manage everything you've published from here.
+              Manage everything you&apos;ve published from here.
             </p>
           </div>
 
@@ -711,23 +628,18 @@ export default function PostsManager() {
           >
             <RefreshCw
               size={16}
-              className={
-                loading ? "animate-spin" : ""
-              }
+              className={loading ? "animate-spin" : ""}
             />
-
             Refresh
           </button>
         </div>
 
-        {/* Loading */}
         {loading ? (
           <div className="dash-card flex min-h-52 items-center justify-center gap-3 p-8 text-slate-400">
             <RefreshCw
               className="animate-spin text-cyan-300"
               size={20}
             />
-
             Loading posts...
           </div>
         ) : loadError ? (
@@ -755,13 +667,9 @@ export default function PostsManager() {
         ) : (
           <div className="grid gap-5 xl:grid-cols-2">
             {posts.map((post) => (
-              <article
-                key={post.id}
-                className="group overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.022] transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/15 hover:bg-white/[0.035] hover:shadow-[0_18px_60px_rgba(0,0,0,0.2)]"
-              >
-                {/* Image */}
+              <article key={post.id} className={postCard}>
                 {post.imageUrl ? (
-                  <div className="relative overflow-hidden border-b border-white/[0.07] bg-black/20">
+                  <div className="relative overflow-hidden border-b border-cyan-300/[0.08] bg-[#050b17]">
                     <img
                       src={post.imageUrl}
                       alt="Post image"
@@ -769,18 +677,17 @@ export default function PostsManager() {
                       className="max-h-[28rem] w-full object-cover transition-transform duration-700 group-hover:scale-[1.015]"
                     />
 
-                    <div className="absolute left-3 top-3 rounded-full border border-white/10 bg-black/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-md">
+                    <div className="absolute left-3 top-3 rounded-full border border-cyan-300/15 bg-[#020617]/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan-100 backdrop-blur-md">
                       Image Post
                     </div>
                   </div>
                 ) : null}
 
                 <div className="p-5">
-                  {/* Post Header */}
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0 flex-1">
                       {post.title ? (
-                        <h3 className="break-words text-xl font-bold tracking-tight text-white">
+                        <h3 className="break-words text-xl font-bold tracking-tight text-white transition-colors group-hover:text-cyan-100">
                           {post.title}
                         </h3>
                       ) : (
@@ -790,22 +697,16 @@ export default function PostsManager() {
                       )}
 
                       <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
-                        <Clock3 size={13} />
-
-                        <time>
-                          {formatDate(
-                            post.createdAt
-                          )}
-                        </time>
+                        <Clock3 size={13} className="text-cyan-300/70" />
+                        <time>{formatDate(post.createdAt)}</time>
                       </div>
                     </div>
 
-                    {/* Actions */}
                     <div className="flex shrink-0 gap-1.5">
                       <button
                         type="button"
                         onClick={() => edit(post)}
-                        className="ui-button-ghost min-h-0 rounded-lg p-2"
+                        className="ui-button-ghost min-h-0 rounded-lg border border-cyan-300/10 p-2 hover:border-cyan-300/25 hover:text-cyan-200"
                         aria-label="Edit post"
                         title="Edit post"
                       >
@@ -814,9 +715,7 @@ export default function PostsManager() {
 
                       <button
                         type="button"
-                        onClick={() =>
-                          void remove(post.id)
-                        }
+                        onClick={() => void remove(post.id)}
                         className="ui-button-danger min-h-0 rounded-lg p-2"
                         aria-label="Delete post"
                         title="Delete post"
@@ -826,56 +725,46 @@ export default function PostsManager() {
                     </div>
                   </div>
 
-                  {/* Content */}
                   {post.content ? (
                     <p className="mt-4 whitespace-pre-wrap break-words text-sm leading-7 text-slate-300">
                       {post.content}
                     </p>
                   ) : null}
 
-                  {/* Link */}
                   {post.linkUrl ? (
                     <a
                       href={post.linkUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-5 flex min-w-0 items-center gap-2 rounded-xl border border-blue-300/10 bg-blue-300/[0.035] px-3.5 py-3 text-sm font-semibold text-blue-300 transition-all hover:border-cyan-300/20 hover:bg-cyan-300/[0.05] hover:text-cyan-200"
+                      className="mt-5 flex min-w-0 items-center gap-2 rounded-xl border border-blue-300/10 bg-gradient-to-r from-blue-300/[0.045] to-indigo-400/[0.035] px-3.5 py-3 text-sm font-semibold text-blue-300 transition-all hover:border-cyan-300/20 hover:from-cyan-300/[0.07] hover:to-blue-400/[0.06] hover:text-cyan-200"
                     >
-                      <ExternalLink
-                        size={16}
-                        className="shrink-0"
-                      />
-
-                      <span className="truncate">
-                        {post.linkUrl}
-                      </span>
+                      <ExternalLink size={16} className="shrink-0" />
+                      <span className="truncate">{post.linkUrl}</span>
                     </a>
                   ) : null}
 
-                  {/* Footer */}
-                  <div className="mt-5 flex items-center justify-between border-t border-white/[0.055] pt-4">
-                    <div className="flex items-center gap-2">
+                  <div className="mt-5 flex items-center justify-between border-t border-white/[0.06] pt-4">
+                    <div className="flex flex-wrap items-center gap-2">
                       {post.imageUrl ? (
-                        <span className="rounded-full border border-white/[0.06] bg-white/[0.025] px-2.5 py-1 text-[10px] text-slate-500">
+                        <span className="rounded-full border border-blue-300/10 bg-blue-300/[0.04] px-2.5 py-1 text-[10px] text-blue-200/80">
                           Image
                         </span>
                       ) : null}
 
                       {post.linkUrl ? (
-                        <span className="rounded-full border border-white/[0.06] bg-white/[0.025] px-2.5 py-1 text-[10px] text-slate-500">
+                        <span className="rounded-full border border-indigo-300/10 bg-indigo-300/[0.04] px-2.5 py-1 text-[10px] text-indigo-200/80">
                           Link
                         </span>
                       ) : null}
 
-                      {!post.imageUrl &&
-                      !post.linkUrl ? (
-                        <span className="rounded-full border border-white/[0.06] bg-white/[0.025] px-2.5 py-1 text-[10px] text-slate-500">
+                      {!post.imageUrl && !post.linkUrl ? (
+                        <span className="rounded-full border border-cyan-300/10 bg-cyan-300/[0.035] px-2.5 py-1 text-[10px] text-slate-400">
                           Text
                         </span>
                       ) : null}
                     </div>
 
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-cyan-300/70">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-cyan-300/80">
                       <CheckCircle2 size={13} />
                       Published
                     </span>
@@ -887,19 +776,16 @@ export default function PostsManager() {
         )}
       </section>
 
-      {/* =========================================================
-          BOTTOM NAVIGATION
-      ========================================================== */}
+      {/* BOTTOM NAVIGATION */}
       <div className="flex justify-center border-t border-white/[0.05] pt-7">
         <Link
           href="/home"
-          className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.025] px-5 py-2.5 text-sm font-semibold text-slate-300 transition-all duration-300 hover:border-cyan-300/20 hover:bg-cyan-300/[0.04] hover:text-cyan-200"
+          className="group inline-flex items-center gap-2 rounded-xl border border-cyan-300/10 bg-gradient-to-r from-cyan-300/[0.035] to-indigo-400/[0.035] px-5 py-2.5 text-sm font-semibold text-slate-300 transition-all duration-300 hover:border-cyan-300/25 hover:from-cyan-300/[0.07] hover:to-blue-400/[0.07] hover:text-cyan-200"
         >
           <ArrowLeft
             size={17}
             className="text-cyan-300 transition-transform duration-300 group-hover:-translate-x-1"
           />
-
           Return to Portfolio
         </Link>
       </div>

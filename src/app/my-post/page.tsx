@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -57,15 +58,11 @@ export default function PublicPostsPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.message || "Could not load posts.",
-        );
+        throw new Error(data.message || "Could not load posts.");
       }
 
       setPosts(
-        Array.isArray(data.posts)
-          ? data.posts
-          : [],
+        Array.isArray(data.posts) ? data.posts : [],
       );
     } catch (err) {
       setError(
@@ -84,48 +81,39 @@ export default function PublicPostsPage() {
 
   /**
    * Admin → Dashboard
-   *
-   * replace() prevents the user from being returned
-   * to /my-post?from=admin through the browser history.
    */
   function backToDashboard() {
     router.replace("/dashboard/overview");
   }
 
   /**
-   * Message navigation.
-   *
-   * If the admin is viewing My Posts from the dashboard,
-   * keep the admin context when opening Message Me.
+   * Preserve admin context when opening Message Me.
    */
   const messageHref = isAdminView
     ? "/message?from=admin"
     : "/message";
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#010409] text-white">
+    <main className="relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
       {/* =========================================================
-          BACKGROUND DECORATION
+          CV-STYLE BACKGROUND DECORATION
       ========================================================== */}
 
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 overflow-hidden"
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
       >
-        {/* Cyan glow */}
-        <div className="absolute -left-40 top-10 h-[420px] w-[420px] rounded-full bg-cyan-400/[0.055] blur-[120px]" />
+        {/* Blue + Cyan radial atmosphere */}
 
-        {/* Blue glow */}
-        <div className="absolute -right-48 top-[25%] h-[500px] w-[500px] rounded-full bg-blue-600/[0.055] blur-[130px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]" />
 
-        {/* Indigo glow */}
-        <div className="absolute bottom-[-180px] left-[45%] h-[450px] w-[450px] rounded-full bg-indigo-500/[0.045] blur-[130px]" />
+        {/* Blue ambient glow */}
 
-        {/* Top radial atmosphere */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,210,255,0.045),transparent_38%)]" />
+        <div className="absolute -left-40 top-0 h-[480px] w-[480px] rounded-full bg-blue-600/10 blur-[160px]" />
 
-        {/* Very subtle grid */}
-        <div className="absolute inset-0 opacity-[0.018] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:70px_70px]" />
+        {/* Cyan ambient glow */}
+
+        <div className="absolute -bottom-52 right-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
       </div>
 
       {/* =========================================================
@@ -139,20 +127,10 @@ export default function PublicPostsPage() {
 
         <div className="mb-6 flex flex-wrap items-center gap-2.5">
           {isAdminView ? (
-            /* ===================================================
-               ADMIN → DASHBOARD
-            ==================================================== */
             <button
               type="button"
               onClick={backToDashboard}
-              className="
-                ui-button-primary
-                group
-                inline-flex
-                items-center
-                gap-2
-                shadow-[0_8px_30px_rgba(6,182,212,0.18)]
-              "
+              className="ui-button-primary group inline-flex items-center gap-2 shadow-[0_8px_30px_rgba(6,182,212,0.18)]"
             >
               <ArrowLeft
                 size={16}
@@ -167,32 +145,9 @@ export default function PublicPostsPage() {
               />
             </button>
           ) : (
-            /* ===================================================
-               PUBLIC → PORTFOLIO
-            ==================================================== */
             <Link
               href="/home"
-              className="
-                group
-                inline-flex
-                items-center
-                gap-2
-                rounded-xl
-                border
-                border-cyan-400/[0.12]
-                bg-[#020810]/80
-                px-3.5
-                py-2
-                text-sm
-                font-medium
-                text-slate-400
-                backdrop-blur-xl
-                transition-all
-                duration-300
-                hover:border-cyan-400/30
-                hover:bg-cyan-400/[0.045]
-                hover:text-cyan-300
-              "
+              className="group inline-flex items-center gap-2 rounded-xl border border-cyan-400/[0.12] bg-[#020810]/80 px-3.5 py-2 text-sm font-medium text-slate-400 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.045] hover:text-cyan-300"
             >
               <ArrowLeft
                 size={16}
@@ -238,7 +193,9 @@ export default function PublicPostsPage() {
                 </span>
               </div>
 
-              <h1 className="mt-2 text-[29px] font-black tracking-tight text-white sm:text-[34px]">
+              {/* Gradient title matching the primary button */}
+
+              <h1 className="mt-2 bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-600 bg-clip-text text-[29px] font-black tracking-tight text-transparent sm:text-[34px]">
                 Latest updates
               </h1>
 
@@ -252,29 +209,7 @@ export default function PublicPostsPage() {
 
             <Link
               href={messageHref}
-              className="
-                group
-                inline-flex
-                shrink-0
-                items-center
-                justify-center
-                gap-2
-                rounded-xl
-                border
-                border-cyan-400/[0.16]
-                bg-[#030a12]
-                px-4
-                py-2.5
-                text-xs
-                font-bold
-                text-cyan-200
-                transition-all
-                duration-300
-                hover:border-cyan-400/35
-                hover:bg-cyan-400/[0.055]
-                hover:text-cyan-100
-                hover:shadow-[0_0_25px_rgba(0,210,255,0.08)]
-              "
+              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-cyan-400/[0.16] bg-[#030a12] px-4 py-2.5 text-xs font-bold text-cyan-200 transition-all duration-300 hover:border-cyan-400/35 hover:bg-cyan-400/[0.055] hover:text-cyan-100 hover:shadow-[0_0_25px_rgba(0,210,255,0.08)]"
             >
               <MessageCircle
                 size={16}
@@ -299,11 +234,7 @@ export default function PublicPostsPage() {
             className="relative flex min-h-[250px] flex-col items-center justify-center overflow-hidden rounded-[22px] border border-cyan-400/[0.10] bg-[#02070e]/85 p-8 text-center shadow-[0_20px_70px_rgba(0,0,0,0.35)] backdrop-blur-2xl"
             aria-live="polite"
           >
-            {/* Top accent */}
-
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
-
-            {/* Glow */}
 
             <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/[0.035] blur-3xl" />
 
@@ -340,27 +271,7 @@ export default function PublicPostsPage() {
                 <button
                   type="button"
                   onClick={() => void load()}
-                  className="
-                    inline-flex
-                    items-center
-                    justify-center
-                    gap-2
-                    rounded-xl
-                    bg-gradient-to-r
-                    from-cyan-400
-                    via-sky-400
-                    to-blue-600
-                    px-4
-                    py-2.5
-                    text-sm
-                    font-bold
-                    text-white
-                    shadow-[0_10px_30px_rgba(0,174,255,0.14)]
-                    transition-all
-                    duration-300
-                    hover:-translate-y-0.5
-                    hover:shadow-[0_14px_35px_rgba(0,174,255,0.22)]
-                  "
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-[0_10px_30px_rgba(0,174,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_35px_rgba(0,174,255,0.22)]"
                 >
                   <RefreshCw size={17} />
                   Try Again
@@ -383,27 +294,7 @@ export default function PublicPostsPage() {
               action={
                 <Link
                   href="/home"
-                  className="
-                    inline-flex
-                    items-center
-                    justify-center
-                    gap-2
-                    rounded-xl
-                    bg-gradient-to-r
-                    from-cyan-400
-                    via-sky-400
-                    to-blue-600
-                    px-4
-                    py-2.5
-                    text-sm
-                    font-bold
-                    text-white
-                    shadow-[0_10px_30px_rgba(0,174,255,0.14)]
-                    transition-all
-                    duration-300
-                    hover:-translate-y-0.5
-                    hover:shadow-[0_14px_35px_rgba(0,174,255,0.22)]
-                  "
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-[0_10px_30px_rgba(0,174,255,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_35px_rgba(0,174,255,0.22)]"
                 >
                   <Home size={17} />
                   Go Home
@@ -430,7 +321,7 @@ export default function PublicPostsPage() {
 
                 <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-cyan-400 via-blue-500/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                {/* Content */}
+                {/* Post content */}
 
                 <div className="p-5 sm:p-6">
                   {/* Post metadata */}
@@ -449,7 +340,7 @@ export default function PublicPostsPage() {
                     </time>
                   </div>
 
-                  {/* Title */}
+                  {/* Post title */}
 
                   {post.title ? (
                     <h2 className="mt-3 text-xl font-black tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-50 sm:text-[22px]">
@@ -457,7 +348,7 @@ export default function PublicPostsPage() {
                     </h2>
                   ) : null}
 
-                  {/* Content */}
+                  {/* Post body */}
 
                   {post.content ? (
                     <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-7 text-slate-300">
@@ -484,12 +375,10 @@ export default function PublicPostsPage() {
                   ) : null}
                 </div>
 
-                {/* Image */}
+                {/* Post image */}
 
                 {post.imageUrl ? (
                   <div className="relative overflow-hidden border-t border-white/[0.06] bg-black">
-                    {/* Image glow */}
-
                     <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-70" />
 
                     <img
@@ -513,9 +402,7 @@ export default function PublicPostsPage() {
             BOTTOM DECORATION
         ======================================================== */}
 
-        {!loading &&
-        !error &&
-        posts.length > 0 ? (
+        {!loading && !error && posts.length > 0 ? (
           <div className="mt-9 flex items-center justify-center gap-3 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-700">
             <span className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400/20" />
 

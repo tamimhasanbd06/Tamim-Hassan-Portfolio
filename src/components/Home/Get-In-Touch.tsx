@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -56,11 +57,9 @@ const Lockedcontact = () => {
   return (
     <section
       id="lock-social"
-      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[var(--bg-primary)] px-4 py-16 sm:px-6 sm:py-16 lg:px-12"
+      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-16 sm:px-6 sm:py-16 lg:px-12"
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
-
       <div className="absolute top-10 left-5 h-40 w-40 animate-pulse rounded-full bg-blue-500/20 blur-3xl sm:top-20 sm:left-10 sm:h-72 sm:w-72" />
 
       <div className="absolute right-5 bottom-10 h-52 w-52 animate-pulse rounded-full bg-cyan-400/10 blur-3xl sm:right-20 sm:h-96 sm:w-96" />
@@ -169,6 +168,3 @@ const Lockedcontact = () => {
 };
 
 export default Lockedcontact;
-
-
-

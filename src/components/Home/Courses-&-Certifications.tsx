@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -29,8 +30,10 @@ type Course = {
 const courses = coursesData as Course[];
 
 const statusStyles: Record<CourseStatus, string> = {
-  Completed: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.15)]",
-  "In Progress": "border-cyan-400/30 bg-cyan-400/10 text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.15)]",
+  Completed:
+    "border-emerald-400/30 bg-emerald-400/10 text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.15)]",
+  "In Progress":
+    "border-cyan-400/30 bg-cyan-400/10 text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.15)]",
   "Not Started": "border-slate-400/20 bg-slate-400/10 text-slate-300",
 };
 
@@ -66,11 +69,19 @@ function CourseCard({
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: reduceMotion ? 0 : 34, scale: reduceMotion ? 1 : 0.97 }}
+      initial={{
+        opacity: 0,
+        y: reduceMotion ? 0 : 34,
+        scale: reduceMotion ? 1 : 0.97,
+      }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       whileHover={reduceMotion ? undefined : { y: -9 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: reduceMotion ? 0 : 0.52, delay: index * 0.08, ease: "easeOut" }}
+      transition={{
+        duration: reduceMotion ? 0 : 0.52,
+        delay: index * 0.08,
+        ease: "easeOut",
+      }}
       className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[var(--bg-primary)]/90 to-[var(--bg-primary)]/95 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-colors duration-500 hover:border-cyan-400/40 hover:shadow-[0_30px_70px_rgba(6,182,212,0.15)]"
     >
       <div className="pointer-events-none absolute -right-20 -top-24 h-52 w-52 rounded-full bg-cyan-400/10 blur-[80px] transition duration-500 group-hover:scale-125" />
@@ -135,7 +146,11 @@ function CourseCard({
               : "border border-white/10 bg-white/5 text-slate-300 hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200"
           }`}
         >
-          {hasCertificate ? <FaAward aria-hidden="true" /> : <FaInfoCircle aria-hidden="true" />}
+          {hasCertificate ? (
+            <FaAward aria-hidden="true" />
+          ) : (
+            <FaInfoCircle aria-hidden="true" />
+          )}
           {hasCertificate ? "View Certificate" : "Certificate Status"}
         </button>
       </div>
@@ -152,7 +167,9 @@ function CertificateModal({
 }) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const reduceMotion = useReducedMotion();
-  const hasCertificate = Boolean(course.certificateImage && course.certificatePdf);
+  const hasCertificate = Boolean(
+    course.certificateImage && course.certificatePdf,
+  );
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -182,9 +199,17 @@ function CertificateModal({
       }}
     >
       <motion.div
-        initial={{ opacity: 0, y: reduceMotion ? 0 : 24, scale: reduceMotion ? 1 : 0.96 }}
+        initial={{
+          opacity: 0,
+          y: reduceMotion ? 0 : 24,
+          scale: reduceMotion ? 1 : 0.96,
+        }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: reduceMotion ? 0 : 16, scale: reduceMotion ? 1 : 0.98 }}
+        exit={{
+          opacity: 0,
+          y: reduceMotion ? 0 : 16,
+          scale: reduceMotion ? 1 : 0.98,
+        }}
         transition={{ duration: reduceMotion ? 0 : 0.24 }}
         role="dialog"
         aria-modal="true"
@@ -247,7 +272,8 @@ function CertificateModal({
               No Certificate Available For This Course
             </p>
             <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">
-              This course is still in progress, so a certificate has not been issued yet.
+              This course is still in progress, so a certificate has not been
+              issued yet.
             </p>
             <button
               type="button"
@@ -280,7 +306,7 @@ export default function Courses() {
   return (
     <section
       id="courses"
-      className="relative w-full overflow-hidden bg-black px-4 py-16 text-white sm:px-6 sm:py-20 lg:px-8"
+      className="relative w-full overflow-hidden px-4 py-16 text-white sm:px-6 sm:py-20 lg:px-8"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(37,99,235,0.13),transparent_30%),radial-gradient(circle_at_85%_70%,rgba(6,182,212,0.1),transparent_30%)]" />
 
@@ -315,13 +341,12 @@ export default function Courses() {
 
       <AnimatePresence>
         {selectedCourse && (
-          <CertificateModal course={selectedCourse} onClose={closeCertificate} />
+          <CertificateModal
+            course={selectedCourse}
+            onClose={closeCertificate}
+          />
         )}
       </AnimatePresence>
     </section>
   );
 }
-
-
-
-

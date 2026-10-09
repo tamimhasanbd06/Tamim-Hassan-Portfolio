@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -22,7 +23,6 @@ const getSkillIcon = (icon: SkillIcon) => {
   switch (icon) {
     case "javascript":
       return <FaJsSquare />;
-      
 
     case "typescript":
       return <SiTypescript />;
@@ -48,9 +48,6 @@ const LookSkills = () => {
       id="lock-skills"
       className="relative min-h-screen w-full overflow-hidden text-white"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
-
       {/* Glow */}
       <div className="absolute top-10 left-5 h-40 w-40 animate-pulse rounded-full bg-blue-500/20 blur-3xl sm:top-20 sm:left-10 sm:h-72 sm:w-72" />
 
@@ -154,7 +151,3 @@ const LookSkills = () => {
 };
 
 export default LookSkills;
-
-
-
-

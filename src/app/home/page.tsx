@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Main/Navbar";
 import Banner from "@/components/Main/Banner";
 import Introduction from "@/components/Main/Introduction";
@@ -13,7 +14,6 @@ import FloatingNavigator from "@/components/navigation/FloatingNavigator";
 import { createPageMetadata } from "../site-config";
 import Services from "@/components/Main/Services";
 
-
 export const metadata = createPageMetadata({
   title: "Web Developer Portfolio",
   description:
@@ -23,54 +23,94 @@ export const metadata = createPageMetadata({
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen w-full overflow-x-clip">
-      <Navbar />
+    <main className="relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
 
-      <section id="home" className="scroll-mt-16">
-        <Banner />
-      </section>
+      {/* SAME BACKGROUND AS THE CV PAGE */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      >
+        {/* Blue and cyan radial gradients */}
+        <div
+          className="
+            absolute inset-0
+            bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]
+          "
+        />
 
-      <section id="introduction" className="scroll-mt-16">
-        <Introduction />
-      </section>
+        {/* Blue ambient glow */}
+        <div
+          className="
+            absolute
+            -left-40 top-0
+            h-[480px] w-[480px]
+            rounded-full
+            bg-blue-600/10
+            blur-[160px]
+          "
+        />
 
-      <section id="about" className="scroll-mt-16">
-        <About />
-      </section>
+        {/* Cyan ambient glow */}
+        <div
+          className="
+            absolute
+            -bottom-52 right-[-120px]
+            h-[520px] w-[520px]
+            rounded-full
+            bg-cyan-400/10
+            blur-[170px]
+          "
+        />
+      </div>
 
-      <section id="services" className="scroll-mt-16">
-        <Services />
-      </section>
+      {/* PAGE CONTENT */}
+      <div className="relative z-10 min-h-screen min-h-dvh w-full">
+        <Navbar />
 
-      <section id="skills" className="scroll-mt-16">
-        <Skill />
-      </section>
+        <section id="home" className="scroll-mt-16">
+          <Banner />
+        </section>
 
-      <section id="projects" className="scroll-mt-16">
-        <Projects />
-      </section>
+        <section id="introduction" className="scroll-mt-16">
+          <Introduction />
+        </section>
 
-      <section id="experience" className="scroll-mt-16">
-        <Experience />
-      </section>
+        <section id="about" className="scroll-mt-16">
+          <About />
+        </section>
 
-      <section id="education" className="scroll-mt-16">
-        <Education />
-      </section>
+        <section id="services" className="scroll-mt-16">
+          <Services />
+        </section>
 
-      <section id="faq" className="scroll-mt-16">
-        <FAQ />
-      </section>
+        <section id="skills" className="scroll-mt-16">
+          <Skill />
+        </section>
 
-      <section id="contact" className="scroll-mt-16">
-        <Contact />
-      </section>
+        <section id="projects" className="scroll-mt-16">
+          <Projects />
+        </section>
 
-      <Footer />
+        <section id="experience" className="scroll-mt-16">
+          <Experience />
+        </section>
 
-      <FloatingNavigator />
+        <section id="education" className="scroll-mt-16">
+          <Education />
+        </section>
+
+        <section id="faq" className="scroll-mt-16">
+          <FAQ />
+        </section>
+
+        <section id="contact" className="scroll-mt-16">
+          <Contact />
+        </section>
+
+        <Footer />
+
+        <FloatingNavigator />
+      </div>
     </main>
   );
 }
-
-

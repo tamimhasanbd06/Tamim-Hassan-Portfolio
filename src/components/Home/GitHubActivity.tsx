@@ -1,3 +1,4 @@
+
 import type { ReactNode } from "react";
 
 import {
@@ -410,7 +411,7 @@ export default async function GitHubActivity() {
         theme-section
         relative
         overflow-hidden
-        bg-[#030507]
+        bg-black
         px-4
         py-20
         text-white
@@ -1079,7 +1080,7 @@ export default async function GitHubActivity() {
                           <span
                             className="
                               shrink-0
-                              rounded-lg
+                              rounded-full
                               border
                               border-cyan-400/10
                               bg-cyan-400/[0.045]
