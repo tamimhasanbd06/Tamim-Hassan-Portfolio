@@ -276,7 +276,7 @@ export default function MessagesManager() {
               Message Center
             </div>
 
-            <h1 className="mt-4 bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
+            <h1 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
               Visitor inbox
             </h1>
 

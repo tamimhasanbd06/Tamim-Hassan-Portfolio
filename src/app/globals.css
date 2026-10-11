@@ -507,6 +507,7 @@ a {
   font-weight: 800;
   letter-spacing: -0.035em;
   text-wrap: balance;
+  @apply bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent;
 }
 .portfolio-unified :is(p,li) { line-height: 1.7; }
 .portfolio-unified :is(article,section)[class*="rounded"][class*="bg-[#"],

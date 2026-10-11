@@ -194,7 +194,7 @@ export default function HomeFooter() {
 
                 <Link
                   href="/resume"
-                  className="group/cta inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_8px_30px_rgba(34,211,238,0.16)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_38px_rgba(34,211,238,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617]"
+                  className="ui-button-primary"
                 >
                   <FaFileLines className="text-base" />
 
