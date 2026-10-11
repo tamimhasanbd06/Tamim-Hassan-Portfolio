@@ -472,3 +472,79 @@ a {
   .ui-button-ghost,
   .ui-button-danger { width: 100%; padding-inline: .9rem; }
 }
+
+
+/* 2026 portfolio design refinement: scoped to interiors, never the page backdrop. */
+:root {
+  --portfolio-glass: rgba(7, 22, 37, 0.18);
+  --portfolio-glass-hover: rgba(14, 40, 61, 0.31);
+  --portfolio-edge: rgba(103, 232, 249, 0.16);
+  --portfolio-type-soft: #cbd5e1;
+}
+
+/* Landing and Home: only the posted content panels lose their opaque paints.
+   The fixed ambient page backdrops, hero artwork, media and controls stay intact. */
+.portfolio-surface :is(section, article)[class*="bg-[#"],
+.portfolio-surface :is(section, article)[class*="bg-slate-"],
+.portfolio-surface :is(section, article)[class*="bg-gray-"],
+.portfolio-surface :is(section, article)[class*="bg-zinc-"] {
+  background-color: transparent !important;
+}
+.portfolio-surface :is(article, section) > div[class*="rounded"][class*="bg-[#"],
+.portfolio-surface :is(article, section) > div[class*="rounded"][class*="bg-slate-"],
+.portfolio-surface :is(article, section) > div[class*="rounded"][class*="bg-gray-"] {
+  background-color: var(--portfolio-glass) !important;
+  border-color: var(--portfolio-edge);
+}
+
+/* Match posts, Message Me and Admin: shared glass-card vocabulary. */
+.portfolio-unified {
+  color: var(--text-primary);
+  font-family: var(--font-app-sans);
+}
+.portfolio-unified :is(h1,h2,h3,h4) {
+  color: var(--text-primary);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.portfolio-unified :is(p,li) { line-height: 1.7; }
+.portfolio-unified :is(article,section)[class*="rounded"][class*="bg-[#"],
+.portfolio-unified :is(div)[class*="rounded"][class*="bg-[#02070e"],
+.portfolio-unified :is(div)[class*="rounded"][class*="bg-[#030a12"],
+.portfolio-unified :is(div)[class*="rounded"][class*="bg-[#06111e"],
+.portfolio-unified .dash-card {
+  background: var(--portfolio-glass) !important;
+  border-color: var(--portfolio-edge) !important;
+  box-shadow: 0 20px 60px rgba(0, 5, 15, .14), inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.portfolio-unified :is(article,section)[class*="rounded"][class*="bg-[#"]:hover,
+.portfolio-unified .dash-card:hover {
+  border-color: rgba(103,232,249,.29) !important;
+  box-shadow: 0 24px 64px rgba(0,5,15,.23);
+}
+.portfolio-unified :is(input, textarea, select):not([type="checkbox"]):not([type="radio"]),
+.portfolio-unified .dash-input {
+  background-color: rgba(2, 12, 25, .38) !important;
+  border-color: rgba(148, 210, 230, .18) !important;
+  color: #f8fafc;
+  font-family: var(--font-app-sans);
+}
+.portfolio-unified :is(input, textarea, select):focus-visible {
+  border-color: var(--accent-cyan) !important;
+  outline: 2px solid rgba(103,232,249,.24);
+  outline-offset: 2px;
+}
+.portfolio-unified :is(button,a)[class*="rounded"] { transition-property: color,background-color,border-color,box-shadow,transform; transition-duration: 220ms; }
+.portfolio-unified :is(button,a)[class*="rounded"]:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 3px; }
+.portfolio-unified :is(h1,h2)[class*="bg-gradient"] {
+  color: transparent;
+  background-image: linear-gradient(110deg,#a5f3fc 0%,#38bdf8 48%,#818cf8 100%);
+}
+.portfolio-dashboard .dash-nav-active { border-color: rgba(103,232,249,.3); background: rgba(34,211,238,.095); }
+.portfolio-dashboard .dash-nav:hover { background: rgba(34,211,238,.07); }
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-unified :is(button,a)[class*="rounded"] { transition-duration: .01ms; }
+}

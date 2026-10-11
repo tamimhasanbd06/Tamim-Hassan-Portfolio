@@ -35,7 +35,7 @@ export const metadata = createPageMetadata({
 
 export default function LockPage() {
   return (
-    <main className="relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
+    <main className="portfolio-surface portfolio-landing relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
       {/* =====================================================
           GLOBAL REFERENCE BACKGROUND
           Dark Navy + Blue + Cyan Ambient Glow

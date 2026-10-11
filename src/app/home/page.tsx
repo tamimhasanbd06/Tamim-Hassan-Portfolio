@@ -23,7 +23,7 @@ export const metadata = createPageMetadata({
 
 export default function HomePage() {
   return (
-    <main className="relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
+    <main className="portfolio-surface portfolio-home relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
 
       {/* SAME BACKGROUND AS THE CV PAGE */}
       <div

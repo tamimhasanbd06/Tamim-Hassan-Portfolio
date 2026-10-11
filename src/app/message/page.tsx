@@ -237,7 +237,7 @@ export default function MessagePage() {
   }
 
   return (
-    <main className="relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
+    <main className="portfolio-unified portfolio-messages relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
       {/* =========================================================
           SAME CV PAGE BACKGROUND
       ========================================================== */}

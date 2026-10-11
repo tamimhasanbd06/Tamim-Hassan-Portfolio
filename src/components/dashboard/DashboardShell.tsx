@@ -327,7 +327,7 @@ export default function DashboardShell({
   );
 
   return (
-    <div className="min-h-screen bg-transparent text-white">
+    <div className="portfolio-unified portfolio-dashboard min-h-screen bg-transparent text-white">
       {/* Desktop Sidebar: Always Visible */}
 
       <div className="fixed left-0 top-0 z-40 hidden h-screen lg:block">

@@ -94,7 +94,7 @@ export default function PublicPostsPage() {
     : "/message";
 
   return (
-    <main className="relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
+    <main className="portfolio-unified portfolio-posts relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
       {/* =========================================================
           CV-STYLE BACKGROUND DECORATION
       ========================================================== */}
