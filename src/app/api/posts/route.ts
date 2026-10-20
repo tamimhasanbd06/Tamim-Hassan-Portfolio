@@ -28,9 +28,9 @@ export async function GET(request: NextRequest) {
         EXISTS (SELECT 1 FROM post_likes mine WHERE mine.post_id=p.id AND mine.visitor_id=${visitorId}) AS liked_by_me
       FROM posts p LEFT JOIN post_likes pl ON pl.post_id=p.id LEFT JOIN post_comments pc ON pc.post_id=p.id
       WHERE p.expires_at IS NULL OR p.expires_at > NOW() GROUP BY p.id ORDER BY p.created_at DESC`;
-    const comments = await sql`SELECT pc.id,pc.post_id,pc.name,pc.message,pc.created_at FROM post_comments pc INNER JOIN posts p ON p.id=pc.post_id WHERE p.expires_at IS NULL OR p.expires_at>NOW() ORDER BY pc.created_at ASC`;
+    const comments = await sql`SELECT pc.id,pc.post_id,pc.name,pc.message,pc.parent_comment_id,pc.reply_to_post,pc.sender_role,pc.created_at FROM post_comments pc INNER JOIN posts p ON p.id=pc.post_id WHERE p.expires_at IS NULL OR p.expires_at>NOW() ORDER BY pc.created_at ASC`;
     const grouped = new Map<string, unknown[]>();
-    for (const c of comments) { const id=String(c.post_id); const list=grouped.get(id)||[]; list.push({id:String(c.id),name:String(c.name),message:String(c.message),createdAt:new Date(String(c.created_at)).toISOString()}); grouped.set(id,list); }
+    for (const c of comments) { const id=String(c.post_id); const list=grouped.get(id)||[]; list.push({id:String(c.id),name:String(c.name),message:String(c.message),role:String(c.sender_role)==="admin"?"admin":"visitor",parentCommentId:c.parent_comment_id?String(c.parent_comment_id):null,replyToPost:Boolean(c.reply_to_post),createdAt:new Date(String(c.created_at)).toISOString()}); grouped.set(id,list); }
     return NextResponse.json({success:true,authenticated:admin,posts:posts.map(p=>({id:String(p.id),title:String(p.title||""),content:String(p.content),imageUrl:p.image_url?String(p.image_url):null,linkUrl:p.link_url?String(p.link_url):null,createdAt:new Date(String(p.created_at)).toISOString(),expiresAt:p.expires_at?new Date(String(p.expires_at)).toISOString():null,likesCount:Number(p.likes_count||0),commentsCount:Number(p.comments_count||0),likedByMe:Boolean(p.liked_by_me),comments:grouped.get(String(p.id))||[]}))});
   } catch (error) { console.error(error); return NextResponse.json({success:false,message:"Could not load posts."},{status:500}); }
 }

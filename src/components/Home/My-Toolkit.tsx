@@ -56,8 +56,8 @@ function LibraryCard({ item }: { item: LibraryItem }) {
         reduceMotion
           ? undefined
           : {
-              y: -10,
-              scale: 1.055,
+              y: -8,
+              scale: 1.02,
               rotate: -0.6,
             }
       }
@@ -67,19 +67,23 @@ function LibraryCard({ item }: { item: LibraryItem }) {
         stiffness: 260,
         damping: 18,
       }}
+      initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
       className={`
         group
+        portfolio-resource-card
         flex
         min-w-[110px]
         flex-col
         items-center
         justify-center
         gap-3
-        rounded-2xl
+        rounded-3xl
         border
         border-white/10
         bg-white/[0.035]
-        px-4
+        px-5
         py-5
         backdrop-blur-md
         transition-all
@@ -247,104 +251,10 @@ export default function Library() {
         </motion.div>
 
         {/* Slider */}
-        <div className="relative w-full overflow-hidden">
-          {/* Left gradient */}
-          <div
-            aria-hidden="true"
-            className={`
-              pointer-events-none
-              absolute
-              left-0
-              top-0
-              z-20
-              h-full
-              w-16
-              bg-gradient-to-r
-              from-[var(--bg-primary)]
-              via-[var(--bg-card)]/90
-              to-transparent
-              sm:w-28
-            `}
-          />
-
-          {/* Right gradient */}
-          <div
-            aria-hidden="true"
-            className={`
-              pointer-events-none
-              absolute
-              right-0
-              top-0
-              z-20
-              h-full
-              w-16
-              bg-gradient-to-l
-              from-[var(--bg-primary)]
-              via-[var(--bg-card)]/90
-              to-transparent
-              sm:w-28
-            `}
-          />
-
-          <div className="library-track flex w-max gap-5 px-2">
-            {/* First copy */}
-            <div className="flex shrink-0 gap-5">
-              {libraries.map((item) => (
-                <LibraryCard
-                  key={`first-${item.name}`}
-                  item={item}
-                />
-              ))}
-            </div>
-
-            {/* Duplicate copy for seamless animation */}
-            <div
-              aria-hidden="true"
-              className="flex shrink-0 gap-5"
-            >
-              {libraries.map((item) => (
-                <LibraryCard
-                  key={`second-${item.name}`}
-                  item={item}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-3 lg:grid-cols-4">
+          {libraries.map((item) => <LibraryCard key={item.name} item={item} />)}
         </div>
       </div>
-
-      <style jsx>{`
-        .library-track {
-          animation: library-marquee 32s linear infinite;
-          will-change: transform;
-        }
-
-        .library-track:hover {
-          animation-play-state: paused;
-        }
-
-        @keyframes library-marquee {
-          from {
-            transform: translateX(0);
-          }
-
-          to {
-            transform: translateX(calc(-50% - 10px));
-          }
-        }
-
-        @media (max-width: 640px) {
-          .library-track {
-            animation-duration: 24s;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .library-track {
-            animation: none;
-          }
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import MotionReveal from "@/components/common/MotionReveal";
+import HighlightedHeading from "@/components/common/HighlightedHeading";
 
 type AboutItem = {
   number: string;
@@ -76,12 +77,8 @@ const About = () => {
             </span>
           </div>
 
-          <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
-            About{" "}
-            <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
-              Me
-            </span>
-          </h1>
+          <HighlightedHeading as="h1">About <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-500 bg-clip-text text-transparent">Me</span></HighlightedHeading>
+
 
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base md:text-lg">
             A curious developer, committed student, and future full-stack

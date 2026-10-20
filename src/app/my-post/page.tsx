@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -13,10 +13,15 @@ import {
   LayoutDashboard,
   MessageCircle,
   RefreshCw,
+  Reply,
+  Send,
   Sparkles,
+  X,
 } from "lucide-react";
 
 import EmptyState from "@/components/common/EmptyState";
+import AdminAvatar from "@/components/common/AdminAvatar";
+import { useLiveUpdates } from "@/lib/use-live-updates";
 
 type Post = {
   id: string;
@@ -25,6 +30,7 @@ type Post = {
   imageUrl: string | null;
   linkUrl: string | null;
   createdAt: string;
+  comments: Array<{ id: string; name: string; message: string; role?: "admin" | "visitor"; parentCommentId: string | null; replyToPost: boolean; createdAt: string }>;
 };
 
 export default function PublicPostsPage() {
@@ -45,6 +51,12 @@ export default function PublicPostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [commentName, setCommentName] = useState("");
+  const [commentDraft, setCommentDraft] = useState("");
+  const [commentBusy, setCommentBusy] = useState(false);
+  const [commentNotice, setCommentNotice] = useState("");
+  const [replyTarget, setReplyTarget] = useState<{ postId: string; commentId: string | null } | null>(null);
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -77,7 +89,31 @@ export default function PublicPostsPage() {
 
   useEffect(() => {
     void load();
+    const timer = window.setInterval(() => { if (document.visibilityState === "visible") void load(); }, 8000);
+    return () => window.clearInterval(timer);
   }, [load]);
+  useLiveUpdates("posts", () => { void load(); });
+
+  async function submitComment(event: FormEvent<HTMLFormElement>, post: Post) {
+    event.preventDefault();
+    if (!commentName.trim() || !commentDraft.trim()) { setCommentNotice("Enter your name and a comment."); return; }
+    setCommentBusy(true); setCommentNotice("");
+    try {
+      const response = await fetch(`/api/posts/${post.id}/comments`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: commentName, message: commentDraft, parentCommentId: replyTarget?.postId === post.id ? replyTarget.commentId : null, replyToPost: replyTarget?.postId === post.id && replyTarget.commentId === null }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Could not send your reply.");
+      setCommentDraft(""); setReplyTarget(null); setCommentNotice("Your comment was added.");
+      await load();
+    } catch (cause) { setCommentNotice(cause instanceof Error ? cause.message : "Could not send your reply."); }
+    finally { setCommentBusy(false); }
+  }
+
+  function jumpToComment(id: string) {
+    document.getElementById(`post-comment-${id}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   /**
    * Admin → Dashboard
@@ -101,7 +137,7 @@ export default function PublicPostsPage() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+        className="page-background-decoration pointer-events-none fixed inset-0 z-0 overflow-hidden"
       >
         {/* Blue + Cyan radial atmosphere */}
 
@@ -381,18 +417,37 @@ export default function PublicPostsPage() {
                   <div className="relative overflow-hidden border-t border-white/[0.06] bg-black">
                     <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-70" />
 
-                    <img
-                      src={post.imageUrl}
-                      alt={
-                        post.title
-                          ? `${post.title} attachment`
-                          : "Post attachment"
-                      }
-                      loading="lazy"
-                      className="max-h-[34rem] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.015]"
-                    />
+                    <button type="button" onClick={() => setLightbox(post.imageUrl)} className="block w-full cursor-zoom-in" aria-label="Open full-size post image">
+                      <img src={post.imageUrl} alt={post.title ? `${post.title} attachment` : "Post attachment"} loading="lazy" className="message-natural-image mx-auto max-h-[34rem]" />
+                    </button>
                   </div>
                 ) : null}
+
+                <section className="border-t border-white/[0.06] px-5 py-4 sm:px-6" aria-label={`Comments on ${post.title || "post"}`}>
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="text-sm font-bold text-cyan-100">Comments <span className="text-xs font-normal text-slate-500">({post.comments?.length ?? 0})</span></h3>
+                    <button type="button" onClick={() => { setReplyTarget({ postId: post.id, commentId: null }); setCommentNotice(""); }} className="inline-flex items-center gap-1 text-xs font-semibold text-cyan-300 hover:text-white"><Reply size={14} /> Reply to post</button>
+                  </div>
+                  <div className="space-y-3" aria-live="polite">
+                    {(post.comments ?? []).map((comment) => {
+                      const parent = comment.parentCommentId ? post.comments?.find((item) => item.id === comment.parentCommentId) : null;
+                      return <article id={`post-comment-${comment.id}`} key={comment.id} className={`rounded-lg border border-white/[0.06] bg-white/[0.02] p-3 ${parent ? "ml-4 border-l-2 border-l-cyan-400/40 sm:ml-8" : ""}`}>
+                        <div className="flex items-center justify-between gap-2"><div className="flex items-center gap-2">{comment.role === "admin" && <AdminAvatar size={22} alt="Admin" />}<strong className="text-xs font-semibold text-slate-200">{comment.name}{comment.role === "admin" && <span className="ml-2 text-[10px] uppercase tracking-wider text-cyan-300">Admin</span>}</strong></div><time className="text-[10px] text-slate-500" dateTime={comment.createdAt}>{new Date(comment.createdAt).toLocaleString()}</time></div>
+                        {parent || comment.replyToPost ? <button type="button" onClick={() => parent && jumpToComment(parent.id)} className="my-2 block max-w-full border-l-2 border-cyan-400/50 pl-2 text-left text-xs text-slate-400 hover:text-cyan-100"><span className="block font-semibold text-cyan-200">Replying to {parent?.name ?? "post"}</span><span className="line-clamp-2">{parent?.message ?? post.title ?? post.content}</span></button> : null}
+                        <p className="mt-1 whitespace-pre-wrap break-words text-sm leading-6 text-slate-300">{comment.message}</p>
+                        <button type="button" onClick={() => { setReplyTarget({ postId: post.id, commentId: comment.id }); setCommentNotice(""); }} className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-cyan-300 hover:text-white"><Reply size={13} /> Reply</button>
+                      </article>;
+                    })}
+                    {!post.comments?.length ? <p className="text-xs text-slate-500">No comments yet. Start the conversation.</p> : null}
+                  </div>
+                  {replyTarget?.postId === post.id ? <div className="mt-3 flex items-start justify-between gap-3 rounded-lg border-l-2 border-cyan-400 bg-white/[0.035] px-3 py-2"><p className="min-w-0 text-xs text-slate-300"><span className="block font-semibold text-cyan-200">Replying to {replyTarget.commentId ? post.comments?.find((item) => item.id === replyTarget.commentId)?.name ?? "comment" : "post"}</span>{replyTarget.commentId ? post.comments?.find((item) => item.id === replyTarget.commentId)?.message : post.title || post.content}</p><button type="button" onClick={() => setReplyTarget(null)} aria-label="Cancel reply" className="text-slate-400 hover:text-white"><X size={15} /></button></div> : null}
+                  <form onSubmit={(event) => void submitComment(event, post)} className="mt-3 grid gap-2 sm:grid-cols-[minmax(0,0.65fr)_minmax(0,1fr)_auto]">
+                    <label className="sr-only" htmlFor={`post-comment-name-${post.id}`}>Your name</label><input id={`post-comment-name-${post.id}`} value={commentName} onChange={(event) => setCommentName(event.target.value)} maxLength={100} placeholder="Your name" required className="min-w-0 rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-slate-500" />
+                    <label className="sr-only" htmlFor={`post-comment-body-${post.id}`}>Write a comment</label><input id={`post-comment-body-${post.id}`} value={commentDraft} onChange={(event) => setCommentDraft(event.target.value)} maxLength={2000} placeholder="Write a comment…" required className="min-w-0 rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-slate-500" />
+                    <button type="submit" disabled={commentBusy} className="ui-button-primary min-h-10 px-3"><Send size={14} />{commentBusy ? "Sending…" : "Send"}</button>
+                  </form>
+                  {commentNotice ? <p role="status" className="mt-2 text-xs text-cyan-200">{commentNotice}</p> : null}
+                </section>
               </article>
             ))}
           </div>
@@ -412,6 +467,7 @@ export default function PublicPostsPage() {
           </div>
         ) : null}
       </div>
+      {lightbox ? <div role="dialog" aria-modal="true" aria-label="Full-size post image" className="fixed inset-0 z-[500] grid place-items-center bg-black/90 p-4" onClick={() => setLightbox(null)} onKeyDown={(event) => { if (event.key === "Escape") setLightbox(null); }}><button type="button" autoFocus onClick={() => setLightbox(null)} aria-label="Close image" className="absolute right-4 top-4 rounded-full bg-black/60 p-3 text-white"><X /></button><img src={lightbox} alt="Full-size post attachment" className="max-h-[90vh] max-w-full object-contain" /></div> : null}
     </main>
   );
 }

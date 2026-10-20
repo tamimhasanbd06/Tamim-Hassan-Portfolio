@@ -65,7 +65,7 @@ export default function ProjectDetails({ projectId }: ProjectDetailsProps) {
     <section className="relative w-full overflow-hidden rounded-3xl border border-cyan-400/20 bg-[var(--bg-card)] shadow-[0_30px_120px_rgba(0,0,0,0.4)]">
       <div className="grid lg:grid-cols-[1fr_1fr]">
         <div className="relative min-h-64 overflow-hidden bg-[var(--bg-primary)] sm:min-h-80 lg:min-h-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          { }
           <img
             src={project.image}
             alt={`${project.name} preview`}

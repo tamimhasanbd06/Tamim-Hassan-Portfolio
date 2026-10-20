@@ -1,83 +1,96 @@
 # Tamim Hasan Portfolio
 
-A responsive Next.js 16 and TypeScript portfolio for Md. Tamim Hasan.
+A responsive Next.js 16 and TypeScript portfolio for Md. Tamim Hasan. The project includes the public landing and portfolio pages, downloadable CV/resume, a public post feed and visitor message inbox, an Admin dashboard, and a Neon PostgreSQL backend.
+
+## Requirements
+
+- Node.js 24.x (see `engines` in `package.json`)
+- npm 11 or a compatible npm release
+- A Neon PostgreSQL database for posts and messages
+
+## Install and run locally
+
+```bash
+npm ci
+Copy-Item .env.example .env.local
+# Fill in the server credentials described below.
+npm run dev
+```
+
+Open <http://localhost:3000>. The root route `/` is the welcome/landing experience; `/home` is the full portfolio. The first visit may show the welcome animation; it can be skipped on subsequent page visits in the same tab session.
+
+## Environment variables
+
+Set these in `.env.local` for local development and in the deployment provider's encrypted environment settings for production. Do not commit `.env`, `.env.local`, passwords, or database URLs.
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `DATABASE_URL` | For posts/messages | Neon PostgreSQL connection string. |
+| `POST_ADMIN_EMAIL` | For Admin login | Admin login email, checked server-side. |
+| `POST_ADMIN_PASSWORD` | For Admin login | Strong unique Admin password, checked server-side. |
+| `POST_AUTH_SECRET` | For Admin login | At least 64 random characters for signed session cookies. |
+| `CRON_SECRET` | For scheduled cleanup | Long random value used to authorize the Vercel cleanup endpoint. |
+| `NEXT_PUBLIC_SITE_URL` | Recommended | Public canonical site origin, for example `https://portfolio.example.com`. |
+
+Generate secrets with `openssl rand -hex 32` (run separately for each secret). `.env.example` contains placeholders only. Admin sessions use a signed, HttpOnly cookie with a fixed 24-hour expiry; refreshing or using the site does not extend it. Protected pages and APIs validate the session on the server.
+
+The database schema is created/updated by the server on first API use. `database/schema.sql` is also provided for manual review or applying the DDL in Neon. It includes `message_replies` and post-comment reply columns. Use a staging database to verify schema changes before production rollout.
 
 ## Project structure
 
 ```text
-src/
-├── app/                    # Routes, metadata, and app configuration
-└── components/
-    ├── common/             # Shared loaders, PWA, motion, and download controls
-    ├── Home/               # Home page sections (root '/' page)
-    ├── Main/               # Main page sections ('/home' page)
-    └── navigation/         # Shared floating page navigation
-
-public/
-├── assets/
-│   ├── brand/              # Logo and social preview
-│   ├── documents/          # CV and resume PDFs
-│   ├── icons/              # PWA and device icons
-│   └── images/             # Portfolio images
-├── data/                   # Skills, projects, and app data
-└── library/                # Library, course, AI-tool, and certificate data
+src/app/                 App Router pages, metadata, and API routes
+src/components/Home/     Landing/welcome page sections
+src/components/Main/     Full portfolio page sections
+src/components/dashboard Admin dashboard UI
+src/components/common/  Shared loading, error, session, and message UI
+src/lib/                 Database, auth, validation, and live-update helpers
+public/                  JSON portfolio content and static assets
+database/schema.sql      Database setup and migration-safe DDL
+scripts/                 JSON synchronization utility and tests
 ```
 
-## Included
+## Content customization
 
-- Responsive layouts from approximately 300px phones to 2000px+ displays
-- Stable 64px navigation that becomes sticky with a glass shadow after scrolling
-- Mobile app-style navigation and touch targets
-- Home, portfolio, CV, resume, and custom 404 pages
-- Skills and projects loaded from separate JSON data files
-- Searchable project gallery with image-click detail modal
-- Real client-side PDF downloads for the CV and resume
-- Installable Progressive Web App manifest, icons, service worker, and install prompt
-- Route-specific metadata, Open Graph, X cards, JSON-LD, sitemap, and robots
-- Accessibility improvements and reduced-motion support
+- Skills: `public/MySkills.json` and `public/Main/My-Tech-Stack.json`
+- Projects: `public/Main/Project-Gallery.json`
+- Libraries: `public/My-Toolkit.json`
+- Productivity tools: `public/Main/Developer-Toolkit.json`
+- AI tools: `public/AI-Stack.json`
+- Courses/certifications: `public/Courses-&-Certifications.json`
+- Intro, education, contact, FAQ, and footer copy: matching JSON files under `public/Main/`
+- Shared colors, background, focus states, and action styles: `src/app/globals.css`
+- Site title, canonical URL, keywords, and contact metadata: `src/app/site-config.ts`
 
-## Local development
+Posts and messages are stored in Neon, not browser storage. Visitors can reply to individual messages and comments; message replies are private to the message owner and Admin. Images are validated on the server and limited to 1.5 MB per upload. Message and post images keep their natural proportions and can be opened full-size.
+
+## Live updates
+
+Post and message changes are broadcast through short-lived Server-Sent Events streams. The stream checks a database snapshot and sends an invalidation event; the client reloads data through the existing authorization-checked API. Streams reconnect automatically, and clients refresh when a tab becomes visible or the network returns. This works with the current Neon HTTP driver and serverless deployment model. It is near-real-time database synchronization (normally within a few seconds), not a persistent WebSocket connection. A connected Neon database is required to verify cross-browser behavior.
+
+## Commands
 
 ```bash
-npm install
-npm run dev
+npm run dev        # Local development
+npm run lint       # ESLint
+npm run typecheck  # TypeScript, no emit
+npm test           # Existing JSON synchronization test suite
+npm run build      # Optimized production build
+npm start          # Serve a production build locally
+npm run verify     # Lint, typecheck, tests, then production build
 ```
 
-Open `http://localhost:3000`.
+## Deployment
 
-## Production validation
+1. Import the project into Vercel and configure the required environment variables above.
+2. Connect a Neon PostgreSQL database and use a staging branch/database to verify the schema and messaging flows.
+3. Set `NEXT_PUBLIC_SITE_URL` to the deployed HTTPS origin.
+4. Use Node.js 24.x and run `npm ci`, `npm run verify` before deployment.
+5. Deploy with Vercel. The hourly cron in `vercel.json` calls `/api/messages/cleanup`; configure `CRON_SECRET` for that endpoint.
+6. After deployment, verify Admin login/logout and expiry, public visitor ownership, message and post replies, attachment validation, and live updates from two separate browser sessions.
 
-```bash
-npm run lint
-npm run build
-npm start
-```
+For a non-Vercel host, configure the same environment values and run `npm run build` followed by `npm start`. Configure an equivalent scheduled request to `/api/messages/cleanup` with the `CRON_SECRET` authorization header if message cleanup is needed there.
 
-## Site URL
+## Verification notes
 
-For correct canonical links, sitemap entries, and social metadata, create `.env.local`:
-
-```env
-NEXT_PUBLIC_SITE_URL=https://your-real-domain.com
-```
-
-The default fallback is `https://tamim-hassan-portfolio.vercel.app`.
-
-## Installable app
-
-The browser install option appears after the deployed site is served over HTTPS. On iPhone or iPad, use Share and then **Add to Home Screen**.
-
-## PDF files
-
-The downloadable documents are stored at:
-
-- `public/assets/documents/Tamim-Hasan-CV.pdf`
-- `public/assets/documents/Tamim-Hasan-Resume.pdf`
-
-## Portfolio data
-
-Update Skills and Projects without editing the card components:
-
-- `public/data/skills.json`
-- `public/data/projects.json`
-- `public/data/myapps.json`
+`npm test` currently covers the JSON synchronization utility. Full database-backed integration checks require a disposable Neon/PostgreSQL database and test Admin credentials. Browser/device review at 320px through large desktop widths also requires a running application. Do not use production credentials for local tests, and do not treat a successful static build as proof of live database or cross-browser behavior.

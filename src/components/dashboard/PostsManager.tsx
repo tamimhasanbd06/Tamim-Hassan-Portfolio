@@ -29,6 +29,8 @@ import {
 } from "lucide-react";
 
 import EmptyState from "@/components/common/EmptyState";
+import { useLiveUpdates } from "@/lib/use-live-updates";
+import ImageLightbox from "@/components/common/ImageLightbox";
 
 type Post = {
   id: string;
@@ -130,10 +132,11 @@ export default function PostsManager() {
     const handler = () => void load();
 
     window.addEventListener("dashboard-refresh", handler);
+    const timer = window.setInterval(() => { if (document.visibilityState === "visible") void load(); }, 8000);
 
-    return () =>
-      window.removeEventListener("dashboard-refresh", handler);
+    return () => { window.clearInterval(timer); window.removeEventListener("dashboard-refresh", handler); };
   }, [load]);
+  useLiveUpdates("posts", () => { void load(); });
 
   const stats = useMemo(() => {
     const withImages = posts.filter(
@@ -493,7 +496,7 @@ export default function PostsManager() {
               <img
                 src={form.imageUrl}
                 alt="Post preview"
-                className="max-h-[28rem] w-full object-cover"
+                className="max-h-[28rem]"
               />
 
               <button
@@ -670,12 +673,7 @@ export default function PostsManager() {
               <article key={post.id} className={postCard}>
                 {post.imageUrl ? (
                   <div className="relative overflow-hidden border-b border-cyan-300/[0.08] bg-[#050b17]">
-                    <img
-                      src={post.imageUrl}
-                      alt="Post image"
-                      loading="lazy"
-                      className="max-h-[28rem] w-full object-cover transition-transform duration-700 group-hover:scale-[1.015]"
-                    />
+                    <ImageLightbox src={post.imageUrl} alt="Post image" className="max-h-[28rem]" />
 
                     <div className="absolute left-3 top-3 rounded-full border border-cyan-300/15 bg-[#020617]/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan-100 backdrop-blur-md">
                       Image Post

@@ -26,6 +26,9 @@ import {
 } from "lucide-react";
 
 import EmptyState from "@/components/common/EmptyState";
+import MessageThread from "@/components/common/MessageThread";
+import { useLiveUpdates } from "@/lib/use-live-updates";
+import ImageLightbox from "@/components/common/ImageLightbox";
 
 type OwnMessage = {
   id: string;
@@ -129,7 +132,10 @@ export default function MessagePage() {
 
   useEffect(() => {
     void load();
+    const timer = window.setInterval(() => { if (document.visibilityState === "visible") void load(); }, 8000);
+    return () => window.clearInterval(timer);
   }, [load]);
+  useLiveUpdates("messages", () => { void load(); });
 
   function backToDashboard() {
     router.replace("/dashboard/overview");
@@ -244,7 +250,7 @@ export default function MessagePage() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+        className="page-background-decoration pointer-events-none fixed inset-0 z-0 overflow-hidden"
       >
         {/* Blue and cyan radial gradients */}
         <div
@@ -438,11 +444,7 @@ export default function MessagePage() {
 
             {imageUrl ? (
               <div className="group relative overflow-hidden rounded-xl border border-cyan-400/[0.12] bg-black">
-                <img
-                  src={imageUrl}
-                  alt="Attachment preview"
-                  className="max-h-64 w-full object-cover"
-                />
+                <ImageLightbox src={imageUrl} alt="Attachment preview" className="max-h-64" />
 
                 <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/70 to-transparent" />
 
@@ -639,11 +641,7 @@ export default function MessagePage() {
 
                   {item.imageUrl ? (
                     <div className="mt-3 overflow-hidden rounded-xl border border-white/[0.06] bg-black">
-                      <img
-                        src={item.imageUrl}
-                        alt="Message attachment"
-                        className="max-h-56 w-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
-                      />
+                      <ImageLightbox src={item.imageUrl} alt="Message attachment" />
                     </div>
                   ) : null}
 
@@ -690,6 +688,7 @@ export default function MessagePage() {
                       </p>
                     </div>
                   ) : null}
+                  <MessageThread messageId={item.id} />
                 </article>
               ))}
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import HighlightedHeading from "@/components/common/HighlightedHeading";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -131,11 +132,11 @@ const Introduction = () => {
               NAME
           ================================================== */}
 
-          <h1 className="text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+          <HighlightedHeading as="h1" className="text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
               Tamim Hasan
             </span>
-          </h1>
+          </HighlightedHeading>
 
           {/* =================================================
               ROLE

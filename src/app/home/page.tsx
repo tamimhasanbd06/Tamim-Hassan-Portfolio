@@ -28,7 +28,7 @@ export default function HomePage() {
       {/* SAME BACKGROUND AS THE CV PAGE */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+        className="page-background-decoration pointer-events-none fixed inset-0 z-0 overflow-hidden"
       >
         {/* Blue and cyan radial gradients */}
         <div

@@ -30,6 +30,9 @@ import {
 } from "lucide-react";
 
 import EmptyState from "@/components/common/EmptyState";
+import MessageThread from "@/components/common/MessageThread";
+import { useLiveUpdates } from "@/lib/use-live-updates";
+import ImageLightbox from "@/components/common/ImageLightbox";
 
 type Message = {
   id: string;
@@ -89,10 +92,11 @@ export default function MessagesManager() {
     const handler = () => void load();
 
     window.addEventListener("dashboard-refresh", handler);
+    const timer = window.setInterval(() => { if (document.visibilityState === "visible") void load(); }, 8000);
 
-    return () =>
-      window.removeEventListener("dashboard-refresh", handler);
+    return () => { window.clearInterval(timer); window.removeEventListener("dashboard-refresh", handler); };
   }, [load]);
+  useLiveUpdates("messages", () => { void load(); });
 
   const stats = useMemo(() => {
     const saved = items.filter((item) => item.isSaved).length;
@@ -635,12 +639,7 @@ export default function MessagesManager() {
                           </span>
                         </div>
 
-                        <img
-                          src={message.imageUrl}
-                          alt="Visitor attachment"
-                          loading="lazy"
-                          className="max-h-[32rem] w-full object-cover"
-                        />
+                        <ImageLightbox src={message.imageUrl} alt="Visitor attachment" className="max-h-[32rem]" />
                       </div>
                     ) : null}
 
@@ -752,6 +751,7 @@ export default function MessagesManager() {
                       ) : null}
                     </div>
                   </div>
+                  <MessageThread messageId={message.id} isAdmin />
                 </article>
               );
             })}

@@ -1,0 +1,487 @@
+# MASTER PROMPT — COMPLETE PORTFOLIO PROJECT REDESIGN, CUSTOMIZATION & FUNCTIONALITY UPGRADE
+
+You are a Senior Full-Stack Developer, UI/UX Designer, Frontend Architect, Backend Engineer, and Quality Assurance Specialist.
+
+Your task is to completely inspect, improve, customize, and upgrade my existing Portfolio Project according to the requirements below.
+
+**IMPORTANT RULES:**
+
+- First, inspect and understand the complete existing project structure, design system, routes, components, database, authentication, and API architecture.
+- Do not start making changes without inspecting the relevant code.
+- Maintain the existing technology stack and architecture.
+- Preserve all existing functional features.
+- Do not delete important files, database records, routes, APIs, or functionality.
+- Do not introduce unnecessary dependencies.
+- Make the complete website modern, premium, responsive, smooth, visually consistent, and production-ready.
+- Implement actual working functionality, not just visual demonstrations.
+- Do not claim anything is complete until it has been implemented and verified.
+
+---
+
+## TASK 1 — REMOVE ALL EXISTING SECTION AND COMPONENT BACKGROUNDS
+
+Inspect the entire project, including:
+
+- Homepage
+- Welcome Page
+- Admin Dashboard
+- User Dashboard
+- All public pages
+- All authenticated pages
+- All sections
+- All reusable components
+- All cards and containers
+
+Remove unnecessary existing background colors, background gradients, background images, and background decorative layers from sections and content components.
+
+The objective is to create a clean and visually unified interface without individually colored section backgrounds.
+
+**Important:**
+
+- Sections and general content containers should have transparent backgrounds.
+- Do not accidentally remove essential input fields, dropdowns, modal surfaces, navigation contrast, or accessibility-related visual states.
+- Preserve readability, borders, elevation, and appropriate hover effects.
+- Avoid unnecessary white or dark background panels inside page content.
+
+## TASK 2 — ADD ONE PREMIUM BACKGROUND TO EACH PAGE
+
+After removing section-level backgrounds, apply a beautiful, premium background to the main page wrapper of each page.
+
+Requirements:
+
+1. Use the project's existing theme and brand colors.
+2. The background must visually match the portfolio identity.
+3. The background should be assigned to the page-level container rather than individual sections.
+4. Every section and component should visually integrate into the page background.
+5. Different pages may have subtle variations while maintaining the same design system.
+6. Avoid overwhelming animations or distracting effects.
+7. Ensure sufficient text contrast.
+8. Optimize background rendering for performance.
+
+Apply this across the homepage, welcome page, portfolio pages, admin dashboard, user dashboard, and other existing pages.
+
+## TASK 3 — ADMIN BACK BUTTON ON EVERY APPLICABLE PAGE
+
+When the logged-in user has the Admin role, show a premium Back button at the top of every applicable page.
+
+Requirements:
+
+- Display the Back button only for authenticated Admin users.
+- Do not display it on the main dashboard page.
+- The button must use the project's premium 3D button design.
+- Include an appropriate back arrow icon.
+- Prefer valid browser history when it points to a safe internal route.
+- If no appropriate navigation history exists, redirect to the Admin Dashboard.
+- Never navigate to an external or unauthorized destination.
+- Ensure the Back button is consistent across desktop, tablet, and mobile.
+- Do not display it for ordinary users unless the existing product rules require it.
+
+Use a reusable component rather than duplicating the implementation across all pages.
+
+## TASK 4 — STRICT 24-HOUR AUTHENTICATION SESSION
+
+Implement a secure authentication session system.
+
+Requirements:
+
+1. A successful login starts a 24-hour session.
+2. The session expires exactly 24 hours after the successful login.
+3. Do not extend session validity automatically through page refreshes, API calls, or user activity.
+4. After 24 hours, automatically sign the user out.
+5. Redirect expired users to the login page.
+6. Protected pages and APIs must reject expired sessions.
+7. Preserve the intended navigation destination when appropriate.
+8. Handle expired sessions across multiple browser tabs.
+9. Ensure proper session cleanup during logout.
+10. The system must work after refreshing the browser and restarting the browser.
+
+**Security requirements:**
+
+- Implement expiry validation on the backend, not only in frontend JavaScript.
+- Use the existing authentication architecture wherever possible.
+- Prefer secure, HttpOnly cookies when compatible with the existing implementation.
+- Do not store sensitive authentication credentials insecurely.
+- Never expose secret keys or credentials in frontend code.
+
+## TASK 5 — UNIFY ALL ACTION BUTTONS WITH THE EXISTING 3D BUTTON DESIGN
+
+Find the existing 3D navigation button used in the main page banner.
+
+Use that button as the visual reference for all action buttons throughout the project.
+
+Apply consistent styling to:
+
+- Submit buttons
+- Save buttons
+- Send buttons
+- Reply buttons
+- Edit buttons
+- Delete buttons
+- Back buttons
+- Navigation buttons
+- Dashboard action buttons
+- Modal action buttons
+- Form submission buttons
+- Other interactive action buttons
+
+Requirements:
+
+- Maintain the existing 3D visual identity.
+- Use consistent shadow, depth, border radius, typography, padding, and transitions.
+- Include hover, active, focus, loading, and disabled states.
+- Ensure sufficient color contrast.
+- Maintain appropriate warning or destructive colors when necessary.
+- Support mobile screens and keyboard accessibility.
+
+Create or improve one reusable ActionButton component to maintain design consistency.
+
+## TASK 6 — COMPLETE UI/UX CUSTOMIZATION
+
+Review and customize every page and component in the portfolio project.
+
+Improve:
+
+- Spacing and alignment
+- Typography hierarchy
+- Section layouts
+- Navigation design
+- Cards and containers
+- Forms and inputs
+- Tables and lists
+- Modals and dialogs
+- Loading indicators
+- Empty states
+- Error messages
+- Icons
+- Responsive behavior
+- Hover interactions
+- Smooth transitions
+- Accessibility
+- Visual consistency
+
+The final design should look like one professionally designed portfolio rather than multiple unrelated interfaces.
+
+Preserve the project's original brand identity and content.
+
+## TASK 7 — WELCOME PAGE REDESIGN
+
+Apply the complete visual customization system to the Welcome Page.
+
+Requirements:
+
+- Use the same page-level background approach.
+- Remove unnecessary internal section backgrounds.
+- Apply the consistent premium typography.
+- Use the same 3D button style.
+- Improve responsive layouts.
+- Improve heading appearance.
+- Maintain all existing Welcome Page functionality.
+- Ensure visually consistent transitions to other pages.
+
+## TASK 8 — REALTIME POST AND MESSAGE UPDATES
+
+Implement realtime functionality for both the Post Page and Message Page.
+
+Apply it to:
+
+- Main Portfolio Project
+- Admin Dashboard
+- User-facing interfaces
+- Relevant post and message components
+
+**Core requirement:**
+
+When a new message, post, reply, or relevant update is saved successfully to the database, the connected interface should display the change automatically without refreshing the page.
+
+The experience should behave similarly to WhatsApp.
+
+Technical requirements:
+
+1. Inspect the existing backend and database.
+2. Reuse the existing realtime infrastructure if available.
+3. Otherwise implement a suitable architecture using WebSockets, Socket.IO, Server-Sent Events, or another framework-compatible solution.
+4. Synchronize messages between Admin and User views.
+5. Implement realtime updates for new posts and replies where applicable.
+6. Prevent duplicate messages.
+7. Preserve message ordering.
+8. Support reconnection after network interruption.
+9. Load missed messages after reconnecting.
+10. Show message delivery/loading states.
+11. Update the UI immediately where appropriate using safe optimistic updates.
+12. Reconcile optimistic messages with database-confirmed messages.
+13. Enforce authorization for every conversation and realtime event.
+
+Do not use fake realtime effects that only update the current browser without synchronizing with the database and other connected users.
+
+## TASK 9 — SHOW ADMIN LOGO IN ADMIN MESSAGES
+
+On the Post Page and Message Page, whenever an Admin sends a message or reply, display the existing Admin logo/avatar alongside the message.
+
+Requirements:
+
+- Reuse the Admin logo already available in the project.
+- Do not replace the existing brand logo unnecessarily.
+- Display the correct sender identity.
+- Support a suitable fallback avatar if the logo is unavailable.
+- Maintain consistent avatar size and alignment.
+- Ensure proper display on desktop and mobile.
+- Apply the same behavior to admin replies.
+
+Do not use the Admin logo for ordinary user messages.
+
+## TASK 10 — WHATSAPP-STYLE REPLY TO SPECIFIC MESSAGES
+
+Implement message-specific replies in both the Post Page and Message Page.
+
+Both Admin and ordinary Users must be able to reply to individual messages or posts where they have permission.
+
+Requirements:
+
+1. Add a Reply action to each eligible message.
+2. Allow users to select the exact message they want to reply to.
+3. Show a quoted preview of the original message above the reply input.
+4. Display the referenced message inside the new reply bubble.
+5. Allow canceling the selected reply.
+6. Preserve reply relationships in the database.
+7. Make the quoted reference clickable when appropriate.
+8. Clicking the quote should navigate or scroll to the original message when available.
+9. Support text and image replies.
+10. Synchronize replies through the realtime system.
+11. Ensure all permissions are enforced on the backend.
+
+The interaction should feel similar to WhatsApp's Reply feature.
+
+## TASK 11 — DYNAMIC IMAGE MESSAGE FRAMES
+
+Improve image messages in both the Post Page and Message Page.
+
+When an Admin or User sends an image:
+
+- The image frame must adapt to the image's natural aspect ratio.
+- Do not force every image into the same fixed-size square.
+- Prevent unwanted cropping.
+- Preserve the original image proportions.
+- Use responsive maximum width and height limits.
+- Display the complete image clearly.
+- Support portrait, landscape, and square images.
+- Allow users to open the full image for a larger view.
+- Maintain proper loading placeholders.
+- Preserve image quality where practical.
+- Support mobile layouts.
+
+Use a layout concept similar to:
+
+`max-width: 100%; height: auto; object-fit: contain;`
+
+The displayed message should fit available screen space while the full image remains accessible.
+
+Validate uploaded files, enforce size limits, and prevent unauthorized file access.
+
+## TASK 12 — MAKE LIBRARY AND TOOLS SECTIONS VISUALLY IDENTICAL
+
+Find the Library section and the Tools section in the existing portfolio pages.
+
+Redesign both sections using one shared design system.
+
+Requirements:
+
+- Similar section structure
+- Similar heading layout
+- Similar typography
+- Similar card design
+- Similar icon treatment
+- Similar spacing and padding
+- Similar animation behavior
+- Similar hover effects
+- Similar action buttons
+- Similar responsive grids
+
+Prefer shared reusable components.
+
+Only section content and relevant metadata should differ.
+
+The two sections should feel like parts of the same design family.
+
+## TASK 13 — REDESIGN HOMEPAGE FOOTER
+
+Inspect the design and visual composition of the existing Main Page / Photos section.
+
+Redesign the Homepage Footer so it visually matches that design language.
+
+Requirements:
+
+1. Follow the existing brand colors.
+2. Use similar typography, spacing, and layout aesthetics.
+3. Maintain proper footer functionality.
+4. Preserve existing links and social profiles.
+5. Improve responsiveness.
+6. Add tasteful hover interactions.
+7. Maintain readability and accessibility.
+8. Ensure the footer blends naturally into the page-level background.
+9. Avoid unnecessary standalone colored background panels.
+
+The footer must look like a natural continuation of the main portfolio design.
+
+## TASK 14 — COLOR HIGHLIGHTING FOR ALL MAJOR HEADINGS
+
+Inspect the main homepage banner.
+
+Find the existing heading design where one word is displayed in a different accent color.
+
+Apply a consistent version of that heading style to all major headings throughout the portfolio.
+
+Requirements:
+
+- Use the exact theme colors already established in the homepage banner.
+- Highlight an appropriate word or phrase within each major heading.
+- Preserve the meaning and readability of each heading.
+- Avoid coloring every word.
+- Maintain consistent font sizes and typography hierarchy.
+- Use semantic headings (H1, H2, H3).
+- Preserve accessibility.
+- Support Bengali and English heading text.
+- Maintain responsive typography.
+
+Create a reusable HighlightHeading component where practical.
+
+Apply this system to:
+
+- Homepage
+- Welcome Page
+- Portfolio sections
+- Library
+- Tools
+- Post Page
+- Message Page
+- Admin Dashboard
+- User Dashboard
+- All applicable project pages
+
+## TASK 15 — ADD USEFUL FUNCTIONALITY AND IMPROVEMENTS
+
+Inspect the entire project and identify missing functionality or issues that negatively affect the user experience.
+
+Improve relevant areas such as:
+
+- Message loading states
+- Message send errors and retries
+- Message timestamps
+- Unread message indicators
+- Notifications
+- Image previews
+- Empty states
+- Search and filtering
+- Form validation
+- Mobile navigation
+- Keyboard accessibility
+- Error boundaries
+- Loading skeletons
+- Network reconnection
+- Responsive layouts
+- Performance optimization
+
+Only add improvements that are genuinely useful for this portfolio project.
+
+Do not introduce unrelated modules, unnecessary complexity, or breaking changes.
+
+## TASK 16 — COMPLETE PROJECT RESPONSIVENESS
+
+Test all applicable pages on:
+
+- Mobile devices
+- Tablets
+- Laptops
+- Desktop monitors
+
+Ensure:
+
+- No unexpected horizontal scrolling
+- No overlapping elements
+- No broken layouts
+- No clipped text
+- No inaccessible buttons
+- No distorted images
+- No broken navigation
+- No keyboard accessibility regressions
+
+All customizations must work properly in both desktop and mobile layouts.
+
+## TASK 17 — PRESERVE EXISTING PROJECT FUNCTIONALITY
+
+Before modifying existing code:
+
+1. Inspect the relevant component and implementation.
+2. Understand dependencies.
+3. Identify affected routes and APIs.
+4. Determine whether shared components are used elsewhere.
+5. Apply changes carefully.
+6. Avoid breaking existing database relationships.
+7. Preserve existing user roles and permissions.
+8. Maintain compatibility with existing deployment infrastructure.
+
+Do not rewrite the entire project unnecessarily.
+
+Make targeted improvements while maintaining overall architecture.
+
+## TASK 18 — PRODUCTION-LEVEL TESTING AND VERIFICATION
+
+After implementing the requirements:
+
+- Run the project's existing linting and type checking.
+- Run a production build.
+- Fix introduced build errors.
+- Verify authentication and 24-hour expiry.
+- Verify Admin-only Back buttons.
+- Verify realtime updates between Admin and User sessions.
+- Verify specific-message replies.
+- Verify image aspect ratios and previews.
+- Verify Admin logo display.
+- Verify Library and Tools consistency.
+- Verify Homepage Footer appearance.
+- Verify heading color highlights.
+- Verify Welcome Page customization.
+- Check protected API permissions.
+- Verify responsive design.
+- Test all modified pages in a real browser where possible.
+
+Do not consider the project complete if major functionality remains broken.
+
+## TASK 19 — FINAL DELIVERY AND FULL PROJECT DOWNLOAD
+
+When every requirement has been implemented and successfully verified:
+
+1. Prepare the complete updated project.
+2. Include all necessary frontend and backend source files.
+3. Preserve essential configuration examples and dependency files.
+4. Exclude unnecessary folders such as `node_modules`, `.next`, build caches, and temporary files.
+5. Exclude private credentials, API secrets, production environment files, and database passwords.
+6. Include database migration files or setup instructions where necessary.
+7. Create an updated README with installation, development, build, and deployment instructions.
+8. Generate a ZIP archive containing the complete updated project.
+9. Provide a working download link to the ZIP file when the execution environment supports downloadable artifacts.
+10. If file hosting or downloadable attachments are unsupported, report the exact local ZIP path and explain how to retrieve it.
+
+Do not return a fake download link.
+
+**FINAL RESPONSE REQUIREMENT:**
+
+After completing the project, provide:
+
+- A summary of all completed changes.
+- A list of modified and added files.
+- Testing results.
+- Any pending issues or limitations.
+- Instructions for running the updated project.
+- The complete project ZIP download link, if available.
+
+End the final response with:
+
+"আপনার দেওয়া সমস্ত Requirements অনুযায়ী পুরো Portfolio Project আপডেট করা হয়েছে। ডিজাইন, ব্যাকগ্রাউন্ড, অ্যাডমিন নেভিগেশন, ২৪ ঘণ্টার লগইন সেশন, 3D Action Buttons, Welcome Page, Realtime Post ও Messaging, WhatsApp-style Reply, Admin Logo, Image Preview, Library এবং Tools Section, Homepage Footer এবং Heading Highlighting—সবকিছু পরীক্ষা করা হয়েছে।
+
+**সম্পূর্ণ আপডেটেড প্রজেক্ট ডাউনলোড করুন:** [Insert verified project ZIP download link here]"
+
+Only use this completion statement when the full implementation and verification are actually finished.
+
+**START NOW:**
+
+First inspect the existing repository and identify its framework, entry points, layouts, authentication mechanism, messaging implementation, database schema, and deployment configuration. Then execute the changes systematically, verify each module, and produce the final updated project package.

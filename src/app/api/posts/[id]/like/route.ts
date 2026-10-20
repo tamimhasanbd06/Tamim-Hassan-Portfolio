@@ -1,14 +1,16 @@
 import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { ensurePostSchema, getDb } from "@/lib/db";
+import { isUuid } from "@/lib/content-security";
 
 type RouteContext = { params: Promise<{ id: string }> };
 const VISITOR_COOKIE = "tamim_post_visitor";
 
 export async function POST(request: NextRequest, context: RouteContext) {
   try {
-    await ensurePostSchema();
     const { id: postId } = await context.params;
+    if (!isUuid(postId)) return NextResponse.json({ success: false, message: "Post not found." }, { status: 404 });
+    await ensurePostSchema();
     const sql = getDb();
 
     const activePost = await sql`

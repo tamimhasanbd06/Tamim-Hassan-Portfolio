@@ -67,7 +67,7 @@ function ProjectCard({
           {String(index + 1).padStart(2, "0")}
         </span>
 
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+        { }
         <img
           src={project.image}
           alt={`${project.name} website preview`}
@@ -163,7 +163,7 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
           <div className="relative min-h-64 overflow-hidden bg-[var(--bg-primary)] sm:min-h-80 lg:min-h-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            { }
             <img
               src={project.image}
               alt={`${project.name} full project preview`}

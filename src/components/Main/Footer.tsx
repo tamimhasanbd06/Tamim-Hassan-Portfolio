@@ -2,6 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import ActionButton from "../ui/ActionButton";
 import { useState } from "react";
 
 import {
@@ -489,16 +490,15 @@ export default function Footer() {
             </p>
           </div>
 
-          <button
+          <ActionButton
             type="button"
             onClick={scrollToTop}
             aria-label="Scroll back to top"
-            className="ui-button-primary"
+            className=""
           >
             Back to Top
-
             <FaArrowUp className="transition-transform group-hover:-translate-y-1" />
-          </button>
+          </ActionButton>
         </div>
       </div>
 

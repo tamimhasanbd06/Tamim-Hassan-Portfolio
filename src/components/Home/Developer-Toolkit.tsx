@@ -976,7 +976,7 @@ export default function ProductivitySection() {
                 className="
                   mt-10
                   grid
-                  gap-5
+                  gap-4
                   sm:grid-cols-2
                   lg:grid-cols-3
                   xl:grid-cols-4
@@ -1031,11 +1031,12 @@ export default function ProductivitySection() {
                           reduceMotion
                             ? undefined
                             : {
-                                y: -7,
+                                y: -8,
                               }
                         }
                         className={`
                           group
+                          portfolio-resource-card ${isActive ? "portfolio-resource-card--active" : ""}
                           relative
                           overflow-hidden
                           rounded-3xl

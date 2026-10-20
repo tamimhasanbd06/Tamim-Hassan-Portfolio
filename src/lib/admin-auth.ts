@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from "crypto";
 import type { NextRequest, NextResponse } from "next/server";
 
 export const ADMIN_COOKIE_NAME = "tamim_post_admin";
-const SESSION_MAX_AGE = 60 * 60 * 24 * 7;
+const SESSION_MAX_AGE = 60 * 60 * 24;
 
 function getAuthSecret() {
   const secret = process.env.POST_AUTH_SECRET;
@@ -36,7 +36,7 @@ export function credentialsAreValid(email: string, password: string) {
 
 export function createAdminSessionToken() {
   const expiresAt = Math.floor(Date.now() / 1000) + SESSION_MAX_AGE;
-  const payload = `admin:${expiresAt}`;
+  const payload = `admin-v2:${expiresAt}`;
   return `${payload}.${sign(payload)}`;
 }
 
@@ -51,7 +51,7 @@ export function verifyAdminSessionToken(token?: string | null) {
   const [role, expiresRaw] = payload.split(":");
   const expiresAt = Number(expiresRaw);
 
-  if (role !== "admin" || !Number.isFinite(expiresAt)) return false;
+  if (role !== "admin-v2" || !Number.isFinite(expiresAt)) return false;
   if (expiresAt <= Math.floor(Date.now() / 1000)) return false;
 
   return safeEqual(signature, sign(payload));

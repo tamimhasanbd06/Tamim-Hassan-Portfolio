@@ -484,7 +484,7 @@ export default function GitHubContributionChart({
             sm:p-4
           "
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          { }
 
           <img
             key={imageKey}

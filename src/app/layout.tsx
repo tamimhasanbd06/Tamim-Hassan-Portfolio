@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import PwaInstaller from "@/components/common/PwaInstaller";
 import EntrySplash from "@/components/common/EntrySplash";
+import AdminBackButton from "@/components/common/AdminBackButton";
+import AdminSessionGuard from "@/components/common/AdminSessionGuard";
 import RouteChangeLoader from "@/components/common/RouteChangeLoader";
 import "./globals.css";
 import { siteConfig } from "./site-config";
@@ -147,11 +149,12 @@ export default function RootLayout({
           }}
         />
         <EntrySplash />
+        <AdminSessionGuard />
         <div className="theme-page">
           <div className="theme-background" aria-hidden="true">
             <div className="theme-grid" />
           </div>
-          <div className="theme-content">{children}</div>
+          <div className="theme-content"><AdminBackButton />{children}</div>
         </div>
         <RouteChangeLoader />
         <PwaInstaller />

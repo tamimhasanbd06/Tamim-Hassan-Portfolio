@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import HighlightedHeading from "@/components/common/HighlightedHeading";
 import {
   FaArrowRight,
   FaFileAlt,
@@ -129,27 +130,9 @@ export default function Banner() {
           </motion.div>
 
           {/* Heading */}
-          <motion.h1
-            initial={{
-              opacity: 0,
-              y: 25,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.7,
-              delay: 0.35,
-            }}
-            className="mb-4 w-full text-[clamp(2rem,10vw,3rem)] font-extrabold leading-[1.08] text-white md:text-5xl xl:text-6xl 2xl:text-7xl"
-          >
-            Make Your <br />
-
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
-              Dream Website
-            </span>
-          </motion.h1>
+          <HighlightedHeading as="h1" className="mb-4 w-full text-[clamp(2rem,10vw,3rem)] font-extrabold leading-[1.08] text-white md:text-5xl xl:text-6xl 2xl:text-7xl">Make Your <br />
+  <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">Dream Website</span>
+</HighlightedHeading>
 
           {/* Description */}
           <motion.p

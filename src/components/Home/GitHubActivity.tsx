@@ -674,7 +674,7 @@ export default async function GitHubActivity() {
                   "
                 />
 
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+                { }
                 <img
                   src={user.avatar_url}
                   alt={`${user.login} GitHub avatar`}

@@ -2,7 +2,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { ActionButton } from "@/components/ui/ActionButton";
+import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 const LockBanner = () => {
@@ -95,34 +96,23 @@ const LockBanner = () => {
 
             {/* Buttons */}
             <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
-              <Link
+              <ActionButton
                 href="/home"
-                className="flex min-h-12 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-cyan-500/30 min-[360px]:px-8 min-[360px]:py-4"
+                size="lg"
+                className="w-full min-[360px]:w-auto min-[360px]:px-8"
               >
                 Go to Home
-              </Link>
+              </ActionButton>
 
-              <Link
+              <ActionButton
                 href="/resume"
-                className="group flex min-h-12 items-center justify-center gap-3 rounded-xl border border-cyan-400/40 bg-cyan-400/5 px-6 py-3.5 font-semibold text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/70 hover:bg-cyan-400/10 min-[360px]:px-8 min-[360px]:py-4"
+                variant="outline"
+                size="lg"
+                rightIcon={<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />}
+                className="group w-full min-[360px]:w-auto min-[360px]:px-8"
               >
                 My Resume
-
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  <path
-                    d="M5 12h14M13 6l6 6-6 6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
+              </ActionButton>
             </div>
           </motion.div>
 

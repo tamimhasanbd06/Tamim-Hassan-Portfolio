@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { ensurePostSchema, getDb } from "@/lib/db";
+import { isUuid } from "@/lib/content-security";
 
 type RouteContext = { params: Promise<{ id: string; commentId: string }> };
 
@@ -10,8 +11,9 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ success: false, message: "Admin login required." }, { status: 401 });
     }
 
-    await ensurePostSchema();
     const { id, commentId } = await context.params;
+    if (!isUuid(id) || !isUuid(commentId)) return NextResponse.json({ success: false, message: "Comment not found." }, { status: 404 });
+    await ensurePostSchema();
     const sql = getDb();
     const deleted = await sql`
       DELETE FROM post_comments
