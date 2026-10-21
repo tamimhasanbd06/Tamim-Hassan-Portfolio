@@ -96,7 +96,10 @@ npm run verify     # Lint, typecheck, tests, then production build
 3. Nothing else to configure: the canonical origin comes from Vercel's own
    `VERCEL_PROJECT_PRODUCTION_URL` build variable.
 4. Use Node.js 24.x and run `npm ci`, `npm run verify` before deployment.
-5. Deploy with Vercel. The hourly cron in `vercel.json` calls `/api/messages/cleanup`, authorized by `POST_AUTH_SECRET`.
+5. Deploy with Vercel. The daily cron in `vercel.json` calls `/api/messages/cleanup`, authorized by
+   `POST_AUTH_SECRET`. A daily schedule is the maximum frequency Vercel's Hobby plan allows;
+   expired messages are additionally pruned on every message API request, so cleanup latency
+   is at most one day and correctness never depends on the cron.
 6. After deployment, verify Admin login/logout and expiry, public visitor ownership, message and post replies, attachment validation, and live updates from two separate browser sessions.
 
 For a non-Vercel host, configure the same four environment values and run `npm run build` followed by `npm start`. If you want a scheduled cleanup there, call `/api/messages/cleanup` with `Authorization: Bearer <POST_AUTH_SECRET>`; otherwise the opportunistic cleanup on message access is enough.
