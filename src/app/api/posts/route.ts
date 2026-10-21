@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { cleanText, validateHttpUrl, validateImageValue } from "@/lib/content-security";
 import { ensurePostSchema, getDb } from "@/lib/db";
+import { POST_VISITOR_COOKIE, readVisitorId } from "@/lib/visitor";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
   try {
     await ensurePostSchema();
     const sql = getDb();
-    const visitorId = request.cookies.get("tamim_post_visitor")?.value || "";
+    const visitorId = readVisitorId(request, POST_VISITOR_COOKIE) ?? "";
     const admin = isAdminRequest(request);
     const posts = await sql`
       SELECT p.id,p.title,p.content,p.image_url,p.link_url,p.created_at,p.expires_at,

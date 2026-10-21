@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ensurePostSchema, getDb } from "@/lib/db";
 import { isUuid } from "@/lib/content-security";
 import { isAdminRequest } from "@/lib/admin-auth";
+import { RATE_LIMITS, enforceRateLimit } from "@/lib/rate-limit";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -11,6 +12,8 @@ export async function POST(request: NextRequest, context: RouteContext) {
     await ensurePostSchema();
     const { id: postId } = await context.params;
     if (!isUuid(postId)) return NextResponse.json({ success: false, message: "Post not found." }, { status: 404 });
+    const limited = enforceRateLimit(request, RATE_LIMITS.postComment, postId);
+    if (limited) return limited;
     const body = await request.json();
     const name = String(body.name || "").trim();
     const message = String(body.message || "").trim();

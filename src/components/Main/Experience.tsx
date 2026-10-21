@@ -47,8 +47,7 @@ const Experience = () => {
         const response = await fetch("/Main/Experience.json");
 
         if (!response.ok) {
-          throw new Error(
-            "Failed to load experience data",
+          throw new Error("Failed to load experience data",
           );
         }
 
@@ -57,8 +56,7 @@ const Experience = () => {
 
         setExperienceData(data.experience);
       } catch (error) {
-        console.error(
-          "Failed to load experience data:",
+        console.error("Failed to load experience data:",
           error,
         );
       }
@@ -79,8 +77,7 @@ const Experience = () => {
         setCopiedNumber(null);
       }, 2000);
     } catch (error) {
-      console.error(
-        "Failed to copy customer care number:",
+      console.error("Failed to copy customer care number:",
         error,
       );
     }
@@ -99,8 +96,7 @@ const Experience = () => {
       return date;
     }
 
-    return parsedDate.toLocaleDateString(
-      "en-US",
+    return parsedDate.toLocaleDateString("en-US",
       {
         year: "numeric",
         month: "long",
@@ -115,38 +111,30 @@ const Experience = () => {
     if (status === "Running") {
       return {
         text: "Running",
-        className:
-          "border-green-400/20 bg-green-400/10 text-green-300",
+        className:"border-green-400/20 bg-green-400/10 text-green-300",
       };
     }
 
     if (status === "End") {
       return {
         text: "End",
-        className:
-          "border-red-400/20 bg-red-400/10 text-red-300",
+        className:"border-red-400/20 bg-red-400/10 text-red-300",
       };
     }
 
     return {
       text: "Running or End",
-      className:
-        "border-yellow-400/20 bg-yellow-400/10 text-yellow-300",
+      className:"border-yellow-400/20 bg-yellow-400/10 text-yellow-300",
     };
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-black px-4 py-14 text-white sm:px-6 lg:px-10">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
-
+    <section className="relative w-full overflow-hidden px-4 py-14 text-white sm:px-6 lg:px-10">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-10 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
 
       {/* Background Glows */}
-      <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-blue-500/10 blur-[120px]" />
 
-      <div className="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-cyan-400/10 blur-[130px]" />
 
       {/* Main Content */}
       <div className="relative z-10 mx-auto w-full max-w-7xl">
@@ -229,8 +217,7 @@ const Experience = () => {
 
                           <div>
                             <p className="mb-1 text-[10px] font-semibold uppercase tracking-[2px] text-cyan-400/70">
-                              {experience.status ===
-                              "Running"
+                              {experience.status ==="Running"
                                 ? "Current position"
                                 : "Previous position"}
                             </p>
@@ -401,10 +388,7 @@ const Experience = () => {
 
                       {/* Focus Areas */}
                       <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                        {[
-                          "Responsive Interfaces",
-                          "Accessible UX",
-                          "Clean Architecture",
+                        {["Responsive Interfaces","Accessible UX","Clean Architecture",
                         ].map((focus) => (
                           <div
                             key={focus}

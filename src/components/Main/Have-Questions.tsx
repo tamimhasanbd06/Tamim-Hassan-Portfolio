@@ -21,7 +21,7 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="relative overflow-hidden bg-black px-4 py-20 text-white sm:px-6 lg:px-8"
+      className="relative overflow-hidden  px-4 py-20 text-white sm:px-6 lg:px-8"
     >
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">
@@ -29,10 +29,8 @@ export default function FAQ() {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-[var(--bg-card)] to-black" />
 
         {/* Blue Glow */}
-        <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-blue-600/10 blur-[140px]" />
 
         {/* Cyan Glow */}
-        <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-cyan-400/10 blur-[150px]" />
 
         {/* Grid */}
         <div className="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:55px_55px]" />

@@ -91,6 +91,34 @@ npm run verify     # Lint, typecheck, tests, then production build
 
 For a non-Vercel host, configure the same environment values and run `npm run build` followed by `npm start`. Configure an equivalent scheduled request to `/api/messages/cleanup` with the `CRON_SECRET` authorization header if message cleanup is needed there.
 
+## Security hardening (this pass)
+
+- **Rate limiting** — `src/lib/rate-limit.ts` adds a dependency-free sliding-window limiter.
+  Public writes are capped per client IP: messages 5 / 10 min, thread replies 20 / 10 min,
+  post comments 10 / 10 min, likes 60 / 5 min, and admin login 8 / 10 min. Over-limit calls
+  receive `429` with a `Retry-After` header, which the existing `error-config.ts` 429 UI renders.
+  This is a per-instance limiter: on Vercel each warm instance keeps its own counter, so it
+  stops loop attacks but is not a global quota. Back it with Redis or a Neon table if a hard
+  global limit is needed; the call sites do not change.
+- **Signed visitor cookies** — visitor identity used to be a raw UUID in an HttpOnly cookie,
+  which could be rewritten to read another visitor's messages. Values are now `uuid.signature`,
+  HMAC-signed with `POST_AUTH_SECRET` and verified on every read (`src/lib/visitor.ts`).
+  Rotating `POST_AUTH_SECRET` signs existing visitors out of their message history, which is safe.
+- **Security headers** — `next.config.ts` now sends CSP, `X-Frame-Options: DENY`,
+  `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`, HSTS, and disables
+  the `X-Powered-By` header. `script-src` still allows `'unsafe-inline'` because Next.js needs
+  it for its inline bootstrap; moving to nonces requires middleware.
+- **Service worker fixed** — `public/sw.js` precached `/data/*.json` and `/library/*.json`,
+  none of which exist. `cache.addAll()` is atomic, so the install always failed and the PWA
+  never worked. The shell now lists real paths, entries are cached individually, API/auth/dashboard
+  responses are excluded from caching, and `public/offline.html` backs navigation fallbacks.
+- **Faster entry** — the blocking intro splash dropped from 5.8 s to 1.5 s.
+- **Shared background** — the ambient gradient block is now one `PageBackground` component
+  instead of eight copies.
+
+Before deploying, rotate `DATABASE_URL` credentials, `POST_ADMIN_PASSWORD`, and
+`POST_AUTH_SECRET` if they were ever committed, shared, or stored in a plain `.env` file.
+
 ## Verification notes
 
 `npm test` currently covers the JSON synchronization utility. Full database-backed integration checks require a disposable Neon/PostgreSQL database and test Admin credentials. Browser/device review at 320px through large desktop widths also requires a running application. Do not use production credentials for local tests, and do not treat a successful static build as proof of live database or cross-browser behavior.

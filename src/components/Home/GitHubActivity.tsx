@@ -437,51 +437,8 @@ export default async function GitHubActivity() {
         "
       />
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-[-200px]
-          h-[600px]
-          w-[900px]
-          -translate-x-1/2
-          rounded-full
-          bg-cyan-500/[0.07]
-          blur-[170px]
-        "
-      />
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          -left-40
-          top-1/2
-          h-[400px]
-          w-[400px]
-          rounded-full
-          bg-blue-500/[0.04]
-          blur-[150px]
-        "
-      />
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          -right-40
-          bottom-0
-          h-[420px]
-          w-[420px]
-          rounded-full
-          bg-cyan-400/[0.04]
-          blur-[150px]
-        "
-      />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* =====================================================

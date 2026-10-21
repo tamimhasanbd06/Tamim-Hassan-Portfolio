@@ -343,11 +343,8 @@ export default function Projects() {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
+    <section className="relative min-h-screen w-full overflow-hidden px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
-      <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[130px]" />
-      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[150px]" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-12 max-w-3xl text-center">

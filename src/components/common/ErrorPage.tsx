@@ -43,9 +43,6 @@ export default function ErrorPage({ statusCode = 500, title, message, referenceI
 
   return (
     <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-16 text-white sm:px-6">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-black/55 via-[var(--bg-card)]/25 to-black/45" />
-      <div className="pointer-events-none absolute -left-40 top-[-100px] h-[480px] w-[480px] rounded-full bg-blue-600/15 blur-[160px]" />
-      <div className="pointer-events-none absolute -bottom-52 right-[-140px] h-[550px] w-[550px] rounded-full bg-cyan-400/10 blur-[180px]" />
       <section className="relative z-10 mx-auto w-full max-w-4xl text-center" aria-labelledby="error-title">
         <Link href="/home" aria-label="Go to Tamim Hasan portfolio" className="group mx-auto mb-8 block w-fit">
           <div className="relative h-20 w-20 sm:h-24 sm:w-24">

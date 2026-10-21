@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import PwaInstaller from "@/components/common/PwaInstaller";
+import PageBackground from "@/components/common/PageBackground";
 import EntrySplash from "@/components/common/EntrySplash";
 import AdminBackButton from "@/components/common/AdminBackButton";
 import AdminSessionGuard from "@/components/common/AdminSessionGuard";
@@ -152,7 +153,7 @@ export default function RootLayout({
         <AdminSessionGuard />
         <div className="theme-page">
           <div className="theme-background" aria-hidden="true">
-            <div className="theme-grid" />
+            <PageBackground />
           </div>
           <div className="theme-content"><AdminBackButton />{children}</div>
         </div>

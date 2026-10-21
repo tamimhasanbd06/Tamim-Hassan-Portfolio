@@ -4,7 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const SPLASH_DURATION_MS = 5800;
+const SPLASH_DURATION_MS = 1500;
 const SESSION_KEY = "tamim-portfolio-intro-seen";
 
 export default function EntrySplash() {
@@ -52,7 +52,7 @@ export default function EntrySplash() {
           key="entry-splash"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: reduceMotion ? 0.15 : 0.7, ease: "easeInOut" }}
+          transition={{ duration: reduceMotion ? 0.15 : 0.4, ease: "easeInOut" }}
           className="entry-splash"
           role="status"
           aria-live="polite"
@@ -64,13 +64,13 @@ export default function EntrySplash() {
           <motion.div
             initial={reduceMotion ? undefined : { opacity: 0, y: 18, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.75, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="entry-splash__content"
           >
             <motion.div
               initial={reduceMotion ? undefined : { opacity: 0, scale: 0.82 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.75, delay: 0.15, ease: "easeOut" }}
+              transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
               className="entry-splash__logo-wrap"
             >
               <div className="entry-splash__orbit" aria-hidden="true" />
@@ -89,7 +89,7 @@ export default function EntrySplash() {
             <motion.p
               initial={reduceMotion ? undefined : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.65 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
               className="entry-splash__greeting"
             >
               Assalamu Alaikum
@@ -98,7 +98,7 @@ export default function EntrySplash() {
             <motion.h1
               initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 1.05 }}
+              transition={{ duration: 0.45, delay: 0.2 }}
               className="entry-splash__title"
             >
               Welcome to <span>Tamim Hasan&apos;s Portfolio</span>
@@ -107,7 +107,7 @@ export default function EntrySplash() {
             <motion.p
               initial={reduceMotion ? undefined : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 1.55 }}
+              transition={{ duration: 0.45, delay: 0.3 }}
               className="entry-splash__message"
             >
               Thank you for stopping by. Explore my work, skills, and development journey.
@@ -116,7 +116,7 @@ export default function EntrySplash() {
             <motion.div
               initial={reduceMotion ? undefined : { opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: reduceMotion ? 0.1 : 3.5, delay: 1.8, ease: "easeInOut" }}
+              transition={{ duration: reduceMotion ? 0.1 : 1.2, delay: 0.35, ease: "easeInOut" }}
               className="entry-splash__progress"
               aria-hidden="true"
             />

@@ -595,7 +595,6 @@ export default function Contact() {
         w-full
         items-center
         overflow-hidden
-        bg-black
         px-4
         py-16
         text-white
@@ -604,79 +603,6 @@ export default function Contact() {
       "
     >
 
-      {/* =================================================
-          BACKGROUND
-      ================================================== */}
-
-      <div
-        className="
-          absolute
-          inset-0
-          bg-gradient-to-br
-          from-black
-          via-[var(--bg-card)]
-          to-black
-        "
-      />
-
-      {/* Blue Glow */}
-
-      <div
-        className="
-          absolute
-          -left-40
-          -top-24
-          h-[420px]
-          w-[420px]
-          rounded-full
-          bg-blue-600/15
-          blur-[150px]
-        "
-      />
-
-      {/* Cyan Glow */}
-
-      <div
-        className="
-          absolute
-          -bottom-52
-          -right-32
-          h-[500px]
-          w-[500px]
-          rounded-full
-          bg-cyan-400/10
-          blur-[170px]
-        "
-      />
-
-      {/* Center Glow */}
-
-      <div
-        className="
-          absolute
-          left-1/2
-          top-1/2
-          h-72
-          w-72
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          bg-indigo-500/5
-          blur-[130px]
-        "
-      />
-
-      {/* Grid */}
-
-      <div
-        className="
-          absolute
-          inset-0
-          opacity-[0.022]
-          [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)]
-          [background-size:55px_55px]
-        "
-      />
 
       {/* =================================================
           MAIN CONTAINER

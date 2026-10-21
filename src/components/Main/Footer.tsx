@@ -221,8 +221,7 @@ export default function Footer() {
         setCopiedId(null);
       }, 1800);
     } catch {
-      showToast(
-        "Unable to copy automatically",
+      showToast("Unable to copy automatically",
       );
     }
   };
@@ -257,21 +256,16 @@ export default function Footer() {
     );
 
   const emailAddress =
-    emailItem?.value ??
-    "tamimhasanbd06@gmail.com";
+    emailItem?.value ??"tamimhasanbd06@gmail.com";
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-black text-white">
+    <footer className="relative overflow-hidden border-t border-white/10 text-white">
 
       {/* =====================================================
           BACKGROUND
       ====================================================== */}
 
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
-      <div className="absolute -left-40 top-[-160px] h-[480px] w-[480px] rounded-full bg-blue-600/15 blur-[160px]" />
-
-      <div className="absolute -bottom-52 right-[-150px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
 
       <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(rgba(255,255,255,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.5)_1px,transparent_1px)] [background-size:55px_55px]" />
 
@@ -327,8 +321,7 @@ export default function Footer() {
           </div>
 
           <a
-            href={`mailto:${emailAddress}?subject=${encodeURIComponent(
-              "Web development project inquiry",
+            href={`mailto:${emailAddress}?subject=${encodeURIComponent("Web development project inquiry",
             )}`}
             className="group flex shrink-0 items-center gap-3 rounded-full border border-cyan-400/25 bg-cyan-400/[0.07] px-6 py-3 text-sm font-bold text-cyan-200 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-400/[0.12]"
           >

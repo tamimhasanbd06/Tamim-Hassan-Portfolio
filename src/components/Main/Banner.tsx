@@ -34,22 +34,12 @@ export default function Banner() {
     });
 
     window.history.replaceState(
-      null,
-      "",
-      "#contact",
+      null,"","#contact",
     );
   };
 
   return (
-    <section className="relative flex min-h-[calc(100svh-4rem)] w-full flex-col overflow-hidden bg-black xl:flex-row">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
-
-      {/* Background glows */}
-      <div className="absolute left-10 top-20 h-72 w-72 animate-pulse rounded-full bg-blue-500/20 blur-3xl" />
-
-      <div className="absolute bottom-10 right-20 h-96 w-96 animate-pulse rounded-full bg-cyan-400/10 blur-3xl" />
-
+    <section className="relative flex min-h-[calc(100svh-4rem)] w-full flex-col overflow-hidden xl:flex-row">
       {/* Left side */}
       <motion.div
         initial={{
@@ -170,11 +160,7 @@ export default function Banner() {
             }}
             className="mt-7 flex flex-wrap items-center justify-center gap-2 min-[360px]:gap-3 xl:justify-start"
           >
-            {[
-              "Next.js",
-              "TypeScript",
-              "React",
-              "Python",
+            {["Next.js","TypeScript","React","Python",
             ].map((technology) => (
               <span
                 key={technology}

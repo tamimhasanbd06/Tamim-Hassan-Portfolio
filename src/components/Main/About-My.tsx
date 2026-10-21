@@ -13,57 +13,36 @@ const aboutItems: AboutItem[] = [
   {
     number: "01",
     title: "Background",
-    description:
-      "I’m Tamim Hasan, a frontend developer focused on building modern and practical web applications.",
+    description:"I’m Tamim Hasan, a frontend developer focused on building modern and practical web applications.",
   },
   {
     number: "02",
     title: "Education",
-    description:
-      "I’m currently a Class 9 student while continuing to grow through technology and independent learning.",
+    description:"I’m currently a Class 9 student while continuing to grow through technology and independent learning.",
   },
   {
     number: "03",
     title: "Experience",
-    description:
-      "I develop real-world projects through personal practice and my Programming Hero journey.",
+    description:"I develop real-world projects through personal practice and my Programming Hero journey.",
   },
   {
     number: "04",
     title: "Future Goal",
-    description:
-      "My goal is to become a full-stack engineer and build intelligent, voice-controlled products.",
+    description:"My goal is to become a full-stack engineer and build intelligent, voice-controlled products.",
   },
 ];
 
-const technologies = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Tailwind CSS",
-  "Node.js",
-  "Express",
-  "MongoDB",
-  "Python",
-  "AI Tools",
+const technologies = ["HTML","CSS","JavaScript","TypeScript","React","Next.js","Tailwind CSS","Node.js","Express","MongoDB","Python","AI Tools",
 ];
 
 const About = () => {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
-
+    <section className="relative min-h-screen w-full overflow-hidden px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
 
       {/* Background Glows */}
-      <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-[130px]" />
 
-      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[150px]" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl">
@@ -90,7 +69,6 @@ const About = () => {
         {/* Main About Card */}
         <MotionReveal delay={0.08} className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-8 lg:p-10">
           {/* Inner Glow */}
-          <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-blue-500/10 blur-[100px]" />
 
           <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
             {/* Introduction */}

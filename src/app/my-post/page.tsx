@@ -130,27 +130,11 @@ export default function PublicPostsPage() {
     : "/message";
 
   return (
-    <main className="portfolio-unified portfolio-posts relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
+    <main className="portfolio-unified portfolio-posts relative isolate min-h-screen min-h-dvh w-full text-white">
       {/* =========================================================
           CV-STYLE BACKGROUND DECORATION
       ========================================================== */}
 
-      <div
-        aria-hidden="true"
-        className="page-background-decoration pointer-events-none fixed inset-0 z-0 overflow-hidden"
-      >
-        {/* Blue + Cyan radial atmosphere */}
-
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]" />
-
-        {/* Blue ambient glow */}
-
-        <div className="absolute -left-40 top-0 h-[480px] w-[480px] rounded-full bg-blue-600/10 blur-[160px]" />
-
-        {/* Cyan ambient glow */}
-
-        <div className="absolute -bottom-52 right-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
-      </div>
 
       {/* =========================================================
           PAGE CONTENT

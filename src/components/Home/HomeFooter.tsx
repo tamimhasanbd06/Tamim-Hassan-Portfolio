@@ -77,15 +77,7 @@ export default function HomeFooter() {
   };
 
   return (
-    <footer className="relative isolate overflow-hidden border-t border-white/[0.07] bg-[#020617]/50 text-white backdrop-blur-xl">
-
-      {/* Background glow effects */}
-
-      <div className="pointer-events-none absolute -left-40 -top-40 -z-10 h-[420px] w-[420px] rounded-full bg-blue-600/[0.10] blur-[150px]" />
-
-      <div className="pointer-events-none absolute -bottom-48 -right-40 -z-10 h-[480px] w-[480px] rounded-full bg-cyan-400/[0.08] blur-[160px]" />
-
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/[0.04] blur-[140px]" />
+    <footer className="relative isolate overflow-hidden border-t border-white/[0.07] bg-white/[0.015] text-white backdrop-blur-sm">
 
       {/* Main container */}
 
@@ -102,9 +94,7 @@ export default function HomeFooter() {
         >
           {/* Decorative accents */}
 
-          <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-cyan-400/[0.07] blur-[100px] transition-opacity duration-500 group-hover:bg-cyan-400/[0.10]" />
 
-          <div className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-blue-500/[0.06] blur-[100px]" />
 
           <div className="relative p-5 sm:p-8 lg:p-10">
 

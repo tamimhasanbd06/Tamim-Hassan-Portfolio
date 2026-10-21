@@ -23,47 +23,9 @@ export const metadata = createPageMetadata({
 
 export default function HomePage() {
   return (
-    <main className="portfolio-surface portfolio-home relative isolate min-h-screen min-h-dvh w-full overflow-x-clip bg-[var(--bg-primary)] text-white">
+    <main className="portfolio-surface portfolio-home relative isolate min-h-screen min-h-dvh w-full text-white">
 
-      {/* SAME BACKGROUND AS THE CV PAGE */}
-      <div
-        aria-hidden="true"
-        className="page-background-decoration pointer-events-none fixed inset-0 z-0 overflow-hidden"
-      >
-        {/* Blue and cyan radial gradients */}
-        <div
-          className="
-            absolute inset-0
-            bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_35%)]
-          "
-        />
-
-        {/* Blue ambient glow */}
-        <div
-          className="
-            absolute
-            -left-40 top-0
-            h-[480px] w-[480px]
-            rounded-full
-            bg-blue-600/10
-            blur-[160px]
-          "
-        />
-
-        {/* Cyan ambient glow */}
-        <div
-          className="
-            absolute
-            -bottom-52 right-[-120px]
-            h-[520px] w-[520px]
-            rounded-full
-            bg-cyan-400/10
-            blur-[170px]
-          "
-        />
-      </div>
-
-      {/* PAGE CONTENT */}
+      {/* PAGE CONTENT — the shared backdrop comes from app/layout.tsx */}
       <div className="relative z-10 min-h-screen min-h-dvh w-full">
         <Navbar />
 

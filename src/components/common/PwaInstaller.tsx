@@ -37,9 +37,16 @@ export default function PwaInstaller() {
     }, 0);
 
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {
-        // The portfolio remains fully functional without offline caching.
-      });
+      navigator.serviceWorker
+        .register("/sw.js", { updateViaCache: "none" })
+        .then((registration) => {
+          // Pick up a new worker immediately instead of waiting for every tab
+          // to close; otherwise a broken cached shell can outlive a deploy.
+          void registration.update();
+        })
+        .catch(() => {
+          // The portfolio remains fully functional without offline caching.
+        });
     }
 
     const handleInstallPrompt = (event: Event) => {

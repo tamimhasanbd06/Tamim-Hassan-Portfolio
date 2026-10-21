@@ -2,14 +2,19 @@ import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { ensurePostSchema, getDb } from "@/lib/db";
 import { isUuid } from "@/lib/content-security";
+import { RATE_LIMITS, enforceRateLimit } from "@/lib/rate-limit";
+import { POST_VISITOR_COOKIE, readVisitorId, signVisitorId, visitorCookieOptions } from "@/lib/visitor";
 
 type RouteContext = { params: Promise<{ id: string }> };
-const VISITOR_COOKIE = "tamim_post_visitor";
+
+const VISITOR_COOKIE = POST_VISITOR_COOKIE;
 
 export async function POST(request: NextRequest, context: RouteContext) {
   try {
     const { id: postId } = await context.params;
     if (!isUuid(postId)) return NextResponse.json({ success: false, message: "Post not found." }, { status: 404 });
+    const limited = enforceRateLimit(request, RATE_LIMITS.postLike, postId);
+    if (limited) return limited;
     await ensurePostSchema();
     const sql = getDb();
 
@@ -23,9 +28,10 @@ export async function POST(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ success: false, message: "Post not found or expired." }, { status: 404 });
     }
 
-    let visitorId = request.cookies.get(VISITOR_COOKIE)?.value;
-    const needsCookie = !visitorId;
-    visitorId ||= randomUUID();
+    const signed = readVisitorId(request, VISITOR_COOKIE);
+    const needsCookie = !signed;
+    const visitorId = signed ?? randomUUID();
+    const signedValue = needsCookie ? signVisitorId(visitorId) : "";
 
     const existing = await sql`
       SELECT id FROM post_likes
@@ -49,15 +55,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
     const response = NextResponse.json({ success: true, liked, likesCount: Number(count[0]?.count || 0) });
 
     if (needsCookie) {
-      response.cookies.set({
-        name: VISITOR_COOKIE,
-        value: visitorId,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 365 * 2,
-      });
+      response.cookies.set(VISITOR_COOKIE, signedValue, visitorCookieOptions(60 * 60 * 24 * 365 * 2));
     }
 
     return response;

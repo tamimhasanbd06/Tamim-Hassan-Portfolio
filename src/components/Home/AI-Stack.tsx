@@ -141,22 +141,6 @@ export default function AiTools() {
       `}
     >
       {/* Background glow — preserved */}
-      <div
-        aria-hidden="true"
-        className={`
-          pointer-events-none
-          absolute
-          left-1/2
-          top-1/2
-          h-[300px]
-          w-[700px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          bg-cyan-500/5
-          blur-[120px]
-        `}
-      />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Heading */}

@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { ensurePostSchema, getDb } from "@/lib/db";
+import { VISITOR_COOKIE, readVisitorId } from "@/lib/visitor";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
@@ -14,8 +15,8 @@ export async function GET(request: NextRequest) {
   const channel = request.nextUrl.searchParams.get("channel");
   if (channel !== "posts" && channel !== "messages") return new Response("Invalid channel", { status: 400 });
   const admin = isAdminRequest(request);
-  const visitorId = request.cookies.get("tamim_message_visitor")?.value ?? "";
-  if (channel === "messages" && !admin && !/^[0-9a-f-]{36}$/i.test(visitorId)) return new Response("Conversation session required", { status: 401 });
+  const visitorId = readVisitorId(request, VISITOR_COOKIE) ?? "";
+  if (channel === "messages" && !admin && !visitorId) return new Response("Conversation session required", { status: 401 });
 
   try {
     await ensurePostSchema();

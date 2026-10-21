@@ -6,12 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-const skills = [
-  "Next.js",
-  "TypeScript",
-  "React",
-  "Tailwind CSS",
-  "Python",
+const skills = ["Next.js","TypeScript","React","Tailwind CSS","Python",
 ];
 
 const Introduction = () => {
@@ -61,20 +56,16 @@ const Introduction = () => {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-black px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
+    <section className="relative min-h-screen w-full overflow-hidden px-4 py-20 text-white sm:px-6 md:px-10 lg:px-16">
       {/* =====================================================
           BACKGROUND
       ====================================================== */}
-
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:60px_60px]" />
 
       {/* Background Glows */}
-      <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-blue-500/20 blur-[120px]" />
 
-      <div className="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-cyan-400/10 blur-[140px]" />
 
       {/* =====================================================
           CONTENT

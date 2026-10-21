@@ -78,12 +78,102 @@ body {
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  background: linear-gradient(180deg, #01030a 0%, #020817 48%, #001018 78%, #01030a 100%);
+  /* The visual gradient is owned by <PageBackground /> (.page-backdrop). */
+  background: var(--bg-primary);
 }
 
 /* One shared backdrop for public pages and the authenticated dashboard. */
 .theme-page {
   background: transparent;
+}
+
+/* =========================================================
+   PAGE BACKDROP
+   Rendered once by <PageBackground /> inside app/layout.tsx.
+   Every route inherits it; pages must not paint their own.
+   ========================================================= */
+
+.page-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--bg-primary);
+}
+
+/* Vertical theme wash: ink → navy → deep teal-black → ink */
+.page-backdrop__base {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--bg-gradient-from) 0%,
+    var(--bg-gradient-via) 42%,
+    #001018 76%,
+    var(--bg-primary) 100%
+  );
+}
+
+/* Two very soft ambient lights. Low alpha keeps the page quiet. */
+.page-backdrop__glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(140px);
+  will-change: auto;
+}
+
+.page-backdrop__glow--cyan {
+  top: -22rem;
+  left: -16rem;
+  width: min(62vw, 820px);
+  height: min(62vw, 820px);
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.075), transparent 68%);
+}
+
+.page-backdrop__glow--blue {
+  right: -18rem;
+  bottom: -24rem;
+  width: min(68vw, 900px);
+  height: min(68vw, 900px);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.06), transparent 68%);
+}
+
+/* Barely-there texture. Masked so it never reaches the page edges. */
+.page-backdrop__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.028;
+  background-image:
+    linear-gradient(rgba(186, 230, 253, 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(186, 230, 253, 0.4) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 78% 62% at 50% 34%, black 0%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 34%, black 0%, transparent 82%);
+}
+
+/* Bottom fade so long pages settle into the base colour. */
+.page-backdrop__vignette {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 28vh;
+  background: linear-gradient(to bottom, transparent, var(--bg-primary));
+}
+
+@media (max-width: 640px) {
+  .page-backdrop__glow {
+    filter: blur(96px);
+  }
+
+  .page-backdrop__glow--cyan {
+    top: -14rem;
+    left: -12rem;
+  }
+
+  .page-backdrop__glow--blue {
+    right: -14rem;
+    bottom: -16rem;
+  }
 }
 
 .theme-content > main {
@@ -92,45 +182,13 @@ body {
   background-image: none !important;
 }
 
-/* Legacy per-page glows are replaced by .theme-background above. */
-.page-background-decoration {
-  display: none !important;
-}
-
-.theme-background::before,
-.theme-background::after {
-  position: absolute;
-  width: min(54vw, 760px);
-  height: min(54vw, 760px);
-  border-radius: 999px;
-  content: "";
-  filter: blur(150px);
-}
-
-.theme-background::before {
-  top: -18rem;
-  right: -14rem;
-  background: rgba(34, 211, 238, 0.065);
-}
-
-.theme-background::after {
-  bottom: -20rem;
-  left: -16rem;
-  background: rgba(59, 130, 246, 0.05);
-}
-
-.theme-grid {
-  position: absolute;
-  inset: 0;
-  opacity: 0.035;
-  background-image: linear-gradient(rgba(186, 230, 253, 0.34) 1px, transparent 1px), linear-gradient(90deg, rgba(186, 230, 253, 0.34) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
-}
-
 .theme-content {
   position: relative;
   z-index: 1;
+  /* Page roots must not clip: `overflow-x: clip` on a page-level element creates
+     no scroll container, so decorative bleed escaped to the document and produced
+     a horizontal scrollbar. The document itself is clipped in `body` instead. */
+  overflow-x: clip;
 }
 
 .theme-page .theme-section {
@@ -144,14 +202,6 @@ body {
 .theme-content main > footer {
   background-color: transparent !important;
   background-image: none !important;
-}
-
-@media (max-width: 640px) {
-  .theme-background::before,
-  .theme-background::after {
-    filter: blur(110px);
-    opacity: 0.75;
-  }
 }
 
 main,

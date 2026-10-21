@@ -78,14 +78,9 @@ export default function Education() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full scroll-mt-20 overflow-hidden bg-black px-4 py-20 text-white sm:px-6 sm:py-24"
+      className="relative w-full scroll-mt-20 overflow-hidden  px-4 py-20 text-white sm:px-6 sm:py-24"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[var(--bg-card)] to-black" />
 
-      <div className="absolute -left-40 top-0 h-[450px] w-[450px] rounded-full bg-blue-600/15 blur-[150px]" />
-
-      <div className="absolute -bottom-48 right-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-[170px]" />
 
       <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:55px_55px]" />
 
@@ -240,8 +235,7 @@ export default function Education() {
 
                           <a
                             href={`tel:${education.contact.replace(
-                              /[\s-]/g,
-                              ""
+                              /[\s-]/g,""
                             )}`}
                             className="font-mono transition hover:text-emerald-300"
                           >

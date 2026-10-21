@@ -202,37 +202,7 @@ export default function HowIBuildWebsites() {
           BACKGROUND GLOW
       ===================================================== */}
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-0
-          h-[600px]
-          w-[900px]
-          -translate-x-1/2
-          rounded-full
-          bg-cyan-500/[0.055]
-          blur-[150px]
-        "
-      />
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          bottom-0
-          left-1/2
-          h-[500px]
-          w-[800px]
-          -translate-x-1/2
-          rounded-full
-          bg-blue-500/[0.045]
-          blur-[150px]
-        "
-      />
 
       {/* =====================================================
           GRID BACKGROUND

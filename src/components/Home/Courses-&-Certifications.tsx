@@ -308,8 +308,6 @@ export default function Courses() {
       id="courses"
       className="relative w-full overflow-hidden px-4 py-16 text-white sm:px-6 sm:py-20 lg:px-8"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(37,99,235,0.13),transparent_30%),radial-gradient(circle_at_85%_70%,rgba(6,182,212,0.1),transparent_30%)]" />
-
       <div className="relative mx-auto w-full max-w-7xl">
         <header className="mb-12 text-center">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
