@@ -28,9 +28,18 @@ Set these in `.env.local` for local development and in the deployment provider's
 | `DATABASE_URL` | For posts/messages | Neon PostgreSQL connection string. |
 | `POST_ADMIN_EMAIL` | For Admin login | Admin login email, checked server-side. |
 | `POST_ADMIN_PASSWORD` | For Admin login | Strong unique Admin password, checked server-side. |
-| `POST_AUTH_SECRET` | For Admin login | At least 64 random characters for signed session cookies. |
-| `CRON_SECRET` | For scheduled cleanup | Long random value used to authorize the Vercel cleanup endpoint. |
-| `NEXT_PUBLIC_SITE_URL` | Recommended | Public canonical site origin, for example `https://portfolio.example.com`. |
+| `POST_AUTH_SECRET` | For Admin login | At least 64 random characters. Signs the admin session cookie, the visitor cookies, **and** authorizes the scheduled cleanup endpoint. |
+
+These four variables are the complete configuration surface — no other project
+environment variable is read anywhere in the codebase.
+
+- The canonical site origin is derived at build time from Vercel's own
+  `VERCEL_PROJECT_PRODUCTION_URL` system variable, falling back to the production
+  domain when building locally. Nothing needs to be configured for it.
+- The cleanup endpoint (`/api/messages/cleanup`) accepts the `POST_AUTH_SECRET`
+  either as `Authorization: Bearer <secret>` or as `?token=<secret>` (Vercel Cron
+  cannot send headers). Expired messages are additionally pruned on every message
+  API request, so a missed schedule only delays cleanup, it never breaks it.
 
 Generate secrets with `openssl rand -hex 32` (run separately for each secret). `.env.example` contains placeholders only. Admin sessions use a signed, HttpOnly cookie with a fixed 24-hour expiry; refreshing or using the site does not extend it. Protected pages and APIs validate the session on the server.
 
@@ -84,12 +93,13 @@ npm run verify     # Lint, typecheck, tests, then production build
 
 1. Import the project into Vercel and configure the required environment variables above.
 2. Connect a Neon PostgreSQL database and use a staging branch/database to verify the schema and messaging flows.
-3. Set `NEXT_PUBLIC_SITE_URL` to the deployed HTTPS origin.
+3. Nothing else to configure: the canonical origin comes from Vercel's own
+   `VERCEL_PROJECT_PRODUCTION_URL` build variable.
 4. Use Node.js 24.x and run `npm ci`, `npm run verify` before deployment.
-5. Deploy with Vercel. The hourly cron in `vercel.json` calls `/api/messages/cleanup`; configure `CRON_SECRET` for that endpoint.
+5. Deploy with Vercel. The hourly cron in `vercel.json` calls `/api/messages/cleanup`, authorized by `POST_AUTH_SECRET`.
 6. After deployment, verify Admin login/logout and expiry, public visitor ownership, message and post replies, attachment validation, and live updates from two separate browser sessions.
 
-For a non-Vercel host, configure the same environment values and run `npm run build` followed by `npm start`. Configure an equivalent scheduled request to `/api/messages/cleanup` with the `CRON_SECRET` authorization header if message cleanup is needed there.
+For a non-Vercel host, configure the same four environment values and run `npm run build` followed by `npm start`. If you want a scheduled cleanup there, call `/api/messages/cleanup` with `Authorization: Bearer <POST_AUTH_SECRET>`; otherwise the opportunistic cleanup on message access is enough.
 
 ## Security hardening (this pass)
 

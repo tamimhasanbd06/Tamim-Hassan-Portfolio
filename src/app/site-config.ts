@@ -5,9 +5,13 @@ export const siteConfig = {
   shortName: "Tamim Portfolio",
   description:
     "Frontend web developer portfolio of Tamim Hasan, featuring modern Next.js, TypeScript, React, JavaScript, and full-stack projects.",
+  // Canonical origin. Derived from Vercel's own build-time system variable so no
+  // project-level environment variable is needed; falls back to the production
+  // domain when building locally.
   url:
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    "https://tamim-hassan-portfolio.vercel.app",
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://tamim-hassan-portfolio.vercel.app",
   email: "tamimhasanbd06@gmail.com",
   phone: "+8801883650010",
   author: "Tamim Hasan",
