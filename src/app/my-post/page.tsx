@@ -3,10 +3,9 @@
 
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import {
-  ArrowLeft,
   ExternalLink,
   FileText,
   Home,
@@ -34,7 +33,6 @@ type Post = {
 };
 
 export default function PublicPostsPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   /**
@@ -89,8 +87,6 @@ export default function PublicPostsPage() {
 
   useEffect(() => {
     void load();
-    const timer = window.setInterval(() => { if (document.visibilityState === "visible") void load(); }, 8000);
-    return () => window.clearInterval(timer);
   }, [load]);
   useLiveUpdates("posts", () => { void load(); });
 
@@ -115,13 +111,6 @@ export default function PublicPostsPage() {
     document.getElementById(`post-comment-${id}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
-  /**
-   * Admin → Dashboard
-   */
-  function backToDashboard() {
-    router.replace("/dashboard/overview");
-  }
-
   return (
     <main className="portfolio-unified portfolio-posts relative isolate min-h-screen min-h-dvh w-full text-white">
       {/* =========================================================
@@ -142,24 +131,6 @@ export default function PublicPostsPage() {
           <div className="flex flex-wrap items-center gap-2.5">
             {isAdminView ? (
               <>
-                <button
-                  type="button"
-                  onClick={backToDashboard}
-                  className="ui-button-primary group inline-flex items-center gap-2 shadow-[0_8px_30px_rgba(6,182,212,0.18)]"
-                >
-                  <ArrowLeft
-                    size={16}
-                    className="transition-transform duration-300 group-hover:-translate-x-1"
-                  />
-
-                  <span>Go to Dashboard</span>
-
-                  <LayoutDashboard
-                    size={15}
-                    className="opacity-75"
-                  />
-                </button>
-
                 <Link
                   href="/home"
                   className="ui-button-secondary group inline-flex items-center gap-2"
