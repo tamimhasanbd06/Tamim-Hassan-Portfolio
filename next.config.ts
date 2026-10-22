@@ -10,7 +10,8 @@ import type { NextConfig } from "next";
  * - `style-src 'unsafe-inline'` is required by framer-motion's inline transforms
  *   and Tailwind's runtime style attributes.
  * - `img-src data:` is required because post/message images are stored as base64
- *   data URLs (capped at 1.5 MB server-side).
+ *   data URLs (capped at 1.5 MB server-side). The two `imgbb.ws` hosts serve
+ *   the original project screenshots listed in Project-Gallery.json.
  */
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -21,7 +22,7 @@ const contentSecurityPolicy = [
   "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' data: https://fonts.gstatic.com",
-  "img-src 'self' data: blob: https://ghchart.rshah.org",
+  "img-src 'self' data: blob: https://ghchart.rshah.org https://s1.imgbb.ws https://s2.imgbb.ws",
   "connect-src 'self' https://api.github.com",
   "manifest-src 'self'",
   "worker-src 'self'",
