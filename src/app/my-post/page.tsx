@@ -145,25 +145,40 @@ export default function PublicPostsPage() {
             PAGE NAVIGATION
         ======================================================== */}
 
-        <div className="mb-6 flex flex-wrap items-center gap-2.5">
+        <nav aria-label="Page navigation" className="mb-6">
+          <div className="flex flex-wrap items-center gap-2.5">
           {isAdminView ? (
-            <button
-              type="button"
-              onClick={backToDashboard}
-              className="ui-button-primary group inline-flex items-center gap-2 shadow-[0_8px_30px_rgba(6,182,212,0.18)]"
-            >
-              <ArrowLeft
-                size={16}
-                className="transition-transform duration-300 group-hover:-translate-x-1"
-              />
+            <>
+              <button
+                type="button"
+                onClick={backToDashboard}
+                className="ui-button-primary group inline-flex items-center gap-2 shadow-[0_8px_30px_rgba(6,182,212,0.18)]"
+              >
+                <ArrowLeft
+                  size={16}
+                  className="transition-transform duration-300 group-hover:-translate-x-1"
+                />
 
-              <span>Back to Dashboard</span>
+                <span>Back to Dashboard</span>
 
-              <LayoutDashboard
-                size={15}
-                className="opacity-75"
-              />
-            </button>
+                <LayoutDashboard
+                  size={15}
+                  className="opacity-75"
+                />
+              </button>
+
+              <Link
+                href="/home"
+                className="ui-button-secondary group inline-flex items-center gap-2"
+              >
+                <Home
+                  size={16}
+                  className="transition-transform duration-300 group-hover:-translate-x-1"
+                />
+
+                <span>Back to Home</span>
+              </Link>
+            </>
           ) : (
             <Link
               href="/home"
@@ -177,7 +192,8 @@ export default function PublicPostsPage() {
               Back to portfolio
             </Link>
           )}
-        </div>
+          </div>
+        </nav>
 
         {/* =======================================================
             ADMIN CONTEXT

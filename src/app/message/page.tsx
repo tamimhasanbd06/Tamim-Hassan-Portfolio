@@ -13,6 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   ExternalLink,
+  Home,
   ImagePlus,
   Inbox,
   Link2,
@@ -252,37 +253,58 @@ export default function MessagePage() {
       {/* PAGE CONTENT */}
 
       <div className="relative z-10 mx-auto w-full max-w-2xl px-4 py-7 sm:px-6 sm:py-10">
-        {/* NAVIGATION */}
+        {/* NAVIGATION — Dashboard + Back to Home share one row, same button system */}
 
-        <div className="flex flex-wrap items-center gap-2.5">
-          {isAdminView ? (
-            <button
-              type="button"
-              onClick={backToDashboard}
-              className="
-                ui-button-primary
-                group
-                inline-flex
-                items-center
-                gap-2
-                shadow-[0_8px_30px_rgba(6,182,212,0.18)]
-              "
-            >
-              <ArrowLeft
-                size={16}
-                className="transition-transform duration-300 group-hover:-translate-x-1"
-              />
+        <nav aria-label="Page navigation">
+          <div className="flex flex-wrap items-center gap-2.5">
+            {isAdminView ? (
+              <>
+                <button
+                  type="button"
+                  onClick={backToDashboard}
+                  className="
+                    ui-button-primary
+                    group
+                    inline-flex
+                    items-center
+                    gap-2
+                    shadow-[0_8px_30px_rgba(6,182,212,0.18)]
+                  "
+                >
+                  <ArrowLeft
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
 
-              <span>Back to Dashboard</span>
+                  <span>Back to Dashboard</span>
 
-              <LayoutDashboard
-                size={15}
-                className="opacity-75"
-              />
-            </button>
-          ) : (
-            <Link
-              href="/home"
+                  <LayoutDashboard
+                    size={15}
+                    className="opacity-75"
+                  />
+                </button>
+
+                <Link
+                  href="/home"
+                  className="
+                    ui-button-secondary
+                    group
+                    inline-flex
+                    items-center
+                    gap-2
+                  "
+                >
+                  <Home
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
+
+                  <span>Back to Home</span>
+                </Link>
+              </>
+            ) : (
+              <Link
+                href="/home"
               className="
                 group
                 inline-flex
@@ -313,7 +335,8 @@ export default function MessagePage() {
               Back to portfolio
             </Link>
           )}
-        </div>
+          </div>
+        </nav>
 
         {/* ADMIN CONTEXT */}
 
