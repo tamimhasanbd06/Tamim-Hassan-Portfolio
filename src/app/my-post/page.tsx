@@ -122,13 +122,6 @@ export default function PublicPostsPage() {
     router.replace("/dashboard/overview");
   }
 
-  /**
-   * Preserve admin context when opening Message Me.
-   */
-  const messageHref = isAdminView
-    ? "/message?from=admin"
-    : "/message";
-
   return (
     <main className="portfolio-unified portfolio-posts relative isolate min-h-screen min-h-dvh w-full text-white">
       {/* =========================================================
@@ -159,7 +152,7 @@ export default function PublicPostsPage() {
                     className="transition-transform duration-300 group-hover:-translate-x-1"
                   />
 
-                  <span>Back to Dashboard</span>
+                  <span>Go to Dashboard</span>
 
                   <LayoutDashboard
                     size={15}
@@ -177,6 +170,18 @@ export default function PublicPostsPage() {
                   />
 
                   <span>Back to Home</span>
+                </Link>
+
+                <Link
+                  href="/message?from=admin"
+                  className="ui-button-secondary group inline-flex items-center gap-2"
+                >
+                  <MessageCircle
+                    size={16}
+                    className="transition-transform duration-300 group-hover:scale-105"
+                  />
+
+                  <span>Message Me</span>
                 </Link>
               </>
             ) : (
@@ -203,6 +208,18 @@ export default function PublicPostsPage() {
                   />
 
                   <span>Message Me</span>
+                </Link>
+
+                <Link
+                  href="/dashboard/overview"
+                  className="ui-button-secondary group inline-flex items-center gap-2"
+                >
+                  <LayoutDashboard
+                    size={15}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
+
+                  <span>Go to Dashboard</span>
                 </Link>
               </>
             )}
@@ -254,20 +271,6 @@ export default function PublicPostsPage() {
                 projects, and thoughts from my portfolio.
               </p>
             </div>
-
-            {/* Message button */}
-
-            <Link
-              href={messageHref}
-              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-cyan-400/[0.16] bg-[#030a12] px-4 py-2.5 text-xs font-bold text-cyan-200 transition-all duration-300 hover:border-cyan-400/35 hover:bg-cyan-400/[0.055] hover:text-cyan-100 hover:shadow-[0_0_25px_rgba(0,210,255,0.08)]"
-            >
-              <MessageCircle
-                size={16}
-                className="transition-transform duration-300 group-hover:scale-105"
-              />
-
-              Message Me
-            </Link>
           </div>
 
           {/* Header divider */}
