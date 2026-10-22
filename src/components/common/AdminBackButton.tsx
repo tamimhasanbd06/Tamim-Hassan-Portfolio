@@ -24,6 +24,9 @@ export default function AdminBackButton() {
       .catch(() => { if (alive) setAuthorized(false); });
     return () => { alive = false; };
   }, [pathname]);
-  if (!authorized || pathname === "/dashboard" || pathname === "/dashboard/overview" || pathname === "/login") return null;
+  // The Home page ("/") uses its own floating HomeDashboardButton (fixed at
+  // top:20px left:10px), so the shared in-flow button must stay hidden there
+  // to avoid showing two "Back to Dashboard" buttons.
+  if (!authorized || pathname === "/" || pathname === "/dashboard" || pathname === "/dashboard/overview" || pathname === "/login") return null;
   return <div className="admin-back-holder"><button type="button" className="ui-button-secondary admin-back-action" onClick={() => router.push(previousRoute ?? "/dashboard/overview")}><ArrowLeft size={18} /> {previousRoute ? "Back" : "Back to Dashboard"}</button></div>;
 }
