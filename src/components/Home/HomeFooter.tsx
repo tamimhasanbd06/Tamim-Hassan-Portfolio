@@ -2,10 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import ActionButton from "../ui/ActionButton";
 
 import {
-  FaArrowUp,
   FaEnvelope,
   FaFacebookF,
   FaGithub,
@@ -75,17 +73,7 @@ const getHomeFooterIcon = (icon: HomeFooterIcon) => {
 export default function HomeFooter() {
   const currentYear = new Date().getFullYear();
 
-  /*
-   * =========================================================
-   * BACK TO TOP
-   * =========================================================
-   */
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  /* Back to Top button removed per request — no scroll helper needed. */
 
   /*
    * "Start a Conversation" points to the first contact entry
@@ -283,7 +271,7 @@ export default function HomeFooter() {
             BOTTOM FOOTER
         ==================================================== */}
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-7 text-center sm:flex-row sm:text-left">
+        <div className="mt-14 flex flex-col items-center justify-center gap-5 border-t border-white/10 pt-7 text-center">
           <div>
             <p className="text-xs text-gray-500 sm:text-sm">
               © {currentYear} Tamim Hasan. All
@@ -295,18 +283,6 @@ export default function HomeFooter() {
               and TypeScript.
             </p>
           </div>
-
-          <ActionButton
-            type="button"
-            onClick={scrollToTop}
-            aria-label="Scroll back to top"
-            className="group"
-            rightIcon={
-              <FaArrowUp className="transition-transform duration-200 group-hover:-translate-y-1" />
-            }
-          >
-            Back to Top
-          </ActionButton>
         </div>
       </div>
     </footer>

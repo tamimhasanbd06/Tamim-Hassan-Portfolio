@@ -2,11 +2,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import ActionButton from "../ui/ActionButton";
 import { useState } from "react";
 
 import {
-  FaArrowUp,
   FaCheck,
   FaCopy,
   FaEnvelope,
@@ -226,17 +224,7 @@ export default function Footer() {
     }
   };
 
-  /*
-   * =========================================================
-   * BACK TO TOP
-   * =========================================================
-   */
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  /* Back to Top button removed per request — no scroll helper needed. */
 
   /*
    * =========================================================
@@ -470,7 +458,7 @@ export default function Footer() {
             BOTTOM FOOTER
         ==================================================== */}
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-7 text-center sm:flex-row sm:text-left">
+        <div className="mt-14 flex flex-col items-center justify-center gap-5 border-t border-white/10 pt-7 text-center">
           <div>
             <p className="text-xs text-gray-500 sm:text-sm">
               © {currentYear} Tamim Hasan. All
@@ -482,18 +470,6 @@ export default function Footer() {
               and TypeScript.
             </p>
           </div>
-
-          <ActionButton
-            type="button"
-            onClick={scrollToTop}
-            aria-label="Scroll back to top"
-            className="group"
-            rightIcon={
-              <FaArrowUp className="transition-transform duration-200 group-hover:-translate-y-1" />
-            }
-          >
-            Back to Top
-          </ActionButton>
         </div>
       </div>
 
