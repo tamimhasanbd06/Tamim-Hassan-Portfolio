@@ -12,6 +12,7 @@ import HowIBuildWebsites from "@/components/Home/HowIBuildWebsites";
 import GitHubActivity from "@/components/Home/GitHubActivity";
 import WhatICanDo from "@/components/Home/WhatICanDo";
 import HomeFooter from "@/components/Home/HomeFooter";
+import HomeDashboardButton from "@/components/Home/HomeDashboardButton";
 
 const lockSections = [
   { label: "Banner", id: "lock-hero" },
@@ -122,6 +123,9 @@ export default function LockPage() {
           sections={lockSections}
           homeHref="/home"
         />
+
+        {/* Admin-only floating shortcut; fixed via portal at top-left */}
+        <HomeDashboardButton />
       </div>
     </main>
   );

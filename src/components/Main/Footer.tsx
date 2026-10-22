@@ -487,10 +487,12 @@ export default function Footer() {
             type="button"
             onClick={scrollToTop}
             aria-label="Scroll back to top"
-            className=""
+            className="group"
+            rightIcon={
+              <FaArrowUp className="transition-transform duration-200 group-hover:-translate-y-1" />
+            }
           >
             Back to Top
-            <FaArrowUp className="transition-transform group-hover:-translate-y-1" />
           </ActionButton>
         </div>
       </div>
