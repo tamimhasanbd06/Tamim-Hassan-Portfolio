@@ -64,11 +64,16 @@ export default function ProjectDetails({ projectId }: ProjectDetailsProps) {
   return (
     <section className="relative w-full overflow-hidden rounded-3xl border border-cyan-400/20 bg-[var(--bg-card)] shadow-[0_30px_120px_rgba(0,0,0,0.4)]">
       <div className="grid lg:grid-cols-[1fr_1fr]">
-        <div className="relative min-h-64 overflow-hidden bg-[var(--bg-primary)] sm:min-h-80 lg:min-h-full">
+        <div className="relative aspect-[16/10] overflow-hidden bg-[var(--bg-primary)] lg:aspect-auto lg:min-h-[320px]">
           { }
           <img
             src={project.image}
             alt={`${project.name} preview`}
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            onError={(event) => {
+              (event.currentTarget as HTMLImageElement).style.display = "none";
+            }}
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[var(--bg-card)]" />

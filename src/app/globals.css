@@ -575,6 +575,21 @@ a {
   text-wrap: balance;
   @apply bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent;
 }
+
+/*
+ * Readability floor for decorative micro-labels.
+ * Anything below 10px becomes unreadable on real devices; these rules
+ * lift the tiniest badges/chips to a legible minimum without touching
+ * any other typography. Project headings, body text and buttons keep
+ * their own sizes.
+ */
+.portfolio-unified :is(span, p, div)[class*="text-[8px]"],
+.portfolio-surface :is(span, p, div)[class*="text-[8px]"],
+.portfolio-unified :is(span, p, div)[class*="text-[9px]"],
+.portfolio-surface :is(span, p, div)[class*="text-[9px]"] {
+  font-size: 0.625rem !important; /* 10px floor */
+  line-height: 1.5 !important;
+}
 .portfolio-unified :is(p,li) { line-height: 1.7; }
 .portfolio-unified :is(article,section)[class*="rounded"][class*="bg-[#"],
 .portfolio-unified :is(div)[class*="rounded"][class*="bg-[#02070e"],
