@@ -56,7 +56,7 @@ const About = () => {
             </span>
           </div>
 
-          <HighlightedHeading as="h1">About <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-500 bg-clip-text text-transparent">Me</span></HighlightedHeading>
+          <HighlightedHeading as="h2" className="text-4xl font-black tracking-tight sm:text-5xl">About <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-500 bg-clip-text text-transparent">Me</span></HighlightedHeading>
 
 
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base md:text-lg">
