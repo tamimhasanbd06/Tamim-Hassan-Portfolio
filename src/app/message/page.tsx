@@ -8,10 +8,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import {
-  ArrowLeft,
   ExternalLink,
   FileText,
   Home,
@@ -74,7 +73,6 @@ async function imageFromFile(file: File) {
 }
 
 export default function MessagePage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   /**
@@ -134,14 +132,8 @@ export default function MessagePage() {
 
   useEffect(() => {
     void load();
-    const timer = window.setInterval(() => { if (document.visibilityState === "visible") void load(); }, 8000);
-    return () => window.clearInterval(timer);
   }, [load]);
   useLiveUpdates("messages", () => { void load(); });
-
-  function backToDashboard() {
-    router.replace("/dashboard/overview");
-  }
 
   async function fileChange(
     event: ChangeEvent<HTMLInputElement>,
@@ -254,46 +246,15 @@ export default function MessagePage() {
       {/* PAGE CONTENT */}
 
       <div className="relative z-10 mx-auto w-full max-w-2xl px-4 py-7 sm:px-6 sm:py-10">
-        {/* NAVIGATION — Dashboard + Back to Home share one row, same button system */}
+        {/* NAVIGATION — matches the My Posts top action row */}
 
-        <nav aria-label="Page navigation">
+        <nav aria-label="Page navigation" className="mb-6">
           <div className="flex flex-wrap items-center gap-2.5">
             {isAdminView ? (
               <>
-                <button
-                  type="button"
-                  onClick={backToDashboard}
-                  className="
-                    ui-button-primary
-                    group
-                    inline-flex
-                    items-center
-                    gap-2
-                    shadow-[0_8px_30px_rgba(6,182,212,0.18)]
-                  "
-                >
-                  <ArrowLeft
-                    size={16}
-                    className="transition-transform duration-300 group-hover:-translate-x-1"
-                  />
-
-                  <span>Back to Dashboard</span>
-
-                  <LayoutDashboard
-                    size={15}
-                    className="opacity-75"
-                  />
-                </button>
-
                 <Link
                   href="/home"
-                  className="
-                    ui-button-secondary
-                    group
-                    inline-flex
-                    items-center
-                    gap-2
-                  "
+                  className="ui-button-secondary group inline-flex items-center gap-2"
                 >
                   <Home
                     size={16}
@@ -301,6 +262,18 @@ export default function MessagePage() {
                   />
 
                   <span>Back to Home</span>
+                </Link>
+
+                <Link
+                  href="/my-post?from=admin"
+                  className="ui-button-secondary group inline-flex items-center gap-2"
+                >
+                  <FileText
+                    size={16}
+                    className="transition-transform duration-300 group-hover:scale-105"
+                  />
+
+                  <span>My Posts</span>
                 </Link>
               </>
             ) : (
@@ -327,6 +300,18 @@ export default function MessagePage() {
                   />
 
                   <span>My Posts</span>
+                </Link>
+
+                <Link
+                  href="/dashboard/overview"
+                  className="ui-button-secondary group inline-flex items-center gap-2"
+                >
+                  <LayoutDashboard
+                    size={15}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
+
+                  <span>Go to Dashboard</span>
                 </Link>
               </>
             )}
