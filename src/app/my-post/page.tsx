@@ -147,51 +147,65 @@ export default function PublicPostsPage() {
 
         <nav aria-label="Page navigation" className="mb-6">
           <div className="flex flex-wrap items-center gap-2.5">
-          {isAdminView ? (
-            <>
-              <button
-                type="button"
-                onClick={backToDashboard}
-                className="ui-button-primary group inline-flex items-center gap-2 shadow-[0_8px_30px_rgba(6,182,212,0.18)]"
-              >
-                <ArrowLeft
-                  size={16}
-                  className="transition-transform duration-300 group-hover:-translate-x-1"
-                />
+            {isAdminView ? (
+              <>
+                <button
+                  type="button"
+                  onClick={backToDashboard}
+                  className="ui-button-primary group inline-flex items-center gap-2 shadow-[0_8px_30px_rgba(6,182,212,0.18)]"
+                >
+                  <ArrowLeft
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
 
-                <span>Back to Dashboard</span>
+                  <span>Back to Dashboard</span>
 
-                <LayoutDashboard
-                  size={15}
-                  className="opacity-75"
-                />
-              </button>
+                  <LayoutDashboard
+                    size={15}
+                    className="opacity-75"
+                  />
+                </button>
 
-              <Link
-                href="/home"
-                className="ui-button-secondary group inline-flex items-center gap-2"
-              >
-                <Home
-                  size={16}
-                  className="transition-transform duration-300 group-hover:-translate-x-1"
-                />
+                <Link
+                  href="/home"
+                  className="ui-button-secondary group inline-flex items-center gap-2"
+                >
+                  <Home
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
 
-                <span>Back to Home</span>
-              </Link>
-            </>
-          ) : (
-            <Link
-              href="/home"
-              className="group inline-flex items-center gap-2 rounded-xl border border-cyan-400/[0.12] bg-[#020810]/80 px-3.5 py-2 text-sm font-medium text-slate-400 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.045] hover:text-cyan-300"
-            >
-              <ArrowLeft
-                size={16}
-                className="transition-transform duration-300 group-hover:-translate-x-1"
-              />
+                  <span>Back to Home</span>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/home"
+                  className="ui-button-secondary group inline-flex items-center gap-2"
+                >
+                  <Home
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
 
-              Back to portfolio
-            </Link>
-          )}
+                  <span>Back to Home</span>
+                </Link>
+
+                <Link
+                  href="/message"
+                  className="ui-button-primary group inline-flex items-center gap-2 shadow-[0_8px_30px_rgba(6,182,212,0.18)]"
+                >
+                  <MessageCircle
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
+
+                  <span>Message Me</span>
+                </Link>
+              </>
+            )}
           </div>
         </nav>
 

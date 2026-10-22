@@ -13,6 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   ExternalLink,
+  FileText,
   Home,
   ImagePlus,
   Inbox,
@@ -303,38 +304,32 @@ export default function MessagePage() {
                 </Link>
               </>
             ) : (
-              <Link
-                href="/home"
-              className="
-                group
-                inline-flex
-                items-center
-                gap-2
-                rounded-xl
-                border
-                border-cyan-400/[0.12]
-                bg-[#020810]/80
-                px-3.5
-                py-2
-                text-sm
-                font-medium
-                text-slate-400
-                backdrop-blur-xl
-                transition-all
-                duration-300
-                hover:border-cyan-400/30
-                hover:bg-cyan-400/[0.045]
-                hover:text-cyan-300
-              "
-            >
-              <ArrowLeft
-                size={16}
-                className="transition-transform duration-300 group-hover:-translate-x-1"
-              />
+              <>
+                <Link
+                  href="/home"
+                  className="ui-button-secondary group inline-flex items-center gap-2"
+                >
+                  <Home
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
 
-              Back to portfolio
-            </Link>
-          )}
+                  <span>Back to Home</span>
+                </Link>
+
+                <Link
+                  href="/my-post"
+                  className="ui-button-primary group inline-flex items-center gap-2 shadow-[0_8px_30px_rgba(6,182,212,0.18)]"
+                >
+                  <FileText
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-x-1"
+                  />
+
+                  <span>My Posts</span>
+                </Link>
+              </>
+            )}
           </div>
         </nav>
 
